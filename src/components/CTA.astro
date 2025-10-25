@@ -1,0 +1,13 @@
+---
+const { heading, body, primaryHref = '/contact', primaryLabel = 'Get a quote', secondaryHref = 'tel:0890000000', secondaryLabel = 'Call (08) 9000 0000' } = Astro.props;
+---
+<section class="section alt" aria-labelledby="cta-heading">
+  <div class="container" style="text-align:center;">
+    <h2 id="cta-heading">{heading ?? 'Ready to reach every letterbox with proof?'}</h2>
+    <p class="lead">{body ?? 'Our Perth-based flyer team is ready to plan, equalise and verify your next delivery wave. Share your brief and we will confirm timing within one business day.'}</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem;">
+      <a class="button" href={primaryHref}>{primaryLabel}</a>
+      <a class="button secondary" href={secondaryHref}>{secondaryLabel}</a>
+    </div>
+  </div>
+</section>

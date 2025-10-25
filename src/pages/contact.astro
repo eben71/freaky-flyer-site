@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+import formScript from '../scripts/form.js?url';
+
+const breadcrumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/contact', label: 'Contact' }
+];
+---
+<BaseLayout
+  title="Contact | Freaky Flyer Delivery"
+  description="Request a flyer delivery quote, discuss timing and talk to the Freaky Flyer Delivery Perth team."
+  breadcrumbs={breadcrumbs}
+  pageType="article"
+>
+  <section class="section" aria-labelledby="contact-heading">
+    <div class="container">
+      <h1 id="contact-heading">Contact &amp; quotes</h1>
+      <div class="grid two" style="align-items:start;">
+        <div>
+          <h2>Reach the team</h2>
+          <p>Phone: <a href="tel:0890000000">(08) 9000 0000</a></p>
+          <p>Email: <a href="mailto:hello@freakyflyerdelivery.com.au">hello@freakyflyerdelivery.com.au</a></p>
+          <p>Warehouse: 20 Example Street, Perth WA 6000</p>
+          <p>Hours: Mon–Fri 8:30am–5:30pm</p>
+          <figure style="margin-top:1.5rem;">
+            <img
+              src="/assets/img/map-placeholder.svg"
+              alt="Map showing warehouse location placeholder"
+              width="800"
+              height="480"
+              loading="lazy"
+            />
+            <figcaption class="small">Visit by appointment for stock drop-offs.</figcaption>
+          </figure>
+        </div>
+        <div>
+          <h2>Quote request</h2>
+          <div class="notice" data-form-status role="status" aria-live="polite"></div>
+          <form id="quote-form" method="POST" action="/form-handler.php" novalidate>
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute; left:-9999px;" />
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" required autocomplete="name" />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" />
+
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" autocomplete="organization" />
+
+            <label for="flyerSize">Flyer size</label>
+            <select id="flyerSize" name="flyerSize" required>
+              <option value="">Select size</option>
+              <option value="DL">DL</option>
+              <option value="A5">A5</option>
+              <option value="A4">A4</option>
+            </select>
+
+            <label for="quantity">Quantity tier</label>
+            <input id="quantity" name="quantity" type="text" placeholder="e.g. 20,000" required />
+
+            <label for="suburbs">Target suburbs</label>
+            <textarea id="suburbs" name="suburbs" required placeholder="List suburbs or attach a run sheet"></textarea>
+
+            <label for="timing">Preferred timing</label>
+            <input id="timing" name="timing" type="text" placeholder="e.g. Late July" />
+
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" placeholder="Anything else we should know?"></textarea>
+
+            <label style="display:flex; align-items:center; gap:0.5rem;">
+              <input id="consent" name="consent" type="checkbox" required />
+              I agree to be contacted about this enquiry.
+            </label>
+
+            <button class="button" type="submit">Send quote request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA heading="Need urgent delivery support?" body="Call the operations line for next-day deployments or after-hours drop monitoring." />
+
+  <script type="module" src={formScript} defer></script>
+</BaseLayout>

@@ -1,0 +1,9 @@
+---
+const { title, description, icon, children } = Astro.props;
+---
+<article class="card">
+  {icon && <span aria-hidden="true">{icon}</span>}
+  {title && <h3>{title}</h3>}
+  {description && <p>{description}</p>}
+  {children}
+</article>

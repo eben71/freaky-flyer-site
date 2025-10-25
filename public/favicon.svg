@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title>Freaky Flyer Delivery</title>
+  <desc>Stylised paper plane icon</desc>
+  <rect width="64" height="64" rx="12" fill="#1e88e5" />
+  <path d="M12 32L52 12 40 52 30 36 12 32z" fill="#fff"/>
+</svg>

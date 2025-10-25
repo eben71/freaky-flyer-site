@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import CTA from '../components/CTA.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Freaky Flyer Delivery',
+  url: 'https://www.freakyflyerdelivery.com.au',
+  image: 'https://www.freakyflyerdelivery.com.au/assets/img/social-share.svg',
+  telephone: '+61-8-9000-0000',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '20 Example Street',
+    addressLocality: 'Perth',
+    addressRegion: 'WA',
+    postalCode: '6000',
+    addressCountry: 'AU'
+  },
+  openingHours: [
+    'Mo-Fr 08:30-17:30',
+    'Sa 09:00-13:00'
+  ],
+  priceRange: '$$'
+};
+---
+<BaseLayout
+  title="Freaky Flyer Delivery | GPS-verified flyer distribution in Perth"
+  description="Freaky Flyer Delivery offers GPS-tracked flyer drops with full verification across Perth and Western Australia."
+  structuredData={structuredData}
+>
+  <section class="container hero" aria-labelledby="hero-heading">
+    <div>
+      <h1 id="hero-heading">GPS-verified flyer delivery in Perth</h1>
+      <p>
+        Reach every letterbox with confidence. Our Perth-based team equalises your inventory, deploys accredited walkers and
+        backs every drop with live GPS data.
+      </p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.5rem;">
+        <a class="button" href="/contact">Get a quote</a>
+        <a class="button secondary" href="#how-it-works">How it works</a>
+      </div>
+      <div class="badge-strip" role="list" aria-label="Key assurances">
+        <span role="listitem">GPS tracked</span>
+        <span role="listitem">Insured</span>
+        <span role="listitem">WA local</span>
+        <span role="listitem">Suburbs covered</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <span>Live delivery map + proof bundle</span>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="value-heading">
+    <div class="container">
+      <h2 id="value-heading">Why Perth brands choose Freaky Flyer Delivery</h2>
+      <p class="lead">
+        Keep your print investment accountable. From briefing to verified completion, every part of our drop process is designed
+        for transparency.
+      </p>
+      <div class="grid three" role="list">
+        <Card title="Speed" description="Campaign-ready in as little as 72 hours with rapid equalising and deployment." />
+        <Card
+          title="GPS verification"
+          description="Every walker carries live tracking with timestamped proof packs for your compliance records."
+        />
+        <Card title="Local team" description="Perth-based coordinators and walkers who understand every suburb nuance." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="how-it-works" aria-labelledby="process-heading">
+    <div class="container">
+      <h2 id="process-heading">How delivery works</h2>
+      <div class="grid two">
+        <Card title="Prep" description="Receive a campaign onboarding kit covering artwork checks, suburb targets and timing." />
+        <Card title="Equalise" description="We trim, count and bundle flyers into walker packs ready for consistent drops." />
+        <Card title="Deliver" description="Supervised walkers follow optimised paths with real-time GPS monitoring." />
+        <Card title="Verify" description="You receive route exports, heatmaps and completion notes for every suburb." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="trust-heading">
+    <div class="container">
+      <h2 id="trust-heading">Built for proof, not promises</h2>
+      <div class="grid two">
+        <Card
+          title="Daily visibility"
+          description="Log in to view live progress, drop rates and walker locations in a mobile-friendly dashboard."
+        />
+        <Card
+          title="Insured walkers"
+          description="Every walker is insured and inducted, keeping your brand compliant with local council requirements."
+        />
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>

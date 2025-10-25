@@ -1,0 +1,24 @@
+{
+  "name": "freaky-flyer-delivery-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "eslint --ext .astro,.js,.jsx,.ts,.tsx src",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "astro": "^4.8.6"
+  },
+  "devDependencies": {
+    "@astrojs/eslint-config": "^1.0.5",
+    "eslint": "^8.57.0",
+    "eslint-plugin-astro": "^0.31.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
+  }
+}

@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import CTA from '../components/CTA.astro';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'GPS-tracked flyer distribution',
+  provider: {
+    '@type': 'Organization',
+    name: 'Freaky Flyer Delivery'
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Perth Metro'
+  },
+  serviceType: 'Letterbox flyer distribution with GPS verification',
+  description: 'Equalised flyer drops, local walkers and compliance-ready verification packs.'
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How does GPS verification work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Walkers carry certified tracking devices. You receive exports, timestamps and suburb completion summaries.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Can we target specific suburbs?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, our planners build suburb maps based on your target audience and verify coverage with geo-fenced routes.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you equalise and bundle flyers?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'All stock is counted, trimmed and bundled to match walker pacing so every route receives the right volume.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What proof is supplied post-delivery?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'You receive route files, suburb completion notes, heatmaps and optional photo logs for compliance.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How far in advance should we book?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Two weeks is ideal, but rush jobs can be scheduled within 72 hours subject to stock arrival.'
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Services | Freaky Flyer Delivery"
+  description="Equalised flyer packs, compliant walkers and GPS-tracked proof for Perth campaigns."
+  structuredData={[serviceSchema, faqSchema]}
+  breadcrumbs={[{ href: '/', label: 'Home' }, { href: '/services', label: 'Services' }]}
+  pageType="article"
+>
+  <section class="section" aria-labelledby="services-heading">
+    <div class="container">
+      <h1 id="services-heading">Services</h1>
+      <p class="lead">
+        From equalising thousands of flyers to auditing every step of delivery, our services are built to keep marketers and
+        franchisors covered.
+      </p>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="method-heading">
+    <div class="container">
+      <h2 id="method-heading">Method overview</h2>
+      <div class="grid two">
+        <Card
+          title="Equalising technique"
+          description="We machine-count every stack, trim edges for presentation and bundle walker packs ready for the route."
+        />
+        <Card
+          title="QA & verification"
+          description="Supervisors monitor drop pace via live GPS dashboards and issue suburb-by-suburb proof packs."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="variants-heading">
+    <div class="container">
+      <h2 id="variants-heading">Delivery variants</h2>
+      <div class="grid three" role="list">
+        <Card title="DL solo" description="Single advertiser run with rapid turnaround and suburb exclusivity." />
+        <Card title="DL shared" description="Budget-friendly shared runs with aligned non-competing partners." />
+        <Card title="A5 solo" description="Premium drop with bold artwork impact and suburb exclusivity." />
+        <Card title="A5 shared" description="Cost effective joint drops curated to complementary industries." />
+        <Card title="A4 solo" description="High-impact takeover for launches and multi-offer catalogues." />
+        <Card title="A4 shared" description="Large format shared drops aligned to seasonal campaigns." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="faq-heading">
+    <div class="container">
+      <h2 id="faq-heading">Frequently asked questions</h2>
+      <div class="grid" role="list">
+        <Card title="How does GPS verification work?">
+          <p>Walkers carry certified devices logging coordinates every few seconds. We supply exports and suburb completion notes.</p>
+        </Card>
+        <Card title="Can we target specific suburbs?">
+          <p>Yes. Provide your shortlist or let us map catchments. Routes are drawn to ensure complete coverage without overlap.</p>
+        </Card>
+        <Card title="Do you equalise and bundle flyers?">
+          <p>Every campaign includes stock equalising, trimming and bundling so each walker pack is perfectly balanced.</p>
+        </Card>
+        <Card title="What proof is supplied post-delivery?">
+          <p>Receive route files, suburb completion notes, heatmaps and optional photo logs for compliance.</p>
+        </Card>
+        <Card title="How far in advance should we book?">
+          <p>Two weeks notice keeps scheduling smooth, but rush jobs are possible within 72 hours when stock is ready.</p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <CTA heading="Need a specialty run?" body="Talk to our planners about targeted drops, custom bundling and rapid verification workflows." />
+</BaseLayout>

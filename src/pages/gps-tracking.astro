@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import mapScript from '../scripts/map.js?url';
+
+const breadcrumbs = [
+  { href: '/', label: 'Home' },
+  { href: '/gps-tracking', label: 'GPS Tracking' }
+];
+---
+<BaseLayout
+  title="GPS Tracking | Freaky Flyer Delivery"
+  description="Visualise flyer delivery GPS tracks, upload GeoJSON, GPX or KML and adjust proof overlays."
+  breadcrumbs={breadcrumbs}
+  pageType="article"
+>
+  <section class="section" aria-labelledby="gps-heading">
+    <div class="container">
+      <h1 id="gps-heading">GPS tracking viewer</h1>
+      <p class="lead">
+        Drop in your exported GeoJSON, GPX or KML files to inspect live tracks, toggle line widths and ensure every suburb was
+        covered. The viewer runs entirely in the browser so your delivery data stays private.
+      </p>
+      <div class="map-controls" role="group" aria-label="Track controls">
+        <label>
+          <input id="toggle-track" type="checkbox" checked /> Show track
+        </label>
+        <label>
+          Line width
+          <input id="line-width" type="range" min="2" max="12" value="4" />
+        </label>
+        <button id="fit-track" class="button secondary" type="button">Fit to track</button>
+        <label class="button secondary" for="track-file" style="cursor:pointer;">Upload file</label>
+        <input id="track-file" type="file" accept=".geojson,.json,.gpx,.kml" style="display:none" />
+      </div>
+      <div class="map-shell">
+        <div id="map" data-default-track="/assets/maps/sample.geojson" role="region" aria-label="GPS track map"></div>
+      </div>
+      <div class="map-upload" aria-live="polite">
+        <p><strong>Drag &amp; drop files here</strong> – GeoJSON, GPX and KML supported. Data stays on this device.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous" defer></script>
+  <script type="module" src={mapScript} defer></script>
+</BaseLayout>
