@@ -1,0 +1,23 @@
+{
+  "name": "freaky-flyer-delivery",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@9.10.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "prettier --write .",
+    "lint": "eslint src --ext .astro,.js"
+  },
+  "dependencies": {
+    "astro": "latest"
+  },
+  "devDependencies": {
+    "eslint": "latest",
+    "eslint-plugin-astro": "latest",
+    "prettier": "latest"
+  },
+  "_comment": "Future dependencies to be added: PHPMailer, Leaflet, togeojson, and related tooling."
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.cache/
+.astro/
+.DS_Store
+.env
+secrets.php
+public/secrets.php
