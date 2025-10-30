@@ -9,17 +9,17 @@ importers:
   .:
     dependencies:
       astro:
-        specifier: latest
+        specifier: ^5.15.2
         version: 5.15.2(@types/node@24.9.2)(rollup@4.52.5)(typescript@5.9.3)
     devDependencies:
       eslint:
-        specifier: latest
+        specifier: ^9.38.0
         version: 9.38.0
       eslint-plugin-astro:
-        specifier: latest
+        specifier: ^1.4.0
         version: 1.4.0(eslint@9.38.0)
       prettier:
-        specifier: latest
+        specifier: ^3.3.3
         version: 3.6.2
 
 packages:

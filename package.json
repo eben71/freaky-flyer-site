@@ -12,13 +12,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "astro": "latest"
+    "astro": "^5.15.2"
   },
   "devDependencies": {
-    "eslint": "latest",
-    "eslint-plugin-astro": "latest",
-    "prettier": "latest",
-    "prettier-plugin-astro": "latest"
+    "eslint": "^9.38.0",
+    "eslint-plugin-astro": "^1.4.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1"
   },
   "engines": {
     "node": ">=20.0.0",
