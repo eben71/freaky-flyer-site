@@ -23,7 +23,7 @@ importers:
         version: 3.6.2
       prettier-plugin-astro:
         specifier: ^0.14.1
-        version: 0.14.1(prettier@3.6.2)
+        version: link:vendor/prettier-plugin-astro
 
 packages:
 
@@ -43,11 +43,6 @@ packages:
   '@astrojs/telemetry@3.3.0':
     resolution: {integrity: sha512-UFBgfeldP06qu6khs/yY+q1cDAaArM2/7AEIqQ9Cuvf7B1hNLq0xDrZkct+QoIGyjq56y8IaE2I3CTvG99mlhQ==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
-
-  prettier-plugin-astro@0.14.1(prettier@3.6.2):
-    resolution: {tarball: https://registry.npmjs.org/prettier-plugin-astro/-/prettier-plugin-astro-0.14.1.tgz}
-    peerDependencies:
-      prettier: ^3.0.0
 
   '@babel/helper-string-parser@7.27.1':
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
@@ -3936,3 +3931,4 @@ snapshots:
   zod@3.25.76: {}
 
   zwitch@2.0.4: {}
+  prettier-plugin-astro@link:vendor/prettier-plugin-astro: {}
