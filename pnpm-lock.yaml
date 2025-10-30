@@ -24,6 +24,8 @@ importers:
       prettier-plugin-astro:
         specifier: ^0.14.1
         version: link:vendor/prettier-plugin-astro
+    overrides:
+      prettier-plugin-astro: link:vendor/prettier-plugin-astro
 
 packages:
 
