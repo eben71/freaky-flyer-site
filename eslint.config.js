@@ -17,7 +17,7 @@ const browserGlobals = Object.fromEntries(
     'setInterval',
     'clearInterval',
     'requestAnimationFrame',
-    'cancelAnimationFrame'
+    'cancelAnimationFrame',
   ].map((name) => [name, 'readonly'])
 );
 
@@ -28,8 +28,8 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      globals: browserGlobals
-    }
+      globals: browserGlobals,
+    },
   },
-  ...astro.configs.recommended
+  ...astro.configs.recommended,
 ];
