@@ -10,7 +10,13 @@
   --space-4: 16px;
   --space-6: 24px;
   --space-8: 32px;
-  font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    'Inter',
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   color-scheme: light;
 }
 
@@ -110,7 +116,9 @@ main {
   border-radius: 999px;
   border: 2px solid transparent;
   font-weight: 600;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .button--primary {
@@ -278,7 +286,7 @@ footer {
 }
 
 .breadcrumbs__item + .breadcrumbs__item::before {
-  content: "/";
+  content: '/';
   margin-right: var(--space-2);
   color: var(--muted);
 }
@@ -405,4 +413,3 @@ ol {
 section + section {
   margin-top: var(--space-8);
 }
-
