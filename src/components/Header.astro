@@ -1,0 +1,73 @@
+---
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/areas", label: "Areas We Cover" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+---
+<header class="site-header" role="banner">
+  <div class="container header__inner">
+    <a class="site-logo" href="/" aria-label="Freaky Flyer Delivery home">
+      <span aria-hidden="true">FFD</span>
+    </a>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-navigation"
+      data-nav-toggle
+    >
+      <span class="nav-toggle__icon" aria-hidden="true"></span>
+      <span class="nav-toggle__label">Menu</span>
+    </button>
+    <nav id="primary-navigation" class="primary-nav" aria-label="Primary">
+      <ul class="primary-nav__list" hidden>
+        {navItems.map((item) => (
+          <li class="primary-nav__item">
+            <a class="primary-nav__link" href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+<script is:inline>
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  const primaryNav = document.getElementById('primary-navigation');
+  const navList = primaryNav?.querySelector('ul');
+  if (navToggle && primaryNav && navList) {
+    const setExpanded = (expanded) => {
+      navToggle.setAttribute('aria-expanded', String(expanded));
+      primaryNav.toggleAttribute('data-open', expanded);
+      navList.toggleAttribute('hidden', !expanded);
+    };
+
+    const mq = window.matchMedia('(min-width: 769px)');
+    const handleBreakpoint = () => {
+      if (mq.matches) {
+        navList.removeAttribute('hidden');
+        primaryNav.removeAttribute('data-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      } else {
+        navList.setAttribute('hidden', '');
+        primaryNav.removeAttribute('data-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', handleBreakpoint);
+    } else if (typeof mq.addListener === 'function') {
+      mq.addListener(handleBreakpoint);
+    }
+    handleBreakpoint();
+
+    navToggle.addEventListener('click', () => {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      setExpanded(!isExpanded);
+    });
+  }
+</script>
