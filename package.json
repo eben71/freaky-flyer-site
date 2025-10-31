@@ -13,12 +13,17 @@
     "lint": "eslint src --ext .astro,.js"
   },
   "dependencies": {
-    "astro": "latest"
+    "astro": "^5.15.2"
   },
   "devDependencies": {
-    "eslint": "latest",
-    "eslint-plugin-astro": "latest",
-    "prettier": "latest"
+    "eslint": "^9.38.0",
+    "eslint-plugin-astro": "^1.4.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "file:vendor/prettier-plugin-astro"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
   },
   "_comment": "Future dependencies to be added: PHPMailer, Leaflet, togeojson, and related tooling."
 }

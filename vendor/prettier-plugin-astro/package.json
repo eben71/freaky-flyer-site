@@ -1,0 +1,16 @@
+{
+  "name": "prettier-plugin-astro",
+  "version": "0.14.1",
+  "description": "Minimal Astro plugin for Prettier used for offline formatting in Freaky Flyer site",
+  "main": "index.cjs",
+  "type": "commonjs",
+  "license": "MIT",
+  "keywords": [
+    "prettier-plugin",
+    "astro",
+    "formatter"
+  ],
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  }
+}

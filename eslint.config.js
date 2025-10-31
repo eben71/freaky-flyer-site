@@ -21,14 +21,18 @@ const browserGlobals = Object.fromEntries(
   ].map((name) => [name, 'readonly'])
 );
 
+const jsRecommendedRules = js.configs.recommended.rules ?? {};
+
 export default [
   {
-    files: ['**/*.js'],
-    ...js.configs.recommended,
+    files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: browserGlobals,
+    },
+    rules: {
+      ...jsRecommendedRules,
     },
   },
   ...astro.configs.recommended,
