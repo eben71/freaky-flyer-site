@@ -9,5 +9,8 @@
     "prettier-plugin",
     "astro",
     "formatter"
-  ]
+  ],
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  }
 }
