@@ -33,18 +33,22 @@ export async function loadPage(slug: string): Promise<LoadedPage | null> {
   }
 }
 
-export async function loadPages(slugs: string[]): Promise<Record<string, LoadedPage>> {
+export async function loadPages(
+  slugs: string[]
+): Promise<Record<string, LoadedPage>> {
   const entries = await Promise.all(
     slugs.map(async (slug) => {
       const page = await loadPage(slug);
       return [slug, page] as const;
-    }),
+    })
   );
-  return entries.reduce<Record<string, LoadedPage>>((accumulator, [slug, page]) => {
-    if (page) {
-      accumulator[slug] = page;
-    }
-    return accumulator;
-  }, {});
+  return entries.reduce<Record<string, LoadedPage>>(
+    (accumulator, [slug, page]) => {
+      if (page) {
+        accumulator[slug] = page;
+      }
+      return accumulator;
+    },
+    {}
+  );
 }
-

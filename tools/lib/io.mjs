@@ -99,7 +99,11 @@ export function resolveFileName(name, extension = '') {
   return extension ? `${slug}.${extension.replace(/^\./, '')}` : slug;
 }
 
-export async function fetchWithRetry(url, options = {}, { attempts = 3, delayMs = 500 } = {}) {
+export async function fetchWithRetry(
+  url,
+  options = {},
+  { attempts = 3, delayMs = 500 } = {}
+) {
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
@@ -119,7 +123,11 @@ export async function fetchWithRetry(url, options = {}, { attempts = 3, delayMs 
 }
 
 export async function downloadFile(url, destination) {
-  const response = await fetchWithRetry(url, { redirect: 'follow' }, { attempts: 4, delayMs: 750 });
+  const response = await fetchWithRetry(
+    url,
+    { redirect: 'follow' },
+    { attempts: 4, delayMs: 750 }
+  );
   await ensureDir(path.dirname(destination));
   const buffer = Buffer.from(await response.arrayBuffer());
   await fs.writeFile(destination, buffer);
@@ -154,4 +162,3 @@ export function normalizeUrl(base, maybeRelative) {
 export function unique(array) {
   return [...new Set(array.filter(Boolean))];
 }
-

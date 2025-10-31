@@ -3,18 +3,22 @@ import { promises as fs } from 'fs';
 import fg from 'fast-glob';
 import sharp from 'sharp';
 import matter from 'gray-matter';
-import {
-  createLogger,
-  ensureDir,
-  unique,
-  writeText,
-} from './lib/io.mjs';
+import { createLogger, ensureDir, unique, writeText } from './lib/io.mjs';
 
 const logger = createLogger('images');
 
-const rawDir = path.resolve(process.cwd(), process.env.RAW_DIR || 'public/assets/img/raw');
-const optimizedDir = path.resolve(process.cwd(), process.env.OPTIMIZED_DIR || 'public/assets/img/optimized');
-const markdownDir = path.resolve(process.cwd(), process.env.MARKDOWN_DIR || 'src/content/pages');
+const rawDir = path.resolve(
+  process.cwd(),
+  process.env.RAW_DIR || 'public/assets/img/raw'
+);
+const optimizedDir = path.resolve(
+  process.cwd(),
+  process.env.OPTIMIZED_DIR || 'public/assets/img/optimized'
+);
+const markdownDir = path.resolve(
+  process.cwd(),
+  process.env.MARKDOWN_DIR || 'src/content/pages'
+);
 
 const TARGET_SIZES = [640, 960, 1280];
 const DEFAULT_SIZE = 960;
@@ -44,7 +48,10 @@ async function optimizeImage(file) {
       .then(() => true)
       .catch(() => false);
     if (!outputExists) {
-      await sharp(source).resize({ width: size, withoutEnlargement: true }).webp({ quality: 80 }).toFile(outputPath);
+      await sharp(source)
+        .resize({ width: size, withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toFile(outputPath);
     }
   }
 
@@ -59,7 +66,12 @@ async function optimizeImage(file) {
 }
 
 async function optimizeAllImages() {
-  const pattern = toPosix(path.relative(process.cwd(), path.join(rawDir, '**/*.{jpg,jpeg,png,gif,webp,avif}')));
+  const pattern = toPosix(
+    path.relative(
+      process.cwd(),
+      path.join(rawDir, '**/*.{jpg,jpeg,png,gif,webp,avif}')
+    )
+  );
   const files = await fg(pattern, { dot: false, onlyFiles: true });
   const mapping = new Map();
 
@@ -88,7 +100,8 @@ function collectImageRefs(content) {
 }
 
 function ensureComment(content) {
-  const comment = '<!-- Optimized images generated; wire up srcset in components when ready. -->';
+  const comment =
+    '<!-- Optimized images generated; wire up srcset in components when ready. -->';
   if (content.includes(comment)) {
     return content;
   }
@@ -96,7 +109,9 @@ function ensureComment(content) {
 }
 
 async function updateMarkdownFiles(mapping) {
-  const pattern = toPosix(path.relative(process.cwd(), path.join(markdownDir, '**/*.md')));
+  const pattern = toPosix(
+    path.relative(process.cwd(), path.join(markdownDir, '**/*.md'))
+  );
   const files = await fg(pattern, { dot: false, onlyFiles: true });
   let updatedCount = 0;
 
@@ -116,11 +131,17 @@ async function updateMarkdownFiles(mapping) {
       content = replacedContent;
     }
 
-    const imageRefs = collectImageRefs(content).filter((ref) => ref.startsWith('/assets/img/optimized/'));
+    const imageRefs = collectImageRefs(content).filter((ref) =>
+      ref.startsWith('/assets/img/optimized/')
+    );
     const imagesField = unique(imageRefs);
     let changed = false;
 
-    if (imagesField.length !== (parsed.data.images ? parsed.data.images.length : 0) || imagesField.some((value, index) => parsed.data.images?.[index] !== value)) {
+    if (
+      imagesField.length !==
+        (parsed.data.images ? parsed.data.images.length : 0) ||
+      imagesField.some((value, index) => parsed.data.images?.[index] !== value)
+    ) {
       parsed.data.images = imagesField;
       changed = true;
     }
@@ -157,10 +178,11 @@ async function updateMarkdownFiles(mapping) {
   try {
     const mapping = await optimizeAllImages();
     const updated = await updateMarkdownFiles(mapping);
-    logger.info(`Optimization complete. ${mapping.size} images processed. ${updated} markdown files updated.`);
+    logger.info(
+      `Optimization complete. ${mapping.size} images processed. ${updated} markdown files updated.`
+    );
   } catch (error) {
     logger.error('Image optimization failed:', error.message);
     process.exitCode = 1;
   }
 })();
-

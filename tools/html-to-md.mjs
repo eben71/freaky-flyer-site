@@ -24,11 +24,23 @@ function getArg(name) {
 }
 
 const DEFAULT_BASE = 'https://freakyflyerdelivery.com.au';
-const baseUrl = (process.env.BASE_URL || getArg('base') || DEFAULT_BASE).replace(/\/$/, '');
-const outDir = path.resolve(process.cwd(), process.env.OUT_DIR || getArg('out') || 'src/content/pages');
-const imageDir = path.resolve(process.cwd(), process.env.IMG_DIR || getArg('img') || 'public/assets/img/raw');
+const baseUrl = (
+  process.env.BASE_URL ||
+  getArg('base') ||
+  DEFAULT_BASE
+).replace(/\/$/, '');
+const outDir = path.resolve(
+  process.cwd(),
+  process.env.OUT_DIR || getArg('out') || 'src/content/pages'
+);
+const imageDir = path.resolve(
+  process.cwd(),
+  process.env.IMG_DIR || getArg('img') || 'public/assets/img/raw'
+);
 const urlListPath = path.resolve(process.cwd(), 'tools/urls.txt');
-const shouldCrawl = ['1', 'true', 'yes'].includes((process.env.CRAWL || '').toLowerCase());
+const shouldCrawl = ['1', 'true', 'yes'].includes(
+  (process.env.CRAWL || '').toLowerCase()
+);
 const maxDepth = Number(process.env.CRAWL_DEPTH || 2);
 
 const turndownService = new TurndownService({
@@ -36,10 +48,13 @@ const turndownService = new TurndownService({
   codeBlockStyle: 'fenced',
   bulletListMarker: '-',
 });
-['table', 'thead', 'tbody', 'tr', 'td', 'th'].forEach((tag) => turndownService.keep(tag));
+['table', 'thead', 'tbody', 'tr', 'td', 'th'].forEach((tag) =>
+  turndownService.keep(tag)
+);
 
 turndownService.addRule('clean-nbsps', {
-  filter: (node) => node.nodeName === '#text' && node.nodeValue.includes('\u00a0'),
+  filter: (node) =>
+    node.nodeName === '#text' && node.nodeValue.includes('\u00a0'),
   replacement: (content) => content.replace(/\u00a0/g, ' '),
 });
 
@@ -62,7 +77,9 @@ function buildSlug(pathname) {
 
 function cleanDocument(html) {
   const { document } = parseHTML(html);
-  document.querySelectorAll('script, style, noscript').forEach((el) => el.remove());
+  document
+    .querySelectorAll('script, style, noscript')
+    .forEach((el) => el.remove());
   return document;
 }
 
@@ -72,7 +89,9 @@ function extractMainContent(document) {
   const article = document.querySelector('article');
   if (article) return article.innerHTML;
   const bodyClone = document.body.cloneNode(true);
-  bodyClone.querySelectorAll('header, footer, nav, aside').forEach((el) => el.remove());
+  bodyClone
+    .querySelectorAll('header, footer, nav, aside')
+    .forEach((el) => el.remove());
   return bodyClone.innerHTML;
 }
 
@@ -92,7 +111,10 @@ async function ensureImage(url, slugPath, index, hint = '') {
   const urlObj = new URL(normalized);
   const originalName = path.basename(urlObj.pathname).split('?')[0];
   const ext = path.extname(originalName) || '.jpg';
-  const baseName = safeSlug(path.basename(originalName, ext) || hint || `image-${index + 1}`, `image-${index + 1}`);
+  const baseName = safeSlug(
+    path.basename(originalName, ext) || hint || `image-${index + 1}`,
+    `image-${index + 1}`
+  );
   let candidate = `${baseName}${ext}`;
   let counter = 1;
   while (await pathExists(path.join(fsDir, candidate))) {
@@ -101,9 +123,13 @@ async function ensureImage(url, slugPath, index, hint = '') {
   }
   const destination = path.join(fsDir, candidate);
   await downloadFile(normalized, destination);
-  const publicRaw = `/assets/img/raw/${posixDir}/${candidate}`.replace(/\/+/g, '/');
+  const publicRaw = `/assets/img/raw/${posixDir}/${candidate}`.replace(
+    /\/+/g,
+    '/'
+  );
   const optimizedName = `${path.basename(candidate, ext)}-960.webp`;
-  const publicOptimized = `/assets/img/optimized/${posixDir}/${optimizedName}`.replace(/\/+/g, '/');
+  const publicOptimized =
+    `/assets/img/optimized/${posixDir}/${optimizedName}`.replace(/\/+/g, '/');
   return {
     url: normalized,
     publicRaw,
@@ -112,7 +138,9 @@ async function ensureImage(url, slugPath, index, hint = '') {
 }
 
 async function fetchHtml(url) {
-  const response = await undiciFetch(url, { headers: { 'User-Agent': 'content-export-script' } });
+  const response = await undiciFetch(url, {
+    headers: { 'User-Agent': 'content-export-script' },
+  });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.status}`);
   }
@@ -123,7 +151,9 @@ async function crawlUrls(seedUrls) {
   if (!shouldCrawl) {
     return seedUrls;
   }
-  const visited = new Set(seedUrls.map((p) => normalizeUrl(baseUrl, p)).filter(Boolean));
+  const visited = new Set(
+    seedUrls.map((p) => normalizeUrl(baseUrl, p)).filter(Boolean)
+  );
   const queue = seedUrls
     .map((path) => ({ url: normalizeUrl(baseUrl, path), depth: 0 }))
     .filter((item) => item.url);
@@ -193,7 +223,11 @@ async function processUrl(pathname) {
   const mainHtml = extractMainContent(document);
 
   const title = decodeHtml(document.querySelector('title')?.textContent || '');
-  const description = decodeHtml(document.querySelector('meta[name="description"]')?.getAttribute('content') || '');
+  const description = decodeHtml(
+    document
+      .querySelector('meta[name="description"]')
+      ?.getAttribute('content') || ''
+  );
   const { fileSlug, slugPath } = buildSlug(new URL(pageUrl).pathname);
 
   const dom = parseHTML(`<body>${mainHtml}</body>`);
@@ -201,15 +235,23 @@ async function processUrl(pathname) {
   const imageNodes = Array.from(dom.document.querySelectorAll('img'));
   let imageIndex = 0;
   for (const img of imageNodes) {
-    const candidateSrc = img.getAttribute('data-src') || img.getAttribute('src');
-    const normalized = candidateSrc ? normalizeUrl(baseUrl, candidateSrc) : null;
+    const candidateSrc =
+      img.getAttribute('data-src') || img.getAttribute('src');
+    const normalized = candidateSrc
+      ? normalizeUrl(baseUrl, candidateSrc)
+      : null;
     if (!normalized) {
       imageIndex += 1;
       continue;
     }
     let image = downloadedImages.get(normalized);
     if (!image) {
-      image = await ensureImage(normalized, slugPath, imageIndex, img.getAttribute('alt') || title);
+      image = await ensureImage(
+        normalized,
+        slugPath,
+        imageIndex,
+        img.getAttribute('alt') || title
+      );
       if (image) {
         downloadedImages.set(normalized, image);
       }
@@ -228,7 +270,9 @@ async function processUrl(pathname) {
     description,
     oldUrl: pageUrl,
     slug: slugPath,
-    images: unique(Array.from(downloadedImages.values()).map((item) => item.publicOptimized)),
+    images: unique(
+      Array.from(downloadedImages.values()).map((item) => item.publicOptimized)
+    ),
   };
 
   const filePath = path.join(outDir, `${fileSlug}.md`);
@@ -249,14 +293,16 @@ async function processUrl(pathname) {
   try {
     const seeds = await loadSeedUrls();
     const targets = await crawlUrls(seeds);
-    const uniquePaths = unique(targets.map((target) => {
-      try {
-        const url = new URL(normalizeUrl(baseUrl, target));
-        return url.pathname || '/';
-      } catch (error) {
-        return target;
-      }
-    }));
+    const uniquePaths = unique(
+      targets.map((target) => {
+        try {
+          const url = new URL(normalizeUrl(baseUrl, target));
+          return url.pathname || '/';
+        } catch (error) {
+          return target;
+        }
+      })
+    );
 
     logger.info(`Processing ${uniquePaths.length} URLs`);
     const results = [];
@@ -270,10 +316,11 @@ async function processUrl(pathname) {
       }
     }
     const totalImages = results.reduce((sum, page) => sum + page.images, 0);
-    logger.info(`Export complete: ${results.length} pages, ${totalImages} images referenced.`);
+    logger.info(
+      `Export complete: ${results.length} pages, ${totalImages} images referenced.`
+    );
   } catch (error) {
     logger.error('HTML export failed:', error.message);
     process.exitCode = 1;
   }
 })();
-

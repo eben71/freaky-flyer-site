@@ -4,8 +4,14 @@ import { createLogger, ensureDir, pathExists, readCSV } from './lib/io.mjs';
 
 const logger = createLogger('redirects');
 
-const mappingPath = path.resolve(process.cwd(), process.env.REDIRECTS_SOURCE || 'tools/url-map.csv');
-const htaccessPath = path.resolve(process.cwd(), process.env.HTACCESS_PATH || 'public/.htaccess');
+const mappingPath = path.resolve(
+  process.cwd(),
+  process.env.REDIRECTS_SOURCE || 'tools/url-map.csv'
+);
+const htaccessPath = path.resolve(
+  process.cwd(),
+  process.env.HTACCESS_PATH || 'public/.htaccess'
+);
 
 function normalizePath(value) {
   if (!value) return '/';
@@ -74,10 +80,11 @@ async function appendRedirects(lines) {
     }
 
     await appendRedirects(additions);
-    logger.info(`Appended ${additions.length} redirect rules to ${htaccessPath}`);
+    logger.info(
+      `Appended ${additions.length} redirect rules to ${htaccessPath}`
+    );
   } catch (error) {
     logger.error('Failed to build redirects:', error.message);
     process.exitCode = 1;
   }
 })();
-

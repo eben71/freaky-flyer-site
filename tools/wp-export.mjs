@@ -23,9 +23,18 @@ function getArg(name) {
 }
 
 const DEFAULT_BASE = 'https://freakyflyerdelivery.com.au';
-const baseUrl = (process.env.WP_BASE || getArg('base') || DEFAULT_BASE).replace(/\/$/, '');
-const outDir = path.resolve(process.cwd(), process.env.OUT_DIR || getArg('out') || 'src/content/pages');
-const imageDir = path.resolve(process.cwd(), process.env.IMG_DIR || getArg('img') || 'public/assets/img/raw');
+const baseUrl = (process.env.WP_BASE || getArg('base') || DEFAULT_BASE).replace(
+  /\/$/,
+  ''
+);
+const outDir = path.resolve(
+  process.cwd(),
+  process.env.OUT_DIR || getArg('out') || 'src/content/pages'
+);
+const imageDir = path.resolve(
+  process.cwd(),
+  process.env.IMG_DIR || getArg('img') || 'public/assets/img/raw'
+);
 
 const turndownService = new TurndownService({
   headingStyle: 'atx',
@@ -33,7 +42,9 @@ const turndownService = new TurndownService({
   bulletListMarker: '-',
 });
 
-['table', 'thead', 'tbody', 'tr', 'td', 'th'].forEach((tag) => turndownService.keep(tag));
+['table', 'thead', 'tbody', 'tr', 'td', 'th'].forEach((tag) =>
+  turndownService.keep(tag)
+);
 
 turndownService.addRule('wp-figure', {
   filter: ['figure'],
@@ -41,7 +52,8 @@ turndownService.addRule('wp-figure', {
 });
 
 turndownService.addRule('clean-nbsps', {
-  filter: (node) => node.nodeName === '#text' && node.nodeValue.includes('\u00a0'),
+  filter: (node) =>
+    node.nodeName === '#text' && node.nodeValue.includes('\u00a0'),
   replacement: (content) => content.replace(/\u00a0/g, ' '),
 });
 
@@ -74,7 +86,8 @@ function cleanTitle(title) {
 
 function extractDescription(page) {
   if (page.yoast_head_json) {
-    const { description, og_description, twitter_description } = page.yoast_head_json;
+    const { description, og_description, twitter_description } =
+      page.yoast_head_json;
     if (description) return description;
     if (og_description) return og_description;
     if (twitter_description) return twitter_description;
@@ -92,7 +105,9 @@ function extractDescription(page) {
 function htmlFromContent(content = '') {
   const wrapped = `<body>${content}</body>`;
   const { document } = parseHTML(wrapped);
-  document.querySelectorAll('script, style, noscript').forEach((el) => el.remove());
+  document
+    .querySelectorAll('script, style, noscript')
+    .forEach((el) => el.remove());
   return document.body.innerHTML;
 }
 
@@ -112,7 +127,10 @@ async function ensureImage(url, slugPath, index, hint = '') {
   const urlObj = new URL(normalized);
   const originalName = path.basename(urlObj.pathname).split('?')[0];
   const ext = path.extname(originalName) || '.jpg';
-  const baseName = safeSlug(path.basename(originalName, ext) || hint || `image-${index + 1}`, `image-${index + 1}`);
+  const baseName = safeSlug(
+    path.basename(originalName, ext) || hint || `image-${index + 1}`,
+    `image-${index + 1}`
+  );
   let candidate = `${baseName}${ext}`;
   let counter = 1;
   while (await pathExists(path.join(fsDir, candidate))) {
@@ -121,9 +139,13 @@ async function ensureImage(url, slugPath, index, hint = '') {
   }
   const destination = path.join(fsDir, candidate);
   await downloadFile(normalized, destination);
-  const publicRaw = `/assets/img/raw/${posixDir}/${candidate}`.replace(/\/+/g, '/');
+  const publicRaw = `/assets/img/raw/${posixDir}/${candidate}`.replace(
+    /\/+/g,
+    '/'
+  );
   const optimizedName = `${path.basename(candidate, ext)}-960.webp`;
-  const publicOptimized = `/assets/img/optimized/${posixDir}/${optimizedName}`.replace(/\/+/g, '/');
+  const publicOptimized =
+    `/assets/img/optimized/${posixDir}/${optimizedName}`.replace(/\/+/g, '/');
   return {
     url: normalized,
     destination,
@@ -133,7 +155,9 @@ async function ensureImage(url, slugPath, index, hint = '') {
 }
 
 async function processPage(page) {
-  const { fileSlug, slugPath } = buildSlugFromLink(page.link || page.slug || '');
+  const { fileSlug, slugPath } = buildSlugFromLink(
+    page.link || page.slug || ''
+  );
   const targetPath = path.join(outDir, `${fileSlug}.md`);
   await ensureDir(path.dirname(targetPath));
 
@@ -145,15 +169,23 @@ async function processPage(page) {
   const imageNodes = Array.from(document.querySelectorAll('img'));
   let imageIndex = 0;
   for (const img of imageNodes) {
-    const candidateSrc = img.getAttribute('data-src') || img.getAttribute('src');
-    const normalized = candidateSrc ? normalizeUrl(baseUrl, candidateSrc) : null;
+    const candidateSrc =
+      img.getAttribute('data-src') || img.getAttribute('src');
+    const normalized = candidateSrc
+      ? normalizeUrl(baseUrl, candidateSrc)
+      : null;
     if (!normalized) {
       imageIndex += 1;
       continue;
     }
     let image = downloadedImages.get(normalized);
     if (!image) {
-      image = await ensureImage(normalized, slugPath, imageIndex, img.getAttribute('alt') || title);
+      image = await ensureImage(
+        normalized,
+        slugPath,
+        imageIndex,
+        img.getAttribute('alt') || title
+      );
       if (image) {
         downloadedImages.set(normalized, image);
       }
@@ -173,7 +205,12 @@ async function processPage(page) {
     const normalized = normalizeUrl(baseUrl, source);
     if (!normalized) continue;
     if (!downloadedImages.has(normalized)) {
-      const image = await ensureImage(normalized, slugPath, imageIndex, media?.slug || title);
+      const image = await ensureImage(
+        normalized,
+        slugPath,
+        imageIndex,
+        media?.slug || title
+      );
       if (image) {
         downloadedImages.set(normalized, image);
       }
@@ -188,7 +225,9 @@ async function processPage(page) {
     description,
     oldUrl: page.link,
     slug: slugPath,
-    images: unique(Array.from(downloadedImages.values()).map((item) => item.publicOptimized)),
+    images: unique(
+      Array.from(downloadedImages.values()).map((item) => item.publicOptimized)
+    ),
   };
 
   const fileContents = matter.stringify(markdown.trim(), frontmatter);
@@ -206,11 +245,17 @@ async function fetchAllPages() {
   while (true) {
     const endpoint = `${baseUrl}/wp-json/wp/v2/pages?per_page=100&page=${page}&_embed`;
     logger.info(`Fetching ${endpoint}`);
-    const response = await fetchWithRetry(endpoint, { headers: { Accept: 'application/json' } }, { attempts: 4, delayMs: 750 });
+    const response = await fetchWithRetry(
+      endpoint,
+      { headers: { Accept: 'application/json' } },
+      { attempts: 4, delayMs: 750 }
+    );
     const data = await response.json();
     if (!Array.isArray(data) || data.length === 0) break;
     pages.push(...data);
-    const totalPages = Number(response.headers.get('x-wp-totalpages') || pages.length);
+    const totalPages = Number(
+      response.headers.get('x-wp-totalpages') || pages.length
+    );
     if (page >= totalPages) break;
     page += 1;
   }
@@ -232,14 +277,18 @@ async function fetchAllPages() {
         results.push(result);
         logger.info(`Exported ${result.slug} (${result.images} images)`);
       } catch (error) {
-        logger.error(`Failed to process page ${page.slug || page.id}:`, error.message);
+        logger.error(
+          `Failed to process page ${page.slug || page.id}:`,
+          error.message
+        );
       }
     }
     const totalImages = results.reduce((sum, page) => sum + page.images, 0);
-    logger.info(`Export complete: ${results.length} pages, ${totalImages} images referenced.`);
+    logger.info(
+      `Export complete: ${results.length} pages, ${totalImages} images referenced.`
+    );
   } catch (error) {
     logger.error('Export failed:', error.message);
     process.exitCode = 1;
   }
 })();
-
