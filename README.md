@@ -15,6 +15,9 @@ pnpm install
 pnpm dev
 ```
 
+> **Note**
+> When new tooling dependencies are added, run `pnpm install --no-frozen-lockfile` to refresh `pnpm-lock.yaml` locally before relying on cached installs.
+
 Visit http://localhost:4321 to view the site.
 
 ## Pages
