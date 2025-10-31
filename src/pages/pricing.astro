@@ -1,13 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const pageTitle = 'Pricing | Freaky Flyer Delivery';
+import { loadPage } from '../lib/content.ts';
+
+const slug = 'pricing';
+const page = await loadPage(slug);
+const title = (page?.fm?.title as string) ?? 'Pricing | Freaky Flyer Delivery';
+const description = (page?.fm?.description as string) ?? '';
 ---
-<BaseLayout title={pageTitle}>
-  <div class="stack">
-    <h1>Pricing</h1>
-    <p>
-      Choose a pricing option that suits your campaign scale, with transparent rates per thousand drops
-      and bundled reporting to keep stakeholders informed.
-    </p>
-  </div>
+<BaseLayout {title} description={description}>
+  {page ? (
+    <Fragment set:html={page.html} />
+  ) : (
+    <div class="stack">
+      <h1>Pricing</h1>
+      <p>
+        Choose a pricing option that suits your campaign scale, with transparent rates per thousand drops
+        and bundled reporting to keep stakeholders informed.
+      </p>
+    </div>
+  )}
 </BaseLayout>

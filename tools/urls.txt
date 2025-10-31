@@ -1,0 +1,6 @@
+/
+/services/
+/pricing/
+/contact/
+/about/
+/gps-tracking/
