@@ -2480,7 +2480,7 @@ packages:
     hasBin: true
 
   prettier-plugin-astro@file:vendor/prettier-plugin-astro:
-    resolution: {directory: vendor/prettier-plugin-astro, type: directory}
+    resolution: { directory: vendor/prettier-plugin-astro, type: directory }
     peerDependencies:
       prettier: ^3.0.0
 

@@ -3,8 +3,8 @@ const languages = [
     name: 'Astro',
     parsers: ['astro-raw'],
     extensions: ['.astro'],
-    vscodeLanguageIds: ['astro']
-  }
+    vscodeLanguageIds: ['astro'],
+  },
 ];
 
 const parsers = {
@@ -12,7 +12,7 @@ const parsers = {
     parse(text) {
       return {
         type: 'AstroDocument',
-        text
+        text,
       };
     },
     astFormat: 'astro-raw',
@@ -21,8 +21,8 @@ const parsers = {
     },
     locEnd(node) {
       return typeof node.text === 'string' ? node.text.length : 0;
-    }
-  }
+    },
+  },
 };
 
 const printers = {
@@ -30,12 +30,12 @@ const printers = {
     print(path) {
       const value = path.getValue();
       return typeof value.text === 'string' ? value.text : '';
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   languages,
   parsers,
-  printers
+  printers,
 };
