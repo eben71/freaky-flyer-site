@@ -4,8 +4,13 @@ import { loadPage } from '../lib/content.ts';
 
 const slug = 'pricing';
 const page = await loadPage(slug);
-const title = (page?.fm?.title as string) ?? 'Pricing | Freaky Flyer Delivery';
-const description = (page?.fm?.description as string) ?? '';
+const fallbackTitle = 'Pricing | Freaky Flyer Delivery';
+const fallbackDescription = '';
+const frontmatter = page?.fm ?? {};
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
+const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
 <BaseLayout {title} description={description}>
   {page ? (
