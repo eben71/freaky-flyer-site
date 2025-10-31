@@ -1,4 +1,3 @@
-// eslint.config.js
 import js from '@eslint/js';
 import astro from 'eslint-plugin-astro';
 
@@ -18,21 +17,23 @@ const browserGlobals = Object.fromEntries(
     'setInterval',
     'clearInterval',
     'requestAnimationFrame',
-    'cancelAnimationFrame',
+    'cancelAnimationFrame'
   ].map((name) => [name, 'readonly'])
 );
 
+const jsRecommendedRules = js.configs.recommended.rules ?? {};
+
 export default [
-  js.configs.recommended,
-  ...pluginAstro.configs['flat/recommended'],
   {
-    files: ['**/*.js'],
-    ...js.configs.recommended,
+    files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      globals: browserGlobals,
+      globals: browserGlobals
     },
+    rules: {
+      ...jsRecommendedRules
+    }
   },
-  ...astro.configs.recommended,
+  ...astro.configs.recommended
 ];
