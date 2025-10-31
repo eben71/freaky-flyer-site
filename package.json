@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "format": "prettier --write .",
-    "lint": "eslint ."
+    "format:check": "prettier --check .",
+    "lint": "eslint src --ext .astro,.js"
   },
   "dependencies": {
     "astro": "^5.15.2"
