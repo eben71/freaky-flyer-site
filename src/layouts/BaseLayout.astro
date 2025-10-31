@@ -1,27 +1,19 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import stylesheet from "../styles/globals.css?url";
-const {
-  title = "Freaky Flyer Delivery",
-  description = "GPS-verified flyer delivery services across Perth.",
-} = Astro.props;
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+const { title = 'Freaky Flyer Delivery', description = '' } = Astro.props;
 ---
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="stylesheet" href={stylesheet} />
-    <slot name="head" />
+    {description && <meta name="description" content={description} />}
+    <link rel="stylesheet" href="/src/styles/globals.css" />
   </head>
-  <body class="site-body">
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+  <body>
     <Header />
-    <main id="main-content" class="site-main" role="main">
-      <slot name="breadcrumbs" />
+    <main class="container">
       <slot />
     </main>
     <Footer />

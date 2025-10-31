@@ -1,18 +1,16 @@
 ---
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/areas", label: "Areas We Cover" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/areas', label: 'Areas' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ];
 ---
 <header class="site-header" role="banner">
   <div class="container header__inner">
-    <a class="site-logo" href="/" aria-label="Freaky Flyer Delivery home">
-      <span aria-hidden="true">FFD</span>
-    </a>
+    <a class="site-logo" href="/" aria-label="Freaky Flyer Delivery home">FFD</a>
     <button
       class="nav-toggle"
       type="button"
@@ -20,11 +18,16 @@ const navItems = [
       aria-controls="primary-navigation"
       data-nav-toggle
     >
-      <span class="nav-toggle__icon" aria-hidden="true"></span>
-      <span class="nav-toggle__label">Menu</span>
+      Menu
     </button>
-    <nav id="primary-navigation" class="primary-nav" aria-label="Primary">
-      <ul class="primary-nav__list" hidden>
+    <nav
+      id="primary-navigation"
+      class="primary-nav"
+      aria-label="Main navigation"
+      data-nav
+      data-collapsed
+    >
+      <ul class="primary-nav__list" data-nav-list>
         {navItems.map((item) => (
           <li class="primary-nav__item">
             <a class="primary-nav__link" href={item.href}>{item.label}</a>
@@ -35,39 +38,38 @@ const navItems = [
   </div>
 </header>
 <script is:inline>
-  const navToggle = document.querySelector('[data-nav-toggle]');
-  const primaryNav = document.getElementById('primary-navigation');
-  const navList = primaryNav?.querySelector('ul');
-  if (navToggle && primaryNav && navList) {
-    const setExpanded = (expanded) => {
-      navToggle.setAttribute('aria-expanded', String(expanded));
-      primaryNav.toggleAttribute('data-open', expanded);
-      navList.toggleAttribute('hidden', !expanded);
-    };
-
-    const mq = window.matchMedia('(min-width: 769px)');
-    const handleBreakpoint = () => {
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-nav]');
+  if (toggle && nav) {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const syncMenu = () => {
       if (mq.matches) {
-        navList.removeAttribute('hidden');
-        primaryNav.removeAttribute('data-open');
-        navToggle.setAttribute('aria-expanded', 'false');
+        nav.removeAttribute('data-open');
+        nav.removeAttribute('data-collapsed');
+        toggle.setAttribute('aria-expanded', 'false');
       } else {
-        navList.setAttribute('hidden', '');
-        primaryNav.removeAttribute('data-open');
-        navToggle.setAttribute('aria-expanded', 'false');
+        nav.removeAttribute('data-open');
+        nav.setAttribute('data-collapsed', '');
+        toggle.setAttribute('aria-expanded', 'false');
       }
     };
-
+    syncMenu();
     if (typeof mq.addEventListener === 'function') {
-      mq.addEventListener('change', handleBreakpoint);
+      mq.addEventListener('change', syncMenu);
     } else if (typeof mq.addListener === 'function') {
-      mq.addListener(handleBreakpoint);
+      mq.addListener(syncMenu);
     }
-    handleBreakpoint();
-
-    navToggle.addEventListener('click', () => {
-      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-      setExpanded(!isExpanded);
+    toggle.addEventListener('click', () => {
+      if (mq.matches) return;
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      if (expanded) {
+        nav.removeAttribute('data-open');
+        nav.setAttribute('data-collapsed', '');
+      } else {
+        nav.setAttribute('data-open', '');
+        nav.removeAttribute('data-collapsed');
+      }
     });
   }
 </script>
