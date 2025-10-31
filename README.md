@@ -1,6 +1,6 @@
 # Freaky Flyer Delivery (Phase 1)
 
-Static marketing site scaffold for Freaky Flyer Delivery built with Astro.
+Static marketing site for Freaky Flyer Delivery built with Astro.
 
 ## Stack
 
@@ -14,6 +14,12 @@ Static marketing site scaffold for Freaky Flyer Delivery built with Astro.
 pnpm install
 pnpm dev
 ```
+
+Visit http://localhost:4321 to view the site.
+
+## Pages
+
+- `/` – GPS-verified flyer delivery overview with hero and value highlights
 
 ## Build
 

@@ -1,0 +1,19 @@
+---
+const {
+  title = "Ready to take flight?",
+  body = "Let our crew handle the distribution so you can focus on growing your business.",
+  actionLabel = "Book a discovery call",
+  actionHref = "/contact",
+} = Astro.props;
+---
+<section class="cta" aria-labelledby="cta-heading">
+  <div class="container cta__inner">
+    <div>
+      <h2 id="cta-heading">{title}</h2>
+      <p>{body}</p>
+    </div>
+    <p class="cta__actions">
+      <a class="button button--primary" href={actionHref}>{actionLabel}</a>
+    </p>
+  </div>
+</section>
