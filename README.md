@@ -15,6 +15,9 @@ pnpm install
 pnpm dev
 ```
 
+> **Note**
+> When new tooling dependencies are added, run `pnpm install --no-frozen-lockfile` to refresh `pnpm-lock.yaml` locally before relying on cached installs.
+
 Visit http://localhost:4321 to view the site.
 
 ## Pages
@@ -47,3 +50,36 @@ pnpm build
 
 - Prettier configured with two-space indentation and single quotes.
 - ESLint with Astro recommended rules.
+
+## Content Migration
+
+Preferred (WordPress REST):
+
+```bash
+WP_BASE=https://freakyflyerdelivery.com.au pnpm export:wp
+```
+
+Fallback (scrape public HTML):
+
+```bash
+BASE_URL=https://freakyflyerdelivery.com.au pnpm export:html
+```
+
+Optimize images and relink:
+
+```bash
+pnpm images
+```
+
+Build redirects from mapping:
+
+```bash
+pnpm redirects
+```
+
+Outputs:
+
+- Markdown pages → `src/content/pages/*.md`
+- Raw images → `public/assets/img/raw/...`
+- Optimized images → `public/assets/img/optimized/...`
+- Downloads → `public/downloads/`

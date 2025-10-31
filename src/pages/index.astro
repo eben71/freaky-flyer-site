@@ -1,50 +1,64 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadPage } from "../lib/content.ts";
 
-const pageTitle = "Freaky Flyer Delivery";
-const description = "GPS-verified flyer delivery in Perth.";
+const slug = 'index';
+const page = await loadPage(slug);
+const fallbackTitle = "Freaky Flyer Delivery";
+const fallbackDescription = "GPS-verified flyer delivery in Perth.";
+const frontmatter = page?.fm ?? {};
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
+const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
-<BaseLayout title={pageTitle} description={description}>
-  <section class="hero" aria-labelledby="hero-heading">
-    <div class="hero__inner">
-      <div>
-        <p class="visually-hidden" id="hero-tagline">Flyers delivered with GPS verification</p>
-        <h1 id="hero-heading" class="hero__title">GPS-verified flyer delivery in Perth</h1>
-        <p>
-          Keep your promotions on track with accountable street teams and suburb-level reporting.
-        </p>
-        <div class="hero__actions" role="group" aria-label="Primary actions">
-          <a class="button button--primary" href="/contact">Talk to the team</a>
-          <a class="button button--secondary" href="/services">Explore services</a>
+<BaseLayout {title} description={description}>
+  {page ? (
+    <Fragment set:html={page.html} />
+  ) : (
+    <>
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero__inner">
+          <div>
+            <p class="visually-hidden" id="hero-tagline">Flyers delivered with GPS verification</p>
+            <h1 id="hero-heading" class="hero__title">GPS-verified flyer delivery in Perth</h1>
+            <p>
+              Keep your promotions on track with accountable street teams and suburb-level reporting.
+            </p>
+            <div class="hero__actions" role="group" aria-label="Primary actions">
+              <a class="button button--primary" href="/contact">Talk to the team</a>
+              <a class="button button--secondary" href="/services">Explore services</a>
+            </div>
+          </div>
+          <div class="card" aria-labelledby="promise-heading">
+            <h2 id="promise-heading">What you can expect</h2>
+            <p>
+              Consistent walkers, timely drops, and transparent GPS logs so you can prove every flyer made it to
+              the letterbox.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="card" aria-labelledby="promise-heading">
-        <h2 id="promise-heading">What you can expect</h2>
-        <p>
-          Consistent walkers, timely drops, and transparent GPS logs so you can prove every flyer made it to
-          the letterbox.
-        </p>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <section aria-labelledby="value-heading" class="value-grid">
-    <div class="stack">
-      <h2 id="value-heading">Value for every drop</h2>
-      <div class="grid grid--cols-3">
-        <article class="card">
-          <h3>Route planning support</h3>
-          <p>Suburb selection tailored for WA businesses, backed by local experience.</p>
-        </article>
-        <article class="card">
-          <h3>GPS-tracked walkers</h3>
-          <p>Every delivery comes with timestamped breadcrumb trails.</p>
-        </article>
-        <article class="card">
-          <h3>Accountable reporting</h3>
-          <p>Receive clear summaries so stakeholders can review campaign impact.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+      <section aria-labelledby="value-heading" class="value-grid">
+        <div class="stack">
+          <h2 id="value-heading">Value for every drop</h2>
+          <div class="grid grid--cols-3">
+            <article class="card">
+              <h3>Route planning support</h3>
+              <p>Suburb selection tailored for WA businesses, backed by local experience.</p>
+            </article>
+            <article class="card">
+              <h3>GPS-tracked walkers</h3>
+              <p>Every delivery comes with timestamped breadcrumb trails.</p>
+            </article>
+            <article class="card">
+              <h3>Accountable reporting</h3>
+              <p>Receive clear summaries so stakeholders can review campaign impact.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </>
+  )}
 </BaseLayout>
