@@ -1,0 +1,12 @@
+{
+  "/": "index",
+  "/about-us/": "about",
+  "/about-us/meet-the-team/": "about",
+  "/about-us/our-story/": "about",
+  "/contact-us/": "contact",
+  "/flyer-delivery-services-perth/": "services",
+  "/flyer-delivery-services-perth/our-flyer-delivery-technique/": "services",
+  "/flyer-delivery-services-perth/flyer-delivery-pricing/": "pricing",
+  "/gps-tracking/": "areas",
+  "/flyer-tips/": "services"
+}
