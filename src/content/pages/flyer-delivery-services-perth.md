@@ -11,35 +11,36 @@ images:
     /assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-3-960.webp
   - /assets/img/optimized/flyer-delivery-services-perth/cross-3-960.webp
 ---
+
 **Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
 
 [](https://www.facebook.com/freakyflyerdelivery/?ref=br_rs)[](https://twitter.com/flyerfreaky)[](https://www.instagram.com/freakyflyerdelivery/)
 
 [![Freaky Flyer Delivery](//freakyflyerdelivery.com.au/wp-content/uploads/2018/11/FFD_WEB_LOGO.png)](https://freakyflyerdelivery.com.au/) [Navigation](#)
 
--   [Home](https://freakyflyerdelivery.com.au/)
--   [About Us](https://freakyflyerdelivery.com.au/about-us/)
-    -   [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-    -   [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
--   [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-    -   [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-    -   [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-    -   [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
--   [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
--   [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
--   [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](https://freakyflyerdelivery.com.au/)
+- [About Us](https://freakyflyerdelivery.com.au/about-us/)
+  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
+  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
+- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
+  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
+  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
+  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
+- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
+- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
+- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
--   [Home](https://freakyflyerdelivery.com.au/)
--   [About Us](https://freakyflyerdelivery.com.au/about-us/)
-    -   [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-    -   [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
--   [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-    -   [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-    -   [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-    -   [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
--   [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
--   [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
--   [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](https://freakyflyerdelivery.com.au/)
+- [About Us](https://freakyflyerdelivery.com.au/about-us/)
+  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
+  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
+- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
+  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
+  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
+  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
+- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
+- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
+- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
 # PERTH FLYER DELIVERY
 
@@ -55,38 +56,37 @@ Additionally, we maintain a reliable fleet of delivery bikes and delivery riders
 
 # WHAT SETS US APART
 
--   #### Unique Delivery Methodology Ensures Maximum Exposure
-    
-    We superjacent our flyers, splicing/stacking them together one by one, to ensure that when flyers are placed in residential letterboxes by our riders, they spread out inside the box, ensuring maximum client exposure as the residents clear out their mailbox.
-    
--   #### Flyers Never Placed in Newspapers or Bulk Catalouges
-    
-    We will never place our clients flyers inside bulk catalogues or newspapers, as this significantly reduces our clients exposure! Often times, newspapers are put in the bin without inspection, reducing your flyers impression to zero. Avoiding this strategy ensures that our clients maximise their exposure as their flyers will be the first thing the house holder sees upon looking in the letter box.
-    
--   #### Delivery Areas Capped at Six Flyers Maximum
-    
-    We limit the amount of flyers we will distribute on only individual routes, this ensures our clients receive maximum exposure and impression amongst residents, without overflowing their letterbox and creating a negative first impression.
-    
--   #### Competitive Rates, for a Superior Service
-    
-    As a family owned and operated business, we understand the importance of great customer service, as well as flexibility. We offer the same service as our nation’s standard provider, but at a much more affordable price, while also keeping our staff local to Western Australia.
-    
--   #### We Deliver the Majority of the Perth Metro Area, and Growing!
-    
-    Our delivery and distribution zones cover Two Rocks in the North to Rockingham in the South, Kalamunda in the East, all along the West Coast and most places in between. However we are constantly finding new ways to expand our area of operations and deliver a greater service to our clients.
-    
--   #### GPS Tracking on ALL Our Riders Ensures Accountability
-    
-    As part as offering the most trustworthy service we can, all of our riders are required to wear GPS tracker, enabling our office to oversee delivery operations and provide peace of mind to our clients that their flyers have been delivered.
-    
--   #### Dry Flyers are Delivered, Regardless of the Weather!
-    
-    Our riders use Honda CT-110 motorbikes with completely waterproof rear pannier bags, ensuring that our flyers are kept dry during the wet seasons. Our bikes also have a front pouch keeping your flyers dry while allowing the rider to safely maneuver them into the letterbox.
-    
--   #### We Offer Maximum Flexibility for All Our Clients
-    
-    We will always try to meet the needs of our clients allowing for last minute bookings, pickups and changes to the best of our ability. We also require the flyers on Thursday, the week prior to delivery, and this is one of the shortest time frames offered in the industry.
-    
+- #### Unique Delivery Methodology Ensures Maximum Exposure
+
+  We superjacent our flyers, splicing/stacking them together one by one, to ensure that when flyers are placed in residential letterboxes by our riders, they spread out inside the box, ensuring maximum client exposure as the residents clear out their mailbox.
+
+- #### Flyers Never Placed in Newspapers or Bulk Catalouges
+
+  We will never place our clients flyers inside bulk catalogues or newspapers, as this significantly reduces our clients exposure! Often times, newspapers are put in the bin without inspection, reducing your flyers impression to zero. Avoiding this strategy ensures that our clients maximise their exposure as their flyers will be the first thing the house holder sees upon looking in the letter box.
+
+- #### Delivery Areas Capped at Six Flyers Maximum
+
+  We limit the amount of flyers we will distribute on only individual routes, this ensures our clients receive maximum exposure and impression amongst residents, without overflowing their letterbox and creating a negative first impression.
+
+- #### Competitive Rates, for a Superior Service
+
+  As a family owned and operated business, we understand the importance of great customer service, as well as flexibility. We offer the same service as our nation’s standard provider, but at a much more affordable price, while also keeping our staff local to Western Australia.
+
+- #### We Deliver the Majority of the Perth Metro Area, and Growing!
+
+  Our delivery and distribution zones cover Two Rocks in the North to Rockingham in the South, Kalamunda in the East, all along the West Coast and most places in between. However we are constantly finding new ways to expand our area of operations and deliver a greater service to our clients.
+
+- #### GPS Tracking on ALL Our Riders Ensures Accountability
+
+  As part as offering the most trustworthy service we can, all of our riders are required to wear GPS tracker, enabling our office to oversee delivery operations and provide peace of mind to our clients that their flyers have been delivered.
+
+- #### Dry Flyers are Delivered, Regardless of the Weather!
+
+  Our riders use Honda CT-110 motorbikes with completely waterproof rear pannier bags, ensuring that our flyers are kept dry during the wet seasons. Our bikes also have a front pouch keeping your flyers dry while allowing the rider to safely maneuver them into the letterbox.
+
+- #### We Offer Maximum Flexibility for All Our Clients
+
+  We will always try to meet the needs of our clients allowing for last minute bookings, pickups and changes to the best of our ability. We also require the flyers on Thursday, the week prior to delivery, and this is one of the shortest time frames offered in the industry.
 
 [Our Splicing Technique](/flyer-delivery-services-perth/our-flyer-delivery-technique/)
 
@@ -151,9 +151,8 @@ Like us on [**Facebook**](https://www.facebook.com/freakyflyerdelivery/)
 Follow us on [**Instagram**](https://www.instagram.com/freakyflyerdelivery/)  
 Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
-© 2019 FREAKY FLYER DELIVERY PTY LTD | **ABN:** 34 606 384 570  
-  
+© 2019 FREAKY FLYER DELIVERY PTY LTD | **ABN:** 34 606 384 570
+
 WEB DESIGN & DEVELOPMENT BY [**NKSMEDIA**](http://www.nksmedia.net)
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
-

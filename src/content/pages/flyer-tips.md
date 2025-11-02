@@ -9,35 +9,36 @@ images:
   - /assets/img/optimized/flyer-tips/ffdweblogo-3-960.webp
   - /assets/img/optimized/flyer-tips/cross-3-960.webp
 ---
+
 **Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
 
 [](https://www.facebook.com/freakyflyerdelivery/?ref=br_rs)[](https://twitter.com/flyerfreaky)[](https://www.instagram.com/freakyflyerdelivery/)
 
 [![Freaky Flyer Delivery](//freakyflyerdelivery.com.au/wp-content/uploads/2018/11/FFD_WEB_LOGO.png)](https://freakyflyerdelivery.com.au/) [Navigation](#)
 
--   [Home](https://freakyflyerdelivery.com.au/)
--   [About Us](https://freakyflyerdelivery.com.au/about-us/)
-    -   [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-    -   [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
--   [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-    -   [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-    -   [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-    -   [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
--   [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
--   [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
--   [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](https://freakyflyerdelivery.com.au/)
+- [About Us](https://freakyflyerdelivery.com.au/about-us/)
+  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
+  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
+- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
+  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
+  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
+  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
+- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
+- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
+- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
--   [Home](https://freakyflyerdelivery.com.au/)
--   [About Us](https://freakyflyerdelivery.com.au/about-us/)
-    -   [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-    -   [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
--   [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-    -   [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-    -   [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-    -   [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
--   [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
--   [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
--   [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](https://freakyflyerdelivery.com.au/)
+- [About Us](https://freakyflyerdelivery.com.au/about-us/)
+  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
+  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
+- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
+  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
+  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
+  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
+- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
+- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
+- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
 # FLYER TIPS
 
@@ -52,9 +53,9 @@ images:
 7.  Leave contact info - obvious but easily forgotten, the best place for this information is in the bottom section of a flyer.
 8.  Proofread your work - a smple mistake can distract the reader from the main message you are trying to tell.
 9.  Use a language the target audience will understand - this one is self explanatory, use sentence structure and words that your target audience will understand, keep use of jargon to a minimum.
-10.  Use testimonials - a good testimonial from a satisfied client can work wonders for your flyer, just make sure they are well written.
-11.  Use colours - not only is it eye catching but certain colours can be used to invoke a physiological response. Green colours used on a grocery store flyer invokes the response that the groceries must be fresh!
-12.  Choose the right paper and colour format - thicker and higher quality paper is vastly superior to thin low quality paper, making your advert seem more sophisticated. Printing in colour is always a good way to increase the quality of your advert, compared to black and white.
+10. Use testimonials - a good testimonial from a satisfied client can work wonders for your flyer, just make sure they are well written.
+11. Use colours - not only is it eye catching but certain colours can be used to invoke a physiological response. Green colours used on a grocery store flyer invokes the response that the groceries must be fresh!
+12. Choose the right paper and colour format - thicker and higher quality paper is vastly superior to thin low quality paper, making your advert seem more sophisticated. Printing in colour is always a good way to increase the quality of your advert, compared to black and white.
 
 # We look forward to working with you, please contact our friendly sales team for a quote.
 
@@ -83,9 +84,8 @@ Like us on [**Facebook**](https://www.facebook.com/freakyflyerdelivery/)
 Follow us on [**Instagram**](https://www.instagram.com/freakyflyerdelivery/)  
 Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
-© 2019 FREAKY FLYER DELIVERY PTY LTD | **ABN:** 34 606 384 570  
-  
+© 2019 FREAKY FLYER DELIVERY PTY LTD | **ABN:** 34 606 384 570
+
 WEB DESIGN & DEVELOPMENT BY [**NKSMEDIA**](http://www.nksmedia.net)
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
-

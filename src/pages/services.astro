@@ -14,14 +14,42 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <Fragment set:html={page.html} />
+    <section class="section">
+      <div class="container">
+        <Fragment set:html={page.html} />
+      </div>
+    </section>
   ) : (
-    <div class="stack">
-      <h1>Services</h1>
-      <p>
-        Explore our end-to-end flyer delivery packages, from suburb selection and route planning to
-        GPS-verified reporting once the drops are complete.
-      </p>
-    </div>
+    <>
+      <section class="section">
+        <div class="container">
+          <h1>Services</h1>
+          <p>
+            Explore our end-to-end flyer delivery packages, from suburb selection and route planning to GPS-verified reporting
+            once the drops are complete.
+          </p>
+        </div>
+      </section>
+
+      <section class="section surface" aria-labelledby="service-highlights">
+        <div class="container">
+          <h2 id="service-highlights">How we deliver accountable campaigns</h2>
+          <div class="grid cols-3">
+            <article class="card">
+              <h3>Refined distribution technique</h3>
+              <p>Local walkers briefed on each run to follow pacing, coverage, and suburb priorities.</p>
+            </article>
+            <article class="card">
+              <h3>Quality assurance built-in</h3>
+              <p>GPS logs and field supervisor spot checks verify every bundle lands where it should.</p>
+            </article>
+            <article class="card">
+              <h3>Metro-wide coverage</h3>
+              <p>North and south Perth routes, with tailored volumes for the neighbourhoods you target most.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </>
   )}
 </BaseLayout>

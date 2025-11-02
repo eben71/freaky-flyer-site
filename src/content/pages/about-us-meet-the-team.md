@@ -12,35 +12,36 @@ images:
   - /assets/img/optimized/about-us-meet-the-team/ffdps-23-3-960.webp
   - /assets/img/optimized/about-us-meet-the-team/cross-3-960.webp
 ---
+
 **Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
 
 [](https://www.facebook.com/freakyflyerdelivery/?ref=br_rs)[](https://twitter.com/flyerfreaky)[](https://www.instagram.com/freakyflyerdelivery/)
 
 [![Freaky Flyer Delivery](//freakyflyerdelivery.com.au/wp-content/uploads/2018/11/FFD_WEB_LOGO.png)](https://freakyflyerdelivery.com.au/) [Navigation](#)
 
--   [Home](https://freakyflyerdelivery.com.au/)
--   [About Us](https://freakyflyerdelivery.com.au/about-us/)
-    -   [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-    -   [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
--   [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-    -   [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-    -   [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-    -   [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
--   [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
--   [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
--   [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](https://freakyflyerdelivery.com.au/)
+- [About Us](https://freakyflyerdelivery.com.au/about-us/)
+  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
+  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
+- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
+  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
+  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
+  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
+- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
+- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
+- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
--   [Home](https://freakyflyerdelivery.com.au/)
--   [About Us](https://freakyflyerdelivery.com.au/about-us/)
-    -   [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-    -   [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
--   [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-    -   [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-    -   [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-    -   [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
--   [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
--   [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
--   [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](https://freakyflyerdelivery.com.au/)
+- [About Us](https://freakyflyerdelivery.com.au/about-us/)
+  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
+  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
+- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
+  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
+  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
+  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
+- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
+- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
+- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
 # MEET OUR TEAM
 
@@ -60,10 +61,6 @@ Nick’s main goal is to provide a cost effective, efficient and reliable flyer 
 
 Nick isn’t all about work though, he has raised 4 beautiful adults; Al, Bec, Kat and Blake. As well as having got the chance to travel much of the world with his beautiful wife Tracey.
 
-  
-  
-  
-
 ![Image](https://freakyflyerdelivery.com.au/wp-content/uploads/2018/12/FFDPS-12.jpg)
 
 # BEC WREN
@@ -77,10 +74,6 @@ Prior to joining Freaky Flyer Delivery, Bec worked 6 years within the retail ind
 Bec is a conscientious, organized, friendly individual, who will always put her heart and sole into her work. Our clients will largely be interacting with Bec when arranging the flyer delivery, and any other administrative requirements relative to their flyer delivery. Bec strives to provide you with excellent service every time!
 
 Bec’s interests are traveling, making their house a home to enjoy and spending quality time with her family; particularly with her nieces and nephews who love her to bits.
-
-  
-  
-  
 
 ![Image](https://freakyflyerdelivery.com.au/wp-content/uploads/2018/12/FFDPS-23.jpg)
 
@@ -97,10 +90,6 @@ Blake served 5 years in the Australian Air Force Cadets, teaching him exceptiona
 Our clients first interaction with the company is often when they meet Blake, whether that is through the use of social media or in store / office consultations.
 
 Blake is here to assist with all your flyer delivery advertising requirements.
-
-  
-  
-  
 
 # We look forward to working with you, please contact our friendly sales team for a quote.
 
@@ -129,9 +118,8 @@ Like us on [**Facebook**](https://www.facebook.com/freakyflyerdelivery/)
 Follow us on [**Instagram**](https://www.instagram.com/freakyflyerdelivery/)  
 Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
-© 2019 FREAKY FLYER DELIVERY PTY LTD | **ABN:** 34 606 384 570  
-  
+© 2019 FREAKY FLYER DELIVERY PTY LTD | **ABN:** 34 606 384 570
+
 WEB DESIGN & DEVELOPMENT BY [**NKSMEDIA**](http://www.nksmedia.net)
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
-
