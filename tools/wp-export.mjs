@@ -1,6 +1,7 @@
 import path from 'path';
 import TurndownService from 'turndown';
 import matter from 'gray-matter';
+import { load } from 'cheerio';
 import { parseHTML } from 'linkedom';
 import {
   createLogger,
@@ -162,6 +163,84 @@ function htmlFromContent(content = '') {
   return document.body.innerHTML;
 }
 
+function extractCleanHtml(html = '') {
+  const allowedTags = new Set([
+    'div',
+    'p',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'ul',
+    'ol',
+    'li',
+    'a',
+    'img',
+    'span',
+    'strong',
+    'em',
+    'b',
+    'i',
+    'u',
+    'code',
+    'br',
+  ]);
+  const voidTags = new Set(['img', 'br']);
+
+  const $ = load(`<body>${html}</body>`, {
+    decodeEntities: false,
+    lowerCaseTags: true,
+  });
+
+  $('script, style, noscript').remove();
+
+  const processNodes = (nodes = []) =>
+    nodes
+      .map((node) => {
+        if (!node) return '';
+        if (node.type === 'text') {
+          return node.data || '';
+        }
+        if (node.type === 'tag') {
+          const name = node.name?.toLowerCase?.() || '';
+          const children = processNodes(node.children || []);
+
+          if (!allowedTags.has(name)) {
+            return children;
+          }
+
+          if (name === 'img') {
+            const attrs = [];
+            const src = node.attribs?.src;
+            const alt = node.attribs?.alt;
+            if (src) attrs.push(`src="${src}"`);
+            if (alt) attrs.push(`alt="${alt}"`);
+            const attrString = attrs.length > 0 ? ` ${attrs.join(' ')}` : '';
+            return `<img${attrString} />`;
+          }
+
+          if (name === 'a') {
+            const href = node.attribs?.href;
+            const attrString = href ? ` href="${href}"` : '';
+            return `<a${attrString}>${children}</a>`;
+          }
+
+          if (voidTags.has(name)) {
+            return `<${name} />`;
+          }
+
+          return `<${name}>${children}</${name}>`;
+        }
+        return '';
+      })
+      .join('');
+
+  const cleanBody = processNodes($('body').contents().toArray());
+  return `<body>${cleanBody}</body>`;
+}
+
 async function ensureImage(url, flatSlug, index, hint = '') {
   if (!url) return null;
   const normalized = url.startsWith('http') ? url : normalizeUrl(baseUrl, url);
@@ -290,7 +369,16 @@ async function processPage(page) {
     }
   }
 
-  const markdown = turndownService.turndown(document.body.innerHTML);
+  const contentHTML = extractCleanHtml(document.body.innerHTML || '');
+  const $ = load(contentHTML);
+  const cleanHTML = $('body').html() || contentHTML;
+  let markdown = turndownService.turndown(cleanHTML).trim();
+  if (markdown.length < 30) {
+    const fallbackText = $('body').text().trim();
+    if (fallbackText) {
+      markdown = `${markdown}\n\n${fallbackText}`.trim();
+    }
+  }
   const description = extractDescription(page);
   const images = unique(
     Array.from(downloadedImages.values()).map((item) => item.publicOptimized)
@@ -305,8 +393,9 @@ async function processPage(page) {
     images,
   };
 
-  const fileContents = matter.stringify(markdown.trim(), frontmatter);
-  await writeText(targetPath, `${fileContents}\n`);
+  const output = matter.stringify(markdown, frontmatter);
+  await writeText(targetPath, `${output}\n`);
+  logger.info(`[wp-export] Written content length: ${markdown.length}`);
   return {
     slug: slugInfo.flatSlug,
     title,
