@@ -1,9 +1,11 @@
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
+import { join } from 'node:path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
-const CONTENT_DIR = new URL('../content/pages/', import.meta.url);
-const PAGE_MAP_URL = new URL('../../tools/page-map.json', import.meta.url);
+const ROOT_DIR = process.cwd();
+const CONTENT_DIR = join(ROOT_DIR, 'src', 'content', 'pages');
+const PAGE_MAP_PATH = join(ROOT_DIR, 'tools', 'page-map.json');
 
 interface PageIndexEntry {
   file: string;
@@ -37,15 +39,25 @@ async function getPageIndex(): Promise<PageIndexEntry[]> {
     return pageIndexCache;
   }
 
-  const entries = await fs.readdir(CONTENT_DIR, { withFileTypes: true });
+  let entries;
+  try {
+    entries = await fs.readdir(CONTENT_DIR, { withFileTypes: true });
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') {
+      pageIndexCache = [];
+      return pageIndexCache;
+    }
+    throw error;
+  }
+
   const pages: PageIndexEntry[] = [];
 
   for (const entry of entries) {
     if (!entry.isFile() || !entry.name.endsWith('.md')) {
       continue;
     }
-    const fileUrl = new URL(`./${entry.name}`, CONTENT_DIR);
-    const raw = await fs.readFile(fileUrl, 'utf8');
+    const filePath = join(CONTENT_DIR, entry.name);
+    const raw = await fs.readFile(filePath, 'utf8');
     const parsed = matter(raw);
     pages.push({
       file: entry.name,
@@ -64,7 +76,7 @@ async function getPageMap(): Promise<Record<string, string>> {
   }
 
   try {
-    const raw = await fs.readFile(PAGE_MAP_URL, 'utf8');
+    const raw = await fs.readFile(PAGE_MAP_PATH, 'utf8');
     const parsed = JSON.parse(raw) as Record<string, string>;
     pageMapCache = parsed;
     return parsed;
