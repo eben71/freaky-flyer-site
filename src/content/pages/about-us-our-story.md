@@ -10,5 +10,3 @@ images:
   - /assets/img/optimized/about-us-our-story/ffdps-27-1-960.webp
   - /assets/img/optimized/about-us-our-story/cross-1-960.webp
 ---
-
-

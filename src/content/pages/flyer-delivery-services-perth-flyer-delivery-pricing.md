@@ -12,5 +12,3 @@ images:
   - >-
     /assets/img/optimized/flyer-delivery-services-perth-flyer-delivery-pricing/cross-1-960.webp
 ---
-
-

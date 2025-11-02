@@ -16,5 +16,3 @@ images:
   - >-
     /assets/img/optimized/flyer-delivery-services-perth-https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/cross-1-960.webp
 ---
-
-

@@ -18,5 +18,3 @@ images:
   - >-
     /assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/cross-1-960.webp
 ---
-
-
