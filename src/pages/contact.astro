@@ -14,14 +14,55 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <Fragment set:html={page.html} />
+    <section class="section">
+      <div class="container">
+        <Fragment set:html={page.html} />
+      </div>
+    </section>
   ) : (
-    <div class="stack">
-      <h1>Contact Us</h1>
-      <p>
-        Ready to launch your next drop? Reach out with your target suburbs and timeline so we can tailor a
-        GPS-backed distribution plan for you.
-      </p>
-    </div>
+    <section class="section">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <p>
+          Ready to launch your next drop? Reach out with your target suburbs and timeline so we can tailor a GPS-backed
+          distribution plan for you.
+        </p>
+        <div class="grid" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);">
+          <div class="card">
+            <h2>Talk to the team</h2>
+            <p><strong>Phone:</strong> (08) 1234 5678</p>
+            <p><strong>Email:</strong> hello@freakyflyer.example</p>
+            <p><strong>Address:</strong> 123 Placeholder Avenue, Perth WA 6000</p>
+            <p class="muted">We aim to reply to all enquiries within one business day.</p>
+          </div>
+          <div class="card">
+            <h2>Request a callback</h2>
+            <form aria-label="Request a callback" onsubmit="return false;">
+              <div class="grid" style="grid-template-columns: 1fr; gap: var(--space-3);">
+                <label>
+                  <span>Name</span>
+                  <input type="text" name="name" placeholder="Your name" required />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input type="email" name="email" placeholder="you@example.com" required />
+                </label>
+                <label>
+                  <span>Suburbs of interest</span>
+                  <textarea name="details" rows="4" placeholder="Let us know the areas you're targeting"></textarea>
+                </label>
+                <button class="button primary" type="submit">Send Enquiry</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   )}
 </BaseLayout>
+
+<style>
+section .card label{display:grid;gap:var(--space-2);font-weight:600;color:var(--fg)}
+section .card input, section .card textarea{padding:12px 14px;border-radius:10px;border:1px solid #d7dce5;font:inherit}
+section .card input:focus-visible, section .card textarea:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+</style>

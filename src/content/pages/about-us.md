@@ -9,5 +9,3 @@ images:
   - /assets/img/optimized/about-us/ffdweblogo-1-960.webp
   - /assets/img/optimized/about-us/cross-1-960.webp
 ---
-
-

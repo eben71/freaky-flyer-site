@@ -10,5 +10,3 @@ images:
   - /assets/img/optimized/index/ffdwarehousepersonell-1-960.webp
   - /assets/img/optimized/index/cross-1-960.webp
 ---
-
-

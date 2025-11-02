@@ -12,5 +12,3 @@ images:
   - /assets/img/optimized/about-us-meet-the-team/ffdps-23-1-960.webp
   - /assets/img/optimized/about-us-meet-the-team/cross-1-960.webp
 ---
-
-

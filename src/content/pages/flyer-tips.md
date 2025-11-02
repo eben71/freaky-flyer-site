@@ -9,5 +9,3 @@ images:
   - /assets/img/optimized/flyer-tips/ffdweblogo-1-960.webp
   - /assets/img/optimized/flyer-tips/cross-1-960.webp
 ---
-
-

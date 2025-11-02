@@ -9,5 +9,3 @@ images:
   - /assets/img/optimized/gps-tracking/ffdweblogo-1-960.webp
   - /assets/img/optimized/gps-tracking/cross-1-960.webp
 ---
-
-

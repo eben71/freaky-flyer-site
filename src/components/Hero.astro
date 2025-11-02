@@ -1,0 +1,42 @@
+---
+const {
+  kicker = '',
+  title,
+  text = '',
+  primaryHref = '#',
+  primaryText = '',
+  secondaryHref = '',
+  secondaryText = '',
+  imgSrc,
+  headingId = 'hero-heading',
+} = Astro.props;
+---
+<section class="section" aria-labelledby={headingId}>
+  <div class="container">
+    <div class="hero">
+      <div>
+        {kicker && <p class="kicker muted">{kicker}</p>}
+        <h1 id={headingId}>{title}</h1>
+        {text && <p>{text}</p>}
+        <div class="hero__actions" role="group" aria-label="Primary actions">
+          {primaryText && (
+            <a class="button primary" href={primaryHref}>{primaryText}</a>
+          )}
+          {secondaryText && secondaryHref && (
+            <a class="button outline" href={secondaryHref}>{secondaryText}</a>
+          )}
+        </div>
+      </div>
+      {imgSrc && (
+        <div class="hero__media">
+          <img src={imgSrc} alt="" loading="lazy" />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+.hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-6)}
+.hero__media img{border-radius:var(--radius);box-shadow:var(--shadow)}
+</style>

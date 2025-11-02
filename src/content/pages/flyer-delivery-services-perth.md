@@ -11,5 +11,3 @@ images:
     /assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-1-960.webp
   - /assets/img/optimized/flyer-delivery-services-perth/cross-1-960.webp
 ---
-
-

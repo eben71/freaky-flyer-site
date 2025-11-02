@@ -14,14 +14,36 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <Fragment set:html={page.html} />
+    <section class="section">
+      <div class="container">
+        <Fragment set:html={page.html} />
+      </div>
+    </section>
   ) : (
-    <div class="stack">
-      <h1>Pricing</h1>
-      <p>
-        Choose a pricing option that suits your campaign scale, with transparent rates per thousand drops
-        and bundled reporting to keep stakeholders informed.
-      </p>
-    </div>
+    <>
+      <section class="section">
+        <div class="container">
+          <h1>Pricing</h1>
+          <p>
+            Choose a pricing option that suits your campaign scale, with transparent rates per thousand drops and bundled reporting
+            to keep stakeholders informed.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="pricing-download">
+        <div class="container">
+          <div class="card">
+            <div class="badge">Updated quarterly</div>
+            <h2 id="pricing-download">Download latest pricing</h2>
+            <p>Grab the newest rate card in your preferred format to share with your team.</p>
+            <div class="hero__actions" role="group" aria-label="Pricing downloads">
+              <a class="button primary" href="/downloads/freaky-flyer-pricing.csv">Download CSV</a>
+              <a class="button outline" href="/downloads/freaky-flyer-pricing.pdf">Download PDF</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   )}
 </BaseLayout>
