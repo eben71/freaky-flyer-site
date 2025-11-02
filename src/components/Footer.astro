@@ -1,38 +1,44 @@
-<footer class="site-footer" role="contentinfo">
-  <div class="container footer__inner">
-    <div class="footer__brand">
-      <h2 class="footer__title">Freaky Flyer Delivery</h2>
-      <p>
-        123 Placeholder Avenue<br />
-        Perth WA 6000
-      </p>
-      <p>
-        <strong>Phone:</strong> (08) 1234 5678<br />
-        <strong>Email:</strong> hello@freakyflyer.example
-      </p>
+<footer class="site" role="contentinfo">
+  <div class="container section">
+    <div class="cols">
+      <div>
+        <h2>Freaky Flyer Delivery</h2>
+        <p>
+          123 Placeholder Avenue<br />
+          Perth WA 6000
+        </p>
+        <p>
+          <strong>Phone:</strong> (08) 1234 5678<br />
+          <strong>Email:</strong> hello@freakyflyer.example
+        </p>
+      </div>
+      <div>
+        <h2>Quick Links</h2>
+        <ul>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/areas">Areas</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Operating Hours</h2>
+        <ul>
+          <li>Mon – Fri: 8:00am – 6:00pm</li>
+          <li>Saturday: 9:00am – 2:00pm</li>
+          <li>Sunday: By appointment</li>
+        </ul>
+      </div>
     </div>
-    <div class="footer__hours">
-      <h2 class="footer__title">Service Hours</h2>
-      <ul class="footer__list">
-        <li>Monday to Friday: 8am – 6pm</li>
-        <li>Saturday: 9am – 2pm</li>
-        <li>Sunday: By appointment</li>
-      </ul>
-    </div>
-    <div class="footer__links">
-      <h2 class="footer__title">Quick Links</h2>
-      <ul class="footer__list">
-        <li><a href="/services">Services</a></li>
-        <li><a href="/pricing">Pricing</a></li>
-        <li><a href="/areas">Areas</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer__note">
-    <div class="container">
-      <p>© {new Date().getFullYear()} Freaky Flyer Delivery. All rights reserved.</p>
+    <div class="legal">
+      <p>© {new Date().getFullYear()} Freaky Flyer Delivery · ABN 00 000 000 000</p>
     </div>
   </div>
 </footer>
+
+<style is:global>
+footer.site h2{font-size:1rem;margin-bottom:var(--space-2)}
+footer.site ul{margin:0;padding:0;list-style:none;display:grid;gap:var(--space-2)}
+footer.site p{margin:0 0 var(--space-3)}
+</style>

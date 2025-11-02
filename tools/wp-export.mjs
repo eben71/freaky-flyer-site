@@ -1,6 +1,7 @@
 import path from 'path';
 import TurndownService from 'turndown';
 import matter from 'gray-matter';
+import { load } from 'cheerio';
 import { parseHTML } from 'linkedom';
 import {
   createLogger,
@@ -64,15 +65,16 @@ const turndownService = new TurndownService({
   bulletListMarker: '-',
 });
 
+// keep tables
 ['table', 'thead', 'tbody', 'tr', 'td', 'th'].forEach((tag) =>
   turndownService.keep(tag)
 );
 
+// minor cleanups
 turndownService.addRule('wp-figure', {
   filter: ['figure'],
   replacement: (content) => `\n\n${content.trim()}\n\n`,
 });
-
 turndownService.addRule('clean-nbsps', {
   filter: (node) =>
     node.nodeName === '#text' && node.nodeValue.includes('\u00a0'),
@@ -86,12 +88,8 @@ function decodeHtml(htmlString = '') {
 
 function ensurePathname(pathname = '/') {
   let value = pathname || '/';
-  if (!value.startsWith('/')) {
-    value = `/${value}`;
-  }
-  if (value !== '/' && !value.endsWith('/')) {
-    value = `${value}/`;
-  }
+  if (!value.startsWith('/')) value = `/${value}`;
+  if (value !== '/' && !value.endsWith('/')) value = `${value}/`;
   return value;
 }
 
@@ -107,27 +105,16 @@ function deriveSlugInfo(link) {
       .map((segment) => safeSlug(segment));
     const alias = segments[segments.length - 1] || 'index';
     const flatSlug = segments.length > 0 ? segments.join('-') : 'index';
-    return {
-      oldUrl: url.toString(),
-      oldPath,
-      alias,
-      flatSlug,
-    };
-  } catch (error) {
+    return { oldUrl: url.toString(), oldPath, alias, flatSlug };
+  } catch {
     const fallback = safeSlug(link || 'index', 'index');
     const alias = fallback || 'index';
     const oldPath = alias === 'index' ? '/' : ensurePathname(alias);
     const resolvedUrl =
       normalizeUrl(baseUrl, oldPath) ||
       normalizeUrl(baseUrl, link || '') ||
-      normalizedLink ||
       `${baseUrl.replace(/\/$/, '')}/${alias}`;
-    return {
-      oldUrl: resolvedUrl,
-      oldPath,
-      alias,
-      flatSlug: alias,
-    };
+    return { oldUrl: resolvedUrl, oldPath, alias, flatSlug: alias };
   }
 }
 
@@ -146,9 +133,7 @@ function extractDescription(page) {
   if (page.yoast_head) {
     const { document } = parseHTML(page.yoast_head);
     const meta = document.querySelector('meta[name="description"]');
-    if (meta?.getAttribute('content')) {
-      return meta.getAttribute('content');
-    }
+    if (meta?.getAttribute('content')) return meta.getAttribute('content');
   }
   return '';
 }
@@ -160,6 +145,81 @@ function htmlFromContent(content = '') {
     .querySelectorAll('script, style, noscript')
     .forEach((el) => el.remove());
   return document.body.innerHTML;
+}
+
+function extractCleanHtml(html = '') {
+  const allowedTags = new Set([
+    'div',
+    'p',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'ul',
+    'ol',
+    'li',
+    'a',
+    'img',
+    'span',
+    'strong',
+    'em',
+    'b',
+    'i',
+    'u',
+    'code',
+    'br',
+  ]);
+  const voidTags = new Set(['img', 'br']);
+  const $ = load(`<body>${html}</body>`, {
+    decodeEntities: false,
+    lowerCaseTags: true,
+  });
+  $('script, style, noscript').remove();
+
+  const processNodes = (nodes = []) =>
+    nodes
+      .map((node) => {
+        if (!node) return '';
+        if (node.type === 'text') return node.data || '';
+        if (node.type === 'tag') {
+          const name = node.name?.toLowerCase?.() || '';
+          const children = processNodes(node.children || []);
+          if (!allowedTags.has(name)) return children;
+          if (name === 'img') {
+            const attrs = [];
+            const src = node.attribs?.src;
+            const alt = node.attribs?.alt;
+            if (src) attrs.push(`src="${src}"`);
+            if (alt) attrs.push(`alt="${alt}"`);
+            const attrString = attrs.length > 0 ? ` ${attrs.join(' ')}` : '';
+            return `<img${attrString} />`;
+          }
+          if (name === 'a') {
+            const href = node.attribs?.href;
+            const attrString = href ? ` href="${href}"` : '';
+            return `<a${attrString}>${children}</a>`;
+          }
+          if (voidTags.has(name)) return `<${name} />`;
+          return `<${name}>${children}</${name}>`;
+        }
+        return '';
+      })
+      .join('');
+
+  const cleanBody = processNodes($('body').contents().toArray());
+  return `<body>${cleanBody}</body>`;
+}
+
+// NEW: fetch the fully rendered HTML for a page (for content fallback)
+async function fetchRenderedHtml(url) {
+  const response = await fetchWithRetry(
+    url,
+    { headers: { Accept: 'text/html' } },
+    { attempts: 3, delayMs: Math.max(delayMs, 500) }
+  );
+  return await response.text();
 }
 
 async function ensureImage(url, flatSlug, index, hint = '') {
@@ -194,12 +254,7 @@ async function ensureImage(url, flatSlug, index, hint = '') {
   const optimizedName = `${path.basename(candidate, ext)}-960.webp`;
   const publicOptimized =
     `/assets/img/optimized/${posixDir}/${optimizedName}`.replace(/\/+/g, '/');
-  return {
-    url: normalized,
-    destination,
-    publicRaw,
-    publicOptimized,
-  };
+  return { url: normalized, destination, publicRaw, publicOptimized };
 }
 
 async function processPage(page) {
@@ -227,16 +282,14 @@ async function processPage(page) {
       image = await ensureImage(normalized, slugInfo.flatSlug, index, hint);
       if (image) {
         downloadedImages.set(normalized, image);
-        if (source === 'rendered') {
-          renderedCount += 1;
-        } else {
-          embeddedCount += 1;
-        }
+        if (source === 'rendered') renderedCount += 1;
+        else embeddedCount += 1;
       }
     }
     return image;
   };
 
+  // Embedded images from REST HTML
   const imageNodes = Array.from(document.querySelectorAll('img'));
   for (const img of imageNodes) {
     const candidateSrc =
@@ -253,6 +306,7 @@ async function processPage(page) {
     }
   }
 
+  // Featured media
   const featured = page._embedded?.['wp:featuredmedia'] || [];
   for (const media of featured) {
     const source = media?.source_url;
@@ -260,14 +314,10 @@ async function processPage(page) {
     await queueImage(source, media?.slug || title, 'embedded');
   }
 
+  // If no images yet, try rendered page fetch for image discovery
   if (downloadedImages.size === 0 && shouldFetchRendered && slugInfo.oldUrl) {
     try {
-      const response = await fetchWithRetry(
-        slugInfo.oldUrl,
-        { headers: { Accept: 'text/html' } },
-        { attempts: 3, delayMs: Math.max(delayMs, 500) }
-      );
-      const html = await response.text();
+      const html = await fetchRenderedHtml(slugInfo.oldUrl);
       const { document: renderedDocument } = parseHTML(html);
       const renderedImages = Array.from(
         renderedDocument.querySelectorAll('img')
@@ -290,7 +340,52 @@ async function processPage(page) {
     }
   }
 
-  const markdown = turndownService.turndown(document.body.innerHTML);
+  // Build content markdown (REST first)
+  const contentHTML = extractCleanHtml(document.body.innerHTML || '');
+  const $ = load(contentHTML);
+  const cleanHTML = $('body').html() || contentHTML;
+  let markdown = turndownService.turndown(cleanHTML).trim();
+  let contentSource = 'rest';
+
+  // Fallback to RENDERED HTML if REST conversion is too short
+  if (markdown.length < 80 && shouldFetchRendered && slugInfo.oldUrl) {
+    try {
+      const renderedHtml = await fetchRenderedHtml(slugInfo.oldUrl);
+      const { document: renderedDoc } = parseHTML(renderedHtml);
+      const renderedBody =
+        renderedDoc.querySelector('main')?.innerHTML ||
+        renderedDoc.body?.innerHTML ||
+        '';
+      const renderedClean = extractCleanHtml(renderedBody);
+      const $$ = load(renderedClean);
+      const renderedHtmlForMd = $$('body').html() || renderedClean;
+      const mdFromRendered = turndownService.turndown(renderedHtmlForMd).trim();
+      if (mdFromRendered.length > markdown.length) {
+        markdown = mdFromRendered;
+        contentSource = 'rendered';
+      }
+      if (markdown.length < 80) {
+        const plain = ($$('body').text() || '').replace(/\s+/g, ' ').trim();
+        if (plain.length > markdown.length) {
+          markdown = plain;
+          contentSource = 'rendered-text';
+        }
+      }
+    } catch (e) {
+      // ignore; keep REST version
+    }
+  }
+
+  // As a last resort, use plain text from REST-cleaned HTML
+  if (markdown.length < 40) {
+    const plainRest = ($('body').text() || '').replace(/\s+/g, ' ').trim();
+    if (plainRest) {
+      markdown = plainRest;
+      contentSource =
+        contentSource === 'rendered' ? 'rendered-text' : 'rest-text';
+    }
+  }
+
   const description = extractDescription(page);
   const images = unique(
     Array.from(downloadedImages.values()).map((item) => item.publicOptimized)
@@ -305,14 +400,18 @@ async function processPage(page) {
     images,
   };
 
-  const fileContents = matter.stringify(markdown.trim(), frontmatter);
-  await writeText(targetPath, `${fileContents}\n`);
+  const output = matter.stringify(markdown, frontmatter);
+  await writeText(targetPath, `${output}\n`);
+  logger.info(
+    `[wp-export] slug=${slugInfo.flatSlug} title="${title}" content=${markdown.length} chars source=${contentSource} images=${images.length} (embedded:${embeddedCount}, rendered:${renderedCount})`
+  );
+
   return {
     slug: slugInfo.flatSlug,
     title,
     embedded: embeddedCount,
     rendered: renderedCount,
-    total: downloadedImages.size,
+    total: images.length,
   };
 }
 
@@ -361,9 +460,6 @@ async function fetchAllPages() {
         try {
           const result = await processPage(next);
           results.push(result);
-          logger.info(
-            `slug=${result.slug}, images=${result.total} (embedded: ${result.embedded}, rendered: ${result.rendered})`
-          );
         } catch (error) {
           const message =
             error instanceof Error ? error.message : String(error);
@@ -372,21 +468,19 @@ async function fetchAllPages() {
             message
           );
         }
-        if (delayMs > 0) {
-          await sleep(delayMs);
-        }
+        if (delayMs > 0) await sleep(delayMs);
       }
     });
 
     await Promise.all(workers);
 
     const aggregate = results.reduce(
-      (accumulator, item) => {
-        accumulator.pages += 1;
-        accumulator.images += item.total;
-        accumulator.embedded += item.embedded;
-        accumulator.rendered += item.rendered;
-        return accumulator;
+      (acc, item) => {
+        acc.pages += 1;
+        acc.images += item.total;
+        acc.embedded += item.embedded;
+        acc.rendered += item.rendered;
+        return acc;
       },
       { pages: 0, images: 0, embedded: 0, rendered: 0 }
     );

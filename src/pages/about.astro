@@ -14,14 +14,28 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <Fragment set:html={page.html} />
+    <section class="section">
+      <div class="container">
+        <Fragment set:html={page.html} />
+      </div>
+    </section>
   ) : (
-    <div class="stack">
-      <h1>About Freaky Flyer Delivery</h1>
-      <p>
-        Learn how our experienced distribution team blends on-the-ground knowledge with GPS tools to keep
-        local campaigns accountable and effective.
-      </p>
-    </div>
+    <>
+      <section class="section">
+        <div class="container">
+          <h1>About Freaky Flyer Delivery</h1>
+        </div>
+      </section>
+      <section class="section surface">
+        <div class="container">
+          <div class="card">
+            <p>
+              Learn how our experienced distribution team blends on-the-ground knowledge with GPS tools to keep local campaigns
+              accountable and effective.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   )}
 </BaseLayout>

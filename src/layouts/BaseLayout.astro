@@ -1,7 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import globalStyles from '../styles/globals.css?url';
+import '../styles/globals.css';
 
 const { title = 'Freaky Flyer Delivery', description = '' } = Astro.props;
 const hasDescription = typeof description === 'string' && description.trim().length > 0;
@@ -18,11 +18,10 @@ const pageTitle = title;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     {hasDescription && <meta name="twitter:description" content={description} />}
-    <link rel="stylesheet" href={globalStyles} />
   </head>
   <body>
     <Header />
-    <main class="container">
+    <main>
       <slot />
     </main>
     <Footer />

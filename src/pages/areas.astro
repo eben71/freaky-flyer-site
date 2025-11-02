@@ -14,14 +14,36 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <Fragment set:html={page.html} />
+    <section class="section">
+      <div class="container">
+        <Fragment set:html={page.html} />
+      </div>
+    </section>
   ) : (
-    <div class="stack">
-      <h1>Service Areas</h1>
-      <p>
-        We specialise in Perth metro deliveries, covering northern and southern corridors with walkers
-        matched to the suburbs you need to reach most.
-      </p>
-    </div>
+    <>
+      <section class="section">
+        <div class="container">
+          <h1>Service Areas</h1>
+          <p>
+            We specialise in Perth metro deliveries, covering northern and southern corridors with walkers matched to the suburbs
+            you need to reach most.
+          </p>
+        </div>
+      </section>
+
+      <section class="section surface" aria-labelledby="areas-legend">
+        <div class="container">
+          <h2 id="areas-legend">Coverage legend</h2>
+          <div class="card">
+            <p>Interactive maps are on the way. For now, use this legend to brief our team on where to focus.</p>
+            <ul>
+              <li><strong>Core suburbs:</strong> Regular weekly drops with walkers familiar to the streets.</li>
+              <li><strong>Expansion zones:</strong> Scheduled fortnightly with lead time for bundling and transport.</li>
+              <li><strong>Campaign hotspots:</strong> High-priority runs planned alongside in-store or event activations.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
   )}
 </BaseLayout>
