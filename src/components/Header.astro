@@ -8,68 +8,55 @@ const navItems = [
   { href: '/contact', label: 'Contact' },
 ];
 ---
-<header class="site-header" role="banner">
-  <div class="container header__inner">
-    <a class="site-logo" href="/" aria-label="Freaky Flyer Delivery home">FFD</a>
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="primary-navigation"
-      data-nav-toggle
-    >
-      Menu
-    </button>
-    <nav
-      id="primary-navigation"
-      class="primary-nav"
-      aria-label="Main navigation"
-      data-nav
-      data-collapsed
-    >
-      <ul class="primary-nav__list" data-nav-list>
+<header class="site" role="banner">
+  <div class="topbar">
+    <div class="container topbar__content">
+      <span class="muted">Perth-wide GPS flyer distribution</span>
+      <div class="topbar__links">
+        <a href="tel:+61812345678">Call (08) 1234 5678</a>
+        <span aria-hidden="true">•</span>
+        <a href="mailto:hello@freakyflyer.example">hello@freakyflyer.example</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="Freaky Flyer Delivery home">FFD</a>
+      <details class="nav-menu">
+        <summary aria-label="Toggle navigation" role="button">Menu</summary>
+        <ul>
+          {navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </details>
+      <ul class="nav-links">
         {navItems.map((item) => (
-          <li class="primary-nav__item">
-            <a class="primary-nav__link" href={item.href}>{item.label}</a>
+          <li>
+            <a href={item.href}>{item.label}</a>
           </li>
         ))}
       </ul>
     </nav>
   </div>
 </header>
-<script is:inline>
-  const toggle = document.querySelector('[data-nav-toggle]');
-  const nav = document.querySelector('[data-nav]');
-  if (toggle && nav) {
-    const mq = window.matchMedia('(min-width: 768px)');
-    const syncMenu = () => {
-      if (mq.matches) {
-        nav.removeAttribute('data-open');
-        nav.removeAttribute('data-collapsed');
-        toggle.setAttribute('aria-expanded', 'false');
-      } else {
-        nav.removeAttribute('data-open');
-        nav.setAttribute('data-collapsed', '');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-    };
-    syncMenu();
-    if (typeof mq.addEventListener === 'function') {
-      mq.addEventListener('change', syncMenu);
-    } else if (typeof mq.addListener === 'function') {
-      mq.addListener(syncMenu);
-    }
-    toggle.addEventListener('click', () => {
-      if (mq.matches) return;
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      if (expanded) {
-        nav.removeAttribute('data-open');
-        nav.setAttribute('data-collapsed', '');
-      } else {
-        nav.setAttribute('data-open', '');
-        nav.removeAttribute('data-collapsed');
-      }
-    });
-  }
-</script>
+
+<style is:global>
+.nav-links{display:flex;align-items:center;gap:var(--space-2);margin:0;padding:0;list-style:none}
+.nav-links li{margin:0}
+.nav-menu{display:none;position:relative}
+.nav-menu summary{list-style:none;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
+.nav-menu summary::-webkit-details-marker{display:none}
+.nav-menu[open] summary{background:var(--surface)}
+.nav-menu ul{margin:var(--space-2) 0 0;padding:var(--space-3);border-radius:var(--radius);background:white;box-shadow:var(--shadow);list-style:none;display:grid;gap:var(--space-2)}
+.nav-menu ul li{margin:0}
+.topbar__content{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
+.topbar__links{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .nav-menu{display:block}
+  .nav-menu ul{position:absolute;right:0;min-width:200px}
+}
+</style>
