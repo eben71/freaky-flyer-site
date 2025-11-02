@@ -187,7 +187,10 @@ async function ensureImage(url, flatSlug, index, hint = '') {
   }
   const destination = path.join(fsDir, candidate);
   await downloadFile(normalized, destination);
-  const publicRaw = `/assets/img/raw/${posixDir}/${candidate}`.replace(/\/+/g, '/');
+  const publicRaw = `/assets/img/raw/${posixDir}/${candidate}`.replace(
+    /\/+/g,
+    '/'
+  );
   const optimizedName = `${path.basename(candidate, ext)}-960.webp`;
   const publicOptimized =
     `/assets/img/optimized/${posixDir}/${optimizedName}`.replace(/\/+/g, '/');
@@ -204,7 +207,9 @@ async function processPage(page) {
   const targetPath = path.join(outDir, `${slugInfo.flatSlug}.md`);
   await ensureDir(path.dirname(targetPath));
 
-  const title = cleanTitle(page.title?.rendered || page.slug || slugInfo.flatSlug);
+  const title = cleanTitle(
+    page.title?.rendered || page.slug || slugInfo.flatSlug
+  );
   const rawHtml = htmlFromContent(page.content?.rendered || '');
   const { document } = parseHTML(`<body>${rawHtml}</body>`);
 
@@ -270,11 +275,14 @@ async function processPage(page) {
       for (const img of renderedImages) {
         const candidateSrc =
           img.getAttribute('data-src') || img.getAttribute('src');
-        await queueImage(candidateSrc, img.getAttribute('alt') || title, 'rendered');
+        await queueImage(
+          candidateSrc,
+          img.getAttribute('alt') || title,
+          'rendered'
+        );
       }
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : String(error);
+      const message = error instanceof Error ? error.message : String(error);
       logger.warn(
         `Failed to fetch rendered page for ${slugInfo.flatSlug}:`,
         message

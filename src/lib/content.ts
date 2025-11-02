@@ -16,7 +16,10 @@ let pageMapCache: Record<string, string> | null = null;
 
 function normalizeSlug(input: string | null | undefined): string {
   if (!input) return 'index';
-  const trimmed = input.trim().replace(/^\/+|\/+$/g, '').toLowerCase();
+  const trimmed = input
+    .trim()
+    .replace(/^\/+|\/+$/g, '')
+    .toLowerCase();
   return trimmed.length > 0 ? trimmed : 'index';
 }
 
