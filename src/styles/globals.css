@@ -247,7 +247,9 @@ header.site {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.9rem;
-  transition: color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
 }
 .nav a.is-active,
 .nav a:hover {
@@ -432,7 +434,11 @@ header.site.nav-open .nav-toggle__icon span:nth-child(3) {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(227, 24, 55, 0.85), rgba(201, 16, 44, 0.8));
+  background: linear-gradient(
+    0deg,
+    rgba(227, 24, 55, 0.85),
+    rgba(201, 16, 44, 0.8)
+  );
 }
 .hero__content {
   position: relative;
