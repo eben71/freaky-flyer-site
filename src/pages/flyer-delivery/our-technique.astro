@@ -1,28 +1,36 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadPage } from '../../lib/content.ts';
-import ContentBlock from '../_partials/ContentBlock.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadPage } from "../../lib/content.ts";
+import ContentBlock from "../_partials/ContentBlock.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
 
-const slug = 'flyer-delivery-services-perth-our-flyer-delivery-technique';
+const slug = "flyer-delivery-services-perth-our-flyer-delivery-technique";
 const page = await loadPage(slug);
-const fallbackTitle = 'Our Flyer Delivery Technique | Freaky Flyer Delivery';
-const fallbackDescription = '';
+const fallbackTitle = "Our Flyer Delivery Technique";
+const fallbackDescription = "How the Freaky Flyer Delivery crew covers every street with accountable workflows.";
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
-const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
+const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <ContentBlock html={page.html} />
+    <>
+      <section class="section surface">
+        <div class="container">
+          <SectionHeader title={page.fm?.title ?? "Our Flyer Delivery Technique"} />
+        </div>
+      </section>
+      <ContentBlock html={page.html} />
+    </>
   ) : (
-    <section class="section">
+    <section class="section surface">
       <div class="container">
-        <h1>Our Flyer Delivery Technique</h1>
+        <SectionHeader title="Our Flyer Delivery Technique" />
         <p>
-          Learn how our walkers cover every street with supervisor check-ins, GPS trails, and real-time communication back to yo
-          ur marketing team.
+          Learn how our walkers cover every street with supervisor check-ins, GPS trails, and real-time communication back to
+          your marketing team.
         </p>
       </div>
     </section>

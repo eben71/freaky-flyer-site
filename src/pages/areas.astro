@@ -1,22 +1,23 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { loadPage } from '../lib/content.ts';
-import ContentBlock from './_partials/ContentBlock.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadPage } from "../lib/content.ts";
+import ContentBlock from "./_partials/ContentBlock.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 
-const slug = 'areas';
+const slug = "areas";
 const page = await loadPage(slug);
-const fallbackTitle = 'Service Areas | Freaky Flyer Delivery';
-const fallbackDescription = '';
+const fallbackTitle = "Delivery Areas";
+const fallbackDescription = "See where Freaky Flyer Delivery covers across the Perth metro area.";
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
-const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
+const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
 <BaseLayout {title} description={description}>
   <section class="section surface">
     <div class="container">
-      <h2>Where We Deliver</h2>
+      <SectionHeader title="Delivery Areas" />
       {!page && (
         <p>
           We specialise in Perth metro deliveries, covering northern and southern corridors with walkers matched to the suburbs
@@ -26,21 +27,47 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
     </div>
   </section>
 
-  {page ? (
-    <ContentBlock html={page.html} />
-  ) : (
-    <section class="section" aria-labelledby="areas-legend">
-      <div class="container">
-        <div class="card">
-          <h3 id="areas-legend" style="text-transform:uppercase;letter-spacing:.05em">Coverage legend</h3>
-          <p>Interactive maps are on the way. For now, use this legend to brief our team on where to focus.</p>
-          <ul>
-            <li><strong>Core suburbs:</strong> Regular weekly drops with walkers familiar to the streets.</li>
-            <li><strong>Expansion zones:</strong> Scheduled fortnightly with lead time for bundling and transport.</li>
-            <li><strong>Campaign hotspots:</strong> High-priority runs planned alongside in-store or event activations.</li>
-          </ul>
-        </div>
+  <section class="section areas-map">
+    <div class="container">
+      <div class="map-shell">
+        <div id="coverage-map" role="presentation" aria-hidden="true"></div>
+        <aside class="map-note">
+          <h3>Coverage overlay coming soon</h3>
+          <p>
+            Map overlay coming soon. Postcode data will be loaded from <code>/assets/data/coverage.json</code> when supplied.
+          </p>
+        </aside>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
+
+  {page && <ContentBlock html={page.html} />}
+
+  <script type="module" src="/src/scripts/map.ts"></script>
 </BaseLayout>
+
+<style>
+.map-shell {
+  display: grid;
+  gap: var(--space-4);
+}
+
+#coverage-map {
+  width: 100%;
+  min-height: 540px;
+  border-radius: var(--radius);
+  background: repeating-linear-gradient(45deg, #f3f4f6, #f3f4f6 12px, #e5e7eb 12px, #e5e7eb 24px);
+  border: 2px dashed rgba(17, 24, 39, 0.2);
+}
+
+.map-note {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  box-shadow: var(--shadow);
+}
+
+.map-note h3 {
+  margin-top: 0;
+}
+</style>

@@ -31,14 +31,20 @@
     "eslint-plugin-astro": "^1.4.0",
     "fast-glob": "^3.3.3",
     "linkedom": "^0.18.5",
-    "prettier": "^3.3.3",
-    "prettier-plugin-astro": "file:vendor/prettier-plugin-astro",
+    "prettier": "latest",
+    "prettier-plugin-astro": "latest",
     "sharp": "^0.33.5",
-    "undici": "^6.19.8"
+    "undici": "^6.19.8",
+    "@astrojs/sitemap": "latest"
   },
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
   },
-  "_comment": "Future dependencies to be added: PHPMailer, Leaflet, togeojson, and related tooling."
+  "_comment": "Future dependencies to be added: PHPMailer, Leaflet, togeojson, and related tooling.",
+  "pnpm": {
+    "overrides": {
+      "@astrojs/sitemap": "link:vendor/astrojs-sitemap"
+    }
+  }
 }

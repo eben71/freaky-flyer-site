@@ -1,5 +1,5 @@
 ---
-import { sanitizeHtml } from '../../lib/sanitize';
+import { sanitizeHtml } from "../../lib/sanitize";
 const { html = "" } = Astro.props;
 const clean = sanitizeHtml(html);
 ---
@@ -13,9 +13,45 @@ const clean = sanitizeHtml(html);
 .prose {
   max-width: 75ch;
   line-height: 1.7;
+  font-size: 1.05rem;
 }
-.prose h1, .prose h2, .prose h3 { margin-top: var(--space-8); }
-.prose img { border-radius: var(--radius); box-shadow: var(--shadow); margin: var(--space-6) 0; }
-.prose ul { padding-left: 1.25rem; }
-.prose li { margin: .3rem 0; }
+
+.prose > *:first-child {
+  margin-top: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 var(--space-4);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+}
+
+.prose li {
+  margin: 0 0 var(--space-2);
+}
+
+.prose img {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: var(--space-6) 0;
+}
+
+@media (max-width: 720px) {
+  .prose {
+    font-size: 1rem;
+  }
+}
 </style>
