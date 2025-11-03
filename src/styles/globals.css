@@ -283,6 +283,7 @@ header.site {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.9rem;
+  white-space: nowrap;
   transition:
     color 0.15s ease,
     background 0.15s ease;
