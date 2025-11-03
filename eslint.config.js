@@ -25,6 +25,9 @@ const jsRecommendedRules = js.configs.recommended.rules ?? {};
 
 export default [
   {
+    ignores: ['**/*.ts'],
+  },
+  {
     files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
       ecmaVersion: 'latest',

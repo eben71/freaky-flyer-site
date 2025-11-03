@@ -17,9 +17,9 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Lint
-        run: pnpm lint
-      - name: Check formatting
-        run: pnpm format:check
+      - name: Prettier check
+        run: pnpm run format:check
+      - name: ESLint
+        run: pnpm run lint
       - name: Build
         run: pnpm build
