@@ -5,12 +5,7 @@ oldUrl: 'https://freakyflyerdelivery.com.au/about-us/meet-the-team/'
 oldPath: /about-us/meet-the-team/
 slug: about-us-meet-the-team
 alias: meet-the-team
-images:
-  - /assets/img/optimized/about-us-meet-the-team/ffdweblogo-3-960.webp
-  - /assets/img/optimized/about-us-meet-the-team/ffdps-27-1-3-960.webp
-  - /assets/img/optimized/about-us-meet-the-team/ffdps-12-3-960.webp
-  - /assets/img/optimized/about-us-meet-the-team/ffdps-23-3-960.webp
-  - /assets/img/optimized/about-us-meet-the-team/cross-3-960.webp
+images: []
 ---
 
 **Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
@@ -122,3 +117,4 @@ Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
+

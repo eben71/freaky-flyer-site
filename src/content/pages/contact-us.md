@@ -5,9 +5,7 @@ oldUrl: 'https://freakyflyerdelivery.com.au/contact-us/'
 oldPath: /contact-us/
 slug: contact-us
 alias: contact-us
-images:
-  - /assets/img/optimized/contact-us/ffdweblogo-3-960.webp
-  - /assets/img/optimized/contact-us/cross-3-960.webp
+images: []
 ---
 
 **Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
@@ -103,3 +101,4 @@ Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
+

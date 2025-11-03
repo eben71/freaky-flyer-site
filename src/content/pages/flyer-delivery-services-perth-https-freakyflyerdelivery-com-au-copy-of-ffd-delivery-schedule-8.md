@@ -8,13 +8,7 @@ oldPath: >-
 slug: >-
   flyer-delivery-services-perth-https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8
 alias: https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8
-images:
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/ffdweblogo-3-960.webp
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/ffdps-22-1-3-960.webp
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/cross-3-960.webp
+images: []
 ---
 
 **Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
@@ -88,3 +82,4 @@ Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
+

@@ -6,17 +6,7 @@ oldUrl: >-
 oldPath: /flyer-delivery-services-perth/our-flyer-delivery-technique/
 slug: flyer-delivery-services-perth-our-flyer-delivery-technique
 alias: our-flyer-delivery-technique
-images:
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/ffdweblogo-3-960.webp
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/ffdps-13-3-960.webp
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/ffdps-4-3-960.webp
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/ffdps-11-3-960.webp
-  - >-
-    /assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/cross-3-960.webp
+images: []
 ---
 
 **Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
@@ -102,3 +92,4 @@ Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
+
