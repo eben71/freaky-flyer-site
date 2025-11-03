@@ -1,16 +1,47 @@
 ---
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Us' },
-  { href: '/services', label: 'Flyer Delivery' },
-  { href: '/services#tips', match: '/services', label: 'Flyer Tips' },
-  { href: '/services#gps-tracking', match: '/services', label: 'GPS Tracking' },
+  {
+    href: '/about',
+    label: 'About Us',
+    children: [
+      { href: '/about/our-story', label: 'Our Story' },
+      { href: '/about/meet-the-team', label: 'Meet The Team' },
+    ],
+  },
+  {
+    href: '/flyer-delivery',
+    label: 'Flyer Delivery',
+    children: [
+      { href: '/flyer-delivery/our-technique', label: 'Our Technique' },
+      { href: '/flyer-delivery/pricing', label: 'Pricing' },
+      { href: '/flyer-delivery/schedule', label: 'Schedule' },
+    ],
+  },
+  { href: '/flyer-tips', label: 'Flyer Tips' },
+  { href: '/gps-tracking', label: 'GPS Tracking' },
   { href: '/contact', label: 'Contact Us' },
 ];
-const currentPath = Astro.url.pathname;
+
+const normalizePath = (path) => {
+  if (!path) return '/';
+  const cleaned = path.replace(/\/+$/, '');
+  return cleaned.length > 0 ? cleaned : '/';
+};
+
+const currentPath = normalizePath(Astro.url.pathname);
+
 const isActive = (item) => {
-  const matchTarget = item.match ?? item.href;
-  return matchTarget === currentPath;
+  const directMatch = normalizePath(item.href) === currentPath;
+  if (directMatch) {
+    return true;
+  }
+
+  if (Array.isArray(item.children)) {
+    return item.children.some((child) => normalizePath(child.href) === currentPath);
+  }
+
+  return false;
 };
 ---
 <header class="site" role="banner">
@@ -75,13 +106,37 @@ const isActive = (item) => {
         <img src="/assets/brand/ffd-logo.svg" alt="Freaky Flyer Delivery" width="140" height="36" />
       </a>
       <ul class="nav-links">
-        {navItems.map((item) => (
-          <li>
-            <a class={isActive(item) ? 'is-active' : undefined} href={item.href}>
-              {item.label}
-            </a>
-          </li>
-        ))}
+        {navItems.map((item) => {
+          const isParent = Array.isArray(item.children) && item.children.length > 0;
+          const itemClass = [isParent ? 'has-submenu' : null, isActive(item) ? 'is-active' : null]
+            .filter(Boolean)
+            .join(' ');
+          return (
+            <li class={itemClass || undefined}>
+              <a
+                class={isActive(item) ? 'is-active' : undefined}
+                href={item.href}
+                aria-haspopup={isParent ? 'true' : undefined}
+              >
+                {item.label}
+              </a>
+              {isParent && (
+                <ul class="nav-submenu" aria-label={`${item.label} submenu`}>
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        class={normalizePath(child.href) === currentPath ? 'is-active' : undefined}
+                        href={child.href}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </nav>
   </div>
