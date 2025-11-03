@@ -13,7 +13,45 @@ const {
       <p>{body}</p>
     </div>
     <p class="cta__actions">
-      <a class="button button--primary" href={actionHref}>{actionLabel}</a>
+      <a class="button primary" href={actionHref}>{actionLabel}</a>
     </p>
   </div>
 </section>
+
+<style>
+.cta {
+  background: var(--accent);
+  color: #fff;
+}
+
+.cta h2 {
+  color: #fff;
+  margin-bottom: var(--space-2);
+}
+
+.cta p {
+  color: #fff;
+  margin: 0;
+}
+
+.cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.cta__actions {
+  margin: 0;
+}
+
+.cta__actions .button {
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+
+.cta__actions .button:hover {
+  text-decoration: none;
+}
+</style>

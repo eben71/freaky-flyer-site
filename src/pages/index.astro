@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadPage } from "../lib/content.ts";
 import Hero from "../components/Hero.astro";
-import ContentBlock from "./_partials/ContentBlock.astro";
+import CTA from "../components/CTA.astro";
 
 const slug = 'index';
 const page = await loadPage(slug);
@@ -13,49 +13,500 @@ const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
 const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const heroImage = "https://freakyflyerdelivery.com.au/wp-content/uploads/2018/11/nw01ffd_home_banner.jpg"; // TODO: Replace with locally hosted hero background image.
+const aboutPanelImage = "https://freakyflyerdelivery.com.au/wp-content/uploads/2018/12/FFDPS-24.jpg"; // TODO: Mirror locally optimised About Us panel image.
+const flyerTipsPanelImage = "https://freakyflyerdelivery.com.au/wp-content/uploads/2018/12/FFDPS-1.jpg"; // TODO: Mirror locally optimised Flyer Tips panel image.
+const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
 ---
 <BaseLayout {title} description={description}>
   <Hero
-    image="/assets/brand/hero-placeholder.jpg"
-    kicker="Perth-wide GPS flyer distribution"
-    title="Freaky Flyer Delivery"
-    text="GPS-verified, professional flyer distribution across the Perth metro area. Family-owned. Reliable. Accountable."
+    image={heroImage}
+    kicker="Family owned. Perth proud."
+    title="Perth's specialists in flyer, brochure &amp; pamphlet delivery"
+    text="Full GPS tracking on every delivery so you can see exactly where your flyers go."
+  >
+    <div slot="actions">
+      <button type="button" class="button primary" data-modal-open="video-modal">
+        Watch Our Video
+      </button>
+      <a class="button button--light" href="/pricing">View Pricing</a>
+    </div>
+  </Hero>
+
+  <section aria-labelledby="intro-heading" class="section intro">
+    <div class="container intro__container">
+      <h2 id="intro-heading">Professional flyer distribution across Perth</h2>
+      <p>
+        We are a family-owned and operated flyer delivery business specialising in distributing flyers to residential homes across the Perth metropolitan area. Our full-time riders deliver an honest, reliable and accountable service for every campaign.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="pricing-heading" class="section pricing-highlight">
+    <div class="container pricing-highlight__inner">
+      <p class="badge pricing-highlight__badge">Residential letterbox distribution &amp; flyer delivery</p>
+      <h2 id="pricing-heading">From as low as</h2>
+      <p class="pricing-highlight__price">
+        $85.00
+        <span>per 1,000 homes (inc GST)</span>
+      </p>
+      <p class="pricing-highlight__note">*Conditions apply – ask our friendly staff for details.</p>
+      <a class="button button--inverted pricing-highlight__cta" href="/pricing">View Pricing</a>
+    </div>
+  </section>
+
+  <section aria-labelledby="learn-heading" class="section feature-panels">
+    <div class="container">
+      <h2 id="learn-heading" class="feature-panels__heading">Discover how we support your campaigns</h2>
+      <div class="feature-panels__grid">
+        <article class="feature-panel" style={`--panel-image: url(${aboutPanelImage})`}>
+          <div class="feature-panel__body">
+            <h3>About Us</h3>
+            <p>
+              Founded by ex-postal delivery officer Nick Wren in 2014, our team understands Perth suburbs and the importance of accountable, friendly service.
+            </p>
+            <a class="button button--light" href="/about">View More</a>
+          </div>
+        </article>
+        <article class="feature-panel" style={`--panel-image: url(${flyerTipsPanelImage})`}>
+          <div class="feature-panel__body">
+            <h3>Flyer Tips</h3>
+            <p>
+              Maximise your print advertising with guidance on campaign cadence, creative best practice, and how to make a standout first impression.
+            </p>
+            <a class="button button--light" href="/services">View More</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="why-heading" class="section why">
+    <div class="container why__layout">
+      <figure class="why__media">
+        <img
+          src={whyImage}
+          alt="Freaky Flyer Delivery team standing in the warehouse"
+          loading="lazy"
+          width="640"
+          height="728"
+        />
+      </figure>
+      <div class="why__content">
+        <h2 id="why-heading">Why choose Freaky Flyer Delivery?</h2>
+        <ol class="why__list">
+          <li class="why__item">
+            <span class="why__number">1</span>
+            <div>
+              <h3>Equalised drops for maximum exposure</h3>
+              <p>
+                Our preparation team layers every flyer set before the riders head out. Each drop fans out in the letterbox and the running order rotates between campaigns, sharing exposure evenly.
+              </p>
+            </div>
+          </li>
+          <li class="why__item">
+            <span class="why__number">2</span>
+            <div>
+              <h3>Proven delivery method built for Perth conditions</h3>
+              <p>
+                Dedicated riders use ex-Australia Post Honda CT110 motorbikes with waterproof panniers, keeping flyers dry and ensuring efficient delivery year-round.
+              </p>
+            </div>
+          </li>
+          <li class="why__item">
+            <span class="why__number">3</span>
+            <div>
+              <h3>GPS tracking you can trust</h3>
+              <p>
+                Every delivery run is GPS logged so you can confirm coverage down to the street. Smaller campaign batches mean greater visibility for each client.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="We look forward to working with you"
+    body="Contact our friendly sales team for a tailored quote and delivery schedule."
+    actionLabel="Contact Us"
+    actionHref="/contact"
   />
 
-  {page ? (
-    <ContentBlock html={page.html} />
-  ) : (
-    <>
-      <section aria-labelledby="value-heading" class="section surface">
-        <div class="container">
-          <h2 id="value-heading">Transparency, accountability, and better drops</h2>
-          <div class="grid cols-3">
-            <article class="card">
-              <h3>Route planning support</h3>
-              <p>Suburb selection tailored for WA businesses, backed by local delivery experience.</p>
-            </article>
-            <article class="card">
-              <h3>GPS-tracked walkers</h3>
-              <p>Every delivery comes with timestamped breadcrumb trails for proof of performance.</p>
-            </article>
-            <article class="card">
-              <h3>Accountable reporting</h3>
-              <p>Receive suburb summaries so stakeholders can review campaign impact at a glance.</p>
-            </article>
-          </div>
-        </div>
-      </section>
+  <dialog id="video-modal" class="video-modal" aria-labelledby="video-modal-heading">
+    <div class="video-modal__inner">
+      <header class="video-modal__header">
+        <h2 id="video-modal-heading">Freaky Flyer Delivery overview</h2>
+        <button type="button" class="video-modal__close" data-modal-close aria-label="Close video">
+          &times;
+        </button>
+      </header>
+      <div class="video-modal__body">
+        <iframe
+          src="https://www.youtube.com/embed/yqOR6wtYyjQ"
+          title="Freaky Flyer Delivery overview video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </dialog>
 
-      <section aria-labelledby="promise-heading" class="section">
-        <div class="container">
-          <div class="card">
-            <h2 id="promise-heading">What you can expect</h2>
-            <p>
-              Consistent walkers, timely drops, and transparent GPS logs so you can prove every flyer made it to the letterbox.
-            </p>
-          </div>
-        </div>
-      </section>
-    </>
-  )}
+  <script type="module">
+    const modal = document.getElementById('video-modal');
+    const triggers = document.querySelectorAll('[data-modal-open="video-modal"]');
+
+    if (modal instanceof HTMLDialogElement) {
+      const closeButton = modal.querySelector('[data-modal-close]');
+      const iframe = modal.querySelector('iframe');
+
+      const stopVideo = () => {
+        if (iframe && iframe instanceof HTMLIFrameElement) {
+          const src = iframe.getAttribute('src');
+          if (src) {
+            iframe.setAttribute('src', src);
+          }
+        }
+      };
+
+      const openModal = () => {
+        if (!modal.open) {
+          modal.showModal();
+        }
+      };
+
+      const closeModal = () => {
+        if (modal.open) {
+          modal.close();
+        }
+      };
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener('click', (event) => {
+          event.preventDefault();
+          openModal();
+        });
+      });
+
+      modal.addEventListener('close', () => {
+        stopVideo();
+      });
+
+      modal.addEventListener('cancel', (event) => {
+        event.preventDefault();
+        closeModal();
+      });
+
+      modal.addEventListener('click', (event) => {
+        const rect = modal.getBoundingClientRect();
+        const isInDialog =
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom;
+
+        if (!isInDialog) {
+          closeModal();
+        }
+      });
+
+      if (closeButton instanceof HTMLButtonElement) {
+        closeButton.addEventListener('click', () => {
+          closeModal();
+        });
+      }
+    }
+  </script>
+
+  <style>
+    .button--light {
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .button--light:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+      color: #fff;
+    }
+
+    .button--inverted {
+      background: #fff;
+      color: var(--accent);
+      border-color: #fff;
+    }
+
+    .button--inverted:hover {
+      background: #f5f5f5;
+      border-color: #f5f5f5;
+      color: var(--accent-600);
+    }
+
+    .intro {
+      background: #fff;
+      text-align: center;
+    }
+
+    .intro__container {
+      max-width: 70ch;
+      margin: 0 auto;
+    }
+
+    .intro__container p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .pricing-highlight {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+    }
+
+    .pricing-highlight__badge {
+      display: inline-block;
+      margin-bottom: var(--space-4);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .pricing-highlight h2 {
+      color: #fff;
+      margin-bottom: var(--space-2);
+    }
+
+    .pricing-highlight__price {
+      font-size: clamp(3rem, 8vw, 4.5rem);
+      margin: 0 0 var(--space-2);
+      font-weight: 800;
+    }
+
+    .pricing-highlight__price span {
+      display: block;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: var(--space-2);
+    }
+
+    .pricing-highlight__note {
+      margin-bottom: var(--space-6);
+      font-size: 0.95rem;
+    }
+
+    .feature-panels {
+      background: #fff;
+    }
+
+    .feature-panels__heading {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .feature-panels__grid {
+      display: grid;
+      gap: var(--space-6);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-panel {
+      position: relative;
+      min-height: 340px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      color: #fff;
+      display: flex;
+      align-items: flex-end;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--panel-image) center/cover no-repeat;
+      transform: scale(1.02);
+    }
+
+    .feature-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%);
+    }
+
+    .feature-panel__body {
+      position: relative;
+      padding: var(--space-8);
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .feature-panel__body h3 {
+      margin: 0;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .feature-panel__body p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .why__layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .why__media img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .why__content h2 {
+      margin-bottom: var(--space-6);
+    }
+
+    .why__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .why__item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+
+    .why__number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 800;
+      width: 44px;
+      height: 44px;
+      font-size: 1.2rem;
+    }
+
+    .why__item h3 {
+      margin-bottom: var(--space-2);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 1.1rem;
+    }
+
+    .video-modal {
+      width: min(960px, calc(100vw - var(--space-4) * 2));
+      border: none;
+      border-radius: var(--radius);
+      padding: 0;
+      box-shadow: var(--shadow);
+    }
+
+    .video-modal::backdrop {
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .video-modal__inner {
+      display: flex;
+      flex-direction: column;
+      background: #111;
+      color: #fff;
+    }
+
+    .video-modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-6);
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .video-modal__header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .video-modal__close {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .video-modal__close:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .video-modal__body {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-modal__body iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (max-width: 900px) {
+      .feature-panels__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .why__layout {
+        grid-template-columns: 1fr;
+      }
+
+      .why__media {
+        order: -1;
+      }
+
+      .pricing-highlight__badge {
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .feature-panel__body {
+        padding: var(--space-6);
+      }
+
+      .video-modal {
+        width: calc(100vw - var(--space-4));
+      }
+
+      .video-modal__header {
+        padding: var(--space-3) var(--space-4);
+      }
+    }
+  </style>
 </BaseLayout>

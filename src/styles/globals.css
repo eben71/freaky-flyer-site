@@ -388,6 +388,15 @@ header.site.nav-open .nav-toggle__icon span:nth-child(3) {
   color: #f8f8f8;
   max-width: 60ch;
 }
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+.hero__actions .button {
+  text-decoration: none;
+}
 
 footer.site {
   margin-top: var(--space-16);
