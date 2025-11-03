@@ -42,6 +42,29 @@ body {
   min-height: 100%;
 }
 
+.site-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 10px var(--space-4);
+  background: linear-gradient(90deg, #111827 0%, #1f2937 100%);
+  color: #f9fafb;
+  font-weight: 600;
+  text-align: center;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-banner strong {
+  color: #fff;
+  font-weight: 800;
+}
+
+.site-banner__emoji {
+  font-size: 1.2em;
+}
+
 a {
   color: var(--link);
   text-decoration: none;
