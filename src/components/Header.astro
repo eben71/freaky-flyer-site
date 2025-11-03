@@ -13,7 +13,7 @@ const isActive = (item) => {
   return matchTarget === currentPath;
 };
 ---
-<header class="site" role="banner" data-nav-root>
+<header class="site" role="banner">
   <div class="topbar">
     <div class="container topbar__content">
       <div class="topbar__info">
@@ -56,24 +56,10 @@ const isActive = (item) => {
     </div>
   </div>
   <div class="container">
-    <nav class="nav" aria-label="Primary navigation" data-nav>
+    <nav class="nav" aria-label="Primary navigation">
       <a class="brand" href="/" aria-label="Freaky Flyer Delivery">
         <img src="/assets/brand/ffd-logo.svg" alt="Freaky Flyer Delivery" width="140" height="36" />
       </a>
-      <button
-        type="button"
-        class="nav-toggle"
-        aria-expanded="false"
-        aria-controls="mobile-primary-nav"
-        data-nav-toggle
-      >
-        <span class="nav-toggle__icon" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-        <span class="nav-toggle__label">Menu</span>
-      </button>
       <ul class="nav-links">
         {navItems.map((item) => (
           <li>
@@ -83,54 +69,6 @@ const isActive = (item) => {
           </li>
         ))}
       </ul>
-      <div class="nav-drawer" id="mobile-primary-nav" hidden data-nav-drawer>
-        <ul>
-          {navItems.map((item) => (
-            <li>
-              <a class={isActive(item) ? 'is-active' : undefined} href={item.href}>
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
     </nav>
   </div>
 </header>
-
-<script>
-  const script = document.currentScript;
-  const header =
-    script?.closest('header.site') ?? document.querySelector('header.site[data-nav-root]');
-  const toggle = header?.querySelector('[data-nav-toggle]');
-  const drawer = header?.querySelector('[data-nav-drawer]');
-  if (header && toggle instanceof HTMLButtonElement && drawer instanceof HTMLElement) {
-    const navLinks = Array.from(drawer.querySelectorAll('a'));
-    const setOpen = (open) => {
-      toggle.setAttribute('aria-expanded', String(open));
-      drawer.hidden = !open;
-      header.classList.toggle('nav-open', open);
-    };
-    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
-
-    toggle.addEventListener('click', () => {
-      setOpen(!isOpen());
-    });
-
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => setOpen(false));
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!header.contains(event.target) && isOpen()) {
-        setOpen(false);
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 900 && isOpen()) {
-        setOpen(false);
-      }
-    });
-  }
-</script>
