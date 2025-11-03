@@ -1,42 +1,17 @@
 ---
-const {
-  kicker = '',
-  title,
-  text = '',
-  primaryHref = '#',
-  primaryText = '',
-  secondaryHref = '',
-  secondaryText = '',
-  imgSrc,
-  headingId = 'hero-heading',
-} = Astro.props;
+// TODO: Add hero placeholder image at public/assets/brand/hero-placeholder.jpg
+const { image="/assets/brand/hero-placeholder.jpg", kicker="Perth-wide GPS flyer distribution", title="Freaky Flyer Delivery", text="", primaryHref="/contact", primaryText="Get a Quote", secondaryHref="/pricing", secondaryText="View Pricing" } = Astro.props;
 ---
-<section class="section" aria-labelledby={headingId}>
-  <div class="container">
-    <div class="hero">
-      <div>
-        {kicker && <p class="kicker muted">{kicker}</p>}
-        <h1 id={headingId}>{title}</h1>
-        {text && <p>{text}</p>}
-        <div class="hero__actions" role="group" aria-label="Primary actions">
-          {primaryText && (
-            <a class="button primary" href={primaryHref}>{primaryText}</a>
-          )}
-          {secondaryText && secondaryHref && (
-            <a class="button outline" href={secondaryHref}>{secondaryText}</a>
-          )}
-        </div>
-      </div>
-      {imgSrc && (
-        <div class="hero__media">
-          <img src={imgSrc} alt="" loading="lazy" />
-        </div>
-      )}
+<section class="hero section angled-top">
+  <div class="hero__bg" style={`background-image:url(${image})`}></div>
+  <div class="hero__overlay"></div>
+  <div class="container hero__content">
+    <p class="kicker">#{kicker}</p>
+    <h1 class="title">{title}</h1>
+    {text && <p style="max-width:65ch">{text}</p>}
+    <div style="display:flex;gap:12px;margin-top:var(--space-6)">
+      <a href={primaryHref} class="button primary">{primaryText}</a>
+      <a href={secondaryHref} class="button outline">{secondaryText}</a>
     </div>
   </div>
 </section>
-
-<style is:global>
-.hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-6)}
-.hero__media img{border-radius:var(--radius);box-shadow:var(--shadow)}
-</style>
