@@ -15,20 +15,17 @@ const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
 <BaseLayout {title} description={description}>
+  <Hero
+    image="/assets/brand/hero-placeholder.jpg"
+    kicker="Perth-wide GPS flyer distribution"
+    title="Freaky Flyer Delivery"
+    text="GPS-verified, professional flyer distribution across the Perth metro area. Family-owned. Reliable. Accountable."
+  />
+
   {page ? (
     <ContentBlock html={page.html} />
   ) : (
     <>
-      <Hero
-        kicker="GPS-verified drops"
-        title="GPS-verified flyer delivery in Perth"
-        text="Keep your promotions on track with accountable street teams and suburb-level reporting."
-        primaryHref="/contact"
-        primaryText="Get a Quote"
-        secondaryHref="/services"
-        secondaryText="Explore Services"
-      />
-
       <section aria-labelledby="value-heading" class="section surface">
         <div class="container">
           <h2 id="value-heading">Transparency, accountability, and better drops</h2>

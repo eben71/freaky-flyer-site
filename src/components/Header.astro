@@ -22,8 +22,8 @@ const currentPath = Astro.url.pathname;
   </div>
   <div class="container">
     <nav class="nav" aria-label="Primary navigation" data-nav>
-      <a class="brand" href="/" aria-label="Freaky Flyer Delivery home">
-        <img src="/assets/brand/ffd-logo.svg" alt="Freaky Flyer Delivery" width="120" height="32" />
+      <a class="brand" href="/" aria-label="Freaky Flyer Delivery">
+        <img src="/assets/brand/ffd-logo.svg" alt="Freaky Flyer Delivery" width="140" height="36" />
       </a>
       <button
         type="button"
@@ -62,33 +62,6 @@ const currentPath = Astro.url.pathname;
     </nav>
   </div>
 </header>
-
-<style is:global>
-.nav{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);position:relative}
-.nav-links{display:flex;align-items:center;gap:var(--space-2);margin:0;padding:0;list-style:none}
-.nav-links li{margin:0}
-.nav-links a.is-active{color:var(--accent)}
-.nav-toggle{display:none;align-items:center;gap:var(--space-2);padding:10px 14px;border-radius:999px;border:1px solid transparent;background:white;font-weight:600;cursor:pointer;box-shadow:var(--shadow);transition:background .2s ease,box-shadow .2s ease}
-.nav-toggle:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
-.nav-toggle:hover{background:var(--surface)}
-.nav-toggle__label{display:inline-block}
-.nav-toggle__icon{display:inline-flex;flex-direction:column;justify-content:space-between;width:18px;height:14px}
-.nav-toggle__icon span{display:block;height:2px;width:100%;border-radius:999px;background:currentColor;transition:transform .2s ease,opacity .2s ease}
-header.site.nav-open .nav-toggle__icon span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-header.site.nav-open .nav-toggle__icon span:nth-child(2){opacity:0}
-header.site.nav-open .nav-toggle__icon span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-.nav-drawer{position:absolute;top:calc(100% + var(--space-2));right:0;width:min(280px,calc(100vw - var(--space-4) * 2));background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3);z-index:10}
-.nav-drawer ul{margin:0;padding:0;list-style:none;display:grid;gap:var(--space-2)}
-.nav-drawer a{display:block;padding:var(--space-2) var(--space-3);border-radius:var(--radius);font-weight:600;color:var(--fg)}
-.nav-drawer a.is-active{color:var(--accent)}
-.nav-drawer a:hover{background:var(--surface)}
-.topbar__content{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
-.topbar__links{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
-@media (max-width:900px){
-  .nav-links{display:none}
-  .nav-toggle{display:inline-flex}
-}
-</style>
 
 <script>
   const script = document.currentScript;
