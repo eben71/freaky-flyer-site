@@ -1,16 +1,47 @@
 ---
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Us' },
-  { href: '/services', label: 'Flyer Delivery' },
-  { href: '/services#tips', match: '/services', label: 'Flyer Tips' },
-  { href: '/services#gps-tracking', match: '/services', label: 'GPS Tracking' },
+  {
+    href: '/about',
+    label: 'About Us',
+    children: [
+      { href: '/about/our-story', label: 'Our Story' },
+      { href: '/about/meet-the-team', label: 'Meet The Team' },
+    ],
+  },
+  {
+    href: '/flyer-delivery',
+    label: 'Flyer Delivery',
+    children: [
+      { href: '/flyer-delivery/our-technique', label: 'Our Technique' },
+      { href: '/flyer-delivery/pricing', label: 'Pricing' },
+      { href: '/flyer-delivery/schedule', label: 'Schedule' },
+    ],
+  },
+  { href: '/flyer-tips', label: 'Flyer Tips' },
+  { href: '/gps-tracking', label: 'GPS Tracking' },
   { href: '/contact', label: 'Contact Us' },
 ];
-const currentPath = Astro.url.pathname;
+
+const normalizePath = (path) => {
+  if (!path) return '/';
+  const cleaned = path.replace(/\/+$/, '');
+  return cleaned.length > 0 ? cleaned : '/';
+};
+
+const currentPath = normalizePath(Astro.url.pathname);
+
 const isActive = (item) => {
-  const matchTarget = item.match ?? item.href;
-  return matchTarget === currentPath;
+  const directMatch = normalizePath(item.href) === currentPath;
+  if (directMatch) {
+    return true;
+  }
+
+  if (Array.isArray(item.children)) {
+    return item.children.some((child) => normalizePath(child.href) === currentPath);
+  }
+
+  return false;
 };
 ---
 <header class="site" role="banner">
@@ -24,6 +55,20 @@ const isActive = (item) => {
         <a href="mailto:admin@freakyflyerdelivery.com.au">E: admin@freakyflyerdelivery.com.au</a>
       </div>
       <div class="topbar__social" role="list" aria-label="Follow Freaky Flyer Delivery">
+        <a
+          class="social-link"
+          role="listitem"
+          href="https://x.com/flyerfreaky"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="sr-only">X (formerly Twitter)</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M3 3h4.9l4 5.4L16.2 3H21l-7.2 8.7L21 21h-4.9l-4.3-5.8L7.8 21H3l7.5-9.3L3 3z"
+            />
+          </svg>
+        </a>
         <a
           class="social-link"
           role="listitem"
@@ -58,16 +103,40 @@ const isActive = (item) => {
   <div class="container">
     <nav class="nav" aria-label="Primary navigation">
       <a class="brand" href="/" aria-label="Freaky Flyer Delivery">
-        <img src="/assets/brand/ffd-logo.svg" alt="Freaky Flyer Delivery" width="140" height="36" />
+        <img src="/assets/brand/ffdweblogo-1-960.webp" alt="Freaky Flyer Delivery" width="220"  />
       </a>
       <ul class="nav-links">
-        {navItems.map((item) => (
-          <li>
-            <a class={isActive(item) ? 'is-active' : undefined} href={item.href}>
-              {item.label}
-            </a>
-          </li>
-        ))}
+        {navItems.map((item) => {
+          const isParent = Array.isArray(item.children) && item.children.length > 0;
+          const itemClass = [isParent ? 'has-submenu' : null, isActive(item) ? 'is-active' : null]
+            .filter(Boolean)
+            .join(' ');
+          return (
+            <li class={itemClass || undefined}>
+              <a
+                class={isActive(item) ? 'is-active' : undefined}
+                href={item.href}
+                aria-haspopup={isParent ? 'true' : undefined}
+              >
+                {item.label}
+              </a>
+              {isParent && (
+                <ul class="nav-submenu" aria-label={`${item.label} submenu`}>
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        class={normalizePath(child.href) === currentPath ? 'is-active' : undefined}
+                        href={child.href}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </nav>
   </div>
