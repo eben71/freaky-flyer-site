@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadPage } from '../lib/content.ts';
+import ContentBlock from './_partials/ContentBlock.astro';
 
 const slug = 'pricing';
 const page = await loadPage(slug);
@@ -14,11 +15,7 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <section class="section">
-      <div class="container">
-        <Fragment set:html={page.html} />
-      </div>
-    </section>
+    <ContentBlock html={page.html} />
   ) : (
     <>
       <section class="section">
