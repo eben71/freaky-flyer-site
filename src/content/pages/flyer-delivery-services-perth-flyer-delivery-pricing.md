@@ -76,6 +76,5 @@ Follow us on [**Twitter**](https://twitter.com/flyerfreaky)
 
 © 2019 FREAKY FLYER DELIVERY PTY LTD | **ABN:** 34 606 384 570
 
-WEB DESIGN & DEVELOPMENT BY [**NKSMEDIA**](http://www.nksmedia.net)
 
 ![close-link](https://freakyflyerdelivery.com.au/wp-content/plugins/convertplug/modules/modal/functions/config/img/cross.png)
