@@ -7,8 +7,9 @@ const navItems = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
+const currentPath = Astro.url.pathname;
 ---
-<header class="site" role="banner">
+<header class="site" role="banner" data-nav-root>
   <div class="topbar">
     <div class="container topbar__content">
       <span class="muted">Perth-wide GPS flyer distribution</span>
@@ -20,43 +21,106 @@ const navItems = [
     </div>
   </div>
   <div class="container">
-    <nav class="nav" aria-label="Primary navigation">
+    <nav class="nav" aria-label="Primary navigation" data-nav>
       <a class="brand" href="/" aria-label="Freaky Flyer Delivery home">FFD</a>
-      <details class="nav-menu">
-        <summary aria-label="Toggle navigation" role="button">Menu</summary>
-        <ul>
-          {navItems.map((item) => (
-            <li>
-              <a href={item.href}>{item.label}</a>
-            </li>
-          ))}
-        </ul>
-      </details>
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-primary-nav"
+        data-nav-toggle
+      >
+        <span class="nav-toggle__icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span class="nav-toggle__label">Menu</span>
+      </button>
       <ul class="nav-links">
         {navItems.map((item) => (
           <li>
-            <a href={item.href}>{item.label}</a>
+            <a class={currentPath === item.href ? 'is-active' : undefined} href={item.href}>
+              {item.label}
+            </a>
           </li>
         ))}
       </ul>
+      <div class="nav-drawer" id="mobile-primary-nav" hidden data-nav-drawer>
+        <ul>
+          {navItems.map((item) => (
+            <li>
+              <a class={currentPath === item.href ? 'is-active' : undefined} href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   </div>
 </header>
 
 <style is:global>
+.nav{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);position:relative}
 .nav-links{display:flex;align-items:center;gap:var(--space-2);margin:0;padding:0;list-style:none}
 .nav-links li{margin:0}
-.nav-menu{display:none;position:relative}
-.nav-menu summary{list-style:none;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
-.nav-menu summary::-webkit-details-marker{display:none}
-.nav-menu[open] summary{background:var(--surface)}
-.nav-menu ul{margin:var(--space-2) 0 0;padding:var(--space-3);border-radius:var(--radius);background:white;box-shadow:var(--shadow);list-style:none;display:grid;gap:var(--space-2)}
-.nav-menu ul li{margin:0}
+.nav-links a.is-active{color:var(--accent)}
+.nav-toggle{display:none;align-items:center;gap:var(--space-2);padding:10px 14px;border-radius:999px;border:1px solid transparent;background:white;font-weight:600;cursor:pointer;box-shadow:var(--shadow);transition:background .2s ease,box-shadow .2s ease}
+.nav-toggle:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+.nav-toggle:hover{background:var(--surface)}
+.nav-toggle__label{display:inline-block}
+.nav-toggle__icon{display:inline-flex;flex-direction:column;justify-content:space-between;width:18px;height:14px}
+.nav-toggle__icon span{display:block;height:2px;width:100%;border-radius:999px;background:currentColor;transition:transform .2s ease,opacity .2s ease}
+header.site.nav-open .nav-toggle__icon span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+header.site.nav-open .nav-toggle__icon span:nth-child(2){opacity:0}
+header.site.nav-open .nav-toggle__icon span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.nav-drawer{position:absolute;top:calc(100% + var(--space-2));right:0;width:min(280px,calc(100vw - var(--space-4) * 2));background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3);z-index:10}
+.nav-drawer ul{margin:0;padding:0;list-style:none;display:grid;gap:var(--space-2)}
+.nav-drawer a{display:block;padding:var(--space-2) var(--space-3);border-radius:var(--radius);font-weight:600;color:var(--fg)}
+.nav-drawer a.is-active{color:var(--accent)}
+.nav-drawer a:hover{background:var(--surface)}
 .topbar__content{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
 .topbar__links{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
 @media (max-width:900px){
   .nav-links{display:none}
-  .nav-menu{display:block}
-  .nav-menu ul{position:absolute;right:0;min-width:200px}
+  .nav-toggle{display:inline-flex}
 }
 </style>
+
+<script>
+  const script = document.currentScript;
+  const header =
+    script?.closest('header.site') ?? document.querySelector('header.site[data-nav-root]');
+  const toggle = header?.querySelector('[data-nav-toggle]');
+  const drawer = header?.querySelector('[data-nav-drawer]');
+  if (header && toggle instanceof HTMLButtonElement && drawer instanceof HTMLElement) {
+    const navLinks = Array.from(drawer.querySelectorAll('a'));
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      drawer.hidden = !open;
+      header.classList.toggle('nav-open', open);
+    };
+    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
+    toggle.addEventListener('click', () => {
+      setOpen(!isOpen());
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!header.contains(event.target) && isOpen()) {
+        setOpen(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900 && isOpen()) {
+        setOpen(false);
+      }
+    });
+  }
+</script>

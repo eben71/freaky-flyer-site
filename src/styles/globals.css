@@ -1,5 +1,5 @@
 :root {
-  --bg: #ffffff;
+  --bg: #f1f5f9;
   --fg: #0f172a;
   --muted: #64748b;
   --surface: #f8fafc;
@@ -27,7 +27,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg) 0%, #ffffff 40%, #ffffff 100%);
   color: var(--fg);
   font-family:
     Inter,
@@ -148,9 +149,6 @@ header.site {
   border-bottom: 1px solid #eef2f7;
 }
 .nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 12px 0;
 }
 .nav a {
@@ -190,7 +188,7 @@ header.site {
 
 footer.site {
   margin-top: var(--space-16);
-  background: var(--surface);
+  background: linear-gradient(180deg, var(--surface) 0%, #ffffff 90%);
   border-top: 1px solid #eef2f7;
 }
 footer .cols {
