@@ -1,26 +1,27 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { loadPage } from '../lib/content.ts';
-import ContentBlock from './_partials/ContentBlock.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadPage } from "../lib/content.ts";
+import ContentBlock from "./_partials/ContentBlock.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 
-const slug = 'services';
+const slug = "services";
 const page = await loadPage(slug);
-const fallbackTitle = 'Services | Freaky Flyer Delivery';
-const fallbackDescription = '';
+const fallbackTitle = "Services";
+const fallbackDescription = "End-to-end flyer delivery solutions backed by GPS tracking and suburb planning.";
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
-const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
+const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
 <BaseLayout {title} description={description}>
   <section class="section surface">
     <div class="container">
-      <h2>Our Services</h2>
+      <SectionHeader title="Our Services" />
       {!page && (
         <p>
-          Explore our end-to-end flyer delivery packages, from suburb selection and route planning to GPS-verified reporting once
-          the drops are complete.
+          Explore our end-to-end flyer delivery packages, from suburb selection and route planning to GPS-verified reporting
+          once the drops are complete.
         </p>
       )}
     </div>
@@ -32,7 +33,7 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
     <section class="section" aria-labelledby="service-highlights">
       <div class="container">
         <div class="card">
-          <h3 id="service-highlights" style="text-transform:uppercase;letter-spacing:.05em">How we deliver accountable campaigns</h3>
+          <h3 id="service-highlights">How we deliver accountable campaigns</h3>
           <p>Local walkers briefed on each run to follow pacing, coverage, and suburb priorities.</p>
           <p>GPS logs and field supervisor spot checks verify every bundle lands where it should.</p>
           <p>North and south Perth routes, with tailored volumes for the neighbourhoods you target most.</p>

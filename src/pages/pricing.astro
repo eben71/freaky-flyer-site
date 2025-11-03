@@ -1,26 +1,33 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { loadPage } from '../lib/content.ts';
-import ContentBlock from './_partials/ContentBlock.astro';
+import fs from "node:fs";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadPage } from "../lib/content.ts";
+import ContentBlock from "./_partials/ContentBlock.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 
-const slug = 'pricing';
+const slug = "pricing";
 const page = await loadPage(slug);
-const fallbackTitle = 'Pricing | Freaky Flyer Delivery';
-const fallbackDescription = '';
+const fallbackTitle = "Pricing";
+const fallbackDescription = "Transparent flyer distribution pricing tailored to your Perth campaign.";
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
-const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
+const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const pdfFilename = "ffd-pricelist.pdf";
+const pdfHref = `/assets/docs/${pdfFilename}`;
+const pdfPath = new URL(`../../public${pdfHref}`, import.meta.url);
+const hasPdf = fs.existsSync(pdfPath);
+const csvHref = "/downloads/freaky-flyer-pricing.csv";
 ---
 <BaseLayout {title} description={description}>
   <section class="section surface">
     <div class="container">
-      <h2>Pricing & Packages</h2>
+      <SectionHeader title="Pricing &amp; Packages" />
       {!page && (
         <p>
-          Choose a pricing option that suits your campaign scale, with transparent rates per thousand drops and bundled reporting
-          to keep stakeholders informed.
+          Choose a pricing option that suits your campaign scale, with transparent rates per thousand drops and bundled
+          reporting to keep stakeholders informed.
         </p>
       )}
     </div>
@@ -33,14 +40,43 @@ const description = rawDescription.trim().length > 0 ? rawDescription : fallback
       <div class="container">
         <div class="card">
           <div class="badge">Updated quarterly</div>
-          <h3 id="pricing-download" style="text-transform:uppercase;letter-spacing:.05em">Download latest pricing</h3>
-          <p>Grab the newest rate card in your preferred format to share with your team.</p>
-          <div role="group" aria-label="Pricing downloads" style="display:flex;gap:12px;flex-wrap:wrap">
-            <a class="button primary" href="/downloads/freaky-flyer-pricing.csv">Download CSV</a>
-            <a class="button outline" href="/downloads/freaky-flyer-pricing.pdf">Download PDF</a>
+          <h3 id="pricing-download">Download the latest price list</h3>
+          <p>
+            Grab the newest rate card in your preferred format to share with your team. Replace the PDF in
+            <code>public/assets/docs/</code> when updated.
+          </p>
+          <div role="group" aria-label="Pricing downloads" class="pricing-downloads">
+            <a class="button primary" href={csvHref}>Download CSV</a>
+            {hasPdf ? (
+              <a class="button button--light" href={pdfHref}>Download PDF</a>
+            ) : (
+              <span class="button button--disabled" aria-disabled="true">PDF coming soon</span>
+            )}
           </div>
         </div>
       </div>
     </section>
   )}
 </BaseLayout>
+
+<style>
+.pricing-downloads {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.button--disabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9em 1.8em;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: #d1d5db;
+  color: #374151;
+  cursor: not-allowed;
+}
+</style>

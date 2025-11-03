@@ -1,25 +1,33 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { loadPage } from '../lib/content.ts';
-import ContentBlock from './_partials/ContentBlock.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadPage } from "../lib/content.ts";
+import ContentBlock from "./_partials/ContentBlock.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 
-const slug = 'flyer-tips';
+const slug = "flyer-tips";
 const page = await loadPage(slug);
-const fallbackTitle = 'Flyer Tips | Freaky Flyer Delivery';
-const fallbackDescription = '';
+const fallbackTitle = "Flyer Tips";
+const fallbackDescription = "Make every flyer drop count with creative and distribution advice.";
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
-const rawDescription = typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
+const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
 <BaseLayout {title} description={description}>
   {page ? (
-    <ContentBlock html={page.html} />
+    <>
+      <section class="section surface">
+        <div class="container">
+          <SectionHeader title={page.fm?.title ?? "Flyer Tips"} />
+        </div>
+      </section>
+      <ContentBlock html={page.html} />
+    </>
   ) : (
-    <section class="section">
+    <section class="section surface">
       <div class="container">
-        <h1>Flyer Tips</h1>
+        <SectionHeader title="Flyer Tips" />
         <p>
           Make every drop count with practical design, printing, and distribution advice from the Freaky Flyer Delivery team.
         </p>
