@@ -4,12 +4,16 @@ export function sanitizeHtml(
 ) {
   if (!html) return '';
 
-  const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escapeRegExp = (value: string) =>
+    value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const hostPattern = escapeRegExp(siteHost);
 
   // 1) Drop obvious "Navigation" sections (heading + long list of same-domain links)
   html = html.replace(/<p>\s*<a[^>]*>\s*Navigation\s*<\/a>\s*<\/p>/gi, '');
-  html = html.replace(/<h\d[^>]*>\s*Navigation\s*<\/h\d>\s*<ul[\s\S]*?<\/ul>/gi, '');
+  html = html.replace(
+    /<h\d[^>]*>\s*Navigation\s*<\/h\d>\s*<ul[\s\S]*?<\/ul>/gi,
+    ''
+  );
   // also generic: remove UL lists that are mostly internal links to same host
   html = html.replace(
     new RegExp(
@@ -34,12 +38,18 @@ export function sanitizeHtml(
 
   // 4) Convert absolute internal links to site-relative
   html = html.replace(
-    new RegExp(`href=["']https?:\/\/(?:www\\.)?${hostPattern}([^"']*)["']`, 'gi'),
+    new RegExp(
+      `href=["']https?:\/\/(?:www\\.)?${hostPattern}([^"']*)["']`,
+      'gi'
+    ),
     (_m, path) => `href="${path || '/'}"`
   );
 
   // 5) Convert protocol-relative WP image URLs to https
-  html = html.replace(/src=["']\/\/([^"']+)["']/gi, (_m, rest) => `src="https://${rest}"`);
+  html = html.replace(
+    /src=["']\/\/([^"']+)["']/gi,
+    (_m, rest) => `src="https://${rest}"`
+  );
 
   return html;
 }
