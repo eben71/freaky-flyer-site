@@ -1,33 +1,66 @@
 ---
-const { title, kicker } = Astro.props;
+const props = Astro.props ?? {};
+const { title, kicker, description, level = 2 } = props;
+const numericLevel = Number(level ?? 2);
+const normalizedLevel = Number.isNaN(numericLevel)
+  ? 2
+  : Math.round(numericLevel);
+const safeLevel = Math.min(Math.max(normalizedLevel, 1), 6);
+
+const renderHeading = () => {
+  switch (safeLevel) {
+    case 1:
+      return <h1>{title}</h1>;
+    case 2:
+      return <h2>{title}</h2>;
+    case 3:
+      return <h3>{title}</h3>;
+    case 4:
+      return <h4>{title}</h4>;
+    case 5:
+      return <h5>{title}</h5>;
+    default:
+      return <h6>{title}</h6>;
+  }
+};
 ---
+
 <header class="section-header">
   {kicker && <p class="section-header__kicker">{kicker}</p>}
-  <h2>{title}</h2>
+  {renderHeading()}
   <span class="section-header__divider" aria-hidden="true"></span>
+  {description && <p class="section-header__description">{description}</p>}
 </header>
 
 <style>
-.section-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-6);
-}
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
 
-.section-header__kicker {
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0;
-}
+  .section-header__kicker {
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
 
-.section-header__divider {
-  display: inline-block;
-  width: 72px;
-  height: 4px;
-  background: var(--accent);
-  border-radius: 999px;
-}
+  .section-header__divider {
+    display: inline-block;
+    width: 72px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 999px;
+  }
+
+  .section-header__description {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 65ch;
+    line-height: 1.7;
+  }
 </style>

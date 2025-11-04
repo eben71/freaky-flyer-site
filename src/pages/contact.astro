@@ -1,66 +1,42 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadPage } from "../lib/content.ts";
-import SectionHeader from "../components/SectionHeader.astro";
-import ContentBlock from "./_partials/ContentBlock.astro";
-import { site } from "../site.config";
-import { linkAttrs } from "../lib/links";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadPage } from '../lib/content.ts';
+import SectionHeader from '../components/SectionHeader.astro';
+import { site } from '../site.config';
+import { linkAttrs } from '../lib/links';
 
-const slug = "contact";
+const slug = 'contact';
 const page = await loadPage(slug);
-const fallbackTitle = "Contact";
-const fallbackDescription = "Start your next flyer campaign with Freaky Flyer Delivery.";
+const fallbackTitle = 'Contact | Freaky Flyer Delivery';
+const fallbackDescription =
+  'Start your next flyer campaign with Freaky Flyer Delivery.';
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
-const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription =
+  typeof frontmatter.description === 'string' ? frontmatter.description : '';
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
-const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
-const telHref = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
+const description =
+  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const telHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
 const emailHref = `mailto:${site.email}`;
 const telAttrs = linkAttrs(telHref);
 const emailAttrs = linkAttrs(emailHref);
-const mapPlaceholderLabel = "Warehouse map placeholder";
+const mapPlaceholderLabel = 'Warehouse map placeholder';
 ---
+
 <BaseLayout {title} description={description}>
   <section class="section surface">
     <div class="container">
-      <SectionHeader title="Contact Us" />
+      <SectionHeader
+        level={1}
+        kicker="Contact"
+        title="Start your next flyer campaign"
+        description="Ready to launch your next drop? Share a few details and we’ll confirm suburb coverage, timing, and bundle quantities."
+      />
       <div class="contact-layout">
-        <div class="contact-form">
-          <p class="contact-intro">
-            Ready to launch your next drop? Share a few details and we’ll confirm suburb coverage, timing, and bundle quantities.
-          </p>
-          <div class="contact-banner" role="status" hidden>
-            <strong>Thanks!</strong> We’ll wire this up next.
-          </div>
-          <form id="contact-request" novalidate>
-            <input type="text" name="company" tabindex="-1" autocomplete="off" class="contact-honeypot" />
-            <div class="form-grid">
-              <label>
-                <span>Name</span>
-                <input type="text" name="name" autocomplete="name" required />
-              </label>
-              <label>
-                <span>Email</span>
-                <input type="email" name="email" autocomplete="email" required />
-              </label>
-              <label>
-                <span>Phone (optional)</span>
-                <input type="tel" name="phone" autocomplete="tel" />
-              </label>
-              <label class="form-full">
-                <span>Message</span>
-                <textarea name="message" rows="5" placeholder="Tell us about your campaign goals" required></textarea>
-              </label>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="button primary" disabled>Send Message</button>
-            </div>
-          </form>
-        </div>
         <aside class="contact-sidebar">
           <div class="contact-card">
-            <h3>Talk to the team</h3>
+            <h2>Talk to the team</h2>
             <ul>
               <li>
                 <strong>Phone:</strong>
@@ -81,18 +57,68 @@ const mapPlaceholderLabel = "Warehouse map placeholder";
             </ul>
           </div>
           <div class="contact-card">
-            <h3>Warehouse Map</h3>
-            <div class="contact-map" role="img" aria-label={mapPlaceholderLabel}>
+            <h2>Warehouse map</h2>
+            <div
+              class="contact-map"
+              role="img"
+              aria-label={mapPlaceholderLabel}
+            >
               <span>Map artwork arriving soon</span>
             </div>
-            <p class="muted">Interactive map integration arrives in the next release.</p>
+            <p class="muted">
+              Interactive map integration arrives in the next release.
+            </p>
           </div>
         </aside>
+        <div class="contact-form">
+          <div class="contact-banner" role="status" hidden>
+            <strong>Thanks!</strong> We’ll be in touch soon.
+          </div>
+          <form id="contact-request" novalidate>
+            <input
+              type="text"
+              name="company"
+              tabindex="-1"
+              autocomplete="off"
+              class="contact-honeypot"
+            />
+            <div class="form-grid">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  required
+                />
+              </label>
+              <label>
+                <span>Phone (optional)</span>
+                <input type="tel" name="phone" autocomplete="tel" />
+              </label>
+              <label class="form-full">
+                <span>Message</span>
+                <textarea
+                  name="message"
+                  rows="5"
+                  placeholder="Tell us about your campaign goals"
+                  required></textarea>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="button primary" disabled
+                >Send Message</button
+              >
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
-
-  {page && <ContentBlock html={page.html} />}
 
   <script type="module">
     const form = document.getElementById('contact-request');
@@ -100,17 +126,25 @@ const mapPlaceholderLabel = "Warehouse map placeholder";
     const submit = form?.querySelector('button[type="submit"]');
 
     const toggleButton = () => {
-      if (!(form instanceof HTMLFormElement) || !(submit instanceof HTMLButtonElement)) {
+      if (
+        !(form instanceof HTMLFormElement) ||
+        !(submit instanceof HTMLButtonElement)
+      ) {
         return;
       }
       const formData = new FormData(form);
       const hasName = (formData.get('name') || '').toString().trim().length > 0;
-      const hasEmail = (formData.get('email') || '').toString().trim().length > 0;
-      const hasMessage = (formData.get('message') || '').toString().trim().length > 0;
+      const hasEmail =
+        (formData.get('email') || '').toString().trim().length > 0;
+      const hasMessage =
+        (formData.get('message') || '').toString().trim().length > 0;
       submit.disabled = !(hasName && hasEmail && hasMessage);
     };
 
-    if (form instanceof HTMLFormElement && submit instanceof HTMLButtonElement) {
+    if (
+      form instanceof HTMLFormElement &&
+      submit instanceof HTMLButtonElement
+    ) {
       form.addEventListener('input', toggleButton);
       form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -126,7 +160,7 @@ const mapPlaceholderLabel = "Warehouse map placeholder";
   <style>
     .contact-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
       gap: var(--space-8);
       align-items: start;
     }
@@ -134,11 +168,10 @@ const mapPlaceholderLabel = "Warehouse map placeholder";
     .contact-form {
       display: grid;
       gap: var(--space-4);
-    }
-
-    .contact-intro {
-      font-size: 1.05rem;
-      line-height: 1.7;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: var(--space-6);
+      box-shadow: var(--shadow);
     }
 
     .contact-banner {
@@ -227,7 +260,8 @@ const mapPlaceholderLabel = "Warehouse map placeholder";
       aspect-ratio: 4 / 3;
       display: grid;
       place-items: center;
-      background: repeating-linear-gradient(
+      background:
+        repeating-linear-gradient(
           -45deg,
           rgba(137, 4, 11, 0.18),
           rgba(137, 4, 11, 0.18) 12px,

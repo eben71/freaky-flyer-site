@@ -1,36 +1,21 @@
 ---
-import fs from "node:fs";
-import { linkAttrs } from "../lib/links";
-import { site } from "../site.config";
+import fs from 'node:fs';
+import { linkAttrs } from '../lib/links';
+import { site } from '../site.config';
 
 const navItems = [
-  { href: "/", label: "Home" },
-  {
-    href: "/about",
-    label: "About Us",
-    children: [
-      { href: "/about/our-story", label: "Our Story" },
-      { href: "/about/meet-the-team", label: "Meet The Team" },
-    ],
-  },
-  {
-    href: "/flyer-delivery",
-    label: "Flyer Delivery",
-    children: [
-      { href: "/flyer-delivery/our-technique", label: "Our Technique" },
-      { href: "/flyer-delivery/pricing", label: "Pricing" },
-      { href: "/flyer-delivery/schedule", label: "Schedule" },
-    ],
-  },
-  { href: "/flyer-tips", label: "Flyer Tips" },
-  { href: "/gps-tracking", label: "GPS Tracking" },
-  { href: "/contact", label: "Contact Us" },
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/areas', label: 'Areas' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ];
 
-const normalizePath = (path: string | undefined | null) => {
-  if (!path) return "/";
-  const cleaned = path.replace(/\/+$/, "");
-  return cleaned.length > 0 ? cleaned : "/";
+const normalizePath = (path) => {
+  if (!path) return '/';
+  const cleaned = path.replace(/\/+$/, '');
+  return cleaned.length > 0 ? cleaned : '/';
 };
 
 const currentPath = normalizePath(Astro.url.pathname);
@@ -42,42 +27,50 @@ const isActive = (item) => {
   }
 
   if (Array.isArray(item.children)) {
-    return item.children.some((child) => normalizePath(child.href) === currentPath);
+    return item.children.some(
+      (child) => normalizePath(child.href) === currentPath
+    );
   }
 
   return false;
 };
 
-const logoSvgPath = new URL("../../public/assets/brand/ffd-logo.svg", import.meta.url);
-const logoPngPath = new URL("../../public/assets/brand/ffd-logo.png", import.meta.url);
+const logoSvgPath = new URL(
+  '../../public/assets/brand/ffd-logo.svg',
+  import.meta.url
+);
+const logoPngPath = new URL(
+  '../../public/assets/brand/ffd-logo.png',
+  import.meta.url
+);
 const brandLogo = fs.existsSync(logoSvgPath)
-  ? "/assets/brand/ffd-logo.svg"
+  ? '/assets/brand/ffd-logo.svg'
   : fs.existsSync(logoPngPath)
-  ? "/assets/brand/ffd-logo.png"
-  : "/assets/brand/ffdweblogo-1-960.webp";
-const brandLogoWidth = brandLogo.endsWith(".svg") ? 220 : 220;
-const brandLogoHeight = brandLogo.endsWith(".svg") ? 72 : undefined;
-const telHref = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
+    ? '/assets/brand/ffd-logo.png'
+    : '/assets/brand/ffdweblogo-1-960.webp';
+const brandLogoWidth = brandLogo.endsWith('.svg') ? 220 : 220;
+const brandLogoHeight = brandLogo.endsWith('.svg') ? 72 : undefined;
+const telHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
 const emailHref = `mailto:${site.email}`;
 const telAttrs = linkAttrs(telHref);
 const emailAttrs = linkAttrs(emailHref);
 const topbarLinks = [
   {
-    href: "https://x.com/flyerfreaky",
-    label: "X (formerly Twitter)",
+    href: 'https://x.com/flyerfreaky',
+    label: 'X (formerly Twitter)',
   },
   {
-    href: "https://www.facebook.com/FreakyFlyerDelivery",
-    label: "Facebook",
+    href: 'https://www.facebook.com/FreakyFlyerDelivery',
+    label: 'Facebook',
   },
   {
-    href: "https://www.instagram.com/freakyflyerdelivery",
-    label: "Instagram",
+    href: 'https://www.instagram.com/freakyflyerdelivery',
+    label: 'Instagram',
   },
 ];
 ---
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site" role="banner">
+
+<header class="site" role="banner" data-nav-open="false">
   <div class="topbar">
     <div class="container topbar__content">
       <div class="topbar__info">
@@ -91,63 +84,153 @@ const topbarLinks = [
           E: {site.email}
         </a>
       </div>
-      <div class="topbar__social" role="list" aria-label="Follow Freaky Flyer Delivery">
-        {topbarLinks.map((link) => {
-          const attrs = linkAttrs(link.href);
-          return (
-            <a class="social-link" role="listitem" href={link.href} {...attrs}>
-              <span class="sr-only">{link.label}</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                {link.label.startsWith("X") && (
-                  <path d="M3 3h4.9l4 5.4L16.2 3H21l-7.2 8.7L21 21h-4.9l-4.3-5.8L7.8 21H3l7.5-9.3L3 3z" />
-                )}
-                {link.label === "Facebook" && (
-                  <path d="M13.6 21v-7h2.4l.4-2.8h-2.8v-1.8c0-.8.2-1.4 1.5-1.4H16V5.6c-.3 0-1.1-.1-2-.1-2 0-3.3 1.2-3.3 3.4v2H8.6V14h2.1v7h2.9z" />
-                )}
-                {link.label === "Instagram" && (
-                  <path d="M8 3.5h8c2.5 0 4.5 2 4.5 4.5v8c0 2.5-2 4.5-4.5 4.5H8c-2.5 0-4.5-2-4.5-4.5v-8C3.5 5.5 5.5 3.5 8 3.5zm0 1.5C6.1 5 4.5 6.6 4.5 8.5v7c0 1.9 1.6 3.5 3.5 3.5h7c1.9 0 3.5-1.6 3.5-3.5v-7C18.5 6.6 16.9 5 15 5H8zm8.4 1.8a1 1 0 1 1 0 2.1 1 1 0 0 1 0-2.1zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 1.8A2.2 2.2 0 1 0 12 16a2.2 2.2 0 0 0 0-4.4z" />
-                )}
-              </svg>
-            </a>
-          );
-        })}
+      <div
+        class="topbar__social"
+        role="list"
+        aria-label="Follow Freaky Flyer Delivery"
+      >
+        {
+          topbarLinks.map((link) => {
+            const attrs = linkAttrs(link.href);
+            return (
+              <a
+                class="social-link"
+                role="listitem"
+                href={link.href}
+                {...attrs}
+              >
+                <span class="sr-only">{link.label}</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  {link.label.startsWith('X') && (
+                    <path d="M3 3h4.9l4 5.4L16.2 3H21l-7.2 8.7L21 21h-4.9l-4.3-5.8L7.8 21H3l7.5-9.3L3 3z" />
+                  )}
+                  {link.label === 'Facebook' && (
+                    <path d="M13.6 21v-7h2.4l.4-2.8h-2.8v-1.8c0-.8.2-1.4 1.5-1.4H16V5.6c-.3 0-1.1-.1-2-.1-2 0-3.3 1.2-3.3 3.4v2H8.6V14h2.1v7h2.9z" />
+                  )}
+                  {link.label === 'Instagram' && (
+                    <path d="M8 3.5h8c2.5 0 4.5 2 4.5 4.5v8c0 2.5-2 4.5-4.5 4.5H8c-2.5 0-4.5-2-4.5-4.5v-8C3.5 5.5 5.5 3.5 8 3.5zm0 1.5C6.1 5 4.5 6.6 4.5 8.5v7c0 1.9 1.6 3.5 3.5 3.5h7c1.9 0 3.5-1.6 3.5-3.5v-7C18.5 6.6 16.9 5 15 5H8zm8.4 1.8a1 1 0 1 1 0 2.1 1 1 0 0 1 0-2.1zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 1.8A2.2 2.2 0 1 0 12 16a2.2 2.2 0 0 0 0-4.4z" />
+                  )}
+                </svg>
+              </a>
+            );
+          })
+        }
       </div>
     </div>
   </div>
   <div class="container">
     <nav class="nav" role="navigation" aria-label="Primary">
       <a class="brand" href="/" aria-label="Freaky Flyer Delivery">
-        <img src={brandLogo} alt="Freaky Flyer Delivery" width={brandLogoWidth} height={brandLogoHeight} />
+        <img
+          src={brandLogo}
+          alt="Freaky Flyer Delivery"
+          width={brandLogoWidth}
+          height={brandLogoHeight}
+        />
       </a>
-      <ul class="nav-links">
-        {navItems.map((item) => {
-          const isParent = Array.isArray(item.children) && item.children.length > 0;
-          const itemClass = [isParent ? "has-submenu" : null, isActive(item) ? "is-active" : null]
-            .filter(Boolean)
-            .join(" ");
-          return (
-            <li class={itemClass || undefined}>
-              <a class={isActive(item) ? "is-active" : undefined} href={item.href}>
-                {item.label}
-              </a>
-              {isParent && (
-                <ul class="nav-submenu" aria-label={`${item.label} submenu`}>
-                  {item.children.map((child) => (
-                    <li>
-                      <a
-                        class={normalizePath(child.href) === currentPath ? "is-active" : undefined}
-                        href={child.href}
-                      >
-                        {child.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          );
-        })}
+      <button
+        class="nav__toggle"
+        type="button"
+        data-nav-toggle
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="nav__toggle-box" aria-hidden="true">
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </span>
+      </button>
+      <ul id="primary-navigation" class="nav-links" data-nav-list>
+        {
+          navItems.map((item) => {
+            const active = isActive(item);
+            return (
+              <li class={active ? 'is-active' : undefined}>
+                <a href={item.href} aria-current={active ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
       </ul>
     </nav>
   </div>
+  <div class="nav__overlay" data-nav-overlay aria-hidden="true"></div>
 </header>
+
+<script is:inline>
+  const header = document.querySelector('header.site');
+  const toggle = header?.querySelector('[data-nav-toggle]');
+  const nav = header?.querySelector('[data-nav-list]');
+  const overlay = header?.querySelector('[data-nav-overlay]');
+
+  const mediaQuery = window.matchMedia('(max-width: 900px)');
+
+  const applyAccessibility = (open) => {
+    if (!(nav instanceof HTMLElement)) return;
+    if (mediaQuery.matches) {
+      nav.setAttribute('aria-hidden', open ? 'false' : 'true');
+    } else {
+      nav.removeAttribute('aria-hidden');
+    }
+  };
+
+  const setOpen = (open) => {
+    if (!header) return;
+    header.setAttribute('data-nav-open', open ? 'true' : 'false');
+    if (toggle instanceof HTMLElement) {
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    if (overlay instanceof HTMLElement) {
+      overlay.setAttribute('data-visible', open ? 'true' : 'false');
+    }
+    applyAccessibility(open);
+  };
+
+  const closeNav = () => setOpen(false);
+
+  const toggleNav = () => {
+    if (!header) return;
+    const isOpen = header.getAttribute('data-nav-open') === 'true';
+    setOpen(!isOpen);
+  };
+
+  toggle?.addEventListener('click', () => {
+    toggleNav();
+  });
+
+  overlay?.addEventListener('click', () => {
+    closeNav();
+  });
+
+  if (nav instanceof HTMLElement) {
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeNav();
+      });
+    });
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeNav();
+    }
+  });
+
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', () => {
+      const isOpen = header?.getAttribute('data-nav-open') === 'true';
+      applyAccessibility(isOpen);
+    });
+  } else if (typeof mediaQuery.addListener === 'function') {
+    mediaQuery.addListener(() => {
+      const isOpen = header?.getAttribute('data-nav-open') === 'true';
+      applyAccessibility(isOpen);
+    });
+  }
+
+  setOpen(false);
+</script>

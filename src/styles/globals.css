@@ -381,6 +381,46 @@ header.site {
   gap: var(--space-2);
 }
 
+.nav__toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.nav__toggle:focus-visible {
+  outline-offset: 6px;
+}
+
+.nav__toggle-box {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav__toggle-bar {
+  width: 26px;
+  height: 3px;
+  border-radius: 999px;
+  background: #111827;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+header.site[data-nav-open='true'] .nav__toggle-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+header.site[data-nav-open='true'] .nav__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+header.site[data-nav-open='true'] .nav__toggle-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -392,24 +432,6 @@ header.site {
 
 .nav-links li {
   margin: 0;
-  position: relative;
-}
-
-.nav-links li.has-submenu > a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.nav-links li.has-submenu > a::after {
-  content: '';
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid currentColor;
-  transform: translateY(2px);
 }
 
 .nav a {
@@ -436,81 +458,85 @@ header.site {
 }
 
 .nav a.is-active::after,
-.nav a:hover::after {
+.nav a:hover::after,
+.nav a[aria-current='page']::after,
+.nav-links li.is-active > a::after {
   background: var(--accent);
 }
 
 .nav a.is-active,
-.nav a:hover {
+.nav a:hover,
+.nav a[aria-current='page'],
+.nav-links li.is-active > a {
   color: var(--accent);
   text-decoration: none;
 }
 
-.nav-submenu {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 6px);
+.nav__overlay {
   display: none;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px;
-  margin: 0;
-  list-style: none;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  min-width: 200px;
-  z-index: 10;
-}
-
-.nav-submenu li a {
-  display: block;
-  width: 100%;
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 0.85rem;
-  text-transform: none;
-  letter-spacing: 0.01em;
-  font-weight: 600;
-}
-
-.nav-links li.has-submenu:hover > .nav-submenu,
-.nav-links li.has-submenu:focus-within > .nav-submenu {
-  display: flex;
-}
-
-.nav-links li.has-submenu:hover > a,
-.nav-links li.has-submenu:focus-within > a {
-  color: var(--accent);
 }
 
 @media (max-width: 900px) {
   .nav {
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: var(--space-2);
   }
 
   .nav .brand {
-    width: 100%;
-    justify-content: center;
-    margin-bottom: var(--space-2);
+    flex: 1;
   }
 
   .nav-links {
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(320px, 80vw);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-10) var(--space-6);
+    background: linear-gradient(180deg, #ffffff 0%, #f5f7fa 100%);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -4px 0 26px rgba(15, 23, 42, 0.18);
+    z-index: 60;
   }
 
-  .nav-links li.has-submenu > .nav-submenu {
-    position: static;
+  header.site[data-nav-open='true'] .nav-links {
+    transform: translateX(0);
+  }
+
+  .nav-links li {
     width: 100%;
-    box-shadow: none;
-    border-radius: 10px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    margin-top: var(--space-2);
-    display: flex;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 16px 0;
+  }
+
+  .nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 70;
+  }
+
+  .nav__overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(12, 15, 24, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 50;
+  }
+
+  header.site[data-nav-open='true'] .nav__overlay {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 

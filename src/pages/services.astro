@@ -1,44 +1,241 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadPage } from "../lib/content.ts";
-import ContentBlock from "./_partials/ContentBlock.astro";
-import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadPage } from '../lib/content.ts';
+import SectionHeader from '../components/SectionHeader.astro';
+import ImageCard from '../components/ImageCard.astro';
 
-const slug = "services";
+const slug = 'services';
 const page = await loadPage(slug);
-const fallbackTitle = "Services";
-const fallbackDescription = "End-to-end flyer delivery solutions backed by GPS tracking and suburb planning.";
+const fallbackTitle = 'Services | Freaky Flyer Delivery';
+const fallbackDescription =
+  'Perth flyer delivery built for maximum exposure with our equalizing method, capped bundles, and GPS-tracked riders.';
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
-const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription =
+  typeof frontmatter.description === 'string' ? frontmatter.description : '';
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
-const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const description =
+  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const equalizingImage =
+  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-1-960.webp';
+const ridersImage =
+  '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
+const coverageImage =
+  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-3-960.webp';
 ---
+
 <BaseLayout {title} description={description}>
-  <section class="section surface">
-    <div class="container">
-      <SectionHeader title="Our Services" />
-      {!page && (
+  <section
+    class="section surface service-hero"
+    aria-labelledby="services-heading"
+  >
+    <div class="container service-hero__container">
+      <SectionHeader
+        level={1}
+        kicker="Services"
+        title="Perth flyer delivery with proven exposure"
+        description="Our family-run team prepares, equalises, and delivers every bundle so your flyer is the first thing residents see when they open the letterbox."
+      />
+      <div class="service-hero__copy">
         <p>
-          Explore our end-to-end flyer delivery packages, from suburb selection and route planning to GPS-verified reporting
-          once the drops are complete.
+          At Freaky Flyer Delivery, we understand that print advertising is an
+          exposure driven market, which is why we employ strategies to
+          drastically maximise our clients' first impression of potential
+          customers.
         </p>
-      )}
+        <p>
+          Unlike some of our competitors, we will never deliver your flyers in
+          bulk catalogues or newspapers. We splice and layer every flyer
+          together so they spread out inside the letterbox, creating more
+          individualised impressions for each campaign.
+        </p>
+      </div>
     </div>
   </section>
 
-  {page ? (
-    <ContentBlock html={page.html} />
-  ) : (
-    <section class="section" aria-labelledby="service-highlights">
-      <div class="container">
-        <div class="card">
-          <h3 id="service-highlights">How we deliver accountable campaigns</h3>
-          <p>Local walkers briefed on each run to follow pacing, coverage, and suburb priorities.</p>
-          <p>GPS logs and field supervisor spot checks verify every bundle lands where it should.</p>
-          <p>North and south Perth routes, with tailored volumes for the neighbourhoods you target most.</p>
-        </div>
+  <section class="section" aria-labelledby="service-overview">
+    <div class="container">
+      <h2 id="service-overview" class="sr-only">Service highlights</h2>
+      <div class="grid cols-3 service-cards">
+        <ImageCard
+          image={equalizingImage}
+          title="Equalizing delivery method"
+          text="We splice and stack every flyer so they fan out in the letterbox and deliver maximum exposure for your brand."
+          href="#equalizing"
+        />
+        <ImageCard
+          image={ridersImage}
+          title="Full-time GPS-tracked riders"
+          text="Dedicated riders log every drop with GPS so you can confirm the coverage and timing of each suburb run."
+          href="#accountability"
+        />
+        <ImageCard
+          image={coverageImage}
+          title="Perth metro coverage"
+          text="Routes stretch from Two Rocks to Rockingham, Kalamunda, and the coastal corridor to meet your target suburbs."
+          href="#coverage"
+        />
       </div>
-    </section>
-  )}
+    </div>
+  </section>
+
+  <section class="section surface service-details" id="equalizing">
+    <div class="container service-details__grid">
+      <div>
+        <h2>Our equalizing technique keeps every flyer on top</h2>
+        <p>
+          We superjacent our flyers, stacking them one by one so that when
+          riders place the bundle into a residential letterbox the flyers spread
+          out. Residents see each flyer individually as they clear the
+          letterbox, ensuring a memorable first impression for your campaign.
+        </p>
+        <p>
+          Delivery areas are capped at six flyers per route to avoid overflowing
+          households and to keep your brand front and centre.
+        </p>
+      </div>
+      <div>
+        <h2 id="coverage">Coverage ready for every drop</h2>
+        <p>
+          Our delivery zones cover Two Rocks in the north to Rockingham in the
+          south, Kalamunda in the east, and the entire west coast in between. We
+          constantly look for new ways to expand our operations and deliver a
+          greater service to our clients.
+        </p>
+        <p>
+          Need a suburb outside the regular schedule? Talk to us about exclusive
+          runs and custom bundle volumes so your flyers arrive exactly where
+          they need to go.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section service-accountability" id="accountability">
+    <div class="container service-accountability__grid">
+      <div class="service-accountability__card card">
+        <h2>Accountability is built into every campaign</h2>
+        <p>
+          All of our riders are full-time delivery staff who wear GPS trackers,
+          enabling our office to oversee every drop and provide peace of mind
+          that your flyers have been delivered.
+        </p>
+        <p>
+          Our Honda CT-110 motorbikes feature waterproof pannier bags so your
+          flyers stay dry, even in Perth's toughest winter weather.
+        </p>
+      </div>
+      <div class="service-accountability__card card">
+        <h2>Flexible scheduling and support</h2>
+        <p>
+          We will always try to meet the needs of our clients, allowing for
+          last-minute bookings, pickups, and changes wherever possible.
+        </p>
+        <p>
+          Flyers are required at our Wanneroo warehouse by the Thursday prior to
+          delivery—one of the shortest lead times offered in the industry—and
+          pickups over 10,000 flyers are free.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section service-faq" aria-labelledby="service-faq-heading">
+    <div class="container">
+      <h2 id="service-faq-heading">Frequently asked questions</h2>
+      <div class="service-faq__grid">
+        <article>
+          <h3>Which areas do you deliver?</h3>
+          <p>
+            We undertake flyer delivery to residential homes across the Perth
+            metropolitan area, from Two Rocks in the north to Rockingham in the
+            south, Kalamunda in the east, and along the west coast in between.
+          </p>
+        </article>
+        <article>
+          <h3>How much does delivery generally cost?</h3>
+          <p>
+            Standard flyer delivery on our regular schedule ranges from $66.00
+            to $132.00 per 1,000 homes, inclusive of GST. Ask us about exclusive
+            runs for solo deliveries when you need the route entirely to
+            yourself.
+          </p>
+        </article>
+        <article>
+          <h3>How do we confirm delivery?</h3>
+          <p>
+            Riders forward their GPS maps after every shift so we can share
+            delivery evidence on request. Field supervisors also undertake spot
+            checks to maintain quality.
+          </p>
+        </article>
+        <article>
+          <h3>When are flyers due at the warehouse?</h3>
+          <p>
+            Please deliver flyers to our Wanneroo warehouse no later than the
+            Thursday before the scheduled run. Pick up can be arranged for a
+            small fee under 10,000 flyers, and is free above that volume.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .service-hero__container {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .service-hero__copy {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .service-cards {
+    align-items: stretch;
+  }
+
+  .service-details__grid {
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-accountability__grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-accountability__card {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .service-faq__grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-faq__grid article {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 900px) {
+    .service-details__grid,
+    .service-accountability__grid,
+    .service-faq__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

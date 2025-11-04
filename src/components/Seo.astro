@@ -1,9 +1,10 @@
 ---
-import type { APIContext } from "astro";
-import { buildMeta } from "../lib/seo";
-const { title, description, image } = Astro.props;
-const meta = buildMeta(Astro as APIContext, { title, description, image });
+import { buildMeta } from '../lib/seo';
+const props = Astro.props ?? {};
+const { title, description, image } = props;
+const meta = buildMeta(Astro, { title, description, image });
 ---
+
 <title>{meta.pageTitle}</title>
 <link rel="canonical" href={meta.canonical} />
 <meta name="description" content={meta.desc} />
