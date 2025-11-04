@@ -1,11 +1,10 @@
 ---
 import { linkAttrs } from '../lib/links';
 import { site } from '../site.config';
+import EmailLink from './EmailLink.astro';
 
 const telHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
-const emailHref = `mailto:${site.email}`;
 const telAttrs = linkAttrs(telHref);
-const emailAttrs = linkAttrs(emailHref);
 const socialLinks = [
   { href: 'https://x.com/flyerfreaky', label: 'X (formerly Twitter)' },
   { href: 'https://www.facebook.com/FreakyFlyerDelivery', label: 'Facebook' },
@@ -25,7 +24,9 @@ const socialLinks = [
           </li>
           <li>
             <strong>Email:</strong>
-            <a href={emailHref} {...emailAttrs}>{site.email}</a>
+            <EmailLink user="admin" domain="freakyflyerdelivery.com.au">
+              {site.email}
+            </EmailLink>
           </li>
           <li>
             <strong>Warehouse Address:</strong>

@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import { linkAttrs } from '../lib/links';
 import { site } from '../site.config';
+import EmailLink from './EmailLink.astro';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -51,9 +52,7 @@ const brandLogo = fs.existsSync(logoSvgPath)
 const brandLogoWidth = brandLogo.endsWith('.svg') ? 220 : 220;
 const brandLogoHeight = brandLogo.endsWith('.svg') ? 72 : undefined;
 const telHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
-const emailHref = `mailto:${site.email}`;
 const telAttrs = linkAttrs(telHref);
-const emailAttrs = linkAttrs(emailHref);
 const topbarLinks = [
   {
     href: 'https://x.com/flyerfreaky',
@@ -80,9 +79,12 @@ const topbarLinks = [
           P: {site.phone}
         </a>
         <span class="divider" aria-hidden="true">|</span>
-        <a href={emailHref} {...emailAttrs}>
-          E: {site.email}
-        </a>
+        <span>
+          E:{' '}
+          <EmailLink user="admin" domain="freakyflyerdelivery.com.au">
+            {site.email}
+          </EmailLink>
+        </span>
       </div>
       <div
         class="topbar__social"

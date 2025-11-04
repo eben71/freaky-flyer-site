@@ -1,0 +1,21 @@
+---
+import { Fragment } from 'astro/jsx-runtime';
+
+/**
+ * Usage: <EmailLink user="admin" domain="freakyflyerdelivery.com.au">Email us</EmailLink>
+ * Renders a clickable email without exposing a raw "mailto:" in HTML source.
+ */
+const { user = '', domain = '' } = Astro.props ?? {};
+const fallback = `${user}@${domain}`;
+const hasSlot = Astro.slots.has('default');
+const slotContent = hasSlot ? await Astro.slots.render('default') : '';
+const shouldUseFallback = slotContent.trim().length === 0;
+const obfuscated = fallback.replace('@', '&#64;');
+const innerHtml = shouldUseFallback ? obfuscated : slotContent;
+const handleClick = `(e)=>{e.preventDefault();window.location.href='mailto:'+'${user}'+'@'+'${domain}'}`;
+const ariaLabel = `Email ${fallback}`;
+---
+
+<a href="#" aria-label={ariaLabel} onClick={handleClick}>
+  <Fragment set:html={innerHtml} />
+</a>

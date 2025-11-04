@@ -1,1 +1,19 @@
+# ------------ Security headers ------------
+<IfModule mod_headers.c>
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header set Cross-Origin-Opener-Policy "same-origin"
+  Header set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>
+
+# ------------ Hotlink protection ------------
+# Blocks other sites from embedding our images
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?freakyflyerdelivery\.com\.au [NC]
+RewriteRule \.(jpe?g|png|gif|webp|avif|svg)$ - [F,NC,L]
+
+# ------------ 404 handling (keep if not present) ------------
 ErrorDocument 404 /404.html
