@@ -13,6 +13,7 @@ const a = 3,
   class="card"
   novalidate
   data-min-delay={minDelayMs.toString()}
+  data-expected-sum={(a + b).toString()}
 >
   <!-- Time gate -->
   <input type="hidden" name="startedAt" />
@@ -58,6 +59,8 @@ const a = 3,
     statusEl instanceof HTMLElement
   ) {
     const startField = form.querySelector('input[name="startedAt"]');
+    const sumField = form.querySelector('input[name="sum"]');
+    const expectedSum = Number(form.dataset.expectedSum || '0');
     const setStartTime = () => {
       if (startField instanceof HTMLInputElement) {
         startField.value = Date.now().toString();
@@ -66,9 +69,32 @@ const a = 3,
 
     setStartTime();
 
-    // enable button after first keystroke to avoid instant bot submits
+    const validate = () => {
+      if (sumField instanceof HTMLInputElement) {
+        const value = sumField.value.trim();
+        if (value !== '' && Number(value) !== expectedSum) {
+          sumField.setCustomValidity('Please solve the challenge correctly.');
+        } else {
+          sumField.setCustomValidity('');
+        }
+      }
+
+      const sumOk =
+        sumField instanceof HTMLInputElement &&
+        Number(sumField.value) === expectedSum;
+      const ready = form.checkValidity() && sumOk;
+      btn.disabled = !ready;
+    };
+
+    validate();
+
     form.addEventListener('input', () => {
-      btn.disabled = false;
+      statusEl.textContent = '';
+      validate();
+    });
+
+    form.addEventListener('focusout', () => {
+      validate();
     });
 
     form.addEventListener('submit', (e) => {
@@ -79,16 +105,18 @@ const a = 3,
       const honeypot = (fd.get('company') || '').toString().trim();
       const sum = Number(fd.get('sum'));
       const minDelay = Number(form.dataset.minDelay || '0');
-      const ok = elapsed >= minDelay && honeypot === '' && sum === 7;
+      const ok = elapsed >= minDelay && honeypot === '' && sum === expectedSum;
 
       if (!ok) {
         statusEl.textContent = 'Please complete the spam check and try again.';
+        validate();
         return;
       }
       statusEl.textContent = 'Thanks! We’ll be in touch soon.';
       form.reset();
       btn.disabled = true;
       setStartTime();
+      validate();
     });
   }
 </script>
