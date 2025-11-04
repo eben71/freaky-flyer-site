@@ -4,7 +4,7 @@ const { title, kicker, description, level = 2 } = Astro.props ?? {};
 const parsedLevel = Number(level);
 const normalizedLevel = Number.isNaN(parsedLevel) ? 2 : Math.round(parsedLevel);
 const clampedLevel = Math.min(Math.max(normalizedLevel, 1), 6);
-const headingTag = `h${clampedLevel}` as const;
+const headingTag = `h${clampedLevel}`;
 const headingMap = {
   h1: 'h1',
   h2: 'h2',
@@ -12,7 +12,7 @@ const headingMap = {
   h4: 'h4',
   h5: 'h5',
   h6: 'h6',
-} as const;
+};
 const Heading = headingMap[headingTag] ?? 'h2';
 ---
 

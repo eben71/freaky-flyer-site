@@ -5,7 +5,7 @@ import { Fragment } from 'astro/jsx-runtime';
  * Usage: <EmailLink user="admin" domain="freakyflyerdelivery.com.au">Email us</EmailLink>
  * Renders a clickable email without exposing a raw "mailto:" in HTML source.
  */
-const { user, domain } = Astro.props as { user: string; domain: string };
+const { user = '', domain = '' } = Astro.props ?? {};
 const fallback = `${user}@${domain}`;
 const slotContent = Astro.slots.default
   ? (await Astro.slots.default()).trim()

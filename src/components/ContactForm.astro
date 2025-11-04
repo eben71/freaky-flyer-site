@@ -53,34 +53,32 @@ const a = 3,
   const statusEl = document.getElementById('form-status');
 
   if (
-    !(form instanceof HTMLFormElement) ||
-    !(btn instanceof HTMLButtonElement) ||
-    !(statusEl instanceof HTMLElement)
+    form instanceof HTMLFormElement &&
+    btn instanceof HTMLButtonElement &&
+    statusEl instanceof HTMLElement
   ) {
-    return;
+    // enable button after first keystroke to avoid instant bot submits
+    form.addEventListener('input', () => {
+      btn.disabled = false;
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const startedAt = Number(fd.get('startedAt'));
+      const elapsed = Date.now() - startedAt;
+      const honeypot = (fd.get('company') || '').toString().trim();
+      const sum = Number(fd.get('sum'));
+      const minDelay = Number(form.dataset.minDelay || '0');
+      const ok = elapsed >= minDelay && honeypot === '' && sum === 7;
+
+      if (!ok) {
+        statusEl.textContent = 'Please complete the spam check and try again.';
+        return;
+      }
+      statusEl.textContent = 'Thanks! We’ll be in touch soon.';
+      form.reset();
+      btn.disabled = true;
+    });
   }
-
-  // enable button after first keystroke to avoid instant bot submits
-  form.addEventListener('input', () => {
-    btn.disabled = false;
-  });
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const fd = new FormData(form);
-    const startedAt = Number(fd.get('startedAt'));
-    const elapsed = Date.now() - startedAt;
-    const honeypot = (fd.get('company') || '').toString().trim();
-    const sum = Number(fd.get('sum'));
-    const minDelay = Number(form.dataset.minDelay || '0');
-    const ok = elapsed >= minDelay && honeypot === '' && sum === 7;
-
-    if (!ok) {
-      statusEl.textContent = 'Please complete the spam check and try again.';
-      return;
-    }
-    statusEl.textContent = 'Thanks! We’ll be in touch soon.';
-    form.reset();
-    btn.disabled = true;
-  });
 </script>
