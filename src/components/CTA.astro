@@ -1,15 +1,16 @@
 ---
-import { linkAttrs } from "../lib/links";
+import { linkAttrs } from '../lib/links';
 
 const {
-  title = "Ready to take flight?",
-  body = "Let our crew handle the distribution so you can focus on growing your business.",
-  actionLabel = "Book a discovery call",
-  actionHref = "/contact",
+  title = 'Ready to take flight?',
+  body = 'Let our crew handle the distribution so you can focus on growing your business.',
+  actionLabel = 'Book a discovery call',
+  actionHref = '/contact',
 } = Astro.props;
 
 const actionAttributes = linkAttrs(actionHref);
 ---
+
 <section class="cta" aria-labelledby="cta-heading">
   <div class="container cta__inner">
     <div>
@@ -17,45 +18,47 @@ const actionAttributes = linkAttrs(actionHref);
       <p>{body}</p>
     </div>
     <p class="cta__actions">
-      <a class="button primary" href={actionHref} {...actionAttributes}>{actionLabel}</a>
+      <a class="button primary" href={actionHref} {...actionAttributes}
+        >{actionLabel}</a
+      >
     </p>
   </div>
 </section>
 
 <style>
-.cta {
-  background: var(--accent);
-  color: #fff;
-}
+  .cta {
+    background: var(--accent);
+    color: #fff;
+  }
 
-.cta h2 {
-  color: #fff;
-  margin-bottom: var(--space-2);
-}
+  .cta h2 {
+    color: #fff;
+    margin-bottom: var(--space-2);
+  }
 
-.cta p {
-  color: #fff;
-  margin: 0;
-}
+  .cta p {
+    color: #fff;
+    margin: 0;
+  }
 
-.cta__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-6);
-  flex-wrap: wrap;
-}
+  .cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
 
-.cta__actions {
-  margin: 0;
-}
+  .cta__actions {
+    margin: 0;
+  }
 
-.cta__actions .button {
-  text-decoration: none;
-  box-shadow: var(--shadow);
-}
+  .cta__actions .button {
+    text-decoration: none;
+    box-shadow: var(--shadow);
+  }
 
-.cta__actions .button:hover {
-  text-decoration: none;
-}
+  .cta__actions .button:hover {
+    text-decoration: none;
+  }
 </style>

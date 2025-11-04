@@ -1,73 +1,312 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadPage } from "../lib/content.ts";
-import ContentBlock from "./_partials/ContentBlock.astro";
-import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadPage } from '../lib/content.ts';
+import SectionHeader from '../components/SectionHeader.astro';
+import Picture from '../components/Picture.astro';
 
-const slug = "areas";
+const slug = 'areas';
 const page = await loadPage(slug);
-const fallbackTitle = "Delivery Areas";
-const fallbackDescription = "See where Freaky Flyer Delivery covers across the Perth metro area.";
+const fallbackTitle = 'Delivery Areas | Freaky Flyer Delivery';
+const fallbackDescription =
+  "Flyer delivery routes covering Two Rocks, Rockingham, Kalamunda, and Perth's coastal suburbs with GPS tracking.";
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
-const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription =
+  typeof frontmatter.description === 'string' ? frontmatter.description : '';
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
-const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const description =
+  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const heroImage =
+  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-1280.webp';
 ---
+
 <BaseLayout {title} description={description}>
-  <section class="section surface">
-    <div class="container">
-      <SectionHeader title="Delivery Areas" />
-      {!page && (
-        <p>
-          We specialise in Perth metro deliveries, covering northern and southern corridors with walkers matched to the suburbs
-          you need to reach most.
-        </p>
-      )}
+  <section class="areas-hero" aria-labelledby="areas-heading">
+    <div class="areas-hero__media" aria-hidden="true">
+      <Picture
+        src={heroImage}
+        alt=""
+        sizes="100vw"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div class="areas-hero__overlay"></div>
+    <div class="container areas-hero__content">
+      <SectionHeader
+        level={1}
+        kicker="Delivery Areas"
+        title="Metro coverage from Two Rocks to Rockingham"
+        description="We distribute flyers across the Perth metropolitan area, reaching coastal suburbs, hills communities, and growth corridors with local riders on every route."
+      />
+      <p>
+        Our delivery zones cover Two Rocks in the north to Rockingham in the
+        south, Kalamunda in the east, and the west coast in between. Riders are
+        matched to their local areas so you receive consistent coverage and
+        community knowledge on every run.
+      </p>
     </div>
   </section>
 
-  <section class="section areas-map">
-    <div class="container">
-      <div class="map-shell">
-        <div id="coverage-map" role="presentation" aria-hidden="true"></div>
-        <aside class="map-note">
-          <h3>Coverage overlay coming soon</h3>
-          <p>
-            Map overlay coming soon. Postcode data will be loaded from <code>/assets/data/coverage.json</code> when supplied.
-          </p>
-        </aside>
+  <section
+    class="section areas-overview"
+    aria-labelledby="areas-overview-heading"
+  >
+    <div class="container areas-overview__grid">
+      <div>
+        <h2 id="areas-overview-heading">Distribution corridors</h2>
+        <ul>
+          <li>
+            <strong>North metro:</strong> Two Rocks, Yanchep, Clarkson, Joondalup,
+            Wanneroo, and surrounding suburbs.
+          </li>
+          <li>
+            <strong>South metro:</strong> Rockingham, Baldivis, Success, Cockburn,
+            and Mandurah growth areas.
+          </li>
+          <li>
+            <strong>East metro:</strong> Kalamunda, Midland, Ellenbrook, and foothills
+            communities.
+          </li>
+          <li>
+            <strong>Coastal:</strong> From Fremantle through Scarborough to Mindarie
+            and Quinns Rocks.
+          </li>
+        </ul>
+      </div>
+      <div class="areas-overview__card card">
+        <h2>Plan your next drop</h2>
+        <p>
+          Need a suburb outside the regular loop? Let us know and we'll advise
+          on availability, lead times, and whether an exclusive run is
+          recommended.
+        </p>
+        <a class="button primary" href="/contact">Check coverage</a>
       </div>
     </div>
   </section>
 
-  {page && <ContentBlock html={page.html} />}
+  <section class="section areas-map" aria-labelledby="areas-map-heading">
+    <div class="container areas-map__container">
+      <div class="areas-map__canvas">
+        <h2 id="areas-map-heading">Interactive coverage map (coming soon)</h2>
+        <div id="coverage-map" role="presentation" aria-hidden="true">
+          <span>Coverage map loading soon</span>
+        </div>
+        <p class="areas-map__note">
+          Postcode polygons will be loaded from <code
+            >/assets/data/coverage.json</code
+          > when the dataset is finalised.
+        </p>
+      </div>
+      <aside class="areas-legend" aria-labelledby="areas-legend-heading">
+        <h3 id="areas-legend-heading">Legend</h3>
+        <ul>
+          <li>
+            <span class="legend-swatch legend-swatch--north"></span>North metro
+            weekly runs
+          </li>
+          <li>
+            <span class="legend-swatch legend-swatch--south"></span>South metro
+            weekly runs
+          </li>
+          <li>
+            <span class="legend-swatch legend-swatch--east"></span>Eastern
+            corridor fortnightly runs
+          </li>
+          <li>
+            <span class="legend-swatch legend-swatch--exclusive"
+            ></span>Exclusive delivery on request
+          </li>
+        </ul>
+        <p>
+          GPS maps are available for every drop so you can track coverage suburb
+          by suburb.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section areas-cta">
+    <div class="container areas-cta__inner">
+      <div>
+        <h2>Confirm suburb availability</h2>
+        <p>
+          Share your target postcodes and we’ll recommend the best schedule,
+          bundle volumes, and whether a north, south, or east run suits your
+          campaign.
+        </p>
+      </div>
+      <a class="button primary" href="/contact">Plan coverage</a>
+    </div>
+  </section>
 
   <script type="module" src="/src/scripts/map.ts"></script>
 </BaseLayout>
 
 <style>
-.map-shell {
-  display: grid;
-  gap: var(--space-4);
-}
+  .areas-hero {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    padding: var(--space-16) 0;
+  }
 
-#coverage-map {
-  width: 100%;
-  min-height: 540px;
-  border-radius: var(--radius);
-  background: repeating-linear-gradient(45deg, #f3f4f6, #f3f4f6 12px, #e5e7eb 12px, #e5e7eb 24px);
-  border: 2px dashed rgba(17, 24, 39, 0.2);
-}
+  .areas-hero__media,
+  .areas-hero__overlay {
+    position: absolute;
+    inset: 0;
+  }
 
-.map-note {
-  background: #fff;
-  border-radius: var(--radius);
-  padding: var(--space-4);
-  box-shadow: var(--shadow);
-}
+  .areas-hero__media picture,
+  .areas-hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-.map-note h3 {
-  margin-top: 0;
-}
+  .areas-hero__overlay {
+    background: linear-gradient(
+      220deg,
+      rgba(11, 12, 16, 0.12) 0%,
+      rgba(11, 12, 16, 0.9) 65%,
+      rgba(137, 4, 11, 0.85) 100%
+    );
+  }
+
+  .areas-hero__content {
+    position: relative;
+    display: grid;
+    gap: var(--space-4);
+    color: #fff;
+  }
+
+  .areas-overview__grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .areas-overview__grid ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .areas-overview__card {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .areas-map__container {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .areas-map__canvas {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  #coverage-map {
+    width: 100%;
+    min-height: 540px;
+    border-radius: var(--radius);
+    background: repeating-linear-gradient(
+      45deg,
+      #f3f4f6,
+      #f3f4f6 12px,
+      #e5e7eb 12px,
+      #e5e7eb 24px
+    );
+    border: 2px dashed rgba(17, 24, 39, 0.2);
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .areas-map__note {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .areas-legend {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--space-5);
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .areas-legend ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .legend-swatch {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  .legend-swatch--north {
+    background: rgba(137, 4, 11, 0.8);
+  }
+
+  .legend-swatch--south {
+    background: rgba(17, 24, 39, 0.85);
+  }
+
+  .legend-swatch--east {
+    background: rgba(245, 159, 11, 0.9);
+  }
+
+  .legend-swatch--exclusive {
+    background: rgba(56, 189, 248, 0.9);
+  }
+
+  .areas-cta__inner {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .areas-cta__inner p {
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 900px) {
+    .areas-overview__grid,
+    .areas-map__container {
+      grid-template-columns: 1fr;
+    }
+
+    .areas-hero {
+      text-align: center;
+    }
+
+    .areas-hero__content {
+      align-items: center;
+    }
+  }
 </style>

@@ -1,82 +1,244 @@
 ---
-import fs from "node:fs";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadPage } from "../lib/content.ts";
-import ContentBlock from "./_partials/ContentBlock.astro";
-import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadPage } from '../lib/content.ts';
+import SectionHeader from '../components/SectionHeader.astro';
+import ImageCard from '../components/ImageCard.astro';
 
-const slug = "pricing";
+const slug = 'pricing';
 const page = await loadPage(slug);
-const fallbackTitle = "Pricing";
-const fallbackDescription = "Transparent flyer distribution pricing tailored to your Perth campaign.";
+const fallbackTitle = 'Pricing | Freaky Flyer Delivery';
+const fallbackDescription =
+  'Standard flyer delivery from $66 to $132 per 1,000 homes with GPS tracking and Perth metro coverage.';
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
-const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription =
+  typeof frontmatter.description === 'string' ? frontmatter.description : '';
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
-const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
-const pdfFilename = "ffd-pricelist.pdf";
-const pdfHref = `/assets/docs/${pdfFilename}`;
-const pdfPath = new URL(`../../public${pdfHref}`, import.meta.url);
-const hasPdf = fs.existsSync(pdfPath);
-const csvHref = "/downloads/freaky-flyer-pricing.csv";
+const description =
+  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const csvHref = '/data/pricing.csv';
+const standardImage =
+  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-960.webp';
+const exclusiveImage =
+  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-2-960.webp';
+const reportingImage =
+  '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
 ---
+
 <BaseLayout {title} description={description}>
-  <section class="section surface">
-    <div class="container">
-      <SectionHeader title="Pricing &amp; Packages" />
-      {!page && (
+  <section
+    class="section surface pricing-hero"
+    aria-labelledby="pricing-heading"
+  >
+    <div class="container pricing-hero__container">
+      <SectionHeader
+        level={1}
+        kicker="Pricing"
+        title="Transparent rates for every Perth campaign"
+        description="Our regular schedule ranges from $66.00 to $132.00 per 1,000 homes, inclusive of GST, with exclusive runs available when you need the route all to yourself."
+      />
+      <div class="pricing-hero__copy">
         <p>
-          Choose a pricing option that suits your campaign scale, with transparent rates per thousand drops and bundled
-          reporting to keep stakeholders informed.
+          We invoice on the Monday of the delivery week so you are charged the
+          correct rate for the number of campaigns on the run. Payment can be
+          made via direct deposit or credit card.
         </p>
-      )}
+        <p>
+          GPS tracking is included on every rider. We share the recorded maps on
+          request so your team can verify coverage and reporting.
+        </p>
+        <div
+          class="pricing-hero__actions"
+          role="group"
+          aria-label="Pricing downloads"
+        >
+          <a
+            class="button primary"
+            href={csvHref}
+            target="_blank"
+            rel="noopener">Download Latest Pricing</a
+          >
+          <a class="button button--light" href="/contact">Request a quote</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  {page ? (
-    <ContentBlock html={page.html} />
-  ) : (
-    <section class="section" aria-labelledby="pricing-download">
-      <div class="container">
-        <div class="card">
-          <div class="badge">Updated quarterly</div>
-          <h3 id="pricing-download">Download the latest price list</h3>
-          <p>
-            Grab the newest rate card in your preferred format to share with your team. Replace the PDF in
-            <code>public/assets/docs/</code> when updated.
-          </p>
-          <div role="group" aria-label="Pricing downloads" class="pricing-downloads">
-            <a class="button primary" href={csvHref}>Download CSV</a>
-            {hasPdf ? (
-              <a class="button button--light" href={pdfHref}>Download PDF</a>
-            ) : (
-              <span class="button button--disabled" aria-disabled="true">PDF coming soon</span>
-            )}
-          </div>
-        </div>
+  <section class="section" aria-labelledby="pricing-options">
+    <div class="container">
+      <h2 id="pricing-options" class="sr-only">Pricing options</h2>
+      <div class="grid cols-3 pricing-cards">
+        <ImageCard
+          image={standardImage}
+          title="Standard schedule runs"
+          text="Perth metro flyer delivery from $66.00 to $132.00 per 1,000 homes with GST included."
+          href="#pricing-matrix"
+        />
+        <ImageCard
+          image={exclusiveImage}
+          title="Exclusive flyer drops"
+          text="Book a solo run when you want your flyer delivered on its own with maximum share of voice."
+          href="/contact"
+        />
+        <ImageCard
+          image={reportingImage}
+          title="Reporting & tracking"
+          text="Every rider submits GPS maps so you can confirm coverage, timing, and suburb delivery counts."
+          href="#reporting"
+        />
       </div>
-    </section>
-  )}
+    </div>
+  </section>
+
+  <section
+    class="section surface pricing-matrix"
+    id="pricing-matrix"
+    aria-labelledby="pricing-matrix-heading"
+  >
+    <div class="container">
+      <h2 id="pricing-matrix-heading">Sample rate card</h2>
+      <div class="pricing-matrix__grid">
+        <article class="pricing-matrix__card">
+          <h3>Regular schedule</h3>
+          <ul>
+            <li>
+              <strong>$66</strong>
+              <span>Per 1,000 homes on light delivery weeks.</span>
+            </li>
+            <li>
+              <strong>$85</strong>
+              <span>Average rate for most metro campaigns.</span>
+            </li>
+            <li>
+              <strong>$132</strong>
+              <span
+                >Per 1,000 homes when routes are capped for premium exposure.</span
+              >
+            </li>
+          </ul>
+        </article>
+        <article class="pricing-matrix__card" id="reporting">
+          <h3>What affects your rate?</h3>
+          <ul>
+            <li>Number of campaigns sharing the route each week.</li>
+            <li>
+              Geographic split between north, south, and east metro zones.
+            </li>
+            <li>
+              Whether you require exclusive delivery or optional pickup
+              services.
+            </li>
+          </ul>
+        </article>
+        <article class="pricing-matrix__card">
+          <h3>How billing works</h3>
+          <ul>
+            <li>Invoices issued on Monday of the delivery week.</li>
+            <li>
+              Direct deposit or credit card accepted (fees may apply for card
+              payments).
+            </li>
+            <li>Delivery evidence available via GPS maps for all campaigns.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing-cta">
+    <div class="container pricing-cta__inner">
+      <div>
+        <h2>Need tailored volumes or suburb targeting?</h2>
+        <p>
+          Let us know the suburbs you want to reach and we will confirm delivery
+          windows, bundle quantities, and the best rate for your schedule.
+        </p>
+      </div>
+      <a class="button primary" href="/contact">Talk with our team</a>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-.pricing-downloads {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+  .pricing-hero__container {
+    display: grid;
+    gap: var(--space-8);
+  }
 
-.button--disabled {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.9em 1.8em;
-  border-radius: 4px;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  background: #d1d5db;
-  color: #374151;
-  cursor: not-allowed;
-}
+  .pricing-hero__copy {
+    display: grid;
+    gap: var(--space-4);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .pricing-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .pricing-cards {
+    align-items: stretch;
+  }
+
+  .pricing-matrix__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .pricing-matrix__card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .pricing-matrix__card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .pricing-matrix__card li {
+    display: grid;
+    gap: 4px;
+  }
+
+  .pricing-matrix__card strong {
+    font-size: 1.4rem;
+  }
+
+  .pricing-cta__inner {
+    background: linear-gradient(
+      120deg,
+      rgba(137, 4, 11, 0.85),
+      rgba(15, 16, 19, 0.88)
+    );
+    color: #fff;
+    border-radius: var(--radius);
+    padding: var(--space-8);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    box-shadow: var(--shadow);
+  }
+
+  .pricing-cta__inner p {
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 900px) {
+    .pricing-matrix__grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

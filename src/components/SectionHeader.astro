@@ -1,33 +1,57 @@
 ---
-const { title, kicker } = Astro.props;
+const { title, kicker, description, level = 2 } = Astro.props ?? {};
+
+const parsedLevel = Number(level);
+const normalizedLevel = Number.isNaN(parsedLevel) ? 2 : Math.round(parsedLevel);
+const clampedLevel = Math.min(Math.max(normalizedLevel, 1), 6);
+const headingTag = `h${clampedLevel}` as const;
+const headingMap = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+} as const;
+const Heading = headingMap[headingTag] ?? 'h2';
 ---
+
 <header class="section-header">
   {kicker && <p class="section-header__kicker">{kicker}</p>}
-  <h2>{title}</h2>
+  <Heading>{title}</Heading>
   <span class="section-header__divider" aria-hidden="true"></span>
+  {description && <p class="section-header__description">{description}</p>}
 </header>
 
 <style>
-.section-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-6);
-}
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
 
-.section-header__kicker {
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0;
-}
+  .section-header__kicker {
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
 
-.section-header__divider {
-  display: inline-block;
-  width: 72px;
-  height: 4px;
-  background: var(--accent);
-  border-radius: 999px;
-}
+  .section-header__divider {
+    display: inline-block;
+    width: 72px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 999px;
+  }
+
+  .section-header__description {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 65ch;
+    line-height: 1.7;
+  }
 </style>

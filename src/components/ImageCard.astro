@@ -1,132 +1,145 @@
 ---
-import Picture from "./Picture.astro";
-import { linkAttrs } from "../lib/links";
+import Picture from './Picture.astro';
+import { linkAttrs } from '../lib/links';
 
-interface Props {
-  image: string;
-  title: string;
-  text?: string;
-  href?: string;
-  cta?: string;
-  tone?: "dark" | "red";
-}
-
-const { image, title, text, href, cta = "View More", tone = "red" } = Astro.props as Props;
+const props = Astro.props ?? {};
+const { image, title, text, href, cta = 'View More', tone = 'red' } = props;
 const linkAttributes = href ? linkAttrs(href) : {};
 ---
+
 <article class={`image-card tone-${tone}`}>
   <div class="image-card__media" aria-hidden="true">
     <Picture src={image} alt="" loading="lazy" decoding="async" sizes="100vw" />
   </div>
   <div class="image-card__overlay"></div>
   <div class="image-card__content">
-    {href ? (
-      <h3>
-        <a href={href} {...linkAttributes}>
-          {title}
-        </a>
-      </h3>
-    ) : (
-      <h3>{title}</h3>
-    )}
+    {
+      href ? (
+        <h3>
+          <a href={href} {...linkAttributes}>
+            {title}
+          </a>
+        </h3>
+      ) : (
+        <h3>{title}</h3>
+      )
+    }
     {text && <p>{text}</p>}
-    {href && (
-      <p class="image-card__actions">
-        <a class="button primary" href={href} {...linkAttributes}>
-          {cta}
-        </a>
-      </p>
-    )}
+    {
+      href && (
+        <p class="image-card__actions">
+          <a class="button primary" href={href} {...linkAttributes}>
+            {cta}
+          </a>
+        </p>
+      )
+    }
   </div>
 </article>
 
 <style>
-.image-card {
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  min-height: 420px;
-  display: flex;
-  align-items: flex-end;
-  color: #fff;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.image-card:hover,
-.image-card:focus-within {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.32);
-}
-
-.image-card__media,
-.image-card__overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-
-.image-card__media picture,
-.image-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.image-card__overlay {
-  background: linear-gradient(180deg, rgba(9, 11, 17, 0) 0%, rgba(9, 11, 17, 0.85) 65%, rgba(9, 11, 17, 0.9) 100%);
-  mix-blend-mode: multiply;
-}
-
-.image-card.tone-red .image-card__overlay {
-  background: linear-gradient(200deg, rgba(137, 4, 11, 0.12) 0%, rgba(137, 4, 11, 0.84) 70%, rgba(15, 15, 16, 0.88) 100%);
-}
-
-.image-card.tone-dark .image-card__overlay {
-  background: linear-gradient(200deg, rgba(8, 11, 20, 0.22) 0%, rgba(8, 11, 20, 0.92) 75%);
-}
-
-.image-card__content {
-  position: relative;
-  padding: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  text-shadow: 0 3px 18px rgba(5, 5, 5, 0.6);
-  z-index: 2;
-}
-
-.image-card h3 {
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
-  margin: 0;
-}
-
-.image-card h3 a {
-  color: inherit;
-}
-
-.image-card p {
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
-
-.image-card__actions {
-  margin: var(--space-4) 0 0;
-}
-
-.image-card .button {
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-}
-
-@media (max-width: 600px) {
   .image-card {
-    min-height: 360px;
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 420px;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .image-card:hover,
+  .image-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.32);
+  }
+
+  .image-card__media,
+  .image-card__overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .image-card__media picture,
+  .image-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .image-card__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(9, 11, 17, 0) 0%,
+      rgba(9, 11, 17, 0.85) 65%,
+      rgba(9, 11, 17, 0.9) 100%
+    );
+    mix-blend-mode: multiply;
+  }
+
+  .image-card.tone-red .image-card__overlay {
+    background: linear-gradient(
+      200deg,
+      rgba(137, 4, 11, 0.12) 0%,
+      rgba(137, 4, 11, 0.84) 70%,
+      rgba(15, 15, 16, 0.88) 100%
+    );
+  }
+
+  .image-card.tone-dark .image-card__overlay {
+    background: linear-gradient(
+      200deg,
+      rgba(8, 11, 20, 0.22) 0%,
+      rgba(8, 11, 20, 0.92) 75%
+    );
   }
 
   .image-card__content {
-    padding: var(--space-6);
+    position: relative;
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    text-shadow: 0 3px 18px rgba(5, 5, 5, 0.6);
+    z-index: 2;
   }
-}
+
+  .image-card h3 {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    margin: 0;
+  }
+
+  .image-card h3 a {
+    color: inherit;
+  }
+
+  .image-card p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .image-card__actions {
+    margin: var(--space-4) 0 0;
+  }
+
+  .image-card .button {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  }
+
+  @media (max-width: 600px) {
+    .image-card {
+      min-height: 360px;
+    }
+
+    .image-card__content {
+      padding: var(--space-6);
+    }
+  }
 </style>

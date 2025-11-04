@@ -1,37 +1,44 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { loadPage } from "../../lib/content.ts";
-import ContentBlock from "../_partials/ContentBlock.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadPage } from '../../lib/content.ts';
+import ContentBlock from '../_partials/ContentBlock.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 
-const slug = "about-us-meet-the-team";
+const slug = 'about-us-meet-the-team';
 const page = await loadPage(slug);
-const fallbackTitle = "Meet The Team";
-const fallbackDescription = "Meet the walkers, supervisors, and support crew behind Freaky Flyer Delivery.";
+const fallbackTitle = 'Meet The Team';
+const fallbackDescription =
+  'Meet the walkers, supervisors, and support crew behind Freaky Flyer Delivery.';
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
-const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription =
+  typeof frontmatter.description === 'string' ? frontmatter.description : '';
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
-const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const description =
+  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 ---
+
 <BaseLayout {title} description={description}>
-  {page ? (
-    <>
+  {
+    page ? (
+      <>
+        <section class="section surface">
+          <div class="container">
+            <SectionHeader title={page.fm?.title ?? 'Meet The Team'} />
+          </div>
+        </section>
+        <ContentBlock html={page.html} />
+      </>
+    ) : (
       <section class="section surface">
         <div class="container">
-          <SectionHeader title={page.fm?.title ?? "Meet The Team"} />
+          <SectionHeader title="Meet The Team" />
+          <p>
+            Get to know the walkers, supervisors, and support crew who keep
+            every Freaky Flyer Delivery campaign running smoothly.
+          </p>
         </div>
       </section>
-      <ContentBlock html={page.html} />
-    </>
-  ) : (
-    <section class="section surface">
-      <div class="container">
-        <SectionHeader title="Meet The Team" />
-        <p>
-          Get to know the walkers, supervisors, and support crew who keep every Freaky Flyer Delivery campaign running smoothly.
-        </p>
-      </div>
-    </section>
-  )}
+    )
+  }
 </BaseLayout>
