@@ -1,23 +1,26 @@
 ---
 const { items = [] } = Astro.props;
-const isHome = Astro.url.pathname === "/";
+const isHome = Astro.url.pathname === '/';
 const shouldRender = !isHome && Array.isArray(items) && items.length >= 2;
 ---
-{shouldRender ? (
-  <nav class="breadcrumbs" aria-label="Breadcrumb">
-    <ol class="breadcrumbs__list">
-      {items.map((item, index) => {
-        const isLast = index === items.length - 1;
-        return (
-          <li class="breadcrumbs__item">
-            {isLast ? (
-              <span aria-current="page">{item.label}</span>
-            ) : (
-              <a href={item.href}>{item.label}</a>
-            )}
-          </li>
-        );
-      })}
-    </ol>
-  </nav>
-) : null}
+
+{
+  shouldRender ? (
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol class="breadcrumbs__list">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li class="breadcrumbs__item">
+              {isLast ? (
+                <span aria-current="page">{item.label}</span>
+              ) : (
+                <a href={item.href}>{item.label}</a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  ) : null
+}

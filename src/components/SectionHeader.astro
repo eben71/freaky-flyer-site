@@ -1,33 +1,24 @@
 ---
-const props = Astro.props ?? {};
-const { title, kicker, description, level = 2 } = props;
-const numericLevel = Number(level ?? 2);
-const normalizedLevel = Number.isNaN(numericLevel)
-  ? 2
-  : Math.round(numericLevel);
-const safeLevel = Math.min(Math.max(normalizedLevel, 1), 6);
+const { title, kicker, description, level = 2 } = Astro.props ?? {};
 
-const renderHeading = () => {
-  switch (safeLevel) {
-    case 1:
-      return <h1>{title}</h1>;
-    case 2:
-      return <h2>{title}</h2>;
-    case 3:
-      return <h3>{title}</h3>;
-    case 4:
-      return <h4>{title}</h4>;
-    case 5:
-      return <h5>{title}</h5>;
-    default:
-      return <h6>{title}</h6>;
-  }
-};
+const parsedLevel = Number(level);
+const normalizedLevel = Number.isNaN(parsedLevel) ? 2 : Math.round(parsedLevel);
+const clampedLevel = Math.min(Math.max(normalizedLevel, 1), 6);
+const headingTag = `h${clampedLevel}` as const;
+const headingMap = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+} as const;
+const Heading = headingMap[headingTag] ?? 'h2';
 ---
 
 <header class="section-header">
   {kicker && <p class="section-header__kicker">{kicker}</p>}
-  {renderHeading()}
+  <Heading>{title}</Heading>
   <span class="section-header__divider" aria-hidden="true"></span>
   {description && <p class="section-header__description">{description}</p>}
 </header>
