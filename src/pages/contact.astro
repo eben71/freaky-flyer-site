@@ -1,35 +1,176 @@
 ---
-import Base from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import EmailLink from '../components/EmailLink.astro';
 import ContactForm from '../components/ContactForm.astro';
+import { site } from '../site.config';
+import { linkAttrs } from '../lib/links';
+
+const title = 'Contact | Freaky Flyer Delivery';
+const description =
+  'Talk with the Freaky Flyer Delivery team about Perth flyer runs, pricing, and suburb coverage.';
+const phoneHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
+const phoneAttrs = linkAttrs(phoneHref);
 ---
 
-<Base title="Contact" description="Get a quote or ask a question.">
-  <section class="section surface">
-    <div class="container grid cols-3">
-      <div class="card" style="grid-column: span 2;">
-        <h2>Send a message</h2>
-        <ContactForm />
-      </div>
-      <aside class="card">
-        <h3>Contact Details</h3>
-        <p>
-          <strong>Phone:</strong>
-          <a href="tel:0894057777" target="_blank" rel="noopener"
-            >08 9405 7777</a
-          >
-        </p>
-        <p>
-          <strong>Email:</strong>
-          <EmailLink user="admin" domain="freakyflyerdelivery.com.au"
-            >admin@freakyflyerdelivery.com.au</EmailLink
-          >
-        </p>
-        <p>
-          <strong>Warehouse:</strong><br />96 Nicholas Rd, Wanneroo<br />Mon–Fri
-          7:00am–3:30pm
-        </p>
-      </aside>
+<BaseLayout {title} description={description}>
+  <section
+    class="section surface contact-hero"
+    aria-labelledby="contact-heading"
+  >
+    <div class="container contact-hero__container">
+      <SectionHeader
+        level={1}
+        kicker="Contact"
+        title="Let’s plan your next flyer drop"
+        description="Share your goals and we’ll confirm suburb availability, delivery windows, and the right volume for your campaign."
+      />
+      <p>
+        We’re a Perth-based family business and answer every enquiry personally.
+        Call us during business hours or send a message anytime—our team will
+        respond within one business day.
+      </p>
     </div>
   </section>
-</Base>
+
+  <section
+    class="section contact-grid"
+    aria-labelledby="contact-details-heading"
+  >
+    <div class="container contact-grid__container">
+      <article class="card contact-info">
+        <h2 id="contact-details-heading">Contact details</h2>
+        <dl>
+          <div class="contact-info__row">
+            <dt>Phone</dt>
+            <dd>
+              <a href={phoneHref} {...phoneAttrs}>{site.phone}</a>
+            </dd>
+          </div>
+          <div class="contact-info__row">
+            <dt>Email</dt>
+            <dd>
+              <EmailLink user="admin" domain="freakyflyerdelivery.com.au" />
+            </dd>
+          </div>
+          <div class="contact-info__row">
+            <dt>Warehouse</dt>
+            <dd>{site.address}</dd>
+          </div>
+          <div class="contact-info__row">
+            <dt>Hours</dt>
+            <dd>{site.hours}</dd>
+          </div>
+        </dl>
+        <p class="contact-info__note">
+          Need a rush campaign or pickup? Call us and we’ll do everything we can
+          to help.
+        </p>
+        <a class="button primary" href="/pricing">View pricing guide</a>
+      </article>
+      <div class="contact-form">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-hero__container {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .contact-hero__container p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .contact-grid__container {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .contact-info {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .contact-info dl {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .contact-info__row {
+    display: grid;
+    gap: 4px;
+  }
+
+  .contact-info dt {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contact-info dd {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .contact-info__note {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .contact-form form {
+    width: 100%;
+  }
+
+  #contact-form {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  #contact-form label {
+    display: grid;
+    gap: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+  }
+
+  #contact-form input,
+  #contact-form textarea {
+    border: 1px solid rgba(17, 24, 39, 0.18);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font: inherit;
+  }
+
+  #contact-form textarea {
+    resize: vertical;
+    min-height: 160px;
+  }
+
+  #contact-form .muted {
+    color: var(--muted);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid__container {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+      order: -1;
+    }
+  }
+</style>

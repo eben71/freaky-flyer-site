@@ -454,7 +454,7 @@ header.site[data-nav-open='true'] .nav__toggle-bar:nth-child(3) {
   position: absolute;
   left: 8px;
   right: 8px;
-  bottom: 4px;
+  bottom: 6px;
   height: 3px;
   background: transparent;
   border-radius: 999px;
@@ -518,6 +518,13 @@ header.site[data-nav-open='true'] .nav__toggle-bar:nth-child(3) {
     display: block;
     width: 100%;
     padding: 16px 0;
+  }
+
+  .nav-links a::after {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
   }
 
   .nav__toggle {

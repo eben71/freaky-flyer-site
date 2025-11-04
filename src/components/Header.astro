@@ -149,8 +149,12 @@ const topbarLinks = [
           navItems.map((item) => {
             const active = isActive(item);
             return (
-              <li class={active ? 'is-active' : undefined}>
-                <a href={item.href} aria-current={active ? 'page' : undefined}>
+              <li class:list={{ 'is-active': active }}>
+                <a
+                  class:list={{ 'is-active': active }}
+                  href={item.href}
+                  aria-current={active ? 'page' : undefined}
+                >
                   {item.label}
                 </a>
               </li>
