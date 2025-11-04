@@ -1,0 +1,86 @@
+---
+/**
+ * Static anti-spam: honeypot (company), time-gate (>=3s), simple math challenge.
+ * Submission is non-functional in Phase 2; show success toast and reset.
+ */
+const minDelayMs = 3000;
+const a = 3,
+  b = 4; // simple challenge "3 + 4"
+---
+
+<form
+  id="contact-form"
+  class="card"
+  novalidate
+  data-min-delay={minDelayMs.toString()}
+>
+  <!-- Time gate -->
+  <input type="hidden" name="startedAt" value={Date.now().toString()} />
+  <!-- Honeypot (must stay empty) -->
+  <div style="position:absolute;left:-9999px" aria-hidden="true">
+    <label
+      >Company <input name="company" autocomplete="off" tabindex="-1" /></label
+    >
+  </div>
+
+  <label
+    >Name
+    <input name="name" required autocomplete="name" />
+  </label>
+  <label
+    >Email
+    <input name="email" type="email" required autocomplete="email" />
+  </label>
+  <label
+    >Message
+    <textarea name="message" required rows="5"></textarea>
+  </label>
+
+  <label aria-label="Spam protection question"
+    >What is {a} + {b}?
+    <input name="sum" inputmode="numeric" required />
+  </label>
+
+  <button class="button primary" type="submit" disabled id="submitBtn"
+    >Send</button
+  >
+  <p id="form-status" class="muted" role="status" aria-live="polite"></p>
+</form>
+
+<script is:inline>
+  const form = document.getElementById('contact-form');
+  const btn = document.getElementById('submitBtn');
+  const statusEl = document.getElementById('form-status');
+
+  if (
+    !(form instanceof HTMLFormElement) ||
+    !(btn instanceof HTMLButtonElement) ||
+    !(statusEl instanceof HTMLElement)
+  ) {
+    return;
+  }
+
+  // enable button after first keystroke to avoid instant bot submits
+  form.addEventListener('input', () => {
+    btn.disabled = false;
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const startedAt = Number(fd.get('startedAt'));
+    const elapsed = Date.now() - startedAt;
+    const honeypot = (fd.get('company') || '').toString().trim();
+    const sum = Number(fd.get('sum'));
+    const minDelay = Number(form.dataset.minDelay || '0');
+    const ok = elapsed >= minDelay && honeypot === '' && sum === 7;
+
+    if (!ok) {
+      statusEl.textContent = 'Please complete the spam check and try again.';
+      return;
+    }
+    statusEl.textContent = 'Thanks! We’ll be in touch soon.';
+    form.reset();
+    btn.disabled = true;
+  });
+</script>

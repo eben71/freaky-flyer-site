@@ -53,6 +53,10 @@ a:hover {
   text-decoration: underline;
 }
 
+/* External links icon opt-in (optional) */
+a[target='_blank'] {
+}
+
 img {
   max-width: 100%;
   height: auto;
