@@ -15,7 +15,7 @@ const a = 3,
   data-min-delay={minDelayMs.toString()}
 >
   <!-- Time gate -->
-  <input type="hidden" name="startedAt" value={Date.now().toString()} />
+  <input type="hidden" name="startedAt" />
   <!-- Honeypot (must stay empty) -->
   <div style="position:absolute;left:-9999px" aria-hidden="true">
     <label
@@ -57,6 +57,15 @@ const a = 3,
     btn instanceof HTMLButtonElement &&
     statusEl instanceof HTMLElement
   ) {
+    const startField = form.querySelector('input[name="startedAt"]');
+    const setStartTime = () => {
+      if (startField instanceof HTMLInputElement) {
+        startField.value = Date.now().toString();
+      }
+    };
+
+    setStartTime();
+
     // enable button after first keystroke to avoid instant bot submits
     form.addEventListener('input', () => {
       btn.disabled = false;
@@ -79,6 +88,7 @@ const a = 3,
       statusEl.textContent = 'Thanks! We’ll be in touch soon.';
       form.reset();
       btn.disabled = true;
+      setStartTime();
     });
   }
 </script>
