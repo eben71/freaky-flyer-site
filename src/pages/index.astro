@@ -1,34 +1,41 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadPage } from "../lib/content.ts";
-import Hero from "../components/Hero.astro";
-import CTA from "../components/CTA.astro";
-import ImageCard from "../components/ImageCard.astro";
-import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadPage } from '../lib/content.ts';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+import ImageCard from '../components/ImageCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 
-const slug = "index";
+const slug = 'index';
 const page = await loadPage(slug);
-const fallbackTitle = "Freaky Flyer Delivery";
-const fallbackDescription = "GPS-verified flyer delivery in Perth.";
+const fallbackTitle = 'Freaky Flyer Delivery';
+const fallbackDescription = 'GPS-verified flyer delivery in Perth.';
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === "string" ? frontmatter.title : "";
-const rawDescription = typeof frontmatter.description === "string" ? frontmatter.description : "";
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription =
+  typeof frontmatter.description === 'string' ? frontmatter.description : '';
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
-const description = rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
-const heroImage = "/assets/brand/nw01ffd_home_banner.jpg";
-const aboutPanelImage = "/assets/brand/about-hero.jpg";
-const flyerTipsPanelImage = "/assets/brand/tips-hero.jpg";
-const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
+const description =
+  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const heroImage = '/assets/brand/nw01ffd_home_banner.jpg';
+const aboutPanelImage = '/assets/brand/about-hero.jpg';
+const flyerTipsPanelImage = '/assets/brand/tips-hero.jpg';
+const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
 ---
+
 <BaseLayout {title} description={description}>
   <Hero
     image={heroImage}
     kicker="Family owned. Perth proud."
-    title="Perth's specialists in flyer, brochure &amp; pamphlet delivery"
+    title="Perth's specialists in flyer, brochure & pamphlet delivery"
     text="Full GPS tracking on every delivery so you can see exactly where your flyers go."
   >
     <div slot="actions">
-      <button type="button" class="button primary" data-modal-open="video-modal">
+      <button
+        type="button"
+        class="button primary"
+        data-modal-open="video-modal"
+      >
         Watch Our Video
       </button>
       <a class="button outline" href="/pricing">View Pricing</a>
@@ -39,9 +46,10 @@ const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
     <div class="container intro__container">
       <h2 id="intro-heading">Professional flyer distribution across Perth</h2>
       <p>
-        We are a family-owned and operated flyer delivery business specialising in distributing flyers to residential homes
-        across the Perth metropolitan area. Our full-time riders deliver an honest, reliable and accountable service for every
-        campaign.
+        We are a family-owned and operated flyer delivery business specialising
+        in distributing flyers to residential homes across the Perth
+        metropolitan area. Our full-time riders deliver an honest, reliable and
+        accountable service for every campaign.
       </p>
     </div>
   </section>
@@ -69,14 +77,20 @@ const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
 
   <section aria-labelledby="pricing-heading" class="section pricing-highlight">
     <div class="container pricing-highlight__inner">
-      <p class="badge pricing-highlight__badge">Residential letterbox distribution &amp; flyer delivery</p>
+      <p class="badge pricing-highlight__badge">
+        Residential letterbox distribution &amp; flyer delivery
+      </p>
       <h2 id="pricing-heading">From as low as</h2>
       <p class="pricing-highlight__price">
         $85.00*
         <span>per 1,000 homes (inc GST)</span>
       </p>
-      <p class="pricing-highlight__note">*Conditions apply – ask our friendly staff for details.</p>
-      <a class="button button--inverted pricing-highlight__cta" href="/pricing">View Pricing</a>
+      <p class="pricing-highlight__note">
+        *Conditions apply – ask our friendly staff for details.
+      </p>
+      <a class="button button--inverted pricing-highlight__cta" href="/pricing"
+        >View Pricing</a
+      >
     </div>
   </section>
 
@@ -99,21 +113,28 @@ const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
             <div>
               <h3>Unique EQUALIZING Technique Ensures Maximum Exposure</h3>
               <p>
-                Our preparation and Equalizing team layer all flyers for a particular delivery suburb or area, one on top of the
-                other in preparation for the delivery. This ensures that when they are put into the householders letterbox the
-                flyers will spread out creating maximum exposure for all of our clients. We also vary the order of the flyers,
-                creating even greater equal exposure for all of our clients on each individual delivery.
+                Our preparation and Equalizing team layer all flyers for a
+                particular delivery suburb or area, one on top of the other in
+                preparation for the delivery. This ensures that when they are
+                put into the householders letterbox the flyers will spread out
+                creating maximum exposure for all of our clients. We also vary
+                the order of the flyers, creating even greater equal exposure
+                for all of our clients on each individual delivery.
               </p>
             </div>
           </li>
           <li class="why__item">
             <span class="why__number">2</span>
             <div>
-              <h3>Tried &amp; Tested Delivery Method Ensures Maximum Efficiency</h3>
+              <h3>
+                Tried &amp; Tested Delivery Method Ensures Maximum Efficiency
+              </h3>
               <p>
-                Our tried and tested method of delivery, undertaking delivery on ex Australia Post Honda CT110 motorbikes, with
-                waterproof rear side pannier bags, maximizing our riders efficiency, and ensuring delivery of dry flyers even in
-                the worst winter weather Perth can produce.
+                Our tried and tested method of delivery, undertaking delivery on
+                ex Australia Post Honda CT110 motorbikes, with waterproof rear
+                side pannier bags, maximizing our riders efficiency, and
+                ensuring delivery of dry flyers even in the worst winter weather
+                Perth can produce.
               </p>
             </div>
           </li>
@@ -122,9 +143,11 @@ const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
             <div>
               <h3>Full GPS Tracking gives you complete confidence</h3>
               <p>
-                Our Equalizing technique increases the exposure to the householder for all of our clients. Having a smaller client
-                base than our competitors generally means most likely only having two-three additional flyers for delivery,
-                significantly increasing the share of exposure on each delivery.
+                Our Equalizing technique increases the exposure to the
+                householder for all of our clients. Having a smaller client base
+                than our competitors generally means most likely only having
+                two-three additional flyers for delivery, significantly
+                increasing the share of exposure on each delivery.
               </p>
             </div>
           </li>
@@ -140,11 +163,20 @@ const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
     actionHref="/contact"
   />
 
-  <dialog id="video-modal" class="video-modal" aria-labelledby="video-modal-heading">
+  <dialog
+    id="video-modal"
+    class="video-modal"
+    aria-labelledby="video-modal-heading"
+  >
     <div class="video-modal__inner">
       <header class="video-modal__header">
         <h2 id="video-modal-heading">Freaky Flyer Delivery overview</h2>
-        <button type="button" class="video-modal__close" data-modal-close aria-label="Close video">
+        <button
+          type="button"
+          class="video-modal__close"
+          data-modal-close
+          aria-label="Close video"
+        >
           &times;
         </button>
       </header>
@@ -154,15 +186,16 @@ const whyImage = "/assets/img/optimized/index/ffdwarehousepersonell-960.webp";
           title="Freaky Flyer Delivery overview video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-          loading="lazy"
-        ></iframe>
+          loading="lazy"></iframe>
       </div>
     </div>
   </dialog>
 
   <script type="module">
     const modal = document.getElementById('video-modal');
-    const triggers = document.querySelectorAll('[data-modal-open="video-modal"]');
+    const triggers = document.querySelectorAll(
+      '[data-modal-open="video-modal"]'
+    );
 
     if (modal instanceof HTMLDialogElement) {
       const closeButton = modal.querySelector('[data-modal-close]');

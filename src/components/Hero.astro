@@ -1,109 +1,127 @@
 ---
-import Picture from "./Picture.astro";
-import { linkAttrs } from "../lib/links";
+import Picture from './Picture.astro';
+import { linkAttrs } from '../lib/links';
 
 const {
-  image = "/assets/brand/nw01ffd_home_banner.jpg",
-  kicker = "Perth-wide GPS flyer distribution",
-  title = "Freaky Flyer Delivery",
-  text = "",
-  primaryHref = "/contact",
-  primaryText = "Get a Quote",
-  secondaryHref = "/pricing",
-  secondaryText = "View Pricing",
+  image = '/assets/brand/nw01ffd_home_banner.jpg',
+  kicker = 'Perth-wide GPS flyer distribution',
+  title = 'Freaky Flyer Delivery',
+  text = '',
+  primaryHref = '/contact',
+  primaryText = 'Get a Quote',
+  secondaryHref = '/pricing',
+  secondaryText = 'View Pricing',
 } = Astro.props;
-const hasActionsSlot = Astro.slots.has("actions");
+const hasActionsSlot = Astro.slots.has('actions');
 const primaryAttrs = linkAttrs(primaryHref);
 const secondaryAttrs = linkAttrs(secondaryHref);
 ---
+
 <section class="hero section angled-top">
   <div class="hero__media" aria-hidden="true">
-    <Picture src={image} alt="" sizes="100vw" loading="eager" decoding="async" />
+    <Picture
+      src={image}
+      alt=""
+      sizes="100vw"
+      loading="eager"
+      decoding="async"
+    />
   </div>
   <div class="hero__overlay"></div>
   <div class="container hero__content">
     <p class="kicker">#{kicker}</p>
     <h1 class="title">{title}</h1>
     {text && <p style="max-width:65ch">{text}</p>}
-    {hasActionsSlot ? (
-      <div class="hero__actions">
-        <slot name="actions" />
-      </div>
-    ) : (
-      <div class="hero__actions">
-        <a href={primaryHref} class="button primary" {...primaryAttrs}>{primaryText}</a>
-        <a href={secondaryHref} class="button outline" {...secondaryAttrs}>{secondaryText}</a>
-      </div>
-    )}
+    {
+      hasActionsSlot ? (
+        <div class="hero__actions">
+          <slot name="actions" />
+        </div>
+      ) : (
+        <div class="hero__actions">
+          <a href={primaryHref} class="button primary" {...primaryAttrs}>
+            {primaryText}
+          </a>
+          <a href={secondaryHref} class="button outline" {...secondaryAttrs}>
+            {secondaryText}
+          </a>
+        </div>
+      )
+    }
   </div>
 </section>
 
 <style>
-.hero {
-  position: relative;
-  overflow: hidden;
-  color: #fff;
-  display: flex;
-  align-items: center;
-}
-
-.hero__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero__media picture,
-.hero__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(220deg, rgba(11, 12, 16, 0.15) 0%, rgba(6, 8, 15, 0.92) 60%, rgba(137, 4, 11, 0.82) 100%);
-  z-index: 1;
-}
-
-.hero__content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.kicker {
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.title {
-  color: #fff;
-}
-
-.hero__actions {
-  display: flex;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-.hero__actions .button {
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
-}
-
-@media (max-width: 720px) {
   .hero {
-    text-align: center;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__media picture,
+  .hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      220deg,
+      rgba(11, 12, 16, 0.15) 0%,
+      rgba(6, 8, 15, 0.92) 60%,
+      rgba(137, 4, 11, 0.82) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .kicker {
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .title {
+    color: #fff;
   }
 
   .hero__actions {
-    justify-content: center;
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
   }
-}
+
+  .hero__actions .button {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  }
+
+  @media (max-width: 720px) {
+    .hero {
+      text-align: center;
+    }
+
+    .hero__actions {
+      justify-content: center;
+    }
+  }
 </style>
