@@ -5,7 +5,6 @@ Welcome aboard! This document covers the essentials for updating content and dep
 ## Updating Documents & Downloads
 
 - Place the latest PDF price lists or CSV schedules in `public/assets/docs/`.
-- Replace the `README.md` placeholder in that folder with the real document (e.g. `ffd-pricelist.pdf`) before launch.
 - Update any links in the Markdown content or pages that point to those files so visitors can download the newest version.
 
 ## Managing Images
