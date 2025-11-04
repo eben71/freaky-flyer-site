@@ -2,7 +2,6 @@
   "name": "Freaky Flyer Delivery",
   "short_name": "FFD",
   "icons": [
-    { "src": "/favicon.ico", "sizes": "32x32", "type": "image/x-icon" },
     {
       "src": "/assets/brand/icon-192.png",
       "sizes": "192x192",
