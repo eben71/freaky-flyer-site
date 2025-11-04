@@ -7,15 +7,15 @@ import { Fragment } from 'astro/jsx-runtime';
  */
 const { user = '', domain = '' } = Astro.props ?? {};
 const fallback = `${user}@${domain}`;
-const slotContent = Astro.slots.default
-  ? (await Astro.slots.default()).trim()
-  : '';
-const display = slotContent.length > 0 ? slotContent : fallback;
+const hasSlot = Astro.slots.has('default');
+const slotContent = hasSlot ? await Astro.slots.render('default') : '';
+const shouldUseFallback = slotContent.trim().length === 0;
 const obfuscated = fallback.replace('@', '&#64;');
-const innerHtml = display === fallback ? obfuscated : display;
+const innerHtml = shouldUseFallback ? obfuscated : slotContent;
 const handleClick = `(e)=>{e.preventDefault();window.location.href='mailto:'+'${user}'+'@'+'${domain}'}`;
+const ariaLabel = `Email ${fallback}`;
 ---
 
-<a href="#" aria-label="Email link" onClick={handleClick}>
+<a href="#" aria-label={ariaLabel} onClick={handleClick}>
   <Fragment set:html={innerHtml} />
 </a>
