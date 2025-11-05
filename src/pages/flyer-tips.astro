@@ -6,9 +6,9 @@ import SectionHeader from '../components/SectionHeader.astro';
 
 const slug = 'flyer-tips';
 const page = await loadPage(slug);
-const fallbackTitle = 'Flyer Tips';
+const fallbackTitle = 'Flyer Tips | Freaky Flyer Delivery';
 const fallbackDescription =
-  'Make every flyer drop count with creative and distribution advice.';
+  'Make every flyer drop count with creative and distribution advice from the Freaky Flyer Delivery team.';
 const frontmatter = page?.fm ?? {};
 const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
 const rawDescription =
@@ -16,6 +16,7 @@ const rawDescription =
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description =
   rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const headingTitle = page?.fm?.title ?? 'Flyer Tips';
 ---
 
 <BaseLayout {title} description={description}>
@@ -24,7 +25,11 @@ const description =
       <>
         <section class="section surface">
           <div class="container">
-            <SectionHeader title={page.fm?.title ?? 'Flyer Tips'} />
+            <SectionHeader
+              level={1}
+              title={headingTitle}
+              description={description}
+            />
           </div>
         </section>
         <ContentBlock html={page.html} />
@@ -32,10 +37,14 @@ const description =
     ) : (
       <section class="section surface">
         <div class="container">
-          <SectionHeader title="Flyer Tips" />
+          <SectionHeader
+            level={1}
+            title={headingTitle}
+            description={description}
+          />
           <p>
-            Make every drop count with practical design, printing, and
-            distribution advice from the Freaky Flyer Delivery team.
+            Explore best practices for creative, printing, and distribution so
+            every drop reaches the right households at the right time.
           </p>
         </div>
       </section>

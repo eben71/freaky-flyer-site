@@ -16,8 +16,8 @@ Welcome aboard! This document covers the essentials for updating content and dep
 
 ## Favicons & App Icons
 
-- Provide `favicon.ico` in the `public/` folder root and upload `icon-192.png` & `icon-512.png` to `public/assets/brand/`.
-- Update the artwork but keep the filenames so the manifest and `<link rel="icon">` references continue to work.
+- Keep `favicon.ico`, `icon-192.png`, and `icon-512.png` in `public/brands/` so the manifest and `<link rel="icon">` references stay in sync.
+- Update the artwork but keep the filenames so browsers continue to pick up the latest icons.
 
 ## Running the Site Locally
 

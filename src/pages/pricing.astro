@@ -17,6 +17,7 @@ const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description =
   rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
 const csvHref = '/data/pricing.csv';
+const pdfHref = '/downloads/pricing.pdf';
 const standardImage =
   '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-960.webp';
 const exclusiveImage =
@@ -50,13 +51,19 @@ const reportingImage =
         <div
           class="pricing-hero__actions"
           role="group"
-          aria-label="Pricing downloads"
+          aria-label="Pricing actions"
         >
           <a
             class="button primary"
             href={csvHref}
             target="_blank"
-            rel="noopener">Download Latest Pricing</a
+            rel="noopener">Download Latest Pricing (CSV)</a
+          >
+          <a
+            class="button primary"
+            href={pdfHref}
+            target="_blank"
+            rel="noopener">Download Latest Pricing (PDF)</a
           >
           <a class="button button--light" href="/contact">Request a quote</a>
         </div>
