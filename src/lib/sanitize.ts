@@ -23,12 +23,12 @@ export function sanitizeHtml(
     ''
   );
 
-  // 2) Demote multiple H1s to H2/H3 (keep the first H1 only)
-  let first = true;
-  html = html.replace(/<h1\b([^>]*)>([\s\S]*?)<\/h1>/gi, (_m, attrs, text) => {
-    if (first) {
-      first = false;
-      return `<h1${attrs}>${text}</h1>`;
+  // 2) Demote additional H1 headings to H2 so layout controls the single page H1
+  let firstH1Preserved = false;
+  html = html.replace(/<h1\b([^>]*)>([\s\S]*?)<\/h1>/gi, (match, attrs, text) => {
+    if (!firstH1Preserved) {
+      firstH1Preserved = true;
+      return match;
     }
     return `<h2${attrs}>${text}</h2>`;
   });

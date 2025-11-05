@@ -6,9 +6,9 @@ import SectionHeader from '../components/SectionHeader.astro';
 
 const slug = 'gps-tracking';
 const page = await loadPage(slug);
-const fallbackTitle = 'GPS Tracking';
+const fallbackTitle = 'GPS Tracking | Freaky Flyer Delivery';
 const fallbackDescription =
-  'Full GPS tracking and audit trails for every Freaky Flyer Delivery run.';
+  'Full GPS tracking and audit trails for every Freaky Flyer Delivery run across Perth.';
 const frontmatter = page?.fm ?? {};
 const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
 const rawDescription =
@@ -16,6 +16,7 @@ const rawDescription =
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description =
   rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const headingTitle = page?.fm?.title ?? 'GPS Tracking';
 ---
 
 <BaseLayout {title} description={description}>
@@ -24,7 +25,11 @@ const description =
       <>
         <section class="section surface">
           <div class="container">
-            <SectionHeader title={page.fm?.title ?? 'GPS Tracking'} />
+            <SectionHeader
+              level={1}
+              title={headingTitle}
+              description={description}
+            />
           </div>
         </section>
         <ContentBlock html={page.html} />
@@ -32,10 +37,14 @@ const description =
     ) : (
       <section class="section surface">
         <div class="container">
-          <SectionHeader title="GPS Tracking" />
+          <SectionHeader
+            level={1}
+            title={headingTitle}
+            description={description}
+          />
           <p>
-            See how our live GPS logs and supervisor audits prove every flyer
-            drop, complete with shareable heatmaps and delivery summaries.
+            Discover how live rider tracking, audit trails, and delivery
+            heatmaps provide proof of performance for every suburb drop.
           </p>
         </div>
       </section>
