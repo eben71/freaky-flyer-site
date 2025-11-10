@@ -1,176 +1,308 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import EmailLink from '../components/EmailLink.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { site } from '../site.config';
 import { linkAttrs } from '../lib/links';
 
 const title = 'Contact | Freaky Flyer Delivery';
 const description =
-  'Talk with the Freaky Flyer Delivery team about Perth flyer runs, pricing, and suburb coverage.';
+  'Reach the Freaky Flyer Delivery team for campaign planning, delivery schedules, and local flyer support.';
 const phoneHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
 const phoneAttrs = linkAttrs(phoneHref);
+const mapEmbedSrc =
+  'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13568.156045966232!2d115.8273151!3d-31.7694219!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x836db8d126077448!2sFreaky+Flyer+Delivery+Pty+Ltd!5e0!3m2!1sen!2sau!4v1543755188278';
+const mapLink =
+  'https://www.google.com/maps/place/Freaky+Flyer+Delivery+Pty+Ltd/@-31.7694219,115.8273151,15z/data=!4m6!3m5!1s0x0:0x836db8d126077448!8m2!3d-31.7694219!4d115.8273151!16s%2Fg%2F11c40mcv8n';
+const emailScriptUrl = new URL(
+  '../scripts/email-obfuscator.ts',
+  import.meta.url
+);
 ---
 
 <BaseLayout {title} description={description}>
-  <section
-    class="section surface contact-hero"
-    aria-labelledby="contact-heading"
-  >
-    <div class="container contact-hero__container">
-      <SectionHeader
-        level={1}
-        kicker="Contact"
-        title="Let’s plan your next flyer drop"
-        description="Share your goals and we’ll confirm suburb availability, delivery windows, and the right volume for your campaign."
-      />
-      <p>
-        We’re a Perth-based family business and answer every enquiry personally.
-        Call us during business hours or send a message anytime—our team will
-        respond within one business day.
+  <section class="contact-hero" aria-labelledby="contact-hero-title">
+    <div class="container contact-hero__content">
+      <h1 id="contact-hero-title">Contact Us</h1>
+      <h2 class="contact-hero__subheading">Let's plan your next flyer drop</h2>
+      <p class="contact-hero__intro">
+        Start planning your flyer drop today. Our local team will respond
+        personally and help you reach your audience fast.
       </p>
     </div>
   </section>
 
-  <section
-    class="section contact-grid"
-    aria-labelledby="contact-details-heading"
-  >
-    <div class="container contact-grid__container">
-      <article class="card contact-info">
-        <h2 id="contact-details-heading">Contact details</h2>
-        <dl>
-          <div class="contact-info__row">
-            <dt>Phone</dt>
-            <dd>
-              <a href={phoneHref} {...phoneAttrs}>{site.phone}</a>
-            </dd>
+  <section class="section contact-main" aria-labelledby="contact-form-heading">
+    <div class="container contact-main__container">
+      <div class="contact-main__form">
+        <ContactForm heading="Get in Touch" headingId="contact-form-heading" />
+      </div>
+      <div class="contact-main__sidebar">
+        <article class="contact-card card contact-card--details">
+          <h2 id="contact-details-heading">OUR DETAILS</h2>
+          <dl class="contact-card__list">
+            <div class="contact-card__row">
+              <dt>Phone</dt>
+              <dd>
+                <a href={phoneHref} {...phoneAttrs}>{site.phone}</a>
+              </dd>
+            </div>
+            <div class="contact-card__row">
+              <dt>Email</dt>
+              <dd>
+                <div class="contact-card__email" data-email-obfuscator>
+                  <a
+                    class="contact-card__email-link"
+                    data-email-link
+                    data-user="admin"
+                    data-domain="freakyflyerdelivery.com.au"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Email Freaky Flyer Delivery"
+                    hidden></a>
+                  <button
+                    type="button"
+                    class="contact-card__reveal"
+                    data-email-reveal
+                    data-user="admin"
+                    data-domain="freakyflyerdelivery.com.au"
+                  >
+                    Click to reveal
+                  </button>
+                  <noscript>
+                    <p class="contact-card__noscript">
+                      Enable JavaScript or call us to receive the email address
+                      securely.
+                    </p>
+                  </noscript>
+                </div>
+              </dd>
+            </div>
+            <div class="contact-card__row">
+              <dt>Address</dt>
+              <dd>96 Nicholas Rd, Wanneroo WA 6065</dd>
+            </div>
+            <div class="contact-card__row">
+              <dt>Hours</dt>
+              <dd>{site.hours}</dd>
+            </div>
+          </dl>
+        </article>
+        <article
+          class="contact-card card contact-card--map"
+          aria-label="Map to Freaky Flyer Delivery"
+        >
+          <div class="contact-card__map" role="presentation">
+            <iframe
+              src={mapEmbedSrc}
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map showing the Freaky Flyer Delivery warehouse location"
+            ></iframe>
           </div>
-          <div class="contact-info__row">
-            <dt>Email</dt>
-            <dd>
-              <EmailLink user="admin" domain="freakyflyerdelivery.com.au" />
-            </dd>
-          </div>
-          <div class="contact-info__row">
-            <dt>Warehouse</dt>
-            <dd>{site.address}</dd>
-          </div>
-          <div class="contact-info__row">
-            <dt>Hours</dt>
-            <dd>{site.hours}</dd>
-          </div>
-        </dl>
-        <p class="contact-info__note">
-          Need a rush campaign or pickup? Call us and we’ll do everything we can
-          to help.
-        </p>
-        <a class="button primary" href="/pricing">View pricing guide</a>
-      </article>
-      <div class="contact-form">
-        <ContactForm />
+          <a
+            class="button outline contact-card__map-link"
+            href={mapLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View larger map
+          </a>
+        </article>
       </div>
     </div>
   </section>
+
+  <style>
+    .contact-hero {
+      color: #fff;
+      background: linear-gradient(
+        140deg,
+        rgba(137, 4, 11, 0.98) 0%,
+        rgba(76, 3, 7, 1) 55%,
+        rgba(35, 6, 8, 1) 100%
+      );
+    }
+
+    .contact-hero__content {
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-16) 0;
+      max-width: min(720px, 100%);
+    }
+
+    .contact-hero__content h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 3.25rem);
+      letter-spacing: 0.04em;
+    }
+
+    .contact-hero__subheading {
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      letter-spacing: 0.02em;
+      font-weight: 600;
+    }
+
+    .contact-hero__intro {
+      font-size: 1.1rem;
+      margin: 0;
+      line-height: 1.8;
+      max-width: 60ch;
+    }
+
+    .contact-main {
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-16);
+    }
+
+    .contact-main__container {
+      display: grid;
+      gap: var(--space-10);
+    }
+
+    .contact-main__form,
+    .contact-main__sidebar {
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    .contact-card h2 {
+      margin-top: 0;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 1rem;
+    }
+
+    .contact-card {
+      display: grid;
+      gap: var(--space-5);
+      padding: var(--space-6);
+      border-radius: var(--radius, 14px);
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    .contact-card__list {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .contact-card__row {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .contact-card__row dt {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .contact-card__row dd {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .contact-card__email {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .contact-card__email-link {
+      font-weight: 600;
+      color: inherit;
+      word-break: break-word;
+    }
+
+    .contact-card__reveal {
+      border: 1px dashed var(--accent, #89040b);
+      background: transparent;
+      color: var(--accent, #89040b);
+      padding: 0.65rem 0.9rem;
+      font: inherit;
+      border-radius: 999px;
+      cursor: pointer;
+      width: fit-content;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .contact-card__reveal:focus,
+    .contact-card__reveal:hover {
+      background: rgba(137, 4, 11, 0.08);
+    }
+
+    .contact-card__reveal::after {
+      content: '';
+      display: block;
+      margin-top: var(--space-2);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .contact-card__reveal:focus::after,
+    .contact-card__reveal:active::after {
+      content: attr(data-user) '@' attr(data-domain);
+      background: rgba(137, 4, 11, 0.12);
+      padding: 0.4rem 0.65rem;
+      border-radius: 999px;
+      display: inline-block;
+      color: var(--accent, #89040b);
+    }
+
+    .contact-card__noscript {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .contact-card__map {
+      position: relative;
+      border-radius: var(--radius, 14px);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #f1f1f1;
+    }
+
+    .contact-card__map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .contact-card__map-link {
+      justify-self: start;
+    }
+
+    @media (min-width: 960px) {
+      .contact-main__container {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .contact-hero__content {
+        text-align: center;
+        align-items: center;
+      }
+
+      .contact-card__reveal {
+        justify-self: center;
+      }
+
+      .contact-card__reveal:focus::after,
+      .contact-card__reveal:active::after {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+
+  <script type="module" src={emailScriptUrl}></script>
 </BaseLayout>
-
-<style>
-  .contact-hero__container {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .contact-hero__container p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  .contact-grid__container {
-    display: grid;
-    gap: var(--space-6);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-  }
-
-  .contact-info {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .contact-info dl {
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .contact-info__row {
-    display: grid;
-    gap: 4px;
-  }
-
-  .contact-info dt {
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .contact-info dd {
-    margin: 0;
-    font-size: 1.05rem;
-  }
-
-  .contact-info__note {
-    margin: 0;
-    color: var(--muted);
-  }
-
-  .contact-form form {
-    width: 100%;
-  }
-
-  #contact-form {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  #contact-form label {
-    display: grid;
-    gap: 6px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.9rem;
-  }
-
-  #contact-form input,
-  #contact-form textarea {
-    border: 1px solid rgba(17, 24, 39, 0.18);
-    border-radius: 8px;
-    padding: 12px 14px;
-    font: inherit;
-  }
-
-  #contact-form textarea {
-    resize: vertical;
-    min-height: 160px;
-  }
-
-  #contact-form .muted {
-    color: var(--muted);
-    margin: 0;
-  }
-
-  @media (max-width: 900px) {
-    .contact-grid__container {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-form {
-      order: -1;
-    }
-  }
-</style>
