@@ -23,7 +23,6 @@ images: []
   - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
   - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
 - [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
-- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
 - [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
 - [Home](https://freakyflyerdelivery.com.au/)
@@ -35,7 +34,6 @@ images: []
   - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
   - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
 - [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
-- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
 - [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
 # OUR STORY
@@ -73,7 +71,7 @@ As a family owned and operated business, we understand the needs of small busine
 
 #### GPS Tracking
 
-All of our riders maintain active GPS tracking devices to ensure your flyers are delivered successfully. [**Click HERE to access our GPS tracking portal.**](/gps-tracking/)
+All of our riders maintain active GPS tracking devices to ensure your flyers are delivered successfully. 
 
 #### Follow Us
 
