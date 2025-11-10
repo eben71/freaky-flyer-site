@@ -25,13 +25,16 @@ export function sanitizeHtml(
 
   // 2) Demote additional H1 headings to H2 so layout controls the single page H1
   let firstH1Preserved = false;
-  html = html.replace(/<h1\b([^>]*)>([\s\S]*?)<\/h1>/gi, (match, attrs, text) => {
-    if (!firstH1Preserved) {
-      firstH1Preserved = true;
-      return match;
+  html = html.replace(
+    /<h1\b([^>]*)>([\s\S]*?)<\/h1>/gi,
+    (match, attrs, text) => {
+      if (!firstH1Preserved) {
+        firstH1Preserved = true;
+        return match;
+      }
+      return `<h2${attrs}>${text}</h2>`;
     }
-    return `<h2${attrs}>${text}</h2>`;
-  });
+  );
 
   // 3) Remove empty anchors (no text, no img)
   html = html.replace(/<a[^>]*>\s*<\/a>/gi, '');

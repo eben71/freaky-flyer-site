@@ -23,7 +23,6 @@ images: []
   - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
   - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
 - [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
-- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
 - [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
 - [Home](https://freakyflyerdelivery.com.au/)
@@ -35,7 +34,6 @@ images: []
   - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
   - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
 - [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
-- [GPS Tracking](https://freakyflyerdelivery.com.au/gps-tracking/)
 - [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
 
 # MEET OUR TEAM
@@ -72,20 +70,6 @@ Bec’s interests are traveling, making their house a home to enjoy and spending
 
 ![Image](https://freakyflyerdelivery.com.au/wp-content/uploads/2018/12/FFDPS-23.jpg)
 
-# BLAKE CANNER
-
-# SALES AND MARKETING MANAGER
-
-Blake joined Freaky Flyer Delivery in 2015, commencing in the Equalizing team and quickly became a very helpful, valuable team member. Blake progressed over the years to become one of the company's most experienced Equalizers.
-
-Mid 2018 Blake was given the position of Sales and Marketing, where he quickly worked to establish a unique company brand identity and to instill the company values.
-
-Blake served 5 years in the Australian Air Force Cadets, teaching him exceptional listening and communication skills.
-
-Our clients first interaction with the company is often when they meet Blake, whether that is through the use of social media or in store / office consultations.
-
-Blake is here to assist with all your flyer delivery advertising requirements.
-
 # We look forward to working with you, please contact our friendly sales team for a quote.
 
 [Contact Us](/contact-us/)
@@ -105,7 +89,7 @@ Blake is here to assist with all your flyer delivery advertising requirements.
 
 #### GPS Tracking
 
-All of our riders maintain active GPS tracking devices to ensure your flyers are delivered successfully. [**Click HERE to access our GPS tracking portal.**](/gps-tracking/)
+All of our riders maintain active GPS tracking devices to ensure your flyers are delivered successfully. 
 
 #### Follow Us
 
