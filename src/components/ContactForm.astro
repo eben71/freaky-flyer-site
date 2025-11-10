@@ -1,122 +1,682 @@
 ---
-/**
- * Static anti-spam: honeypot (company), time-gate (>=3s), simple math challenge.
- * Submission is non-functional in Phase 2; show success toast and reset.
- */
-const minDelayMs = 3000;
-const a = 3,
-  b = 4; // simple challenge "3 + 4"
+const { heading = 'Get in Touch', headingId = 'contact-form-heading' } =
+  Astro.props ?? {};
+
+const minDelayMs = 2000;
+const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'message'];
+const placeholders = {
+  firstName: 'e.g. John',
+  lastName: 'e.g. Smith',
+  email: 'e.g. john@doe.com',
+  phone: 'e.g. 04 1234 5678',
+  street: 'e.g. 123 Sample Street',
+  city: 'e.g. Wanneroo',
+  state: 'e.g. WA',
+  postcode: 'e.g. 6065',
+};
 ---
 
 <form
+  class="contact-form card"
   id="contact-form"
-  class="card"
   novalidate
   data-min-delay={minDelayMs.toString()}
-  data-expected-sum={(a + b).toString()}
+  data-required-fields={JSON.stringify(requiredFields)}
+  aria-labelledby={headingId}
 >
-  <!-- Time gate -->
-  <input type="hidden" name="startedAt" />
-  <!-- Honeypot (must stay empty) -->
-  <div style="position:absolute;left:-9999px" aria-hidden="true">
-    <label
-      >Company <input name="company" autocomplete="off" tabindex="-1" /></label
-    >
+  <header class="contact-form__header">
+    <h2 id={headingId}>{heading}</h2>
+  </header>
+  <input type="hidden" name="startedAt" value={Date.now().toString()} />
+  <div class="contact-form__honeypot" aria-hidden="true">
+    <label for="company-field">Company</label>
+    <input
+      id="company-field"
+      name="company"
+      tabindex="-1"
+      autocomplete="off"
+      aria-hidden="true"
+    />
   </div>
-
-  <label
-    >Name
-    <input name="name" required autocomplete="name" />
-  </label>
-  <label
-    >Email
-    <input name="email" type="email" required autocomplete="email" />
-  </label>
-  <label
-    >Message
-    <textarea name="message" required rows="5"></textarea>
-  </label>
-
-  <label aria-label="Spam protection question"
-    >What is {a} + {b}?
-    <input name="sum" inputmode="numeric" required />
-  </label>
-
-  <button class="button primary" type="submit" disabled id="submitBtn"
-    >Send</button
+  <div
+    class="contact-form__summary"
+    role="alert"
+    aria-live="polite"
+    data-form-summary
+    hidden
+    tabindex="-1"
   >
-  <p id="form-status" class="muted" role="status" aria-live="polite"></p>
+  </div>
+  <div class="contact-form__grid">
+    <div class="contact-form__field" data-field="firstName">
+      <label for="first-name"
+        >First Name <span aria-hidden="true">*</span></label
+      >
+      <input
+        id="first-name"
+        name="firstName"
+        type="text"
+        required
+        aria-required="true"
+        autocomplete="given-name"
+        placeholder={placeholders.firstName}
+        aria-describedby="first-name-error"
+      />
+      <p
+        class="contact-form__error"
+        id="first-name-error"
+        data-error-for="firstName"
+      >
+      </p>
+    </div>
+    <div class="contact-form__field" data-field="lastName">
+      <label for="last-name">Last Name <span aria-hidden="true">*</span></label>
+      <input
+        id="last-name"
+        name="lastName"
+        type="text"
+        required
+        aria-required="true"
+        autocomplete="family-name"
+        placeholder={placeholders.lastName}
+        aria-describedby="last-name-error"
+      />
+      <p
+        class="contact-form__error"
+        id="last-name-error"
+        data-error-for="lastName"
+      >
+      </p>
+    </div>
+    <div class="contact-form__field" data-field="email">
+      <label for="email">Email Address <span aria-hidden="true">*</span></label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        aria-required="true"
+        inputmode="email"
+        autocomplete="email"
+        placeholder={placeholders.email}
+        pattern="^\\S+@\\S+\\.\\S+$"
+        aria-describedby="email-error"
+      />
+      <p class="contact-form__error" id="email-error" data-error-for="email">
+      </p>
+    </div>
+    <div class="contact-form__field" data-field="phone">
+      <label for="phone">Phone Number <span aria-hidden="true">*</span></label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        required
+        aria-required="true"
+        inputmode="tel"
+        autocomplete="tel"
+        placeholder={placeholders.phone}
+        pattern="[+()0-9\\s-]{6,}"
+        aria-describedby="phone-error"
+      />
+      <p class="contact-form__error" id="phone-error" data-error-for="phone">
+      </p>
+    </div>
+    <div class="contact-form__field" data-field="street">
+      <label for="street">Street Address</label>
+      <input
+        id="street"
+        name="street"
+        type="text"
+        autocomplete="address-line1"
+        placeholder={placeholders.street}
+        aria-describedby="street-error"
+      />
+      <p class="contact-form__error" id="street-error" data-error-for="street">
+      </p>
+    </div>
+    <div class="contact-form__field" data-field="city">
+      <label for="city">City</label>
+      <input
+        id="city"
+        name="city"
+        type="text"
+        autocomplete="address-level2"
+        placeholder={placeholders.city}
+        aria-describedby="city-error"
+      />
+      <p class="contact-form__error" id="city-error" data-error-for="city"></p>
+    </div>
+    <div class="contact-form__field" data-field="state">
+      <label for="state">State/Province</label>
+      <input
+        id="state"
+        name="state"
+        type="text"
+        autocomplete="address-level1"
+        placeholder={placeholders.state}
+        aria-describedby="state-error"
+      />
+      <p class="contact-form__error" id="state-error" data-error-for="state">
+      </p>
+    </div>
+    <div class="contact-form__field" data-field="postcode">
+      <label for="postcode">ZIP / Postcode</label>
+      <input
+        id="postcode"
+        name="postcode"
+        type="text"
+        inputmode="numeric"
+        autocomplete="postal-code"
+        placeholder={placeholders.postcode}
+        aria-describedby="postcode-error"
+      />
+      <p
+        class="contact-form__error"
+        id="postcode-error"
+        data-error-for="postcode"
+      >
+      </p>
+    </div>
+    <div
+      class="contact-form__field contact-form__field--wide"
+      data-field="message"
+    >
+      <label for="message">Message <span aria-hidden="true">*</span></label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        aria-required="true"
+        rows="6"
+        maxlength="2000"
+        placeholder="Tell us about your campaign goals, timing, and suburbs."
+        aria-describedby="message-error message-counter"></textarea>
+      <div class="contact-form__field-footer">
+        <p
+          class="contact-form__error"
+          id="message-error"
+          data-error-for="message"
+        >
+        </p>
+        <p
+          class="contact-form__counter"
+          id="message-counter"
+          aria-live="polite"
+        >
+          0 / 2000
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form__actions">
+    <button class="button primary" type="submit" disabled data-submit>
+      Send
+    </button>
+  </div>
+  <p class="contact-form__note">
+    We aim to respond to all enquiries within one business day.
+  </p>
 </form>
 
-<script is:inline>
-  const form = document.getElementById('contact-form');
-  const btn = document.getElementById('submitBtn');
-  const statusEl = document.getElementById('form-status');
+<style>
+  .contact-form {
+    display: grid;
+    gap: var(--space-6);
+  }
 
-  if (
-    form instanceof HTMLFormElement &&
-    btn instanceof HTMLButtonElement &&
-    statusEl instanceof HTMLElement
-  ) {
+  .contact-form__header {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .contact-form__header h2 {
+    margin: 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+
+  .contact-form__honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .contact-form__summary {
+    background: var(--surface, #f5f6f8);
+    border-radius: var(--radius, 14px);
+    padding: var(--space-4);
+    display: grid;
+    gap: var(--space-3);
+    border: 1px solid transparent;
+  }
+
+  .contact-form__summary[data-variant='error'] {
+    border-color: var(--danger, #b91c1c);
+    background: rgba(185, 28, 28, 0.08);
+    color: #5f1111;
+  }
+
+  .contact-form__summary[data-variant='success'] {
+    border-color: var(--accent, #89040b);
+    background: rgba(137, 4, 11, 0.08);
+  }
+
+  .contact-form__summary-title {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .contact-form__summary ul {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .contact-form__grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .contact-form__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-form__field--wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .contact-form__field {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .contact-form__field label {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: baseline;
+  }
+
+  .contact-form__field input,
+  .contact-form__field textarea {
+    border: 1px solid var(--border, rgba(17, 24, 39, 0.2));
+    border-radius: var(--radius, 14px);
+    padding: 0.85rem 1rem;
+    font: inherit;
+    line-height: 1.4;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+    background: #fff;
+  }
+
+  .contact-form__field textarea {
+    resize: vertical;
+    min-height: 180px;
+  }
+
+  .contact-form__field input:focus,
+  .contact-form__field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(137, 4, 11, 0.25);
+  }
+
+  .contact-form__field[data-state='error'] input,
+  .contact-form__field[data-state='error'] textarea {
+    border-color: var(--danger, #b91c1c);
+  }
+
+  .contact-form__field[data-state='warning'] input,
+  .contact-form__field[data-state='warning'] textarea {
+    border-color: var(--warning, #b45309);
+  }
+
+  .contact-form__error {
+    font-size: 0.85rem;
+    color: var(--danger, #b91c1c);
+    margin: 0;
+  }
+
+  .contact-form__field[data-state='warning'] .contact-form__error {
+    color: var(--warning, #b45309);
+  }
+
+  .contact-form__field-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .contact-form__counter {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .contact-form__counter[data-state='warning'] {
+    color: var(--warning, #b45309);
+    font-weight: 600;
+  }
+
+  .contact-form__actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .contact-form__actions .button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .contact-form__note {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+</style>
+
+<script type="module">
+  const form = document.getElementById('contact-form');
+
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  const phoneRegex = /^[+()\d\s-]{6,}$/;
+  const postcodeRegex = /^\d{4}$/;
+
+  const messages = {
+    firstName: 'First name is required.',
+    lastName: 'Last name is required.',
+    email: 'Enter a valid email address.',
+    phone: 'Enter a phone number we can reach you on.',
+    message: 'Please include a short message so we can help.',
+    postcodeSoft:
+      'Postcodes in WA use 4 digits. We’ll double-check this with you.',
+    delay: 'Please wait a moment before sending so we know you’re real.',
+    honeypot: 'Please clear the hidden field and try again.',
+    success:
+      'Thanks—your message is ready. Email sending will be enabled after final approval.',
+  };
+
+  if (form instanceof HTMLFormElement) {
+    let requiredFields = [];
+    try {
+      requiredFields = JSON.parse(form.dataset.requiredFields || '[]');
+    } catch {
+      requiredFields = [];
+    }
+    const submitButton = form.querySelector('[data-submit]');
+    const summaryEl = form.querySelector('[data-form-summary]');
+    const counterEl = document.getElementById('message-counter');
+    const messageField = form.querySelector('[name="message"]');
     const startField = form.querySelector('input[name="startedAt"]');
-    const sumField = form.querySelector('input[name="sum"]');
-    const expectedSum = Number(form.dataset.expectedSum || '0');
-    const setStartTime = () => {
+    const honeypotField = form.querySelector('input[name="company"]');
+    const minDelay = Number(form.dataset.minDelay || '0');
+    let timeGatePassed = false;
+
+    const fields = Array.from(form.querySelectorAll('[data-field]')).map(
+      (wrapper) => {
+        const name = wrapper.getAttribute('data-field') || '';
+        const input = wrapper.querySelector('input, textarea');
+        const error = wrapper.querySelector('[data-error-for]');
+        return { name, wrapper, input, error };
+      }
+    );
+
+    const state = new Map();
+
+    const resetSummary = () => {
+      if (summaryEl instanceof HTMLElement) {
+        summaryEl.hidden = true;
+        summaryEl.innerHTML = '';
+        summaryEl.removeAttribute('data-variant');
+      }
+    };
+
+    const renderSummary = (variant, content) => {
+      if (!(summaryEl instanceof HTMLElement)) return;
+      summaryEl.dataset.variant = variant;
+      summaryEl.hidden = false;
+      summaryEl.innerHTML = content;
+      summaryEl.focus();
+    };
+
+    const startTimeGate = () => {
       if (startField instanceof HTMLInputElement) {
         startField.value = Date.now().toString();
       }
+      timeGatePassed = false;
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true;
+      }
+      window.setTimeout(() => {
+        timeGatePassed = true;
+        updateSubmitState();
+      }, minDelay);
     };
 
-    setStartTime();
-
-    const validate = () => {
-      if (sumField instanceof HTMLInputElement) {
-        const value = sumField.value.trim();
-        if (value !== '' && Number(value) !== expectedSum) {
-          sumField.setCustomValidity('Please solve the challenge correctly.');
+    const setFieldState = (name, type, text) => {
+      const entry = fields.find((field) => field.name === name);
+      if (!entry) return;
+      if (entry.wrapper instanceof HTMLElement) {
+        if (!type) {
+          entry.wrapper.removeAttribute('data-state');
         } else {
-          sumField.setCustomValidity('');
+          entry.wrapper.setAttribute('data-state', type);
         }
       }
-
-      const sumOk =
-        sumField instanceof HTMLInputElement &&
-        Number(sumField.value) === expectedSum;
-      const ready = form.checkValidity() && sumOk;
-      btn.disabled = !ready;
+      if (entry.input instanceof HTMLElement) {
+        if (type === 'error') {
+          entry.input.setAttribute('aria-invalid', 'true');
+        } else {
+          entry.input.setAttribute('aria-invalid', 'false');
+        }
+      }
+      if (entry.error instanceof HTMLElement) {
+        entry.error.textContent = text || '';
+      }
     };
 
-    validate();
+    const validateField = (name) => {
+      const entry = fields.find((field) => field.name === name);
+      if (
+        !entry ||
+        !(
+          entry.input instanceof HTMLInputElement ||
+          entry.input instanceof HTMLTextAreaElement
+        )
+      ) {
+        return { error: '', warning: '' };
+      }
+      const value = entry.input.value.trim();
+      let error = '';
+      let warning = '';
 
-    form.addEventListener('input', () => {
-      statusEl.textContent = '';
-      validate();
+      switch (name) {
+        case 'firstName':
+          if (!value) error = messages.firstName;
+          break;
+        case 'lastName':
+          if (!value) error = messages.lastName;
+          break;
+        case 'email':
+          if (!value || !emailRegex.test(value)) error = messages.email;
+          break;
+        case 'phone':
+          if (!value || !phoneRegex.test(value)) error = messages.phone;
+          break;
+        case 'message':
+          if (!value) error = messages.message;
+          break;
+        case 'postcode':
+          if (value && !postcodeRegex.test(value))
+            warning = messages.postcodeSoft;
+          break;
+        default:
+          break;
+      }
+
+      if (error) {
+        setFieldState(name, 'error', error);
+      } else if (warning) {
+        setFieldState(name, 'warning', warning);
+      } else {
+        setFieldState(name, '', '');
+      }
+
+      state.set(name, { error: Boolean(error), warning: Boolean(warning) });
+      return { error, warning };
+    };
+
+    const validateAll = () => {
+      const errors = [];
+      requiredFields.forEach((name) => {
+        const { error } = validateField(name);
+        if (error) errors.push(error);
+      });
+      fields
+        .filter((field) => !requiredFields.includes(field.name))
+        .forEach((field) => validateField(field.name));
+      return errors;
+    };
+
+    const updateCounter = () => {
+      if (
+        !(counterEl instanceof HTMLElement) ||
+        !(messageField instanceof HTMLTextAreaElement)
+      )
+        return;
+      const length = messageField.value.length;
+      counterEl.textContent = `${length} / 2000`;
+      if (length >= 1000) {
+        counterEl.dataset.state = 'warning';
+      } else {
+        counterEl.removeAttribute('data-state');
+      }
+    };
+
+    const hasErrors = () => {
+      return requiredFields.some((name) => {
+        const entry = state.get(name);
+        if (!entry) return true;
+        return entry.error;
+      });
+    };
+
+    const updateSubmitState = () => {
+      if (!(submitButton instanceof HTMLButtonElement)) return;
+      if (!timeGatePassed || hasErrors()) {
+        submitButton.disabled = true;
+      } else {
+        submitButton.disabled = false;
+      }
+    };
+
+    startTimeGate();
+    updateCounter();
+
+    form.addEventListener('input', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const wrapper = target.closest('[data-field]');
+      if (wrapper instanceof HTMLElement) {
+        const fieldName = wrapper.getAttribute('data-field');
+        if (fieldName) {
+          validateField(fieldName);
+          resetSummary();
+          updateSubmitState();
+        }
+      }
+      if (messageField && target === messageField) {
+        updateCounter();
+      }
     });
 
-    form.addEventListener('focusout', () => {
-      validate();
-    });
+    form.addEventListener(
+      'blur',
+      (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const wrapper = target.closest('[data-field]');
+        if (wrapper instanceof HTMLElement) {
+          const fieldName = wrapper.getAttribute('data-field');
+          if (fieldName) {
+            validateField(fieldName);
+            updateSubmitState();
+          }
+        }
+      },
+      true
+    );
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-      const startedAt = Number(fd.get('startedAt'));
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const errors = validateAll();
+      updateSubmitState();
+
+      const honeypotValue =
+        honeypotField instanceof HTMLInputElement
+          ? honeypotField.value.trim()
+          : '';
+      const startedAt =
+        startField instanceof HTMLInputElement
+          ? Number(startField.value)
+          : Date.now();
       const elapsed = Date.now() - startedAt;
-      const honeypot = (fd.get('company') || '').toString().trim();
-      const sum = Number(fd.get('sum'));
-      const minDelay = Number(form.dataset.minDelay || '0');
-      const ok = elapsed >= minDelay && honeypot === '' && sum === expectedSum;
 
-      if (!ok) {
-        statusEl.textContent = 'Please complete the spam check and try again.';
-        validate();
+      if (!timeGatePassed || elapsed < minDelay) {
+        errors.push(messages.delay);
+      }
+
+      if (honeypotValue) {
+        errors.push(messages.honeypot);
+      }
+
+      if (errors.length > 0) {
+        const list = `<ul>${errors
+          .map((error) => `<li>${error}</li>`)
+          .join('')}</ul>`;
+        renderSummary(
+          'error',
+          `<h3 class="contact-form__summary-title">We need a quick fix</h3>${list}`
+        );
+        updateSubmitState();
         return;
       }
-      statusEl.textContent = 'Thanks! We’ll be in touch soon.';
+
+      renderSummary(
+        'success',
+        `<p><span aria-hidden="true">✅</span> ${messages.success}</p>`
+      );
       form.reset();
-      btn.disabled = true;
-      setStartTime();
-      validate();
+      state.clear();
+      fields.forEach((field) => {
+        if (field.wrapper instanceof HTMLElement) {
+          field.wrapper.removeAttribute('data-state');
+        }
+        if (field.input instanceof HTMLElement) {
+          field.input.setAttribute('aria-invalid', 'false');
+        }
+        if (field.error instanceof HTMLElement) {
+          field.error.textContent = '';
+        }
+      });
+      updateCounter();
+      startTimeGate();
     });
   }
 </script>
