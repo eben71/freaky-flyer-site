@@ -182,15 +182,14 @@ const topbarLinks = [
                 {hasChildren && (
                   <ul class="nav-submenu">
                     {item.children.map((child) => {
-                      const childActive = normalizePath(child.href) === currentPath;
+                      const childActive =
+                        normalizePath(child.href) === currentPath;
                       return (
                         <li class:list={{ 'is-active': childActive }}>
                           <a
                             class:list={{ 'is-active': childActive }}
                             href={child.href}
-                            aria-current={
-                              childActive ? 'page' : undefined
-                            }
+                            aria-current={childActive ? 'page' : undefined}
                           >
                             {child.label}
                           </a>
