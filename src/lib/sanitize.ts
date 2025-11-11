@@ -65,14 +65,22 @@ export function sanitizeHtml(
         updated = updated.replace(
           /rel\s*=\s*(['"])([^'"]*)\1/i,
           (full, quote, value) => {
-            const hasNoopener = /\bnoopener\b/i.test(value);
-            return hasNoopener
-              ? full
-              : ` rel=${quote}${value} noopener${quote}`;
+            const tokens = value
+              .split(/\s+/)
+              .filter(Boolean)
+              .map((token) => token.toLowerCase());
+            const ensureToken = (token: string) => {
+              if (!tokens.includes(token)) {
+                tokens.push(token);
+              }
+            };
+            ensureToken('noopener');
+            ensureToken('noreferrer');
+            return ` rel=${quote}${tokens.join(' ')}${quote}`;
           }
         );
       } else {
-        updated += ' rel="noopener"';
+        updated += ' rel="noopener noreferrer"';
       }
       return `<a${updated}>`;
     }

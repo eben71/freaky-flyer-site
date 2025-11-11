@@ -1,0 +1,69 @@
+---
+import { linkAttrs } from '../lib/links';
+
+const {
+  text = '',
+  href = '/contact',
+  label = 'Contact Us',
+  headingId = 'bottom-cta-heading',
+} = Astro.props;
+
+const linkAttributes = linkAttrs(href);
+---
+
+<section class="bottom-cta" aria-labelledby={headingId}>
+  <div class="container bottom-cta__inner">
+    <p id={headingId} class="bottom-cta__text">{text}</p>
+    <a
+      class="button primary bottom-cta__button"
+      href={href}
+      {...linkAttributes}
+    >
+      {label}
+    </a>
+  </div>
+</section>
+
+<style>
+  .bottom-cta {
+    padding: var(--space-12) 0 var(--space-16);
+  }
+
+  .bottom-cta__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: var(--space-8) var(--space-10);
+    border-radius: calc(var(--radius, 14px) * 1.2);
+    background: var(--surface, #fff);
+    box-shadow: var(--shadow);
+  }
+
+  .bottom-cta__text {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    font-weight: 600;
+  }
+
+  .bottom-cta__button {
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .bottom-cta__inner {
+      flex-direction: column;
+      text-align: center;
+      padding: var(--space-8);
+    }
+
+    .bottom-cta__button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

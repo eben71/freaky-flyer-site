@@ -9,6 +9,7 @@ const {
   title = 'Freaky Flyer Delivery',
   description = '',
   image,
+  canonical,
 } = Astro.props;
 ---
 
@@ -16,7 +17,7 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <Seo {title} {description} image={image} />
+    <Seo {title} {description} image={image} canonical={canonical} />
     <link rel="icon" href="/brands/favicon.ico" sizes="any" />
     <link rel="manifest" href="/brands/site.webmanifest" />
     <meta name="theme-color" content="#89040B" />
