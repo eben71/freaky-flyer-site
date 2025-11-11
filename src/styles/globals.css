@@ -510,8 +510,7 @@ header.site[data-nav-open='true'] .nav__toggle-bar:nth-child(3) {
 }
 
 .nav-links li.has-children:hover > .nav-submenu,
-.nav-links li.has-children:focus-within > .nav-submenu,
-.nav-links li.has-children.is-active > .nav-submenu {
+.nav-links li.has-children:focus-within > .nav-submenu {
   display: block;
 }
 
