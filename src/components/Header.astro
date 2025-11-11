@@ -6,11 +6,26 @@ import EmailLink from './EmailLink.astro';
 
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
-  { href: '/pricing', label: 'Pricing' },
+  {
+    href: '/about',
+    label: 'About Us',
+    children: [
+      { href: '/about/our-story', label: 'Our Story' },
+      { href: '/about/meet-the-team', label: 'Meet The Team' },
+    ],
+  },
+  {
+    href: '/flyer-delivery',
+    label: 'Flyer Delivery',
+    children: [
+      { href: '/flyer-delivery/our-technique', label: 'Our Technique' },
+      { href: '/flyer-delivery/pricing', label: 'Pricing' },
+      { href: '/flyer-delivery/schedule', label: 'Schedule' },
+    ],
+  },
+  { href: '/flyer-tips', label: 'Flyer Tips' },
   { href: '/areas', label: 'Areas' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/contact', label: 'Contact Us' },
 ];
 
 const normalizePath = (path) => {
@@ -148,8 +163,15 @@ const topbarLinks = [
         {
           navItems.map((item) => {
             const active = isActive(item);
+            const hasChildren =
+              Array.isArray(item.children) && item.children.length > 0;
             return (
-              <li class:list={{ 'is-active': active }}>
+              <li
+                class:list={{
+                  'is-active': active,
+                  'has-children': hasChildren,
+                }}
+              >
                 <a
                   class:list={{ 'is-active': active }}
                   href={item.href}
@@ -157,6 +179,26 @@ const topbarLinks = [
                 >
                   {item.label}
                 </a>
+                {hasChildren && (
+                  <ul class="nav-submenu">
+                    {item.children.map((child) => {
+                      const childActive = normalizePath(child.href) === currentPath;
+                      return (
+                        <li class:list={{ 'is-active': childActive }}>
+                          <a
+                            class:list={{ 'is-active': childActive }}
+                            href={child.href}
+                            aria-current={
+                              childActive ? 'page' : undefined
+                            }
+                          >
+                            {child.label}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </li>
             );
           })
