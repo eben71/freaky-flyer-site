@@ -1,53 +1,168 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadPage } from '../lib/content.ts';
-import ContentBlock from './_partials/ContentBlock.astro';
-import SectionHeader from '../components/SectionHeader.astro';
+import { sanitizeHtml } from '../lib/sanitize';
+import BottomCta from '../components/BottomCta.astro';
 
 const slug = 'flyer-tips';
 const page = await loadPage(slug);
-const fallbackTitle = 'Flyer Tips | Freaky Flyer Delivery';
 const fallbackDescription =
-  'Make every flyer drop count with creative and distribution advice from the Freaky Flyer Delivery team.';
+  'Twelve proven tips to improve flyer design and response—from headlines and calls to action to paper stock and colour.';
 const frontmatter = page?.fm ?? {};
-const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
 const rawDescription =
-  typeof frontmatter.description === 'string' ? frontmatter.description : '';
-const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
+  typeof frontmatter.description === 'string'
+    ? frontmatter.description.trim()
+    : '';
 const description =
-  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
-const headingTitle = page?.fm?.title ?? 'Flyer Tips';
+  rawDescription.length > 0 ? rawDescription : fallbackDescription;
+const contentHtml = page ? sanitizeHtml(page.html) : '';
+const heroTitle = 'Flyer Tips';
+const sectionHeading = 'Best Practices for Flyers';
 ---
 
-<BaseLayout {title} description={description}>
-  {
-    page ? (
-      <>
-        <section class="section surface">
-          <div class="container">
-            <SectionHeader
-              level={1}
-              title={headingTitle}
-              description={description}
-            />
-          </div>
-        </section>
-        <ContentBlock html={page.html} />
-      </>
-    ) : (
-      <section class="section surface">
-        <div class="container">
-          <SectionHeader
-            level={1}
-            title={headingTitle}
-            description={description}
-          />
+<BaseLayout
+  title={heroTitle}
+  description={description}
+  canonical="/flyer-tips/"
+>
+  <section class="flyer-tips-hero" aria-labelledby="flyer-tips-hero-title">
+    <div class="container flyer-tips-hero__content">
+      <h1 id="flyer-tips-hero-title">{heroTitle}</h1>
+      <p class="flyer-tips-hero__intro">{description}</p>
+    </div>
+  </section>
+
+  <section
+    class="section flyer-tips-content"
+    aria-labelledby="flyer-tips-content-heading"
+  >
+    <div class="container flyer-tips-content__inner">
+      <h2 id="flyer-tips-content-heading">{sectionHeading}</h2>
+      {
+        page ? (
+          <div class="flyer-tips-content__body" set:html={contentHtml} />
+        ) : (
           <p>
-            Explore best practices for creative, printing, and distribution so
-            every drop reaches the right households at the right time.
+            Discover proven flyer writing and design tips, from crafting a bold
+            headline to choosing the right stock for your next drop.
           </p>
-        </div>
-      </section>
-    )
-  }
+        )
+      }
+    </div>
+  </section>
+
+  <BottomCta
+    text="We look forward to working with you, please contact our friendly sales team for a quote."
+    href="/contact"
+    label="Contact Us"
+  />
+
+  <style>
+    .flyer-tips-hero {
+      color: #fff;
+      background-color: #230608;
+      background-image:
+        linear-gradient(
+          140deg,
+          rgba(137, 4, 11, 0.98) 0%,
+          rgba(76, 3, 7, 1) 55%,
+          rgba(35, 6, 8, 1) 100%
+        ),
+        image-set(
+          url('/assets/img/optimized/contact-us/cross-640.webp') 1x,
+          url('/assets/img/optimized/contact-us/cross-960.webp') 1.5x,
+          url('/assets/img/optimized/contact-us/cross-1280.webp') 2x
+        );
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      padding: var(--space-16) 0;
+    }
+
+    .flyer-tips-hero__content {
+      display: grid;
+      gap: var(--space-5);
+      max-width: min(960px, 100%);
+    }
+
+    .flyer-tips-hero__content h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 3.25rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .flyer-tips-hero__intro {
+      margin: 0;
+      font-size: clamp(1.125rem, 2vw, 1.3rem);
+      line-height: 1.75;
+      max-width: 60ch;
+    }
+
+    .flyer-tips-content {
+      padding-top: var(--space-14);
+      padding-bottom: var(--space-16);
+    }
+
+    .flyer-tips-content__inner {
+      display: grid;
+      gap: var(--space-6);
+      max-width: min(880px, 100%);
+    }
+
+    .flyer-tips-content h2 {
+      margin: 0;
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      letter-spacing: 0.02em;
+    }
+
+    .flyer-tips-content__body {
+      font-size: 1.125rem;
+      line-height: 1.65;
+      display: grid;
+      gap: var(--space-6);
+      color: var(--text, #1d1d1f);
+    }
+
+    .flyer-tips-content__body ol {
+      margin: 0;
+      padding-left: 1.5rem;
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .flyer-tips-content__body li {
+      margin: 0;
+      text-align: left;
+    }
+
+    @media (max-width: 720px) {
+      .flyer-tips-hero {
+        background-position: top;
+      }
+
+      .flyer-tips-hero__content {
+        text-align: center;
+        justify-items: center;
+      }
+
+      .flyer-tips-hero__intro {
+        text-align: left;
+      }
+
+      .flyer-tips-content__inner {
+        gap: var(--space-5);
+      }
+
+      .flyer-tips-content__body {
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flyer-tips-hero {
+        background-position: center;
+      }
+    }
+  </style>
 </BaseLayout>

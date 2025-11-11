@@ -27,5 +27,5 @@ export function linkAttrs(href?: string) {
   if (!href || !isExternal(href)) {
     return {};
   }
-  return { target: '_blank', rel: 'noopener' };
+  return { target: '_blank', rel: 'noopener noreferrer' };
 }

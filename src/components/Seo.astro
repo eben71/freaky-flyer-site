@@ -1,8 +1,8 @@
 ---
 import { buildMeta } from '../lib/seo';
 const props = Astro.props ?? {};
-const { title, description, image } = props;
-const meta = buildMeta(Astro, { title, description, image });
+const { title, description, image, canonical } = props;
+const meta = buildMeta(Astro, { title, description, image, canonical });
 ---
 
 <title>{meta.pageTitle}</title>
