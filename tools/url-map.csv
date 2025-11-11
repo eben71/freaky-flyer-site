@@ -2,3 +2,5 @@ oldUrl,newPath
 /services/,/services
 /pricing/,/pricing
 /contact/,/contact
+/about-us/our-story,/about#story
+/about-us/meet-the-team,/about#team

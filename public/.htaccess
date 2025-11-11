@@ -17,3 +17,8 @@ RewriteRule \.(jpe?g|png|gif|webp|avif|svg)$ - [F,NC,L]
 
 # ------------ 404 handling (keep if not present) ------------
 ErrorDocument 404 /404.html
+Redirect 301 /services/ /services
+Redirect 301 /pricing/ /pricing
+Redirect 301 /contact/ /contact
+Redirect 301 /about-us/our-story /about#story
+Redirect 301 /about-us/meet-the-team /about#team
