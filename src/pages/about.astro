@@ -1,30 +1,45 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BottomCta from '../components/BottomCta.astro';
+
 const pageTitle = 'About Freaky Flyer Delivery';
 const pageDescription =
   'Perth-based, family-run flyer distribution with GPS-verified delivery and friendly service.';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { linkAttrs } from '../lib/links';
 
-const heroImage =
-  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-2-1280.webp';
-const heroImageFallback =
-  '/assets/img/raw/flyer-delivery-services-perth/warehouse-personell-2-2.png';
+const heroSummary =
+  'We’re a Perth-based, family-run team delivering GPS-verified flyer drops with friendly service and real accountability.';
+const heroBlurb =
+  'As a small family owned and operated business, we understand the needs of local organisations across the Perth region and keep our service affordable, reliable, and personal.';
+
 const storyImageWebp =
   '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-2-960.webp';
 const storyImageFallback =
   '/assets/img/raw/flyer-delivery-services-perth/warehouse-personell-2-2.png';
-const contactAttrs = linkAttrs('/contact');
+
+const storyParagraphs = [
+  "In March 2014, a new to real estate sales representative sat behind their desk fretting over who they could trust to deliver their flyers within their real estate area. Struggling to find anyone trustworthy enough to “do the right thing” as they certainly didn't want someone putting their flyers inside a bunch of catalogues or local newspapers reducing exposure immensely, or not delivering their flyers, or worst still, the prospect of dumping was a real concern by all within the industry.",
+  'This real estate sales representative was Nick Wren, the founder and director of Freaky Flyer Delivery Pty Ltd.',
+  'Nick decided to put his skills as a long time Postal Delivery Officer with Australia Post to work, he purchased himself an ex postie motorbike and started delivering his own flyers. Very quickly after this, Nick realised there was a serious demand for an honest, reliable, trustworthy and accountable flyer delivery service throughout Perth Western Australia, hence the birth of Freaky Flyer Delivery in 2014 as a Sole Trader business.',
+  'July 2015, Freaky Flyer Delivery had such a high demand for it’s honest, reliable, trustworthy and accountable flyer delivery service, becoming a Registered Australian Pty Ltd company, employing full time local professional delivery riders, administration and Equalizing staff, to service the small to medium businesses of Perth with their local flyer delivery requirements.',
+  'As a family owned and operated business, we understand the needs of small business flyer advertising, which is why we maintain an affordable and accessible service for local small to medium businesses in the Perth region. We are always happy to chat, so for all your flyer distribution needs, contact the friendly team at Freaky Flyer Delivery today!',
+];
+
+const storyPreviewCount = 2;
+const storyPreview = storyParagraphs.slice(0, storyPreviewCount);
+const storyMore = storyParagraphs.slice(storyPreviewCount);
 
 const teamMembers = [
   {
     name: 'Nick Wren',
     role: 'Founding Director',
+    summary:
+      'Nick founded Freaky Flyer Delivery in 2014 after decades with Australia Post and experience in real estate sales. He leads the team with a focus on cost-effective, GPS-verified flyer campaigns for Perth businesses.',
     image: {
       webp: '/assets/img/team/nick-wren.webp',
       fallback: '/assets/img/team/nick-wren.jpg',
-      alt: 'Nick Wren standing in the Freaky Flyer Delivery warehouse',
+      alt: 'Portrait of Nick Wren, Founding Director of Freaky Flyer Delivery',
     },
-    bio: [
+    extendedBio: [
       'Nick started Freaky Flyer Delivery in 2014 as a sole trader business. Within 12 months of this Nick became the founding director of Freaky Flyer Delivery Pty Ltd, a registered Australian Company.',
       'Nick, having 30+ years with Australia Post in various roles from Postal Delivery Officer to acting Postal Manager.',
       'Experience selling real estate for a period of time, undertaking an online sales business, and other small business enterprises for many years, he understands what the average small business owner goes through each day.',
@@ -35,12 +50,14 @@ const teamMembers = [
   {
     name: 'Bec Wren',
     role: 'Administration Manager',
+    summary:
+      'Bec joined the business in 2016, quickly becoming full-time Administration Manager. She keeps campaigns on schedule with friendly communication and a keen understanding of each client’s goals.',
     image: {
       webp: '/assets/img/team/bec-wren.webp',
       fallback: '/assets/img/team/bec-wren.jpg',
-      alt: 'Bec Wren smiling in the Freaky Flyer Delivery office',
+      alt: 'Portrait of Bec Wren, Administration Manager at Freaky Flyer Delivery',
     },
-    bio: [
+    extendedBio: [
       'Bec, daughter to Nick Wren, joined Freaky Flyer Delivery on a part time basis in November 2016, quickly learning the nature of the business, and proving herself to be a valuable asset to the Company, Bec was appointed full time Administration Manager in in April 2017.',
       'Prior to joining Freaky Flyer Delivery, Bec worked 6 years within the retail industry, undertaking various roles, this has given Bec great communication and listening skills, that she utilizes every day towards understanding exactly what our prospective clients flyer advertising needs are.',
       'Bec is a conscientious, organized, friendly individual, who will always put her heart and sole into her work. Our clients will largely be interacting with Bec when arranging the flyer delivery, and any other administrative requirements relative to their flyer delivery. Bec strives to provide you with excellent service every time!',
@@ -52,23 +69,11 @@ const teamMembers = [
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <section class="about-hero" aria-labelledby="about-hero-title">
-    <div class="about-hero__overlay" aria-hidden="true"></div>
-    <div class="about-hero__background" aria-hidden="true">
-      <picture>
-        <source srcset={heroImage} type="image/webp" />
-        <img
-          src={heroImageFallback}
-          alt="Freaky Flyer Delivery riders preparing bundles"
-          loading="eager"
-        />
-      </picture>
-    </div>
     <div class="container about-hero__content">
-      <h1 id="about-hero-title">About Freaky Flyer Delivery</h1>
-      <p class="about-hero__kicker">
-        We’re a Perth-based, family-run team delivering GPS-verified flyer drops
-        with friendly service and real accountability.
-      </p>
+      <p class="about-hero__kicker">About</p>
+      <h1 id="about-hero-title">Family owned and Perth proud</h1>
+      <p class="about-hero__intro">{heroSummary}</p>
+      <p class="about-hero__blurb">{heroBlurb}</p>
     </div>
   </section>
 
@@ -77,60 +82,43 @@ const teamMembers = [
     class="section about-story"
     aria-labelledby="story-heading"
   >
-    <div class="container about-story__inner">
-      <div class="about-story__copy">
-        <h2 id="story-heading">Where it began</h2>
-        <p>
-          In March 2014, a new to real estate sales representative sat behind
-          their desk fretting over who they could trust to deliver their flyers
-          within their real estate area. Struggling to find anyone trustworthy
-          enough to “do the right thing” as they certainly didn't want someone
-          putting their flyers inside a bunch of catalogues or local newspapers
-          reducing exposure immensely, or not delivering their flyers, or worst
-          still, the prospect of dumping was a real concern by all within the
-          industry.
-        </p>
-        <p>
-          This real estate sales representative was Nick Wren, the founder and
-          director of Freaky Flyer Delivery Pty Ltd.
-        </p>
-        <p>
-          Nick decided to put his skills as a long time Postal Delivery Officer
-          with Australia Post to work, he purchased himself an ex postie
-          motorbike and started delivering his own flyers. Very quickly after
-          this, Nick realised there was a serious demand for an honest,
-          reliable, trustworthy and accountable flyer delivery service
-          throughout Perth Western Australia, hence the birth of Freaky Flyer
-          Delivery in 2014 as a Sole Trader business.
-        </p>
-        <p>
-          July 2015, Freaky Flyer Delivery had such a high demand for it’s
-          honest, reliable, trustworthy and accountable flyer delivery service,
-          becoming a Registered Australian Pty Ltd company, employing full time
-          local professional delivery riders, administration and Equalizing
-          staff, to service the small to medium businesses of Perth with their
-          local flyer delivery requirements.
-        </p>
-        <p>
-          As a family owned and operated business, we understand the needs of
-          small business flyer advertising, which is why we maintain an
-          affordable and accessible service for local small to medium businesses
-          in the Perth region. We are always happy to chat, so for all your
-          flyer distribution needs, contact the friendly team at Freaky Flyer
-          Delivery today!
-        </p>
-      </div>
-      <figure class="about-story__media">
-        <picture>
-          <source srcset={storyImageWebp} type="image/webp" />
-          <img
-            src={storyImageFallback}
-            alt="Freaky Flyer Delivery team preparing flyers inside the warehouse"
-            loading="lazy"
-            decoding="async"
-          />
-        </picture>
-      </figure>
+    <div class="container about-story__container">
+      <article class="card about-story__card">
+        <figure class="about-story__media">
+          <picture>
+            <source srcset={storyImageWebp} type="image/webp" />
+            <img
+              src={storyImageFallback}
+              alt="Freaky Flyer Delivery team preparing flyers inside the warehouse"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </figure>
+        <div class="about-story__content">
+          <h2 id="story-heading">Where it began</h2>
+          {storyPreview.map((paragraph) => <p>{paragraph}</p>)}
+          {
+            storyMore.length > 0 && (
+              <details class="collapsible">
+                <summary>
+                  <span class="collapsible__label collapsible__label--closed">
+                    Read the full story
+                  </span>
+                  <span class="collapsible__label collapsible__label--open">
+                    Show less
+                  </span>
+                </summary>
+                <div class="collapsible__content">
+                  {storyMore.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
+                </div>
+              </details>
+            )
+          }
+        </div>
+      </article>
     </div>
   </section>
 
@@ -146,23 +134,43 @@ const teamMembers = [
       <div class="about-team__grid">
         {
           teamMembers.map((member) => (
-            <article class="about-team__card">
+            <article class="about-team__card card">
               <div class="about-team__image">
                 <picture>
                   <source srcset={member.image.webp} type="image/webp" />
                   <img
                     src={member.image.fallback}
                     alt={member.image.alt}
+                    onload="this.closest('.about-team__image')?.classList.add('about-team__image--loaded')"
+                    onerror="this.closest('.about-team__image')?.classList.remove('about-team__image--loaded')"
                     loading="lazy"
                   />
                 </picture>
+                <span class="about-team__image-placeholder">
+                  Photo coming soon
+                </span>
               </div>
-              <div class="about-team__content">
+              <div class="about-team__body">
                 <h3>{member.name}</h3>
                 <p class="about-team__role">{member.role}</p>
-                {member.bio.map((paragraph) => (
-                  <p>{paragraph}</p>
-                ))}
+                <p>{member.summary}</p>
+                {member.extendedBio.length > 0 && (
+                  <details class="collapsible about-team__details">
+                    <summary>
+                      <span class="collapsible__label collapsible__label--closed">
+                        Read more about {member.name.split(' ')[0]}
+                      </span>
+                      <span class="collapsible__label collapsible__label--open">
+                        Show less
+                      </span>
+                    </summary>
+                    <div class="collapsible__content">
+                      {member.extendedBio.map((paragraph) => (
+                        <p>{paragraph}</p>
+                      ))}
+                    </div>
+                  </details>
+                )}
               </div>
             </article>
           ))
@@ -171,245 +179,294 @@ const teamMembers = [
     </div>
   </section>
 
-  <section class="about-cta" aria-labelledby="about-cta-heading">
-    <div class="container about-cta__inner">
-      <div>
-        <h2 id="about-cta-heading">We look forward to working with you</h2>
-        <p>
-          We look forward to working with you, please contact our friendly sales
-          team for a quote.
-        </p>
-      </div>
-      <p class="about-cta__actions">
-        <a class="button primary" href="/contact" {...contactAttrs}>
-          Talk to Freaky Flyer Delivery
-        </a>
-      </p>
-    </div>
-  </section>
-</BaseLayout>
+  <BottomCta
+    text="We look forward to working with you, please contact our friendly sales team for a quote."
+    href="/contact"
+    label="Contact Us"
+  />
 
-<style>
-  .about-hero {
-    position: relative;
-    color: #fff;
-    overflow: hidden;
-  }
+  <style>
+    .about-hero {
+      color: #fff;
+      background: linear-gradient(
+        140deg,
+        rgba(137, 4, 11, 0.98) 0%,
+        rgba(76, 3, 7, 1) 55%,
+        rgba(35, 6, 8, 1) 100%
+      );
+    }
 
-  .about-hero__background,
-  .about-hero__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-  }
+    .about-hero__content {
+      display: grid;
+      gap: var(--space-4);
+      padding: var(--space-16) 0;
+      max-width: min(960px, 100%);
+    }
 
-  .about-hero__background picture,
-  .about-hero__background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    .about-hero__kicker {
+      margin: 0;
+      font-size: 0.875rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
 
-  .about-hero__overlay {
-    background: linear-gradient(
-      140deg,
-      rgba(137, 4, 11, 0.92) 0%,
-      rgba(76, 3, 7, 0.95) 55%,
-      rgba(35, 6, 8, 0.95) 100%
-    );
-  }
+    .about-hero__content h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 3.25rem);
+      letter-spacing: 0.04em;
+    }
 
-  .about-hero__content {
-    display: grid;
-    gap: var(--space-4);
-    padding-top: var(--space-18);
-    padding-bottom: var(--space-18);
-    max-width: min(960px, 100%);
-  }
+    .about-hero__intro,
+    .about-hero__blurb {
+      margin: 0;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      line-height: 1.8;
+      max-width: 60ch;
+    }
 
-  .about-hero__content h1 {
-    margin: 0;
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    letter-spacing: 0.04em;
-  }
+    .about-story {
+      background: #f8f3f3;
+    }
 
-  .about-hero__kicker {
-    margin: 0;
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    line-height: 1.7;
-    max-width: 60ch;
-  }
+    .about-story__container {
+      display: grid;
+    }
 
-  .about-story {
-    background: #fff;
-  }
-
-  .about-story__inner {
-    display: grid;
-    gap: var(--space-8);
-  }
-
-  .about-story__copy {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .about-story__copy h2 {
-    margin-top: 0;
-  }
-
-  .about-story__copy p {
-    margin: 0;
-    line-height: 1.8;
-  }
-
-  .about-story__media {
-    margin: 0;
-  }
-
-  .about-story__media picture,
-  .about-story__media img {
-    display: block;
-    width: 100%;
-    border-radius: var(--radius, 14px);
-    box-shadow: var(--shadow);
-  }
-
-  .about-team {
-    background: #f8f3f3;
-  }
-
-  .about-team__inner {
-    display: grid;
-    gap: var(--space-8);
-  }
-
-  .about-team__intro {
-    max-width: 70ch;
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .about-team__grid {
-    display: grid;
-    gap: var(--space-6);
-  }
-
-  .about-team__card {
-    background: #fff;
-    border-radius: var(--radius, 14px);
-    box-shadow: var(--shadow);
-    display: grid;
-    gap: var(--space-5);
-    overflow: hidden;
-  }
-
-  .about-team__image picture,
-  .about-team__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .about-team__content {
-    display: grid;
-    gap: var(--space-3);
-    padding: var(--space-6);
-  }
-
-  .about-team__content h3 {
-    margin: 0;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-  }
-
-  .about-team__role {
-    margin: 0;
-    font-size: 0.95rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .about-team__content p {
-    margin: 0;
-    line-height: 1.7;
-  }
-
-  .about-cta {
-    background: linear-gradient(
-      140deg,
-      rgba(137, 4, 11, 0.98) 0%,
-      rgba(76, 3, 7, 1) 55%,
-      rgba(35, 6, 8, 1) 100%
-    );
-    color: #fff;
-  }
-
-  .about-cta__inner {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    padding-top: var(--space-10);
-    padding-bottom: var(--space-10);
-  }
-
-  .about-cta h2 {
-    margin: 0 0 var(--space-2);
-    color: inherit;
-  }
-
-  .about-cta p {
-    margin: 0;
-    color: inherit;
-  }
-
-  .about-cta__actions {
-    margin: 0;
-  }
-
-  .about-cta__actions .button {
-    box-shadow: var(--shadow);
-  }
-
-  @media (min-width: 720px) {
-    .about-story__inner {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
-      align-items: start;
+    .about-story__card {
+      display: grid;
+      gap: var(--space-6);
+      padding: var(--space-8);
+      border-radius: var(--radius, 14px);
+      box-shadow: var(--shadow);
+      background: #fff;
     }
 
     .about-story__media {
-      order: 2;
+      margin: 0;
     }
 
     .about-story__media picture,
     .about-story__media img {
-      height: 100%;
-      object-fit: cover;
+      display: block;
+      width: 100%;
+      border-radius: calc(var(--radius, 14px) * 0.8);
+      box-shadow: var(--shadow);
     }
 
-    .about-story__copy {
-      order: 1;
+    .about-story__content {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .about-story__content h2 {
+      margin: 0;
+    }
+
+    .about-story__content p {
+      margin: 0;
+      line-height: 1.8;
+    }
+
+    .collapsible {
+      margin-top: var(--space-2);
+      border-top: 1px solid rgba(137, 4, 11, 0.15);
+      padding-top: var(--space-2);
+    }
+
+    .collapsible summary {
+      list-style: none;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-radius: calc(var(--radius, 14px) / 2);
+      border: 1px solid rgba(137, 4, 11, 0.35);
+      color: #230608;
+      background: rgba(255, 255, 255, 0.4);
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .collapsible summary::marker,
+    .collapsible summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .collapsible summary:hover,
+    .collapsible summary:focus-visible {
+      outline: none;
+      background: rgba(137, 4, 11, 0.12);
+      border-color: rgba(137, 4, 11, 0.6);
+      color: #230608;
+    }
+
+    .collapsible__label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .collapsible__label--open {
+      display: none;
+    }
+
+    details[open] .collapsible__label--closed {
+      display: none;
+    }
+
+    details[open] .collapsible__label--open {
+      display: inline-flex;
+    }
+
+    .collapsible__content {
+      display: grid;
+      gap: var(--space-3);
+      margin-top: var(--space-3);
+    }
+
+    .about-team {
+      background: #fff;
+    }
+
+    .about-team__inner {
+      display: grid;
+      gap: var(--space-8);
+    }
+
+    .about-team__intro {
+      display: grid;
+      gap: var(--space-3);
+      max-width: 70ch;
     }
 
     .about-team__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      display: grid;
+      gap: var(--space-6);
     }
 
-    .about-cta__inner {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+    .about-team__card {
+      display: grid;
+      gap: 0;
+      overflow: hidden;
+      border-radius: var(--radius, 14px);
+      background: #fff;
     }
-  }
 
-  @media (max-width: 720px) {
-    .about-hero__content {
+    .about-team__image {
+      position: relative;
+      background: linear-gradient(140deg, #efe1e3 0%, #f7f2f3 100%);
+      display: grid;
+      place-items: center;
+      min-height: 240px;
+    }
+
+    .about-team__image picture {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .about-team__image picture,
+    .about-team__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-team__image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(35, 6, 8, 0.6);
+      pointer-events: none;
+      padding: var(--space-4);
       text-align: center;
-      justify-items: center;
+      transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease;
+      z-index: 0;
     }
 
-    .about-cta__actions {
-      text-align: center;
+    .about-team__image--loaded .about-team__image-placeholder {
+      opacity: 0;
+      visibility: hidden;
     }
-  }
-</style>
+
+    .about-team__body {
+      display: grid;
+      gap: var(--space-3);
+      padding: var(--space-6);
+    }
+
+    .about-team__body h3 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .about-team__role {
+      margin: 0;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .about-team__body p {
+      margin: 0;
+      line-height: 1.75;
+    }
+
+    .about-team__details {
+      margin-top: 0;
+    }
+
+    @media (min-width: 720px) {
+      .about-hero__content {
+        justify-items: start;
+      }
+
+      .about-story__card {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .about-story__media {
+        order: 2;
+      }
+
+      .about-story__content {
+        order: 1;
+      }
+
+      .about-team__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .about-hero__content {
+        text-align: center;
+        justify-items: center;
+      }
+
+      .about-hero__intro,
+      .about-hero__blurb {
+        text-align: left;
+      }
+    }
+  </style>
+</BaseLayout>
