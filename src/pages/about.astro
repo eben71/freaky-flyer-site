@@ -85,6 +85,7 @@ const teamMembers = [
     <div class="container about-story__container">
       <article class="card about-story__card">
         <figure class="about-story__media">
+          <!-- TODO: Replace with final warehouse/team photo asset once available. -->
           <picture>
             <source srcset={storyImageWebp} type="image/webp" />
             <img
@@ -136,6 +137,7 @@ const teamMembers = [
           teamMembers.map((member) => (
             <article class="about-team__card card">
               <div class="about-team__image">
+                <!-- TODO: Supply team portrait assets at /assets/img/team/{nick-wren,bec-wren}.{webp,jpg}. -->
                 <picture>
                   <source srcset={member.image.webp} type="image/webp" />
                   <img
