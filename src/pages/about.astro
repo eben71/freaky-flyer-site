@@ -12,9 +12,9 @@ const heroBlurb =
   'As a small family owned and operated business, we understand the needs of local organisations across the Perth region and keep our service affordable, reliable, and personal.';
 
 const storyImageWebp =
-  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-2-960.webp';
+  '/assets/img/optimized/about-us-meet-the-team/warehouse-personel-960.webp';
 const storyImageFallback =
-  '/assets/img/raw/flyer-delivery-services-perth/warehouse-personell-2-2.png';
+  '/assets/img/raw/about-us-meet-the-team/warehouse-personel.jpg';
 
 const storyParagraphs = [
   "In March 2014, a new to real estate sales representative sat behind their desk fretting over who they could trust to deliver their flyers within their real estate area. Struggling to find anyone trustworthy enough to “do the right thing” as they certainly didn't want someone putting their flyers inside a bunch of catalogues or local newspapers reducing exposure immensely, or not delivering their flyers, or worst still, the prospect of dumping was a real concern by all within the industry.",
@@ -35,8 +35,8 @@ const teamMembers = [
     summary:
       'Nick founded Freaky Flyer Delivery in 2014 after decades with Australia Post and experience in real estate sales. He leads the team with a focus on cost-effective, GPS-verified flyer campaigns for Perth businesses.',
     image: {
-      webp: '/assets/img/team/nick-wren.webp',
-      fallback: '/assets/img/team/nick-wren.jpg',
+      webp: '/assets/img/optimized/about-us-meet-the-team/nick_portrait-960.webp',
+      fallback: '/assets/img/raw/about-us-meet-the-team/nick_portrait.jpg',
       alt: 'Portrait of Nick Wren, Founding Director of Freaky Flyer Delivery',
     },
     extendedBio: [
@@ -53,8 +53,8 @@ const teamMembers = [
     summary:
       'Bec joined the business in 2016, quickly becoming full-time Administration Manager. She keeps campaigns on schedule with friendly communication and a keen understanding of each client’s goals.',
     image: {
-      webp: '/assets/img/team/bec-wren.webp',
-      fallback: '/assets/img/team/bec-wren.jpg',
+      webp: '/assets/img/optimized/about-us-meet-the-team/bec_portrait-960.webp',
+      fallback: '/assets/img/raw/about-us-meet-the-team/bec_portrait.jpg',
       alt: 'Portrait of Bec Wren, Administration Manager at Freaky Flyer Delivery',
     },
     extendedBio: [
@@ -85,7 +85,6 @@ const teamMembers = [
     <div class="container about-story__container">
       <article class="card about-story__card">
         <figure class="about-story__media">
-          <!-- TODO: Replace with final warehouse/team photo asset once available. -->
           <picture>
             <source srcset={storyImageWebp} type="image/webp" />
             <img
@@ -137,7 +136,6 @@ const teamMembers = [
           teamMembers.map((member) => (
             <article class="about-team__card card">
               <div class="about-team__image">
-                <!-- TODO: Supply team portrait assets at /assets/img/team/{nick-wren,bec-wren}.{webp,jpg}. -->
                 <picture>
                   <source srcset={member.image.webp} type="image/webp" />
                   <img
