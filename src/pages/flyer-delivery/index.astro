@@ -1,9 +1,9 @@
 ---
 import fs from 'node:fs';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/Hero.astro';
-import CTA from '../../components/CTA.astro';
+import BottomCta from '../../components/BottomCta.astro';
 import Accordion from '../../components/Accordion.astro';
+import { linkAttrs } from '../../lib/links';
 
 const title = 'Perth Flyer Delivery | Freaky Flyer Delivery';
 const description =
@@ -15,7 +15,9 @@ const warehouseHeroPath = new URL(
 );
 const heroImage = fs.existsSync(warehouseHeroPath)
   ? '/assets/img/hero/warehouse.jpg'
-  : '/assets/brand/nw01ffd_home_banner.jpg';
+  : null;
+const quoteLinkAttrs = linkAttrs('/contact');
+const pricingLinkAttrs = linkAttrs('/flyer-delivery/pricing');
 
 const teamCutoutPath = new URL(
   '../../../public/assets/img/optimized/flyer-delivery-services-perth/warehouse-team.webp',
@@ -125,16 +127,33 @@ const faqItems = [
 ---
 
 <BaseLayout {title} {description}>
-  <Hero
-    kicker="Services"
-    title="Perth Flyer Delivery"
-    text="Accountable flyer delivery services spanning the Perth metro area."
-    image={heroImage}
-    primaryHref="/contact"
-    primaryText="Request a Quote"
-    secondaryHref="/flyer-delivery/pricing"
-    secondaryText="View Pricing"
-  />
+  <section class="hero" aria-labelledby="flyer-delivery-title">
+    <div class="hero__media" aria-hidden="true">
+      {
+        heroImage && (
+          <img src={heroImage} alt="" loading="eager" decoding="async" />
+        )
+      }
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="container hero__content">
+      <p class="hero__kicker">Services</p>
+      <h1 id="flyer-delivery-title">Perth Flyer Delivery</h1>
+      <p class="hero__intro">
+        Accountable flyer delivery services spanning the Perth metro area.
+      </p>
+      <div class="hero__actions">
+        <a class="button primary" href="/contact" {...quoteLinkAttrs}
+          >Request a Quote</a
+        >
+        <a
+          class="button outline"
+          href="/flyer-delivery/pricing"
+          {...pricingLinkAttrs}>View Pricing</a
+        >
+      </div>
+    </div>
+  </section>
 
   <section class="section approach" aria-labelledby="approach-heading">
     <div class="container approach__inner">
@@ -206,15 +225,103 @@ const faqItems = [
     </div>
   </section>
 
-  <CTA
-    title="We look forward to working with you—please contact our friendly sales team for a quote."
-    body=""
-    actionLabel="Contact Us"
-    actionHref="/contact"
+  <BottomCta
+    text="We look forward to working with you—please contact our friendly sales team for a quote."
+    href="/contact"
+    label="Contact Us"
   />
 </BaseLayout>
 
 <style>
+  .hero {
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+    background: linear-gradient(
+      140deg,
+      rgba(137, 4, 11, 0.98) 0%,
+      rgba(76, 3, 7, 1) 55%,
+      rgba(35, 6, 8, 1) 100%
+    );
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.28;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      220deg,
+      rgba(11, 12, 16, 0.15) 0%,
+      rgba(6, 8, 15, 0.9) 55%,
+      rgba(137, 4, 11, 0.82) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-16) 0;
+    max-width: min(960px, 100%);
+  }
+
+  .hero__kicker {
+    margin: 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .hero__intro {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .hero__actions .button {
+    box-shadow: var(--shadow);
+  }
+
+  .hero__actions .button:hover {
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .hero {
+      text-align: center;
+    }
+
+    .hero__content {
+      align-items: center;
+    }
+
+    .hero__actions {
+      justify-content: center;
+    }
+  }
+
   .approach {
     background: var(--surface);
   }
