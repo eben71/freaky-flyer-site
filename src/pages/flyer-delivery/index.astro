@@ -18,19 +18,17 @@ const heroImage = fs.existsSync(warehouseHeroPath)
   : '/assets/brand/nw01ffd_home_banner.jpg';
 
 const teamCutoutPath = new URL(
-  '../../../public/assets/img/team/team-cutout.webp',
+  '../../../public/assets/img/optimized/flyer-delivery-services-perth/warehouse-team.webp',
   import.meta.url
 );
 const teamPhotoFallbackPath = new URL(
-  '../../../public/assets/img/team/team.jpg',
+  '../../../public/assets/img/raw/flyer-delivery-services-perth/warehouse-team.jpg',
   import.meta.url
 );
-// TODO: Replace the placeholder image with `/assets/img/team/team-cutout.webp` when the updated
-// team artwork is provided.
 const teamImage = fs.existsSync(teamCutoutPath)
-  ? '/assets/img/team/team-cutout.webp'
+  ? '/assets/img/optimized/flyer-delivery-services-perth/warehouse-team.webp'
   : fs.existsSync(teamPhotoFallbackPath)
-    ? '/assets/img/team/team.jpg'
+    ? '/assets/img/optimized/flyer-delivery-services-perth/warehouse-team.jpg'
     : '/assets/img/optimized/about-us-meet-the-team/warehouse-personel-960.webp';
 
 const highlights = [
