@@ -16,7 +16,7 @@ const warehouseHeroPath = new URL(
 const heroImage = fs.existsSync(warehouseHeroPath)
   ? '/assets/img/hero/warehouse.jpg'
   : null;
-const quoteLinkAttrs = linkAttrs('/contact');
+const techniqueLinkAttrs = linkAttrs('/flyer-delivery/our-technique');
 const pricingLinkAttrs = linkAttrs('/flyer-delivery/pricing');
 
 const teamCutoutPath = new URL(
@@ -143,8 +143,10 @@ const faqItems = [
         Accountable flyer delivery services spanning the Perth metro area.
       </p>
       <div class="hero__actions">
-        <a class="button primary" href="/contact" {...quoteLinkAttrs}
-          >Request a Quote</a
+        <a
+          class="button primary"
+          href="/flyer-delivery/our-technique"
+          {...techniqueLinkAttrs}>Our Splicing Technique</a
         >
         <a
           class="button outline"
