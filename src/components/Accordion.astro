@@ -1,0 +1,129 @@
+---
+/**
+ * @typedef {Object} AccordionItem
+ * @property {string} question
+ * @property {string[]} answer
+ */
+
+/**
+ * @typedef {Object} AccordionProps
+ * @property {string} [id]
+ * @property {AccordionItem[]} items
+ */
+
+/** @type {AccordionProps} */
+const props = Astro.props;
+const { id, items = [] } = props;
+const baseId = id ?? `accordion-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class="accordion">
+  {
+    items.map((item, index) => {
+      const itemId = `${baseId}-item-${index + 1}`;
+      return (
+        <details class="accordion__item" id={itemId}>
+          <summary class="accordion__summary">
+            <span class="accordion__summary-text">{item.question}</span>
+            <span class="accordion__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M12 15.6 5.4 9l1.2-1.2L12 13.2l5.4-5.4L18.6 9z" />
+              </svg>
+            </span>
+          </summary>
+          <div class="accordion__panel">
+            {item.answer.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </details>
+      );
+    })
+  }
+</div>
+
+<style>
+  .accordion {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .accordion__item {
+    border-radius: var(--radius, 14px);
+    background: #fff;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .accordion__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-align: left;
+  }
+
+  .accordion__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion__summary:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 10px;
+  }
+
+  .accordion__summary-text {
+    flex: 1;
+    text-wrap: balance;
+  }
+
+  .accordion__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: rgba(137, 4, 11, 0.12);
+    color: var(--accent);
+    transition: transform 160ms ease;
+  }
+
+  .accordion__icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
+    transition: transform 160ms ease;
+  }
+
+  .accordion__panel {
+    padding: 0 var(--space-6) var(--space-6);
+    display: grid;
+    gap: var(--space-3);
+    line-height: 1.8;
+  }
+
+  .accordion__panel p {
+    margin: 0;
+  }
+
+  .accordion__item[open] .accordion__icon svg {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 720px) {
+    .accordion__summary {
+      padding: var(--space-5);
+    }
+
+    .accordion__panel {
+      padding: 0 var(--space-5) var(--space-5);
+    }
+  }
+</style>

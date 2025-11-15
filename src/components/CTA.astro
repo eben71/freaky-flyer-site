@@ -9,13 +9,14 @@ const {
 } = Astro.props;
 
 const actionAttributes = linkAttrs(actionHref);
+const hasBody = typeof body === 'string' && body.trim().length > 0;
 ---
 
 <section class="cta" aria-labelledby="cta-heading">
   <div class="container cta__inner">
     <div>
       <h2 id="cta-heading">{title}</h2>
-      <p>{body}</p>
+      {hasBody && <p>{body}</p>}
     </div>
     <p class="cta__actions">
       <a class="button primary" href={actionHref} {...actionAttributes}
