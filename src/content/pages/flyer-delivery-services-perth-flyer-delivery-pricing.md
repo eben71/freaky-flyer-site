@@ -9,7 +9,7 @@ alias: flyer-delivery-pricing
 images: []
 ---
 
-**Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)**
+**Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[eben.venter@gmail.com](mailto:eben.venter@gmail.com)**
 
 [](https://www.facebook.com/freakyflyerdelivery/?ref=br_rs)[](https://twitter.com/flyerfreaky)[](https://www.instagram.com/freakyflyerdelivery/)
 
@@ -48,7 +48,7 @@ images: []
 #### Contact Information
 
 **Phone:** [08 9405 7777](tel:0894057777)  
-**E-Mail:** [admin@freakyflyerdelivery.com.au](mailto:admin@freakyflyerdelivery.com.au)  
+**E-Mail:** [eben.venter@gmail.com](mailto:eben.venter@gmail.com)
 **Web:** [www.freakyflyerdelivery.com.au](http://www.freakyflyerdelivery.com.au)
 
 **Warehouse Address:**  

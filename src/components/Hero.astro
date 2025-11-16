@@ -3,48 +3,77 @@ import Picture from './Picture.astro';
 import { linkAttrs } from '../lib/links';
 
 const {
+  variant = 'photo',
   image = '/assets/brand/nw01ffd_home_banner.jpg',
   kicker = 'Perth-wide GPS flyer distribution',
   title = 'Freaky Flyer Delivery',
   text = '',
-  primaryHref = '/contact',
+  primaryHref = undefined,
   primaryText = 'Get a Quote',
-  secondaryHref = '/pricing',
+  secondaryHref = undefined,
   secondaryText = 'View Pricing',
 } = Astro.props;
+
+const hasBodySlot = Astro.slots.has('default');
 const hasActionsSlot = Astro.slots.has('actions');
-const primaryAttrs = linkAttrs(primaryHref);
-const secondaryAttrs = linkAttrs(secondaryHref);
+const primaryAttrs = primaryHref ? linkAttrs(primaryHref) : {};
+const secondaryAttrs = secondaryHref ? linkAttrs(secondaryHref) : {};
 ---
 
-<section class="hero section angled-top">
-  <div class="hero__media" aria-hidden="true">
-    <Picture
-      src={image}
-      alt=""
-      sizes="100vw"
-      loading="eager"
-      decoding="async"
-    />
-  </div>
-  <div class="hero__overlay"></div>
+<section
+  class={`hero section ${variant === 'photo' ? 'angled-top' : ''} hero--${variant}`}
+>
+  {
+    variant === 'photo' && (
+      <>
+        <div class="hero__media" aria-hidden="true">
+          <Picture
+            src={image}
+            alt=""
+            sizes="100vw"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+        <div class="hero__overlay" />
+      </>
+    )
+  }
   <div class="container hero__content">
-    <p class="kicker">#{kicker}</p>
-    <h1 class="title">{title}</h1>
-    {text && <p style="max-width:65ch">{text}</p>}
+    {kicker && <p class="hero__kicker">{kicker}</p>}
+    {title && <h1 class="hero__title">{title}</h1>}
     {
-      hasActionsSlot ? (
-        <div class="hero__actions">
-          <slot name="actions" />
+      hasBodySlot ? (
+        <div class="hero__body">
+          <slot />
         </div>
       ) : (
+        text && <p class="hero__text">{text}</p>
+      )
+    }
+    {
+      (hasActionsSlot || primaryHref || secondaryHref) && (
         <div class="hero__actions">
-          <a href={primaryHref} class="button primary" {...primaryAttrs}>
-            {primaryText}
-          </a>
-          <a href={secondaryHref} class="button outline" {...secondaryAttrs}>
-            {secondaryText}
-          </a>
+          {hasActionsSlot ? (
+            <slot name="actions" />
+          ) : (
+            <>
+              {primaryHref && (
+                <a href={primaryHref} class="button primary" {...primaryAttrs}>
+                  {primaryText}
+                </a>
+              )}
+              {secondaryHref && (
+                <a
+                  href={secondaryHref}
+                  class="button outline"
+                  {...secondaryAttrs}
+                >
+                  {secondaryText}
+                </a>
+              )}
+            </>
+          )}
         </div>
       )
     }
@@ -54,10 +83,36 @@ const secondaryAttrs = linkAttrs(secondaryHref);
 <style>
   .hero {
     position: relative;
-    overflow: hidden;
     color: #fff;
+    overflow: hidden;
+    --hero-vertical-padding: clamp(48px, 8vw, calc(var(--space-16) * 0.9));
+    min-height: clamp(360px, 55vh, 520px);
     display: flex;
     align-items: center;
+  }
+
+  .hero.section {
+    padding: 0;
+  }
+
+  .hero--photo {
+    align-items: center;
+  }
+
+  .hero--compact {
+    background:
+      radial-gradient(
+        1200px 600px at 0% 0%,
+        rgba(255, 255, 255, 0.12),
+        transparent 60%
+      ),
+      radial-gradient(
+        1200px 600px at 100% 0%,
+        rgba(137, 4, 11, 0.22),
+        transparent 65%
+      ),
+      linear-gradient(180deg, #2a1216 0%, #14090c 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .hero__media {
@@ -88,12 +143,19 @@ const secondaryAttrs = linkAttrs(secondaryHref);
   .hero__content {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: var(--space-4);
+    padding: var(--hero-vertical-padding) 0;
+    max-width: min(960px, 100%);
+    width: 100%;
   }
 
-  .kicker {
+  .hero--photo .hero__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__kicker {
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -101,8 +163,32 @@ const secondaryAttrs = linkAttrs(secondaryHref);
     font-size: 0.9rem;
   }
 
-  .title {
+  .hero__title {
     color: #fff;
+    margin: 0;
+  }
+
+  .hero__body {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .hero__body :is(p, h2, h3) {
+    margin: 0;
+    max-width: 65ch;
+    line-height: 1.7;
+  }
+
+  .hero__text {
+    margin: 0;
+    max-width: 65ch;
+    line-height: 1.7;
+  }
+
+  .hero__subtitle {
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
 
   .hero__actions {
@@ -115,13 +201,13 @@ const secondaryAttrs = linkAttrs(secondaryHref);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
   }
 
-  .hero__actions .button.outline {
+  :global(.hero__actions .button.outline) {
     color: #fff;
     border-color: rgba(255, 255, 255, 0.85);
     background: rgba(255, 255, 255, 0.08);
   }
 
-  .hero__actions .button.outline:hover {
+  :global(.hero__actions .button.outline:hover) {
     background: rgba(255, 255, 255, 0.18);
     border-color: #fff;
   }
@@ -129,6 +215,14 @@ const secondaryAttrs = linkAttrs(secondaryHref);
   @media (max-width: 720px) {
     .hero {
       text-align: center;
+    }
+
+    .hero__content {
+      align-items: center;
+    }
+
+    .hero__body {
+      width: 100%;
     }
 
     .hero__actions {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Hero from '../components/Hero.astro';
 import { site } from '../site.config';
 import { linkAttrs } from '../lib/links';
 
@@ -20,16 +21,12 @@ const emailScriptUrl = new URL(
 ---
 
 <BaseLayout {title} description={description}>
-  <section class="contact-hero" aria-labelledby="contact-hero-title">
-    <div class="container contact-hero__content">
-      <h1 id="contact-hero-title">Contact Us</h1>
-      <h2 class="contact-hero__subheading">Let's plan your next flyer drop</h2>
-      <p class="contact-hero__intro">
-        Start planning your flyer drop today. Our local team will respond
-        personally and help you reach your audience fast.
-      </p>
-    </div>
-  </section>
+  <Hero variant="compact" title="Contact Us">
+    <p class="hero__intro">
+      Start planning your flyer drop today. Our local team will respond
+      personally and help you reach your audience fast.
+    </p>
+  </Hero>
 
   <section class="section contact-main" aria-labelledby="contact-form-heading">
     <div class="container contact-main__container">
@@ -114,44 +111,6 @@ const emailScriptUrl = new URL(
   </section>
 
   <style>
-    .contact-hero {
-      color: #fff;
-      background: linear-gradient(
-        140deg,
-        rgba(137, 4, 11, 0.98) 0%,
-        rgba(76, 3, 7, 1) 55%,
-        rgba(35, 6, 8, 1) 100%
-      );
-    }
-
-    .contact-hero__content {
-      display: grid;
-      gap: var(--space-4);
-      padding: var(--space-16) 0;
-      max-width: min(960px, 100%);
-      justify-items: start;
-    }
-
-    .contact-hero__content h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 5vw, 3.25rem);
-      letter-spacing: 0.04em;
-    }
-
-    .contact-hero__subheading {
-      margin: 0;
-      font-size: clamp(1.5rem, 4vw, 2.25rem);
-      letter-spacing: 0.02em;
-      font-weight: 600;
-    }
-
-    .contact-hero__intro {
-      font-size: 1.1rem;
-      margin: 0;
-      line-height: 1.8;
-      max-width: 60ch;
-    }
-
     .contact-main {
       padding-top: var(--space-16);
       padding-bottom: var(--space-16);
@@ -288,12 +247,6 @@ const emailScriptUrl = new URL(
     }
 
     @media (max-width: 720px) {
-      .contact-hero__content {
-        text-align: center;
-        align-items: center;
-        justify-items: center;
-      }
-
       .contact-card__reveal {
         justify-self: center;
       }

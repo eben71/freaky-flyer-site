@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadPage } from '../lib/content.ts';
 import { sanitizeHtml } from '../lib/sanitize';
 import BottomCta from '../components/BottomCta.astro';
+import Hero from '../components/Hero.astro';
 
 const slug = 'flyer-tips';
 const page = await loadPage(slug);
@@ -25,12 +26,9 @@ const sectionHeading = 'Best Practices for Flyers';
   description={description}
   canonical="/flyer-tips/"
 >
-  <section class="flyer-tips-hero" aria-labelledby="flyer-tips-hero-title">
-    <div class="container flyer-tips-hero__content">
-      <h1 id="flyer-tips-hero-title">{heroTitle}</h1>
-      <p class="flyer-tips-hero__intro">{description}</p>
-    </div>
-  </section>
+  <Hero variant="compact" kicker="Flyer Tips" title={heroTitle}>
+    <p class="hero__intro">{description}</p>
+  </Hero>
 
   <section
     class="section flyer-tips-content"
@@ -58,47 +56,6 @@ const sectionHeading = 'Best Practices for Flyers';
   />
 
   <style>
-    .flyer-tips-hero {
-      color: #fff;
-      background-color: #230608;
-      background-image:
-        linear-gradient(
-          140deg,
-          rgba(137, 4, 11, 0.98) 0%,
-          rgba(76, 3, 7, 1) 55%,
-          rgba(35, 6, 8, 1) 100%
-        ),
-        image-set(
-          url('/assets/img/optimized/contact-us/cross-640.webp') 1x,
-          url('/assets/img/optimized/contact-us/cross-960.webp') 1.5x,
-          url('/assets/img/optimized/contact-us/cross-1280.webp') 2x
-        );
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      padding: var(--space-16) 0;
-    }
-
-    .flyer-tips-hero__content {
-      display: grid;
-      gap: var(--space-5);
-      max-width: min(960px, 100%);
-    }
-
-    .flyer-tips-hero__content h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 5vw, 3.25rem);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .flyer-tips-hero__intro {
-      margin: 0;
-      font-size: clamp(1.125rem, 2vw, 1.3rem);
-      line-height: 1.75;
-      max-width: 60ch;
-    }
-
     .flyer-tips-content {
       padding-top: var(--space-16);
       padding-bottom: var(--space-16);
@@ -141,19 +98,6 @@ const sectionHeading = 'Best Practices for Flyers';
     }
 
     @media (max-width: 720px) {
-      .flyer-tips-hero {
-        background-position: top;
-      }
-
-      .flyer-tips-hero__content {
-        text-align: center;
-        justify-items: center;
-      }
-
-      .flyer-tips-hero__intro {
-        text-align: left;
-      }
-
       .flyer-tips-content__inner {
         gap: var(--space-5);
       }
@@ -164,8 +108,8 @@ const sectionHeading = 'Best Practices for Flyers';
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .flyer-tips-hero {
-        background-position: center;
+      .flyer-tips-content__body {
+        font-size: 1.05rem;
       }
     }
   </style>
