@@ -229,6 +229,10 @@ strong {
   padding: var(--space-6);
 }
 
+.card p {
+  text-align: justify;
+}
+
 .badge {
   display: inline-block;
   padding: 2px 8px;
