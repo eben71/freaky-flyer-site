@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BottomCta from '../../components/BottomCta.astro';
+import Hero from '../../components/Hero.astro';
 
 const pageTitle = 'Our Delivery Technique | Freaky Flyer Delivery';
 const pageDescription =
@@ -20,12 +21,6 @@ const fileExists = (path) => {
 
 const assetWithFallback = (preferred, fallback) =>
   fileExists(preferred) ? preferred : fallback;
-
-// TODO: Replace fallback hero image once /assets/pages/technique/hero.jpg is available in the repo.
-const heroImage = assetWithFallback(
-  '/assets/pages/technique/hero.jpg',
-  '/assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/ffdps-4-1-1280.webp'
-);
 
 const techniqueSteps = [
   {
@@ -68,17 +63,13 @@ const techniqueSteps = [
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="flyer-hero" style={`--hero-image: url(${heroImage})`}>
-    <div class="container flyer-hero__content">
-      <p class="flyer-hero__eyebrow">Flyer Delivery</p>
-      <h1>Our Delivery Technique</h1>
-      <p>
-        We call it Equalizing—an in-house process that keeps every campaign
-        organised, layered, and GPS-verified so your flyers land exactly where
-        they should.
-      </p>
-    </div>
-  </section>
+  <Hero variant="compact" kicker="Our Technique" title="Our Delivery Technique">
+    <p class="hero__intro">
+      We call it Equalizing—an in-house process that keeps every campaign
+      organised, layered, and GPS-verified so your flyers land exactly where
+      they should.
+    </p>
+  </Hero>
 
   <section class="section technique">
     <div class="container technique__inner">
@@ -120,35 +111,6 @@ const techniqueSteps = [
   />
 
   <style>
-    .flyer-hero {
-      color: #fff;
-      background-image:
-        linear-gradient(
-          140deg,
-          rgba(137, 4, 11, 0.92) 0%,
-          rgba(76, 3, 7, 0.9) 50%,
-          rgba(35, 6, 8, 0.88) 100%
-        ),
-        var(--hero-image, none);
-      background-size: cover;
-      background-position: center;
-    }
-
-    .flyer-hero__content {
-      display: grid;
-      gap: var(--space-4);
-      padding: var(--space-16) 0;
-      max-width: min(960px, 100%);
-    }
-
-    .flyer-hero__eyebrow {
-      margin: 0;
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
     .technique__inner {
       display: grid;
       gap: var(--space-10);
@@ -200,10 +162,6 @@ const techniqueSteps = [
     }
 
     @media (max-width: 640px) {
-      .flyer-hero__content {
-        text-align: center;
-      }
-
       .technique-card {
         text-align: left;
       }

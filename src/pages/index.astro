@@ -2,8 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadPage } from '../lib/content.ts';
 import Hero from '../components/Hero.astro';
-import CTA from '../components/CTA.astro';
-import ImageCard from '../components/ImageCard.astro';
+import BottomCta from '../components/BottomCta.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 
 const slug = 'index';
@@ -59,19 +58,44 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
     <div class="container">
       <SectionHeader title="Discover how we support your campaigns" />
       <div class="grid cols-2 discover__grid">
-        <ImageCard
-          image={aboutPanelImage}
-          title="About Us"
-          text="Meet the family-run team behind Freaky Flyer Delivery and see how we built Perth’s most accountable flyer network."
-          href="/about"
-        />
-        <ImageCard
-          image={flyerTipsPanelImage}
-          title="Flyer Tips"
-          text="Sharpen every drop with proven creative, sizing and follow-up advice from our delivery specialists."
-          href="/flyer-tips"
-          tone="dark"
-        />
+        <article class="feature-card">
+          <img
+            src={aboutPanelImage}
+            alt="About Us"
+            class="feature-card__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="feature-card__overlay">
+            <h3>About Us</h3>
+            <p>
+              Meet the family-run team behind Freaky Flyer Delivery and see how
+              we built Perth’s most accountable flyer network.
+            </p>
+            <p class="feature-card__actions">
+              <a class="button primary" href="/about">View More</a>
+            </p>
+          </div>
+        </article>
+        <article class="feature-card">
+          <img
+            src={flyerTipsPanelImage}
+            alt="Flyer Tips"
+            class="feature-card__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="feature-card__overlay">
+            <h3>Flyer Tips</h3>
+            <p>
+              Sharpen every drop with proven creative, sizing and follow-up
+              advice from our delivery specialists.
+            </p>
+            <p class="feature-card__actions">
+              <a class="button primary" href="/flyer-tips">View More</a>
+            </p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -157,11 +181,10 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
     </div>
   </section>
 
-  <CTA
-    title="We look forward to working with you"
-    body="Contact our friendly sales team for a tailored quote and delivery schedule."
-    actionLabel="Contact Us"
-    actionHref="/contact"
+  <BottomCta
+    text="We look forward to working with you, please contact our friendly sales team for a quote."
+    href="/contact"
+    label="Contact Us"
   />
 
   <dialog
@@ -282,6 +305,59 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
 
     .discover__grid {
       align-items: stretch;
+    }
+
+    .feature-card {
+      position: relative;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      min-height: 420px;
+    }
+
+    .feature-card__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.02);
+    }
+
+    .feature-card__overlay {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-content: end;
+      gap: var(--space-4);
+      padding: var(--space-8);
+      height: 100%;
+      background: linear-gradient(
+        to top,
+        rgba(2, 6, 23, 0.55) 0%,
+        rgba(2, 6, 23, 0.15) 50%,
+        rgba(2, 6, 23, 0) 100%
+      );
+      color: #fff;
+    }
+
+    .feature-card__overlay h3 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+    }
+
+    .feature-card__overlay p {
+      margin: 0;
+      max-width: 50ch;
+    }
+
+    .feature-card__actions {
+      margin-top: var(--space-4);
+    }
+
+    .feature-card__actions .button {
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
     }
 
     .pricing-highlight {
@@ -422,6 +498,10 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
     @media (max-width: 900px) {
       .why__layout {
         grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        min-height: 320px;
       }
     }
   </style>

@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BottomCta from '../../components/BottomCta.astro';
+import Hero from '../../components/Hero.astro';
 
 const pageTitle = 'Pricing | Freaky Flyer Delivery';
 const pageDescription =
@@ -18,15 +19,6 @@ const fileExists = (path) => {
   }
 };
 
-const assetWithFallback = (preferred, fallback) =>
-  fileExists(preferred) ? preferred : fallback;
-
-// TODO: Replace fallback hero image once /assets/pages/pricing/hero.jpg is available in the repo.
-const heroImage = assetWithFallback(
-  '/assets/pages/pricing/hero.jpg',
-  '/assets/img/optimized/flyer-delivery-services-perth-our-flyer-delivery-technique/ffdps-4-1-1280.webp'
-);
-
 const priceListHref = fileExists('/downloads/FFD-Pricing.pdf')
   ? '/downloads/FFD-Pricing.pdf'
   : '/contact';
@@ -34,17 +26,13 @@ const isDownload = priceListHref.startsWith('/downloads/');
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <section class="flyer-hero" style={`--hero-image: url(${heroImage})`}>
-    <div class="container flyer-hero__content">
-      <p class="flyer-hero__eyebrow">Flyer Delivery</p>
-      <h1>Pricing</h1>
-      <p>
-        Pricing depends on your flyer size, targeted suburbs, and monthly
-        frequency. Our team will guide you through the right mix so every dollar
-        works hard.
-      </p>
-    </div>
-  </section>
+  <Hero variant="compact" kicker="Pricing" title="Pricing">
+    <p class="hero__intro">
+      Pricing depends on your flyer size, targeted suburbs, and monthly
+      frequency. Our team will guide you through the right mix so every dollar
+      works hard.
+    </p>
+  </Hero>
 
   <section class="section pricing">
     <div class="container pricing__inner">
@@ -88,35 +76,6 @@ const isDownload = priceListHref.startsWith('/downloads/');
   />
 
   <style>
-    .flyer-hero {
-      color: #fff;
-      background-image:
-        linear-gradient(
-          140deg,
-          rgba(137, 4, 11, 0.92) 0%,
-          rgba(76, 3, 7, 0.9) 50%,
-          rgba(35, 6, 8, 0.88) 100%
-        ),
-        var(--hero-image, none);
-      background-size: cover;
-      background-position: center;
-    }
-
-    .flyer-hero__content {
-      display: grid;
-      gap: var(--space-4);
-      padding: var(--space-16) 0;
-      max-width: min(960px, 100%);
-    }
-
-    .flyer-hero__eyebrow {
-      margin: 0;
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
     .pricing__inner {
       display: grid;
       gap: var(--space-8);
@@ -158,10 +117,6 @@ const isDownload = priceListHref.startsWith('/downloads/');
     }
 
     @media (max-width: 640px) {
-      .flyer-hero__content {
-        text-align: center;
-      }
-
       .pricing__actions {
         flex-direction: column;
       }
