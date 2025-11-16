@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadPage } from '../lib/content.ts';
-import SectionHeader from '../components/SectionHeader.astro';
-import Picture from '../components/Picture.astro';
+import Hero from '../components/Hero.astro';
 
 const slug = 'areas';
 const page = await loadPage(slug);
@@ -16,37 +15,26 @@ const rawDescription =
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description =
   rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
-const heroImage =
-  '/assets/img/optimized/flyer-delivery-services-perth/warehouse-personell-2-1280.webp';
 ---
 
 <BaseLayout {title} description={description}>
-  <section class="areas-hero" aria-labelledby="areas-heading">
-    <div class="areas-hero__media" aria-hidden="true">
-      <Picture
-        src={heroImage}
-        alt=""
-        sizes="100vw"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-    <div class="areas-hero__overlay"></div>
-    <div class="container areas-hero__content">
-      <SectionHeader
-        level={1}
-        kicker="Delivery Areas"
-        title="Metro coverage from Two Rocks to Rockingham"
-        description="We distribute flyers across the Perth metropolitan area, reaching coastal suburbs, hills communities, and growth corridors with local riders on every route."
-      />
-      <p>
-        Our delivery zones cover Two Rocks in the north to Rockingham in the
-        south, Kalamunda in the east, and the west coast in between. Riders are
-        matched to their local areas so you receive consistent coverage and
-        community knowledge on every run.
-      </p>
-    </div>
-  </section>
+  <Hero
+    variant="compact"
+    kicker="Areas"
+    title="Metro coverage from Two Rocks to Rockingham"
+  >
+    <p>
+      We distribute flyers across the Perth metropolitan area, reaching coastal
+      suburbs, hills communities, and growth corridors with local riders on
+      every route.
+    </p>
+    <p>
+      Our delivery zones cover Two Rocks in the north to Rockingham in the
+      south, Kalamunda in the east, and the west coast in between. Riders are
+      matched to their local areas so you receive consistent coverage and
+      community knowledge on every run.
+    </p>
+  </Hero>
 
   <section
     class="section areas-overview"
@@ -145,42 +133,6 @@ const heroImage =
 </BaseLayout>
 
 <style>
-  .areas-hero {
-    position: relative;
-    overflow: hidden;
-    color: #fff;
-    padding: var(--space-16) 0;
-  }
-
-  .areas-hero__media,
-  .areas-hero__overlay {
-    position: absolute;
-    inset: 0;
-  }
-
-  .areas-hero__media picture,
-  .areas-hero__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .areas-hero__overlay {
-    background: linear-gradient(
-      220deg,
-      rgba(11, 12, 16, 0.12) 0%,
-      rgba(11, 12, 16, 0.9) 65%,
-      rgba(137, 4, 11, 0.85) 100%
-    );
-  }
-
-  .areas-hero__content {
-    position: relative;
-    display: grid;
-    gap: var(--space-4);
-    color: #fff;
-  }
-
   .areas-overview__grid {
     display: grid;
     gap: var(--space-6);
@@ -299,14 +251,6 @@ const heroImage =
     .areas-overview__grid,
     .areas-map__container {
       grid-template-columns: 1fr;
-    }
-
-    .areas-hero {
-      text-align: center;
-    }
-
-    .areas-hero__content {
-      align-items: center;
     }
   }
 </style>
