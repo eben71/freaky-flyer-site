@@ -58,15 +58,11 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
     <div class="container">
       <SectionHeader title="Discover how we support your campaigns" />
       <div class="grid cols-2 discover__grid">
-        <article class="feature-card">
-          <img
-            src={aboutPanelImage}
-            alt="About Us"
-            class="feature-card__img"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="feature-card__overlay">
+        <article
+          class="feature-card feature-card--blurred"
+          style={`--feature-card-image: url(${aboutPanelImage});`}
+        >
+          <div class="feature-card__content">
             <h3>About Us</h3>
             <p>
               Meet the family-run team behind Freaky Flyer Delivery and see how
@@ -77,15 +73,11 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
             </p>
           </div>
         </article>
-        <article class="feature-card">
-          <img
-            src={flyerTipsPanelImage}
-            alt="Flyer Tips"
-            class="feature-card__img"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="feature-card__overlay">
+        <article
+          class="feature-card feature-card--blurred"
+          style={`--feature-card-image: url(${flyerTipsPanelImage});`}
+        >
+          <div class="feature-card__content">
             <h3>Flyer Tips</h3>
             <p>
               Sharpen every drop with proven creative, sizing and follow-up
@@ -314,41 +306,57 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
       box-shadow: var(--shadow);
       overflow: hidden;
       min-height: 420px;
+      isolation: isolate;
+      background: rgba(7, 11, 20, 0.7);
     }
 
-    .feature-card__img {
+    .feature-card--blurred::before,
+    .feature-card--blurred::after {
+      content: '';
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transform: scale(1.02);
+      inset: -10%;
+      z-index: 0;
+      border-radius: inherit;
     }
 
-    .feature-card__overlay {
+    .feature-card--blurred::before {
+      background-image: var(--feature-card-image, none);
+      background-size: cover;
+      background-position: center;
+      filter: blur(16px);
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+
+    .feature-card--blurred::after {
+      inset: 0;
+      background: linear-gradient(
+        145deg,
+        rgba(4, 6, 16, 0.92) 0%,
+        rgba(137, 4, 11, 0.72) 65%,
+        rgba(4, 6, 16, 0.95) 100%
+      );
+      opacity: 0.85;
+    }
+
+    .feature-card__content {
       position: relative;
       z-index: 1;
       display: grid;
-      align-content: end;
       gap: var(--space-4);
       padding: var(--space-8);
       height: 100%;
-      background: linear-gradient(
-        180deg,
-        rgba(2, 6, 23, 0.88) 0%,
-        rgba(2, 6, 23, 0.72) 45%,
-        rgba(2, 6, 23, 0.2) 100%
-      );
       color: #fff;
+      backdrop-filter: blur(10px);
+      background: rgba(3, 6, 14, 0.35);
     }
 
-    .feature-card__overlay h3 {
+    .feature-card__content h3 {
       margin: 0;
       font-size: clamp(1.5rem, 3vw, 2.4rem);
     }
 
-    .feature-card__overlay p {
+    .feature-card__content p {
       margin: 0;
       max-width: 50ch;
     }
