@@ -4,6 +4,7 @@ import ContactForm from '../components/ContactForm.astro';
 import Hero from '../components/Hero.astro';
 import { site } from '../site.config';
 import { linkAttrs } from '../lib/links';
+import { contactEmailParts } from '../lib/email';
 
 const title = 'Contact | Freaky Flyer Delivery';
 const description =
@@ -18,10 +19,12 @@ const emailScriptUrl = new URL(
   '../scripts/email-obfuscator.ts',
   import.meta.url
 );
+const contactEmailUser = contactEmailParts.user;
+const contactEmailDomain = contactEmailParts.domain;
 ---
 
 <BaseLayout {title} description={description}>
-  <Hero variant="compact" title="Contact Us">
+  <Hero variant="compact" kicker="" title="Contact Us">
     <p class="hero__intro">
       Start planning your flyer drop today. Our local team will respond
       personally and help you reach your audience fast.
@@ -50,8 +53,8 @@ const emailScriptUrl = new URL(
                   <a
                     class="contact-card__email-link"
                     data-email-link
-                    data-user="admin"
-                    data-domain="freakyflyerdelivery.com.au"
+                    data-user={contactEmailUser}
+                    data-domain={contactEmailDomain}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Email Freaky Flyer Delivery"
@@ -60,8 +63,8 @@ const emailScriptUrl = new URL(
                     type="button"
                     class="contact-card__reveal"
                     data-email-reveal
-                    data-user="admin"
-                    data-domain="freakyflyerdelivery.com.au"
+                    data-user={contactEmailUser}
+                    data-domain={contactEmailDomain}
                   >
                     Click to reveal
                   </button>

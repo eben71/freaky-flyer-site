@@ -18,6 +18,7 @@ const hasBodySlot = Astro.slots.has('default');
 const hasActionsSlot = Astro.slots.has('actions');
 const primaryAttrs = primaryHref ? linkAttrs(primaryHref) : {};
 const secondaryAttrs = secondaryHref ? linkAttrs(secondaryHref) : {};
+const showGradientBackdrop = variant !== 'photo';
 ---
 
 <section
@@ -39,6 +40,7 @@ const secondaryAttrs = secondaryHref ? linkAttrs(secondaryHref) : {};
       </>
     )
   }
+  {showGradientBackdrop && <div class="hero__backdrop" aria-hidden="true" />}
   <div class="container hero__content">
     {kicker && <p class="hero__kicker">{kicker}</p>}
     {title && <h1 class="hero__title">{title}</h1>}
@@ -85,8 +87,8 @@ const secondaryAttrs = secondaryHref ? linkAttrs(secondaryHref) : {};
     position: relative;
     color: #fff;
     overflow: hidden;
-    --hero-vertical-padding: clamp(48px, 8vw, calc(var(--space-16) * 0.9));
-    min-height: clamp(360px, 55vh, 520px);
+    --hero-vertical-padding: clamp(30px, 5vw, calc(var(--space-16) * 0.65));
+    min-height: clamp(255px, 38vh, 340px);
     display: flex;
     align-items: center;
   }
@@ -113,6 +115,35 @@ const secondaryAttrs = secondaryHref ? linkAttrs(secondaryHref) : {};
       ),
       linear-gradient(180deg, #2a1216 0%, #14090c 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .hero__backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        900px 600px at 0% 0%,
+        rgba(255, 255, 255, 0.08),
+        transparent 60%
+      ),
+      linear-gradient(180deg, rgba(28, 10, 13, 0.9), rgba(12, 7, 9, 0.98));
+  }
+
+  .hero--compact .hero__backdrop {
+    background:
+      radial-gradient(
+        1200px 600px at 0% 0%,
+        rgba(255, 255, 255, 0.12),
+        transparent 60%
+      ),
+      radial-gradient(
+        1200px 600px at 100% 0%,
+        rgba(137, 4, 11, 0.22),
+        transparent 65%
+      ),
+      linear-gradient(180deg, #2a1216 0%, #14090c 100%);
   }
 
   .hero__media {
