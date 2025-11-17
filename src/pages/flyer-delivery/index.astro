@@ -1,5 +1,4 @@
 ---
-import fs from 'node:fs';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BottomCta from '../../components/BottomCta.astro';
 import Accordion from '../../components/Accordion.astro';
@@ -12,20 +11,7 @@ const description =
 
 const techniqueLinkAttrs = linkAttrs('/flyer-delivery/our-technique');
 const pricingLinkAttrs = linkAttrs('/flyer-delivery/pricing');
-
-const teamCutoutPath = new URL(
-  '../../../public/assets/img/warehouse-team-960.webp',
-  import.meta.url
-);
-const teamPhotoFallbackPath = new URL(
-  '../../../public/assets/img/raw/flyer-delivery-services-perth/warehouse-team.jpg',
-  import.meta.url
-);
-const teamImage = fs.existsSync(teamCutoutPath)
-  ? '/assets/img/warehouse-team-960.webp'
-  : fs.existsSync(teamPhotoFallbackPath)
-    ? '/assets/img/warehouse-team.jpg'
-    : '/assets/img/warehouse-personel-960.webp';
+const teamImage = '/assets/img/warehouse-team-960.webp';
 
 const highlights = [
   {

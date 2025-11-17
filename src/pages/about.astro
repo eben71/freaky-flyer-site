@@ -10,9 +10,7 @@ const pageDescription =
 const heroBlurb =
   'Freaky Flyer Delivery is a Perth-based, family-run flyer, pamphlet, and brochure distribution company serving the wider metropolitan area. We understand what local small and medium businesses need—affordable, reliable, and accessible distribution backed by exceptional customer service. Every delivery is GPS-tracked for full transparency, and our friendly team is always happy to help with your next campaign.';
 
-const storyImageWebp = '/assets/img/warehouse-personel-960.webp';
-const storyImageFallback =
-  '/assets/img/raw/about-us-meet-the-team/warehouse-personel.jpg';
+const storyImage = '/assets/img/warehouse-personel-960.webp';
 
 const storyParagraphs = [
   "March 2014, a new to real estate sales representative, sat behind their desk fretting over who they could trust to deliver their flyers within their real estate area. Struggling to find anyone trustworthy enough to “do the right thing” as they certainly didn't want someone putting their flyers inside a bunch of catalogues or local newspapers reducing exposure immensely, or not delivering their flyers, or worst still, the prospect of dumping was a real concern by all within the industry.",
@@ -33,8 +31,7 @@ const teamMembers = [
     summary:
       'Nick founded Freaky Flyer Delivery in 2014 after decades with Australia Post and experience in real estate sales. He leads the team with a focus on cost-effective, GPS-verified flyer campaigns for Perth businesses.',
     image: {
-      webp: '/assets/img/nick_portrait-960.webp',
-      fallback: '/assets/img/raw/about-us-meet-the-team/nick_portrait.jpg',
+      src: '/assets/img/nick_portrait-960.webp',
       alt: 'Portrait of Nick Wren, Founding Director of Freaky Flyer Delivery',
     },
     extendedBio: [
@@ -51,8 +48,7 @@ const teamMembers = [
     summary:
       'Bec joined the business in 2016, quickly becoming full-time Administration Manager. She keeps campaigns on schedule with friendly communication and a keen understanding of each client’s goals.',
     image: {
-      webp: '/assets/img/bec_portrait-960.webp',
-      fallback: '/assets/img/raw/about-us-meet-the-team/bec_portrait.jpg',
+      src: '/assets/img/bec_portrait-960.webp',
       alt: 'Portrait of Bec Wren, Administration Manager at Freaky Flyer Delivery',
     },
     extendedBio: [
@@ -82,15 +78,12 @@ const teamMembers = [
     <div class="container about-story__container">
       <article class="card about-story__card">
         <figure class="about-story__media">
-          <picture>
-            <source srcset={storyImageWebp} type="image/webp" />
-            <img
-              src={storyImageFallback}
-              alt="Freaky Flyer Delivery team preparing flyers inside the warehouse"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
+          <img
+            src={storyImage}
+            alt="Freaky Flyer Delivery team preparing flyers inside the warehouse"
+            loading="lazy"
+            decoding="async"
+          />
         </figure>
         <div class="about-story__content">
           <h2 id="story-heading">Where it began</h2>
@@ -133,16 +126,13 @@ const teamMembers = [
           teamMembers.map((member) => (
             <article class="about-team__card card">
               <div class="about-team__image">
-                <picture>
-                  <source srcset={member.image.webp} type="image/webp" />
-                  <img
-                    src={member.image.fallback}
-                    alt={member.image.alt}
-                    onload="this.closest('.about-team__image')?.classList.add('about-team__image--loaded')"
-                    onerror="this.closest('.about-team__image')?.classList.remove('about-team__image--loaded')"
-                    loading="lazy"
-                  />
-                </picture>
+                <img
+                  src={member.image.src}
+                  alt={member.image.alt}
+                  onload="this.closest('.about-team__image')?.classList.add('about-team__image--loaded')"
+                  onerror="this.closest('.about-team__image')?.classList.remove('about-team__image--loaded')"
+                  loading="lazy"
+                />
                 <span class="about-team__image-placeholder">
                   Photo coming soon
                 </span>
@@ -204,7 +194,6 @@ const teamMembers = [
       margin: 0;
     }
 
-    .about-story__media picture,
     .about-story__media img {
       display: block;
       width: 100%;
@@ -326,15 +315,6 @@ const teamMembers = [
       min-height: 240px;
     }
 
-    .about-team__image picture {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .about-team__image picture,
     .about-team__image img {
       width: 100%;
       height: 100%;
