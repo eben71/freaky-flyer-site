@@ -14,7 +14,7 @@ const techniqueLinkAttrs = linkAttrs('/flyer-delivery/our-technique');
 const pricingLinkAttrs = linkAttrs('/flyer-delivery/pricing');
 
 const teamCutoutPath = new URL(
-  '../../../public/assets/img/optimized/flyer-delivery-services-perth/warehouse-team-960.webp',
+  '../../../public/assets/img/warehouse-team-960.webp',
   import.meta.url
 );
 const teamPhotoFallbackPath = new URL(
@@ -22,10 +22,10 @@ const teamPhotoFallbackPath = new URL(
   import.meta.url
 );
 const teamImage = fs.existsSync(teamCutoutPath)
-  ? '/assets/img/optimized/flyer-delivery-services-perth/warehouse-team-960.webp'
+  ? '/assets/img/warehouse-team-960.webp'
   : fs.existsSync(teamPhotoFallbackPath)
-    ? '/assets/img/optimized/flyer-delivery-services-perth/warehouse-team.jpg'
-    : '/assets/img/optimized/about-us-meet-the-team/warehouse-personel-960.webp';
+    ? '/assets/img/warehouse-team.jpg'
+    : '/assets/img/warehouse-personel-960.webp';
 
 const highlights = [
   {

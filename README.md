@@ -80,6 +80,6 @@ pnpm redirects
 Outputs:
 
 - Markdown pages → `src/content/pages/*.md`
-- Raw images → `public/assets/img/raw/...`
-- Optimized images → `public/assets/img/optimized/...`
+- Raw images → `tools/images/raw/...`
+- Optimized images → `public/assets/img/...`
 - Downloads → `public/downloads/`

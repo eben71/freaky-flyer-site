@@ -55,9 +55,8 @@ async function optimizeImage(file) {
     }
   }
 
-  const relativeDir = toPosix(parsed.dir || '');
-  const publicOptimized = `/assets/img/${relativeDir ? `${relativeDir}/` : ''}${baseName}-${DEFAULT_SIZE}.webp`;
-  const publicRaw = `/tools/images/raw/${relativeDir ? `${relativeDir}/` : ''}${parsed.base}`;
+  const publicOptimized = `/assets/img/${baseName}-${DEFAULT_SIZE}.webp`;
+  const publicRaw = `/tools/images/raw/${parsed.base}`;
 
   return {
     raw: publicRaw,
