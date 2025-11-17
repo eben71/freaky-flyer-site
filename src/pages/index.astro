@@ -62,6 +62,7 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
           class="feature-card feature-card--blurred"
           style={`--feature-card-image: url(${aboutPanelImage});`}
         >
+          <div class="feature-card__backdrop" aria-hidden="true"></div>
           <div class="feature-card__content">
             <h3>About Us</h3>
             <p>
@@ -77,6 +78,7 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
           class="feature-card feature-card--blurred"
           style={`--feature-card-image: url(${flyerTipsPanelImage});`}
         >
+          <div class="feature-card__backdrop" aria-hidden="true"></div>
           <div class="feature-card__content">
             <h3>Flyer Tips</h3>
             <p>
@@ -307,36 +309,43 @@ const whyImage = '/assets/img/optimized/index/ffdwarehousepersonell-960.webp';
       overflow: hidden;
       min-height: 420px;
       isolation: isolate;
-      background: rgba(7, 11, 20, 0.7);
-    }
-
-    .feature-card--blurred::before,
-    .feature-card--blurred::after {
-      content: '';
-      position: absolute;
-      inset: -10%;
-      z-index: 0;
-      border-radius: inherit;
-    }
-
-    .feature-card--blurred::before {
-      background-image: var(--feature-card-image, none);
-      background-size: cover;
-      background-position: center;
-      filter: blur(16px);
-      opacity: 0.7;
-      transform: scale(1.1);
-    }
-
-    .feature-card--blurred::after {
-      inset: 0;
       background: linear-gradient(
         145deg,
         rgba(4, 6, 16, 0.92) 0%,
         rgba(137, 4, 11, 0.72) 65%,
         rgba(4, 6, 16, 0.95) 100%
       );
-      opacity: 0.85;
+      color: #fff;
+    }
+
+    .feature-card__backdrop {
+      position: absolute;
+      inset: -10%;
+      z-index: 0;
+      border-radius: inherit;
+      background-image: var(--feature-card-image, none);
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px) saturate(1.15);
+      opacity: 0.65;
+      transform: scale(1.1);
+      pointer-events: none;
+    }
+
+    .feature-card__backdrop::after {
+      content: '';
+      position: absolute;
+      inset: 10%;
+      border-radius: inherit;
+      background: linear-gradient(
+        145deg,
+        rgba(4, 6, 16, 0.92) 0%,
+        rgba(137, 4, 11, 0.78) 65%,
+        rgba(4, 6, 16, 0.95) 100%
+      );
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .feature-card__content {
