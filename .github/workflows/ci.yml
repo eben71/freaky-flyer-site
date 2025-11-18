@@ -23,3 +23,25 @@ jobs:
         run: pnpm run lint
       - name: Build
         run: pnpm build
+  link-check:
+    name: Link check (internal)
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9.10.0 }
+      - uses: actions/setup-node@v4
+        with:
+          version: 9.10.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build site
+        run: pnpm run build
+      - name: Check internal links
+        run: pnpm run lint:links

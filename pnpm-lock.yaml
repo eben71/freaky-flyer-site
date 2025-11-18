@@ -48,6 +48,9 @@ importers:
       linkedom:
         specifier: ^0.18.12
         version: 0.18.12
+      linkinator:
+        specifier: link:vendor/linkinator
+        version: link:vendor/linkinator
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
