@@ -299,12 +299,24 @@ const setupWidget = (root) => {
     if (!suburbs.length) {
       empty.hidden = false;
       empty.textContent = 'Suburb list unavailable. Please try again later.';
+      return;
+    }
+    if (input.value.trim().length >= MIN_QUERY_LENGTH) {
+      render(filterSuburbs(state.suburbs, input.value), input.value);
     }
   });
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+const initServiceAreaMaps = () => {
   document
     .querySelectorAll('[data-service-area-root]')
     .forEach((root) => setupWidget(root));
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initServiceAreaMaps, {
+    once: true,
+  });
+} else {
+  initServiceAreaMaps();
+}
