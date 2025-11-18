@@ -142,7 +142,7 @@ const filterSuburbs = (list, query) => {
 
 const GEOCODE_ENDPOINT = 'https://geocode.maps.co/search';
 const geocodeCache = new Map();
-const geocode = async (entry) => {
+const geocode = async (entry, apiKey) => {
   if (geocodeCache.has(entry.key)) return geocodeCache.get(entry.key);
   const params = new URLSearchParams({
     format: 'json',
@@ -151,10 +151,19 @@ const geocode = async (entry) => {
     country: 'Australia',
     q: `${entry.displayName}, Western Australia ${entry.postcode}`,
   });
+  if (apiKey) {
+    params.set('api_key', apiKey);
+  } else {
+    // TODO: Supply a geocode.maps.co API key via PUBLIC_GEOCODE_MAPS_CO_KEY to
+    // avoid unauthorised responses when the service enforces authentication.
+  }
   try {
     const res = await fetch(`${GEOCODE_ENDPOINT}?${params.toString()}`, {
       headers: { Accept: 'application/json' },
     });
+    if (res.status === 401) {
+      throw new Error('GEOCODE_MISSING_API_KEY');
+    }
     if (!res.ok) throw new Error(`Lookup failed with ${res.status}`);
     const data = await res.json();
     const first = data?.[0];
@@ -168,7 +177,7 @@ const geocode = async (entry) => {
     return value;
   } catch (error) {
     console.warn('Unable to geocode suburb', entry.suburb, error);
-    return null;
+    throw error;
   }
 };
 
@@ -242,6 +251,7 @@ const setupWidget = (root) => {
   const canvas = root.querySelector('[data-service-area-canvas]');
   const loader = root.querySelector('[data-service-area-loader]');
   if (!input || !list || !empty || !status || !canvas) return;
+  const apiKey = (root.dataset.geocodeApiKey || '').trim();
   const state = { suburbs: [], results: [], selectedKey: null };
   const mapPromise = createMapController(canvas)
     .then((controller) => {
@@ -305,7 +315,18 @@ const setupWidget = (root) => {
     status.textContent = `Locating ${entry.displayName} (${entry.postcode})...`;
     render(state.results, input.value);
     const mapController = await mapPromise;
-    const result = await geocode(entry);
+    let result;
+    try {
+      result = await geocode(entry, apiKey);
+    } catch (error) {
+      if (error?.message === 'GEOCODE_MISSING_API_KEY') {
+        status.textContent =
+          'Map lookups require a geocode.maps.co API key. Add PUBLIC_GEOCODE_MAPS_CO_KEY to your environment and redeploy.';
+      } else {
+        status.textContent = `Unable to locate ${entry.displayName}. Please try another suburb.`;
+      }
+      return;
+    }
     if (!result) {
       status.textContent = `Unable to locate ${entry.displayName}. Please try another suburb.`;
       return;
