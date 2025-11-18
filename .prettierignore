@@ -6,3 +6,4 @@ public/assets/img/raw
 tools/images/raw
 pnpm-lock.yaml
 src/content/pages/
+vendor/linkinator
