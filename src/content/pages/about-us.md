@@ -14,39 +14,40 @@ images: []
 
 [![Freaky Flyer Delivery](//freakyflyerdelivery.com.au/wp-content/uploads/2018/11/FFD_WEB_LOGO.png)](https://freakyflyerdelivery.com.au/) [Navigation](#)
 
-- [Home](https://freakyflyerdelivery.com.au/)
-- [About Us](https://freakyflyerdelivery.com.au/about-us/)
-  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
-- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
-- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
-- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](/)
+- [About Us](/about/)
+  - [Our Story](/about/our-story/)
+  - [Meet The Team](/about/meet-the-team/)
+- [Flyer Delivery](/flyer-delivery/)
+  - [Our Technique](/flyer-delivery/our-technique/)
+  - [Pricing](/flyer-delivery/pricing/)
+  - [Schedule](/flyer-delivery/schedule/)
+- [Flyer Tips](/flyer-tips/)
+- [Contact Us](/contact/)
 
-- [Home](https://freakyflyerdelivery.com.au/)
-- [About Us](https://freakyflyerdelivery.com.au/about-us/)
-  - [Our Story](https://freakyflyerdelivery.com.au/about-us/our-story/)
-  - [Meet The Team](https://freakyflyerdelivery.com.au/about-us/meet-the-team/)
-- [Flyer Delivery](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/)
-  - [Our Technique](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/our-flyer-delivery-technique/)
-  - [Pricing](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/flyer-delivery-pricing/)
-  - [Schedule](https://freakyflyerdelivery.com.au/flyer-delivery-services-perth/https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/)
-- [Flyer Tips](https://freakyflyerdelivery.com.au/flyer-tips/)
-- [Contact Us](https://freakyflyerdelivery.com.au/contact-us/)
+- [Home](/)
+- [About Us](/about/)
+  - [Our Story](/about/our-story/)
+  - [Meet The Team](/about/meet-the-team/)
+- [Flyer Delivery](/flyer-delivery/)
+  - [Our Technique](/flyer-delivery/our-technique/)
+  - [Pricing](/flyer-delivery/pricing/)
+  - [Schedule](/flyer-delivery/schedule/)
+- [Flyer Tips](/flyer-tips/)
+- [Contact Us](/contact/)
 
 # ABOUT FREAKY FLYER DELIVERY
 
 Freaky Flyer Delivery is a Perth based flyer, pamphlet and brochure distribution company, undertaking operations throughout the majority of the Perth metropolitan area. As a small family owned and operated business, we understand the needs of small to medium sized businesses in the Perth region, this is why we aim to deliver an affordable and accessible service, while also ensuring high quality customer service. If you would like to know more about our story, please click the links below. We are a reliable flyer distribution business, with full GPS tracking on all deliveries undertaken. Please feel free to get in touch, we love to chat!
 
-[Our Story](/about-us/our-story/)
 
-[Our Team](/about-us/meet-the-team/)
+[Our Story](/about/our-story/)
+
+[Our Team](/about/meet-the-team/)
 
 # We look forward to working with you, please contact our friendly sales team for a quote.
 
-[Contact Us](/contact-us/)
+[Contact Us](/contact/)
 
 #### Contact Information
 
