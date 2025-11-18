@@ -19,13 +19,7 @@ const fileExists = (path) => {
   }
 };
 
-const assetWithFallback = (preferred, fallback) =>
-  fileExists(preferred) ? preferred : fallback;
-
-const scheduleImage = assetWithFallback(
-  '/assets/pages/schedule/team.jpg',
-  '/assets/img/optimized/flyer-delivery-services-perth-https-freakyflyerdelivery-com-au-copy-of-ffd-delivery-schedule-8/ffdps-22-1-1-960.webp'
-);
+const scheduleImage = '/assets/img/warehouse-team-960.webp';
 
 const scheduleHref = fileExists('/downloads/FFD-DELIVERY-SCHEDULE.pdf')
   ? '/downloads/FFD-DELIVERY-SCHEDULE.pdf'

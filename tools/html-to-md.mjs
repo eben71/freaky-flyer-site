@@ -35,7 +35,7 @@ const outDir = path.resolve(
 );
 const imageDir = path.resolve(
   process.cwd(),
-  process.env.IMG_DIR || getArg('img') || 'public/assets/img/raw'
+  process.env.IMG_DIR || getArg('img') || 'tools/images/raw'
 );
 const urlListPath = path.resolve(process.cwd(), 'tools/urls.txt');
 const shouldCrawl = ['1', 'true', 'yes'].includes(
@@ -123,13 +123,9 @@ async function ensureImage(url, slugPath, index, hint = '') {
   }
   const destination = path.join(fsDir, candidate);
   await downloadFile(normalized, destination);
-  const publicRaw = `/assets/img/raw/${posixDir}/${candidate}`.replace(
-    /\/+/g,
-    '/'
-  );
+  const publicRaw = `/tools/images/raw/${candidate}`.replace(/\/+/g, '/');
   const optimizedName = `${path.basename(candidate, ext)}-960.webp`;
-  const publicOptimized =
-    `/assets/img/optimized/${posixDir}/${optimizedName}`.replace(/\/+/g, '/');
+  const publicOptimized = `/assets/img/${optimizedName}`.replace(/\/+/g, '/');
   return {
     url: normalized,
     publicRaw,

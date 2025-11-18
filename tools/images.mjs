@@ -9,11 +9,11 @@ const logger = createLogger('images');
 
 const rawDir = path.resolve(
   process.cwd(),
-  process.env.RAW_DIR || 'public/assets/img/raw'
+  process.env.RAW_DIR || 'tools/Images/raw'
 );
 const optimizedDir = path.resolve(
   process.cwd(),
-  process.env.OPTIMIZED_DIR || 'public/assets/img/optimized'
+  process.env.OPTIMIZED_DIR || 'public/assets/img'
 );
 const markdownDir = path.resolve(
   process.cwd(),
@@ -55,9 +55,8 @@ async function optimizeImage(file) {
     }
   }
 
-  const relativeDir = toPosix(parsed.dir || '');
-  const publicOptimized = `/assets/img/optimized/${relativeDir ? `${relativeDir}/` : ''}${baseName}-${DEFAULT_SIZE}.webp`;
-  const publicRaw = `/assets/img/raw/${relativeDir ? `${relativeDir}/` : ''}${parsed.base}`;
+  const publicOptimized = `/assets/img/${baseName}-${DEFAULT_SIZE}.webp`;
+  const publicRaw = `/tools/images/raw/${parsed.base}`;
 
   return {
     raw: publicRaw,
@@ -132,7 +131,7 @@ async function updateMarkdownFiles(mapping) {
     }
 
     const imageRefs = collectImageRefs(content).filter((ref) =>
-      ref.startsWith('/assets/img/optimized/')
+      ref.startsWith('/assets/img/')
     );
     const imagesField = unique(imageRefs);
     let changed = false;

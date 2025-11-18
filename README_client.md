@@ -10,8 +10,7 @@ Welcome aboard! This document covers the essentials for updating content and dep
 ## Managing Images
 
 - Brand photography, hero art, and logos go in `public/assets/brand/`.
-- Optimised campaign images belong in `public/assets/img/optimized/` (keep originals in `public/assets/img/raw/`).
-- Replace the placeholder README files (e.g. under `public/assets/brand/` or `public/assets/img/optimized/contact/`) once the final artwork is exported.
+- Optimised campaign images belong in `public/assets/img/` (keep originals in `tools/images/raw`).
 - When replacing an existing image, keep the same filename so the site references stay valid.
 
 ## Favicons & App Icons
