@@ -1,0 +1,8 @@
+{
+  "name": "linkinator",
+  "version": "0.0.0-local",
+  "type": "module",
+  "bin": {
+    "linkinator": "bin/linkinator.js"
+  }
+}
