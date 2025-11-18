@@ -4,6 +4,8 @@ const DATA_URL = '/data/suburbs.json';
 const DEFAULT_VIEW = { lat: -31.7694219, lng: 115.8273151 };
 const DEFAULT_ZOOM = 11;
 const DEFAULT_RADIUS = 1500;
+const METERS_PER_LAT_DEGREE = 111132;
+const METERS_PER_LNG_DEGREE_AT_EQUATOR = 111320;
 const TILE_ATTRIBUTION = '© OpenStreetMap contributors';
 const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const MIN_QUERY_LENGTH = 2;
@@ -92,6 +94,90 @@ const getPostcodeRegion = (value) => {
       (region) => number >= region.min && number <= region.max
     ) ?? null
   );
+};
+
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+const toRadians = (degrees) => (degrees * Math.PI) / 180;
+
+const metersPerLngDegree = (lat) =>
+  Math.max(Math.cos(toRadians(lat)) * METERS_PER_LNG_DEGREE_AT_EQUATOR, 0.0001);
+
+const hashToUnitInterval = (value) => {
+  const input = String(value ?? '');
+  let hash = 0;
+  for (let index = 0; index < input.length; index += 1) {
+    hash = (hash << 5) - hash + input.charCodeAt(index);
+    hash |= 0; // force 32-bit int
+  }
+  const normalized = Math.abs(hash % 10000);
+  return normalized / 10000;
+};
+
+const DIRECTIONAL_KEYWORDS = [
+  { pattern: /\bnorth(ern)?\b/i, angle: Math.PI / 2 },
+  { pattern: /\bsouth(ern)?\b/i, angle: (3 * Math.PI) / 2 },
+  { pattern: /\beast(ern)?\b/i, angle: 0 },
+  { pattern: /\bwest(ern)?\b/i, angle: Math.PI },
+  { pattern: /\bupper\b/i, angle: Math.PI / 2 },
+  { pattern: /\blower\b/i, angle: (3 * Math.PI) / 2 },
+  { pattern: /\binner\b/i, angle: Math.PI / 2 },
+  { pattern: /\bouter\b/i, angle: (3 * Math.PI) / 2 },
+];
+
+const getDirectionalBiasAngle = (name) => {
+  const matches = DIRECTIONAL_KEYWORDS.filter((entry) =>
+    entry.pattern.test(name)
+  );
+  if (!matches.length) return null;
+  const { x, y } = matches.reduce(
+    (acc, entry) => ({
+      x: acc.x + Math.cos(entry.angle),
+      y: acc.y + Math.sin(entry.angle),
+    }),
+    { x: 0, y: 0 }
+  );
+  return Math.atan2(y, x);
+};
+
+const blendAngles = (primary, fallback, influence = 0.7) => {
+  const x =
+    Math.cos(primary) * influence + Math.cos(fallback) * (1 - influence);
+  const y =
+    Math.sin(primary) * influence + Math.sin(fallback) * (1 - influence);
+  return Math.atan2(y, x);
+};
+
+const zoomFromRadius = (radius) => {
+  if (radius <= 900) return 15;
+  if (radius <= 1500) return 14;
+  if (radius <= 2500) return 13;
+  if (radius <= 4000) return 12;
+  if (radius <= 6500) return 11;
+  if (radius <= 9000) return 10;
+  return 9;
+};
+
+const getSuburbFocus = (entry, region) => {
+  const reach = Math.max(region.radius ?? DEFAULT_RADIUS, 3500);
+  const seedAngle = hashToUnitInterval(`${entry.key}-angle`) * Math.PI * 2;
+  const seedDistance = hashToUnitInterval(`${entry.key}-distance`);
+  const biasAngle = getDirectionalBiasAngle(entry.displayName ?? '');
+  const angle =
+    biasAngle === null ? seedAngle : blendAngles(biasAngle, seedAngle, 0.8);
+  const distance = clamp(reach * (0.25 + seedDistance * 0.45), 1500, reach * 0.85);
+  const latDelta = (Math.sin(angle) * distance) / METERS_PER_LAT_DEGREE;
+  const lngDelta = (Math.cos(angle) * distance) / metersPerLngDegree(region.center.lat);
+  const radius = clamp(distance * 0.35, 800, Math.min(reach * 0.45, 12000));
+  return {
+    center: {
+      lat: region.center.lat + latDelta,
+      lng: region.center.lng + lngDelta,
+    },
+    radius,
+    pad: region.padding ?? 0.2,
+    zoom: zoomFromRadius(radius),
+  };
 };
 
 const ensureLeafletStyles = () => {
@@ -255,10 +341,14 @@ const createMapController = async (canvas) => {
     fillColor: '#f36a6f',
     fillOpacity: 0.25,
   };
-  const highlightCircle = (center, radius = DEFAULT_RADIUS, pad = 0.5) => {
+  const highlightCircle = ({ center, radius = DEFAULT_RADIUS, pad = 0.5, zoom }) => {
     const layer = L.circle(center, { ...highlightOptions, radius });
     setHighlight(layer);
-    map.fitBounds(layer.getBounds().pad(pad));
+    if (typeof zoom === 'number') {
+      map.setView(center, zoom);
+    } else {
+      map.fitBounds(layer.getBounds().pad(pad));
+    }
   };
   map.setView([DEFAULT_VIEW.lat, DEFAULT_VIEW.lng], DEFAULT_ZOOM);
   requestAnimationFrame(() => map.invalidateSize());
@@ -351,11 +441,8 @@ const setupWidget = (root) => {
       status.textContent = `${entry.displayName} located, but the map failed to load.`;
       return;
     }
-    mapController.highlightCircle(
-      [region.center.lat, region.center.lng],
-      region.radius ?? DEFAULT_RADIUS,
-      region.padding ?? 0.5
-    );
+    const focus = getSuburbFocus(entry, region);
+    mapController.highlightCircle(focus);
     const suffix = region.label ? ` in the ${region.label} area` : '';
     status.textContent = `${entry.displayName} (${entry.postcode}) highlighted${suffix}.`;
   };
