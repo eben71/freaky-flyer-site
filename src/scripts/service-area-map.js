@@ -21,17 +21,62 @@ const ensureLeafletStyles = () => {
   document.head.appendChild(link);
 };
 
+const ensureLeafletScript = () => {
+  const existing = document.getElementById('leaflet-cdn-script');
+  if (existing) return existing;
+  const script = document.createElement('script');
+  script.id = 'leaflet-cdn-script';
+  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+  script.crossOrigin = '';
+  document.head.appendChild(script);
+  return script;
+};
+
+const isLeafletReady = () =>
+  typeof window !== 'undefined' &&
+  window.L &&
+  typeof window.L.map === 'function';
+
 const loadLeaflet = (() => {
   let cache = null;
-  return async () => {
+  return () => {
+    if (isLeafletReady()) {
+      return Promise.resolve(window.L);
+    }
     if (!cache) {
       ensureLeafletStyles();
-      cache = import('https://esm.sh/leaflet@1.9.4?bundle').then((mod) => {
-        const leaflet = mod?.default ?? mod;
-        if (!leaflet || typeof leaflet.map !== 'function') {
-          throw new Error('Leaflet failed to load');
+      cache = new Promise((resolve, reject) => {
+        const script = ensureLeafletScript();
+        const handleLoad = () => {
+          script.dataset.ready = 'true';
+          if (isLeafletReady()) {
+            resolve(window.L);
+          } else {
+            cache = null;
+            reject(new Error('Leaflet loaded without exposing the map API.'));
+          }
+        };
+        const handleError = (event) => {
+          script.removeEventListener('load', handleLoad);
+          cache = null;
+          const ErrorEventCtor =
+            typeof window !== 'undefined' ? window.ErrorEvent : undefined;
+          const errorEventSupported =
+            typeof ErrorEventCtor === 'function' &&
+            event instanceof ErrorEventCtor;
+          reject(
+            errorEventSupported && event.error
+              ? event.error
+              : new Error('Leaflet failed to load')
+          );
+        };
+        if (script.dataset.ready === 'true') {
+          handleLoad();
+          return;
         }
-        return leaflet;
+        script.addEventListener('load', handleLoad, { once: true });
+        script.addEventListener('error', handleError, { once: true });
       });
     }
     return cache;
