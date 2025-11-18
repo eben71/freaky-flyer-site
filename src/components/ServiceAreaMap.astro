@@ -1,5 +1,5 @@
 ---
-const scriptUrl = new URL('../scripts/service-area-map.ts', import.meta.url);
+const scriptUrl = new URL('../scripts/service-area-map.js', import.meta.url);
 const searchId = 'service-area-search';
 const helperId = 'service-area-search-help';
 const statusId = 'service-area-status';
@@ -173,25 +173,19 @@ const statusId = 'service-area-status';
     inset: 0;
   }
 
-  .service-area-map-widget__tiles,
-  .service-area-map-widget__overlay {
-    position: absolute;
-    inset: 0;
+  .service-area-map-widget__canvas :global(.leaflet-container) {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    font: inherit;
   }
 
-  .service-area-map-widget__tiles {
-    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  .service-area-map-widget__canvas :global(.leaflet-control) {
+    font-size: 0.75rem;
   }
 
-  .service-area-map-widget__tile {
-    position: absolute;
-    width: 256px;
-    height: 256px;
-    will-change: transform;
-    image-rendering: auto;
+  .service-area-map-widget__canvas :global(.leaflet-control-attribution) {
+    background: rgba(255, 255, 255, 0.9);
+    color: #111827;
   }
 
   .service-area-map-widget__loader {
