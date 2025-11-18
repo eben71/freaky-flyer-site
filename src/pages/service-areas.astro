@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadPage } from '../lib/content.ts';
+import Hero from '../components/Hero.astro';
+import BottomCta from '../components/BottomCta.astro';
+import ServiceAreaMap from '../components/ServiceAreaMap.astro';
+
+const slug = 'service-areas';
+const page = await loadPage(slug);
+const fallbackTitle = 'Service Areas | Freaky Flyer Delivery';
+const fallbackDescription =
+  "Perth flyer delivery routes covering Two Rocks, Rockingham, Kalamunda, and more than 240 metro suburbs.";
+const frontmatter = page?.fm ?? {};
+const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
+const rawDescription =
+  typeof frontmatter.description === 'string' ? frontmatter.description : '';
+const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
+const description =
+  rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
+const heroTitle = 'Perth Flyer Delivery Service Area';
+const heroKicker = 'Service Areas';
+---
+
+<BaseLayout {title} description={description} canonical="/service-areas/">
+  <Hero variant="compact" kicker={heroKicker} title={heroTitle}>
+    <p>
+      We distribute flyers across the Perth metropolitan area, reaching coastal
+      suburbs, hills communities, and growth corridors with local riders on
+      every route.
+    </p>
+    <p>
+      Our delivery zones cover Two Rocks in the north to Rockingham in the
+      south, Kalamunda in the east, and the west coast in between. Riders are
+      matched to their local areas so you receive consistent coverage and
+      community knowledge on every run.
+    </p>
+  </Hero>
+
+  <section
+    class="section service-areas-intro"
+    aria-labelledby="service-areas-intro-heading"
+  >
+    <div class="container service-areas-intro__inner">
+      <h2 id="service-areas-intro-heading">Metro flyer delivery coverage</h2>
+      <p>
+        Weekly north and south loops, fortnightly foothills runs, and exclusive
+        drops on request mean we can cover 240+ Perth suburbs without
+        overloading local residents. Search for your suburb below to confirm
+        schedule availability.
+      </p>
+    </div>
+  </section>
+
+  <section class="section service-areas-map" aria-labelledby="service-areas-map-heading">
+    <div class="container service-areas-map__inner">
+      <h2 id="service-areas-map-heading">Search for your suburb</h2>
+      <p class="service-areas-map__intro">
+        Use the interactive map to search by suburb or postcode, centre on your
+        location, and highlight the boundary for each drop zone.
+      </p>
+      <ServiceAreaMap />
+    </div>
+  </section>
+
+  <BottomCta
+    text="We look forward to working with you, please contact our friendly sales team for a quote."
+    href="/contact"
+    label="Contact Us"
+  />
+</BaseLayout>
+
+<style>
+  .service-areas-intro {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-4);
+  }
+
+  .service-areas-intro__inner {
+    display: grid;
+    gap: var(--space-4);
+    max-width: min(720px, 100%);
+  }
+
+  .service-areas-intro__inner h2 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
+  }
+
+  .service-areas-intro__inner p {
+    margin: 0;
+    color: var(--muted, #4b5563);
+  }
+
+  .service-areas-map {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-16);
+  }
+
+  .service-areas-map__inner {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .service-areas-map__inner h2 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
+  }
+
+  .service-areas-map__intro {
+    margin: 0;
+    color: var(--muted, #4b5563);
+    max-width: min(680px, 100%);
+  }
+</style>
