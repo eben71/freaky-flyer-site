@@ -140,27 +140,22 @@ const filterSuburbs = (list, query) => {
   );
 };
 
+const GEOCODE_ENDPOINT = 'https://geocode.maps.co/search';
 const geocodeCache = new Map();
 const geocode = async (entry) => {
   if (geocodeCache.has(entry.key)) return geocodeCache.get(entry.key);
   const params = new URLSearchParams({
-    format: 'jsonv2',
+    format: 'json',
     polygon_geojson: '1',
-    addressdetails: '0',
     limit: '1',
-    countrycodes: 'au',
-    state: 'Western Australia',
-    q: `${entry.displayName}, Western Australia ${entry.postcode}, Australia`,
-    email: 'hello@freakyflyerdelivery.com.au',
+    country: 'Australia',
+    q: `${entry.displayName}, Western Australia ${entry.postcode}`,
   });
   try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?${params.toString()}`,
-      {
-        headers: { Accept: 'application/json' },
-      }
-    );
-    if (!res.ok) throw new Error('Lookup failed');
+    const res = await fetch(`${GEOCODE_ENDPOINT}?${params.toString()}`, {
+      headers: { Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`Lookup failed with ${res.status}`);
     const data = await res.json();
     const first = data?.[0];
     if (!first) return null;
