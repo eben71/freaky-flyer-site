@@ -9,7 +9,7 @@ const slug = 'service-areas';
 const page = await loadPage(slug);
 const fallbackTitle = 'Service Areas | Freaky Flyer Delivery';
 const fallbackDescription =
-  "Perth flyer delivery routes covering Two Rocks, Rockingham, Kalamunda, and more than 240 metro suburbs.";
+  'Perth flyer delivery routes covering Two Rocks, Rockingham, Kalamunda, and more than 240 metro suburbs.';
 const frontmatter = page?.fm ?? {};
 const rawTitle = typeof frontmatter.title === 'string' ? frontmatter.title : '';
 const rawDescription =
@@ -51,7 +51,10 @@ const heroKicker = 'Service Areas';
     </div>
   </section>
 
-  <section class="section service-areas-map" aria-labelledby="service-areas-map-heading">
+  <section
+    class="section service-areas-map"
+    aria-labelledby="service-areas-map-heading"
+  >
     <div class="container service-areas-map__inner">
       <h2 id="service-areas-map-heading">Search for your suburb</h2>
       <p class="service-areas-map__intro">

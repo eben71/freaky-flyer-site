@@ -23,7 +23,8 @@ const statusId = 'service-area-status';
       data-service-area-input
     />
     <p id={helperId} class="service-area-map-widget__hint">
-      Start typing to filter more than 240 Perth suburbs and highlight them on the map.
+      Start typing to filter more than 240 Perth suburbs and highlight them on
+      the map.
     </p>
     <div class="service-area-map-widget__results-wrapper">
       <ul
@@ -31,7 +32,8 @@ const statusId = 'service-area-status';
         role="listbox"
         aria-label="Matching suburbs"
         data-service-area-results
-      ></ul>
+      >
+      </ul>
       <p class="service-area-map-widget__empty" data-service-area-empty>
         Enter at least two letters or a postcode to see available suburbs.
       </p>
@@ -41,7 +43,8 @@ const statusId = 'service-area-status';
       class="service-area-map-widget__status"
       aria-live="polite"
       data-service-area-status
-    ></p>
+    >
+    </p>
   </div>
   <div
     class="service-area-map-widget__map"
@@ -49,10 +52,7 @@ const statusId = 'service-area-status';
     aria-label="Interactive service area map"
     data-service-area-map
   >
-    <div
-      class="service-area-map-widget__canvas"
-      data-service-area-canvas
-    ></div>
+    <div class="service-area-map-widget__canvas" data-service-area-canvas></div>
     <div class="service-area-map-widget__loader" data-service-area-loader>
       Loading map...
     </div>

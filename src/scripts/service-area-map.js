@@ -44,7 +44,11 @@ const toDisplayName = (value) =>
     .replace(/([\s-/]+)/g, '$1')
     .trim()
     .split(/([\s-/]+)/)
-    .map((chunk) => (/[a-z]/.test(chunk) ? chunk.charAt(0).toUpperCase() + chunk.slice(1) : chunk))
+    .map((chunk) =>
+      /[a-z]/.test(chunk)
+        ? chunk.charAt(0).toUpperCase() + chunk.slice(1)
+        : chunk
+    )
     .join('')
     .replace(/\s+/g, ' ')
     .trim();
@@ -86,7 +90,9 @@ const filterSuburbs = (list, query) => {
   if (/^\d+$/.test(trimmed)) {
     return list.filter((item) => item.postcode.startsWith(trimmed));
   }
-  return list.filter((item) => item.searchValue.includes(trimmed.toLowerCase()));
+  return list.filter((item) =>
+    item.searchValue.includes(trimmed.toLowerCase())
+  );
 };
 
 const geocodeCache = new Map();
@@ -103,9 +109,12 @@ const geocode = async (entry) => {
     email: 'hello@freakyflyerdelivery.com.au',
   });
   try {
-    const res = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, {
-      headers: { Accept: 'application/json' },
-    });
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?${params.toString()}`,
+      {
+        headers: { Accept: 'application/json' },
+      }
+    );
     if (!res.ok) throw new Error('Lookup failed');
     const data = await res.json();
     const first = data?.[0];
@@ -142,7 +151,10 @@ const createMapController = async (canvas) => {
     maxZoom: 18,
     attribution: TILE_ATTRIBUTION,
   }).addTo(map);
-  L.control.attribution({ prefix: '' }).addAttribution(TILE_ATTRIBUTION).addTo(map);
+  L.control
+    .attribution({ prefix: '' })
+    .addAttribution(TILE_ATTRIBUTION)
+    .addTo(map);
   let highlightLayer = null;
   const setHighlight = (layer) => {
     if (highlightLayer) {
@@ -196,8 +208,18 @@ const setupWidget = (root) => {
       loader?.remove();
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
-          (position) => controller.setView(position.coords.latitude, position.coords.longitude, 12),
-          () => controller.setView(DEFAULT_VIEW.lat, DEFAULT_VIEW.lng, DEFAULT_ZOOM),
+          (position) =>
+            controller.setView(
+              position.coords.latitude,
+              position.coords.longitude,
+              12
+            ),
+          () =>
+            controller.setView(
+              DEFAULT_VIEW.lat,
+              DEFAULT_VIEW.lng,
+              DEFAULT_ZOOM
+            ),
           { enableHighAccuracy: false, timeout: 6000 }
         );
       }
@@ -205,7 +227,8 @@ const setupWidget = (root) => {
     })
     .catch((error) => {
       console.warn('Map unavailable', error);
-      if (loader) loader.textContent = 'Map unavailable. Please try again later.';
+      if (loader)
+        loader.textContent = 'Map unavailable. Please try again later.';
       return null;
     });
 
@@ -281,5 +304,7 @@ const setupWidget = (root) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-service-area-root]').forEach((root) => setupWidget(root));
+  document
+    .querySelectorAll('[data-service-area-root]')
+    .forEach((root) => setupWidget(root));
 });
