@@ -1,5 +1,4 @@
 /* eslint-env browser */
-/* global URLSearchParams */
 
 const DATA_URL = '/data/suburbs.json';
 const DEFAULT_VIEW = { lat: -31.7694219, lng: 115.8273151 };
@@ -9,6 +8,91 @@ const TILE_ATTRIBUTION = '© OpenStreetMap contributors';
 const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const MIN_QUERY_LENGTH = 2;
 const MAX_RESULTS = 50;
+
+const POSTCODE_REGIONS = [
+  {
+    label: 'Perth CBD & northern suburbs',
+    min: 6000,
+    max: 6110,
+    center: { lat: -31.9529, lng: 115.8573 },
+    radius: 12000,
+    padding: 0.3,
+  },
+  {
+    label: 'Southern Perth corridor',
+    min: 6111,
+    max: 6200,
+    center: { lat: -32.085, lng: 115.917 },
+    radius: 18000,
+  },
+  {
+    label: 'Peel & South West coast',
+    min: 6201,
+    max: 6299,
+    center: { lat: -32.742, lng: 115.735 },
+    radius: 35000,
+  },
+  {
+    label: 'Great Southern & Wheatbelt',
+    min: 6300,
+    max: 6399,
+    center: { lat: -33.63, lng: 117.35 },
+    radius: 60000,
+  },
+  {
+    label: 'Goldfields & Esperance',
+    min: 6400,
+    max: 6499,
+    center: { lat: -30.75, lng: 121.47 },
+    radius: 80000,
+  },
+  {
+    label: 'Mid West & Geraldton',
+    min: 6500,
+    max: 6639,
+    center: { lat: -28.778, lng: 114.616 },
+    radius: 65000,
+  },
+  {
+    label: 'Gascoyne coast',
+    min: 6640,
+    max: 6719,
+    center: { lat: -24.882, lng: 113.657 },
+    radius: 80000,
+  },
+  {
+    label: 'Pilbara',
+    min: 6720,
+    max: 6759,
+    center: { lat: -20.737, lng: 117.156 },
+    radius: 90000,
+  },
+  {
+    label: 'Kimberley',
+    min: 6760,
+    max: 6799,
+    center: { lat: -17.961, lng: 122.237 },
+    radius: 100000,
+  },
+  {
+    label: 'Perth PO boxes',
+    min: 6800,
+    max: 6999,
+    center: { lat: -31.9529, lng: 115.8573 },
+    radius: 12000,
+    padding: 0.3,
+  },
+];
+
+const getPostcodeRegion = (value) => {
+  const number = Number.parseInt(String(value ?? '').trim(), 10);
+  if (Number.isNaN(number)) return null;
+  return (
+    POSTCODE_REGIONS.find(
+      (region) => number >= region.min && number <= region.max
+    ) ?? null
+  );
+};
 
 const ensureLeafletStyles = () => {
   if (document.getElementById('leaflet-cdn')) return;
@@ -140,54 +224,6 @@ const filterSuburbs = (list, query) => {
   );
 };
 
-const GEOCODE_ENDPOINT = 'https://geocode.maps.co/search';
-const geocodeCache = new Map();
-const geocode = async (entry, apiKey) => {
-  if (geocodeCache.has(entry.key)) return geocodeCache.get(entry.key);
-  const params = new URLSearchParams({
-    format: 'json',
-    polygon_geojson: '1',
-    limit: '1',
-    country: 'Australia',
-    q: `${entry.displayName}, Western Australia ${entry.postcode}`,
-  });
-  if (apiKey) {
-    params.set('api_key', apiKey);
-  } else {
-    // TODO: Supply a geocode.maps.co API key via PUBLIC_GEOCODE_MAPS_CO_KEY to
-    // avoid unauthorised responses when the service enforces authentication.
-  }
-  try {
-    const res = await fetch(`${GEOCODE_ENDPOINT}?${params.toString()}`, {
-      headers: { Accept: 'application/json' },
-    });
-    if (res.status === 401) {
-      throw new Error('GEOCODE_MISSING_API_KEY');
-    }
-    if (!res.ok) throw new Error(`Lookup failed with ${res.status}`);
-    const data = await res.json();
-    const first = data?.[0];
-    if (!first) return null;
-    const value = {
-      lat: Number.parseFloat(first.lat),
-      lng: Number.parseFloat(first.lon),
-      geojson: first.geojson,
-    };
-    geocodeCache.set(entry.key, value);
-    return value;
-  } catch (error) {
-    console.warn('Unable to geocode suburb', entry.suburb, error);
-    throw error;
-  }
-};
-
-const parsePolygon = (geometry) => {
-  if (!geometry) return null;
-  if (geometry.type === 'Polygon') return geometry.coordinates;
-  if (geometry.type === 'MultiPolygon') return geometry.coordinates.flat();
-  return null;
-};
-
 const createMapController = async (canvas) => {
   const L = await loadLeaflet();
   const map = L.map(canvas, {
@@ -219,24 +255,16 @@ const createMapController = async (canvas) => {
     fillColor: '#f36a6f',
     fillOpacity: 0.25,
   };
-  const highlightPolygon = (rings) => {
-    if (!Array.isArray(rings) || !rings.length) return;
-    const latLngs = rings.map((ring) => ring.map(([lng, lat]) => [lat, lng]));
-    const layer = L.polygon(latLngs, highlightOptions);
-    setHighlight(layer);
-    map.fitBounds(layer.getBounds().pad(0.15));
-  };
-  const highlightCircle = (center, radius = DEFAULT_RADIUS) => {
+  const highlightCircle = (center, radius = DEFAULT_RADIUS, pad = 0.5) => {
     const layer = L.circle(center, { ...highlightOptions, radius });
     setHighlight(layer);
-    map.fitBounds(layer.getBounds().pad(0.5));
+    map.fitBounds(layer.getBounds().pad(pad));
   };
   map.setView([DEFAULT_VIEW.lat, DEFAULT_VIEW.lng], DEFAULT_ZOOM);
   requestAnimationFrame(() => map.invalidateSize());
   return {
     map,
     setView: (lat, lng, zoom = DEFAULT_ZOOM) => map.setView([lat, lng], zoom),
-    highlightPolygon,
     highlightCircle,
   };
 };
@@ -251,7 +279,6 @@ const setupWidget = (root) => {
   const canvas = root.querySelector('[data-service-area-canvas]');
   const loader = root.querySelector('[data-service-area-loader]');
   if (!input || !list || !empty || !status || !canvas) return;
-  const apiKey = (root.dataset.geocodeApiKey || '').trim();
   const state = { suburbs: [], results: [], selectedKey: null };
   const mapPromise = createMapController(canvas)
     .then((controller) => {
@@ -312,36 +339,25 @@ const setupWidget = (root) => {
 
   const select = async (entry) => {
     state.selectedKey = entry.key;
+    const region = getPostcodeRegion(entry.postcode);
+    if (!region) {
+      status.textContent = `We couldn't determine a map location for ${entry.displayName} (${entry.postcode}).`;
+      return;
+    }
     status.textContent = `Locating ${entry.displayName} (${entry.postcode})...`;
     render(state.results, input.value);
     const mapController = await mapPromise;
-    let result;
-    try {
-      result = await geocode(entry, apiKey);
-    } catch (error) {
-      if (error?.message === 'GEOCODE_MISSING_API_KEY') {
-        status.textContent =
-          'Map lookups require a geocode.maps.co API key. Add PUBLIC_GEOCODE_MAPS_CO_KEY to your environment and redeploy.';
-      } else {
-        status.textContent = `Unable to locate ${entry.displayName}. Please try another suburb.`;
-      }
-      return;
-    }
-    if (!result) {
-      status.textContent = `Unable to locate ${entry.displayName}. Please try another suburb.`;
-      return;
-    }
     if (!mapController) {
       status.textContent = `${entry.displayName} located, but the map failed to load.`;
       return;
     }
-    const poly = parsePolygon(result.geojson);
-    if (poly?.length) {
-      mapController.highlightPolygon(poly);
-    } else {
-      mapController.highlightCircle([result.lat, result.lng], DEFAULT_RADIUS);
-    }
-    status.textContent = `${entry.displayName} (${entry.postcode}) highlighted on the map.`;
+    mapController.highlightCircle(
+      [region.center.lat, region.center.lng],
+      region.radius ?? DEFAULT_RADIUS,
+      region.padding ?? 0.5
+    );
+    const suffix = region.label ? ` in the ${region.label} area` : '';
+    status.textContent = `${entry.displayName} (${entry.postcode}) highlighted${suffix}.`;
   };
 
   input.addEventListener('input', () => {
