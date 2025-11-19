@@ -4,16 +4,9 @@ import scriptUrl from '../scripts/service-area-map.js?url';
 const searchId = 'service-area-search';
 const helperId = 'service-area-search-help';
 const statusId = 'service-area-status';
-// TODO: Set PUBLIC_GEOCODE_MAPS_CO_KEY in an .env file when a geocode.maps.co
-// API key is provisioned so the Service Area map can authenticate requests.
-const geocodeApiKey = import.meta.env.PUBLIC_GEOCODE_MAPS_CO_KEY ?? '';
 ---
 
-<div
-  class="service-area-map-widget"
-  data-service-area-root
-  data-geocode-api-key={geocodeApiKey || undefined}
->
+<div class="service-area-map-widget" data-service-area-root>
   <div class="service-area-map-widget__controls">
     <label class="service-area-map-widget__label" for={searchId}>
       Search for a suburb or postcode
@@ -31,8 +24,8 @@ const geocodeApiKey = import.meta.env.PUBLIC_GEOCODE_MAPS_CO_KEY ?? '';
       data-service-area-input
     />
     <p id={helperId} class="service-area-map-widget__hint">
-      Start typing to filter more than 240 Perth suburbs and highlight them on
-      the map.
+      Start typing to filter more than 240 Western Australian suburbs and
+      highlight their general location on the map.
     </p>
     <div class="service-area-map-widget__results-wrapper">
       <ul
