@@ -1,7 +1,7 @@
 /* eslint-env browser */
 
 const DATA_URL = '/data/suburbs.json';
-const DEFAULT_VIEW = { lat: -31.7694219, lng: 115.8273151 };
+const DEFAULT_VIEW = { lat: -31.95, lng: 115.86 };
 const DEFAULT_ZOOM = 11;
 const DEFAULT_RADIUS = 1500;
 const METERS_PER_LAT_DEGREE = 111132;
@@ -17,7 +17,7 @@ const POSTCODE_REGIONS = [
     min: 6000,
     max: 6110,
     center: { lat: -31.9529, lng: 115.8573 },
-    radius: 12000,
+    radius: 10000,
     padding: 0.3,
   },
   {
@@ -25,63 +25,63 @@ const POSTCODE_REGIONS = [
     min: 6111,
     max: 6200,
     center: { lat: -32.085, lng: 115.917 },
-    radius: 18000,
+    radius: 16000,
   },
   {
     label: 'Peel & South West coast',
     min: 6201,
     max: 6299,
     center: { lat: -32.742, lng: 115.735 },
-    radius: 35000,
+    radius: 26000,
   },
   {
     label: 'Great Southern & Wheatbelt',
     min: 6300,
     max: 6399,
     center: { lat: -33.63, lng: 117.35 },
-    radius: 60000,
+    radius: 45000,
   },
   {
     label: 'Goldfields & Esperance',
     min: 6400,
     max: 6499,
     center: { lat: -30.75, lng: 121.47 },
-    radius: 80000,
+    radius: 60000,
   },
   {
     label: 'Mid West & Geraldton',
     min: 6500,
     max: 6639,
     center: { lat: -28.778, lng: 114.616 },
-    radius: 65000,
+    radius: 48000,
   },
   {
     label: 'Gascoyne coast',
     min: 6640,
     max: 6719,
     center: { lat: -24.882, lng: 113.657 },
-    radius: 80000,
+    radius: 55000,
   },
   {
     label: 'Pilbara',
     min: 6720,
     max: 6759,
     center: { lat: -20.737, lng: 117.156 },
-    radius: 90000,
+    radius: 65000,
   },
   {
     label: 'Kimberley',
     min: 6760,
     max: 6799,
     center: { lat: -17.961, lng: 122.237 },
-    radius: 100000,
+    radius: 70000,
   },
   {
     label: 'Perth PO boxes',
     min: 6800,
     max: 6999,
     center: { lat: -31.9529, lng: 115.8573 },
-    radius: 12000,
+    radius: 11000,
     padding: 0.3,
   },
 ];
@@ -112,6 +112,15 @@ const hashToUnitInterval = (value) => {
   }
   const normalized = Math.abs(hash % 10000);
   return normalized / 10000;
+};
+
+const toFiniteNumber = (value) => {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string' && value.trim() !== '') {
+    const parsed = Number.parseFloat(value);
+    return Number.isFinite(parsed) ? parsed : undefined;
+  }
+  return undefined;
 };
 
 const DIRECTIONAL_KEYWORDS = [
@@ -149,12 +158,12 @@ const blendAngles = (primary, fallback, influence = 0.7) => {
 };
 
 const zoomFromRadius = (radius) => {
-  if (radius <= 900) return 15;
-  if (radius <= 1500) return 14;
-  if (radius <= 2500) return 13;
-  if (radius <= 4000) return 12;
-  if (radius <= 6500) return 11;
-  if (radius <= 9000) return 10;
+  if (radius <= 1500) return 15;
+  if (radius <= 2500) return 14;
+  if (radius <= 4000) return 13;
+  if (radius <= 7000) return 12;
+  if (radius <= 12000) return 11;
+  if (radius <= 20000) return 10;
   return 9;
 };
 
@@ -165,9 +174,14 @@ const getSuburbFocus = (entry, region) => {
   const biasAngle = getDirectionalBiasAngle(entry.displayName ?? '');
   const angle =
     biasAngle === null ? seedAngle : blendAngles(biasAngle, seedAngle, 0.8);
-  const distance = clamp(reach * (0.25 + seedDistance * 0.45), 1500, reach * 0.85);
+  const distance = clamp(
+    reach * (0.25 + seedDistance * 0.45),
+    1500,
+    reach * 0.85
+  );
   const latDelta = (Math.sin(angle) * distance) / METERS_PER_LAT_DEGREE;
-  const lngDelta = (Math.cos(angle) * distance) / metersPerLngDegree(region.center.lat);
+  const lngDelta =
+    (Math.cos(angle) * distance) / metersPerLngDegree(region.center.lat);
   const radius = clamp(distance * 0.35, 800, Math.min(reach * 0.45, 12000));
   return {
     center: {
@@ -178,6 +192,21 @@ const getSuburbFocus = (entry, region) => {
     pad: region.padding ?? 0.2,
     zoom: zoomFromRadius(radius),
   };
+};
+
+const getSuburbCenter = (entry, region) => {
+  const hasLat = typeof entry.lat === 'number' && Number.isFinite(entry.lat);
+  const hasLng = typeof entry.lng === 'number' && Number.isFinite(entry.lng);
+  if (hasLat && hasLng) {
+    return {
+      center: { lat: entry.lat, lng: entry.lng },
+      radius: 2000,
+      pad: 0.25,
+      zoom: 14,
+      precise: true,
+    };
+  }
+  return { ...getSuburbFocus(entry, region), precise: false };
 };
 
 const ensureLeafletStyles = () => {
@@ -281,8 +310,12 @@ const loadSuburbs = (() => {
           records
             .map((record) => {
               const displayName = toDisplayName(record.suburb ?? '');
+              const lat = toFiniteNumber(record.lat);
+              const lng = toFiniteNumber(record.lng);
               return {
                 ...record,
+                lat,
+                lng,
                 displayName,
                 searchValue: displayName.toLowerCase(),
                 key: `${record.suburb}-${record.postcode}`,
@@ -341,7 +374,12 @@ const createMapController = async (canvas) => {
     fillColor: '#f36a6f',
     fillOpacity: 0.25,
   };
-  const highlightCircle = ({ center, radius = DEFAULT_RADIUS, pad = 0.5, zoom }) => {
+  const highlightCircle = ({
+    center,
+    radius = DEFAULT_RADIUS,
+    pad = 0.5,
+    zoom,
+  }) => {
     const layer = L.circle(center, { ...highlightOptions, radius });
     setHighlight(layer);
     if (typeof zoom === 'number') {
@@ -441,8 +479,12 @@ const setupWidget = (root) => {
       status.textContent = `${entry.displayName} located, but the map failed to load.`;
       return;
     }
-    const focus = getSuburbFocus(entry, region);
+    const focus = getSuburbCenter(entry, region);
     mapController.highlightCircle(focus);
+    if (focus.precise) {
+      status.textContent = `${entry.displayName} (${entry.postcode}) highlighted in our delivery area near Perth (general location).`;
+      return;
+    }
     const suffix = region.label ? ` in the ${region.label} area` : '';
     status.textContent = `${entry.displayName} (${entry.postcode}) highlighted${suffix}.`;
   };
