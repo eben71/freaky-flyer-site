@@ -15,6 +15,11 @@ pnpm install
 pnpm dev
 ```
 
+`pnpm dev` now starts both the Astro dev server (port 4321) and a PHP built-in server
+for the `/admin` tools (default proxy target `http://127.0.0.1:9400`). PHP 8.1+ must
+be installed locally. Use `ADMIN_DEV_PHP_HOST` and/or `ADMIN_DEV_PHP_PORT` to override
+the PHP server binding. If you only want the Astro dev server, run `pnpm dev:astro`.
+
 > **Note**
 > When new tooling dependencies are added, run `pnpm install --no-frozen-lockfile` to refresh `pnpm-lock.yaml` locally before relying on cached installs.
 

@@ -5,7 +5,8 @@
   "private": true,
   "packageManager": "pnpm@9.10.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node tools/dev-admin.mjs",
+    "dev:astro": "astro dev",
     "build": "npm run build:service-areas && astro build",
     "build:service-areas": "node tools/build-service-areas.mjs",
     "preview": "astro preview",
