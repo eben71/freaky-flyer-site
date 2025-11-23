@@ -21,8 +21,8 @@ const fileExists = (path) => {
 
 const scheduleImage = '/assets/img/warehouse-team-960.webp';
 
-const scheduleHref = fileExists('/downloads/FFD-DELIVERY-SCHEDULE.pdf')
-  ? '/downloads/FFD-DELIVERY-SCHEDULE.pdf'
+const scheduleHref = fileExists('/downloads/schedule.pdf')
+  ? '/downloads/schedule.pdf'
   : '/contact';
 const scheduleIsDownload = scheduleHref.startsWith('/downloads/');
 

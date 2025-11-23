@@ -19,8 +19,8 @@ const fileExists = (path) => {
   }
 };
 
-const priceListHref = fileExists('/downloads/FFD-Pricing.pdf')
-  ? '/downloads/FFD-Pricing.pdf'
+const priceListHref = fileExists('/downloads/pricing.pdf')
+  ? '/downloads/pricing.pdf'
   : '/contact';
 const isDownload = priceListHref.startsWith('/downloads/');
 ---
