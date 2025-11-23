@@ -6,3 +6,10 @@ dist/
 .env
 secrets.php
 public/secrets.php
+# Geo data used only at build time
+/tools/geo/wa-suburbs.geojson
+/tools/geo/wa-suburbs.geojson.zip
+/tools/geo/unmatched-areas.json
+/public/data/service-areas.json
+!/vendor/leaflet/dist
+!/vendor/leaflet/dist/leaflet.js
