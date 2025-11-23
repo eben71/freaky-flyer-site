@@ -180,7 +180,14 @@ const mapSuburbToRegionBasedView = (entry, region) => {
     radius: DEFAULT_RADIUS * 2,
     padding: 0.25,
   };
-  const reach = Math.max(targetRegion.radius ?? DEFAULT_RADIUS, 3500);
+  const baseCenter = {
+    lat: toFiniteNumber(targetRegion.center?.lat) ?? DEFAULT_VIEW.lat,
+    lng: toFiniteNumber(targetRegion.center?.lng) ?? DEFAULT_VIEW.lng,
+  };
+  const reach = Math.max(
+    toFiniteNumber(targetRegion.radius) ?? DEFAULT_RADIUS,
+    3500
+  );
   const seedAngle = hashToUnitInterval(`${entry.key}-angle`) * Math.PI * 2;
   const seedDistance = hashToUnitInterval(`${entry.key}-distance`);
   const biasAngle = getDirectionalBiasAngle(entry.displayName ?? '');
@@ -193,15 +200,15 @@ const mapSuburbToRegionBasedView = (entry, region) => {
   );
   const latDelta = (Math.sin(angle) * distance) / METERS_PER_LAT_DEGREE;
   const lngDelta =
-    (Math.cos(angle) * distance) / metersPerLngDegree(targetRegion.center.lat);
+    (Math.cos(angle) * distance) / metersPerLngDegree(baseCenter.lat);
   const radius = clamp(distance * 0.35, 800, Math.min(reach * 0.45, 12000));
   return {
     center: {
-      lat: targetRegion.center.lat + latDelta,
-      lng: targetRegion.center.lng + lngDelta,
+      lat: baseCenter.lat + latDelta,
+      lng: baseCenter.lng + lngDelta,
     },
     radius,
-    pad: targetRegion.padding ?? 0.2,
+    pad: toFiniteNumber(targetRegion.padding) ?? 0.2,
     zoom: zoomFromRadius(radius),
   };
 };
@@ -289,9 +296,14 @@ const filterSuburbs = (list, query) => {
   );
 };
 
+const toLatLngPoint = (lat, lng) => ({
+  lat: typeof lat === 'number' && Number.isFinite(lat) ? lat : DEFAULT_VIEW.lat,
+  lng: typeof lng === 'number' && Number.isFinite(lng) ? lng : DEFAULT_VIEW.lng,
+});
+
 const createMapController = async (canvas) => {
   const map = L.map(canvas, {
-    zoomControl: true,
+    zoomControl: false,
     scrollWheelZoom: true,
     attributionControl: false,
     minZoom: 7,
@@ -335,11 +347,15 @@ const createMapController = async (canvas) => {
       map.fitBounds(layer.getBounds().pad(pad));
     }
   };
-  map.setView([DEFAULT_VIEW.lat, DEFAULT_VIEW.lng], DEFAULT_ZOOM);
+  map.setView(
+    { lat: DEFAULT_VIEW.lat, lng: DEFAULT_VIEW.lng },
+    DEFAULT_ZOOM
+  );
   requestAnimationFrame(() => map.invalidateSize());
   return {
     map,
-    setView: (lat, lng, zoom = DEFAULT_ZOOM) => map.setView([lat, lng], zoom),
+    setView: (lat, lng, zoom = DEFAULT_ZOOM) =>
+      map.setView(toLatLngPoint(lat, lng), zoom),
     highlightCircle,
   };
 };
@@ -353,6 +369,8 @@ const setupWidget = (root) => {
   const status = root.querySelector('[data-service-area-status]');
   const canvas = root.querySelector('[data-service-area-canvas]');
   const loader = root.querySelector('[data-service-area-loader]');
+  const zoomIn = root.querySelector('[data-service-area-zoom-in]');
+  const zoomOut = root.querySelector('[data-service-area-zoom-out]');
   if (!input || !list || !empty || !status || !canvas) return;
   const state = { suburbs: [], results: [], selectedKey: null };
   const mapPromise = createMapController(canvas)
@@ -383,6 +401,29 @@ const setupWidget = (root) => {
         loader.textContent = 'Map unavailable. Please try again later.';
       return null;
     });
+
+  const bindZoomControl = (button, delta) => {
+    if (!button) return;
+    button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const controller = await mapPromise;
+      if (!controller) return;
+      const mapInstance = controller.map;
+      if (!mapInstance || typeof mapInstance.setView !== 'function') return;
+      const currentCenter = toLatLngPoint(
+        mapInstance._center?.lat,
+        mapInstance._center?.lng
+      );
+      const currentZoom =
+        typeof mapInstance._zoom === 'number'
+          ? mapInstance._zoom
+          : DEFAULT_ZOOM;
+      mapInstance.setView(currentCenter, currentZoom + delta);
+    });
+  };
+
+  bindZoomControl(zoomIn, 1);
+  bindZoomControl(zoomOut, -1);
 
   const render = (items, query) => {
     state.results = items.slice(0, MAX_RESULTS);
@@ -415,7 +456,12 @@ const setupWidget = (root) => {
   const select = async (entry) => {
     state.selectedKey = entry.key;
     const region = getPostcodeRegion(entry.postcode);
-    if (!region && (entry.lat === null || entry.lng === null)) {
+    const hasPreciseCoords =
+      typeof entry.lat === 'number' &&
+      Number.isFinite(entry.lat) &&
+      typeof entry.lng === 'number' &&
+      Number.isFinite(entry.lng);
+    if (!region && !hasPreciseCoords) {
       status.textContent = `We couldn't determine a map location for ${entry.displayName} (${entry.postcode}).`;
       return;
     }
@@ -427,6 +473,14 @@ const setupWidget = (root) => {
       return;
     }
     const focus = getSuburbView(entry, region);
+    if (
+      !focus?.center ||
+      !Number.isFinite(focus.center.lat) ||
+      !Number.isFinite(focus.center.lng)
+    ) {
+      status.textContent = `${entry.displayName} (${entry.postcode}) is missing map coordinates.`;
+      return;
+    }
     mapController.highlightCircle(focus);
     if (focus.precise) {
       status.textContent = `${entry.displayName} (${entry.postcode}) highlighted with a suburb-level view.`;

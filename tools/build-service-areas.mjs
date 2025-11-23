@@ -11,7 +11,7 @@ const OUTPUT_PATH = new URL(
   import.meta.url
 );
 const UNMATCHED_OUTPUT_PATH = new URL(
-  '../public/geo/unmatched-areas.json',
+  './geo/unmatched-areas.json',
   import.meta.url
 );
 const GEO_PRIMARY = new URL('./geo/wa-suburbs.geojson', import.meta.url);
