@@ -250,7 +250,7 @@ const run = async () => {
     if (match?.lga) entry.lga = match.lga;
     return entry;
   });
-  await ensureDir(UNMATCHED_OUTPUT_PATH);
+  await Promise.all([ensureDir(OUTPUT_PATH), ensureDir(UNMATCHED_OUTPUT_PATH)]);
   await writeFile(OUTPUT_PATH, `${JSON.stringify(serviceAreas)}\n`);
   await writeFile(UNMATCHED_OUTPUT_PATH, `${JSON.stringify(unmatched)}\n`);
   logSummary(matchedCount, serviceAreas.length);
