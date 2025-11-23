@@ -8,7 +8,6 @@
 
 import L from 'leaflet';
 const DATA_URL = '/data/service-areas.json';
-const FALLBACK_DATA_URL = '/data/suburbs.json';
 const DEFAULT_VIEW = { lat: -31.671, lng: 115.708 };
 const DEFAULT_ZOOM = 12;
 const DEFAULT_RADIUS = 1500;
@@ -247,15 +246,7 @@ const loadSuburbs = (() => {
       return response.json();
     } catch (error) {
       console.warn('Unable to load service areas dataset', error);
-      try {
-        const fallback = await fetch(FALLBACK_DATA_URL);
-        if (!fallback.ok) throw new Error('Fallback suburbs unavailable');
-        const suburbs = await fallback.json();
-        return suburbs.map((record) => ({ ...record, lat: null, lng: null }));
-      } catch (fallbackError) {
-        console.warn('Fallback suburb list unavailable', fallbackError);
-        return [];
-      }
+      return [];
     }
   };
   return () => {

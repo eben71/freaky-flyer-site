@@ -1,6 +1,9 @@
 import { access, readFile, writeFile } from 'node:fs/promises';
 
-const SUBURBS_PATH = new URL('../public/data/suburbs.json', import.meta.url);
+const SUBURBS_PATH = new URL(
+  './geo/current-suburbs-2025.json',
+  import.meta.url
+);
 const OUTPUT_PATH = new URL(
   '../public/data/service-areas.json',
   import.meta.url
