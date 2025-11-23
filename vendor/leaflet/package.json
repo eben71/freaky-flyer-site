@@ -1,0 +1,14 @@
+{
+  "name": "leaflet",
+  "version": "0.0.0-local",
+  "type": "module",
+  "main": "dist/leaflet.js",
+  "module": "dist/leaflet.js",
+  "exports": {
+    ".": "./dist/leaflet.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "BSD-2-Clause"
+}

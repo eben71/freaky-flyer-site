@@ -20,6 +20,9 @@ importers:
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
+      leaflet:
+        specifier: file:vendor/leaflet
+        version: file:vendor/leaflet
       marked:
         specifier: ^17.0.0
         version: 17.0.0
@@ -1279,6 +1282,9 @@ packages:
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
+
+  leaflet@file:vendor/leaflet:
+    resolution: {directory: vendor/leaflet, type: directory}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -3353,6 +3359,8 @@ snapshots:
   kind-of@6.0.3: {}
 
   kleur@3.0.3: {}
+
+  leaflet@file:vendor/leaflet: {}
 
   levn@0.4.1:
     dependencies:
