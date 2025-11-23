@@ -347,10 +347,7 @@ const createMapController = async (canvas) => {
       map.fitBounds(layer.getBounds().pad(pad));
     }
   };
-  map.setView(
-    { lat: DEFAULT_VIEW.lat, lng: DEFAULT_VIEW.lng },
-    DEFAULT_ZOOM
-  );
+  map.setView({ lat: DEFAULT_VIEW.lat, lng: DEFAULT_VIEW.lng }, DEFAULT_ZOOM);
   requestAnimationFrame(() => map.invalidateSize());
   return {
     map,
