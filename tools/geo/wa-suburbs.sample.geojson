@@ -1,0 +1,76 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "LOCALITY_NAME": "ALEXANDER HEIGHTS",
+        "POSTCODE": "6064",
+        "LGA_NAME": "City of Wanneroo"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [115.8585, -31.8235],
+            [115.8655, -31.8235],
+            [115.8655, -31.8175],
+            [115.8585, -31.8175],
+            [115.8585, -31.8235]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "LOCALITY_NAME": "ALKIMOS",
+        "POSTCODE": "6038",
+        "LGA_NAME": "City of Wanneroo"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [115.684, -31.625],
+            [115.694, -31.625],
+            [115.694, -31.615],
+            [115.684, -31.615],
+            [115.684, -31.625]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "LOCALITY_NAME": "WANNEROO",
+        "POSTCODE": "6065",
+        "LGA_NAME": "City of Wanneroo"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [115.8105, -31.752],
+              [115.8205, -31.752],
+              [115.8205, -31.742],
+              [115.8105, -31.742],
+              [115.8105, -31.752]
+            ]
+          ],
+          [
+            [
+              [115.805, -31.74],
+              [115.811, -31.74],
+              [115.811, -31.734],
+              [115.805, -31.734],
+              [115.805, -31.74]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

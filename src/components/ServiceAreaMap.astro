@@ -1,6 +1,4 @@
 ---
-import scriptUrl from '../scripts/service-area-map.js?url';
-
 const searchId = 'service-area-search';
 const helperId = 'service-area-search-help';
 const statusId = 'service-area-status';
@@ -60,7 +58,9 @@ const statusId = 'service-area-status';
   </div>
 </div>
 
-<script type="module" src={scriptUrl}></script>
+<script type="module">
+  import '../scripts/service-area-map.js';
+</script>
 
 <style>
   .service-area-map-widget {

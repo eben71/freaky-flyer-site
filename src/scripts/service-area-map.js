@@ -1,8 +1,16 @@
+/**
+ * Interactive service area map powered by static data generated at build time.
+ * The map consumes public/data/service-areas.json, which is derived from the
+ * site suburbs list and an external WA suburb GeoJSON dataset. No runtime APIs
+ * or paid map services are used.
+ */
 /* eslint-env browser */
 
-const DATA_URL = '/data/suburbs.json';
-const DEFAULT_VIEW = { lat: -31.95, lng: 115.86 };
-const DEFAULT_ZOOM = 11;
+import L from 'leaflet';
+const DATA_URL = '/data/service-areas.json';
+const FALLBACK_DATA_URL = '/data/suburbs.json';
+const DEFAULT_VIEW = { lat: -31.671, lng: 115.708 };
+const DEFAULT_ZOOM = 12;
 const DEFAULT_RADIUS = 1500;
 const METERS_PER_LAT_DEGREE = 111132;
 const METERS_PER_LNG_DEGREE_AT_EQUATOR = 111320;
@@ -158,17 +166,22 @@ const blendAngles = (primary, fallback, influence = 0.7) => {
 };
 
 const zoomFromRadius = (radius) => {
+  if (radius <= 900) return 16;
   if (radius <= 1500) return 15;
   if (radius <= 2500) return 14;
   if (radius <= 4000) return 13;
-  if (radius <= 7000) return 12;
-  if (radius <= 12000) return 11;
-  if (radius <= 20000) return 10;
-  return 9;
+  if (radius <= 6500) return 12;
+  if (radius <= 9000) return 11;
+  return 10;
 };
 
-const getSuburbFocus = (entry, region) => {
-  const reach = Math.max(region.radius ?? DEFAULT_RADIUS, 3500);
+const mapSuburbToRegionBasedView = (entry, region) => {
+  const targetRegion = region ?? {
+    center: DEFAULT_VIEW,
+    radius: DEFAULT_RADIUS * 2,
+    padding: 0.25,
+  };
+  const reach = Math.max(targetRegion.radius ?? DEFAULT_RADIUS, 3500);
   const seedAngle = hashToUnitInterval(`${entry.key}-angle`) * Math.PI * 2;
   const seedDistance = hashToUnitInterval(`${entry.key}-distance`);
   const biasAngle = getDirectionalBiasAngle(entry.displayName ?? '');
@@ -181,106 +194,34 @@ const getSuburbFocus = (entry, region) => {
   );
   const latDelta = (Math.sin(angle) * distance) / METERS_PER_LAT_DEGREE;
   const lngDelta =
-    (Math.cos(angle) * distance) / metersPerLngDegree(region.center.lat);
+    (Math.cos(angle) * distance) / metersPerLngDegree(targetRegion.center.lat);
   const radius = clamp(distance * 0.35, 800, Math.min(reach * 0.45, 12000));
   return {
     center: {
-      lat: region.center.lat + latDelta,
-      lng: region.center.lng + lngDelta,
+      lat: targetRegion.center.lat + latDelta,
+      lng: targetRegion.center.lng + lngDelta,
     },
     radius,
-    pad: region.padding ?? 0.2,
+    pad: targetRegion.padding ?? 0.2,
     zoom: zoomFromRadius(radius),
   };
 };
 
-const getSuburbCenter = (entry, region) => {
+const getSuburbView = (entry, region) => {
   const hasLat = typeof entry.lat === 'number' && Number.isFinite(entry.lat);
   const hasLng = typeof entry.lng === 'number' && Number.isFinite(entry.lng);
   if (hasLat && hasLng) {
+    const radius = 2000;
     return {
       center: { lat: entry.lat, lng: entry.lng },
-      radius: 2000,
-      pad: 0.25,
-      zoom: 14,
+      radius,
+      pad: 0.15,
+      zoom: zoomFromRadius(radius),
       precise: true,
     };
   }
-  return { ...getSuburbFocus(entry, region), precise: false };
+  return { ...mapSuburbToRegionBasedView(entry, region), precise: false };
 };
-
-const ensureLeafletStyles = () => {
-  if (document.getElementById('leaflet-cdn')) return;
-  const link = document.createElement('link');
-  link.id = 'leaflet-cdn';
-  link.rel = 'stylesheet';
-  link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-  link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-  link.crossOrigin = '';
-  document.head.appendChild(link);
-};
-
-const ensureLeafletScript = () => {
-  const existing = document.getElementById('leaflet-cdn-script');
-  if (existing) return existing;
-  const script = document.createElement('script');
-  script.id = 'leaflet-cdn-script';
-  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
-  script.crossOrigin = '';
-  document.head.appendChild(script);
-  return script;
-};
-
-const isLeafletReady = () =>
-  typeof window !== 'undefined' &&
-  window.L &&
-  typeof window.L.map === 'function';
-
-const loadLeaflet = (() => {
-  let cache = null;
-  return () => {
-    if (isLeafletReady()) {
-      return Promise.resolve(window.L);
-    }
-    if (!cache) {
-      ensureLeafletStyles();
-      cache = new Promise((resolve, reject) => {
-        const script = ensureLeafletScript();
-        const handleLoad = () => {
-          script.dataset.ready = 'true';
-          if (isLeafletReady()) {
-            resolve(window.L);
-          } else {
-            cache = null;
-            reject(new Error('Leaflet loaded without exposing the map API.'));
-          }
-        };
-        const handleError = (event) => {
-          script.removeEventListener('load', handleLoad);
-          cache = null;
-          const ErrorEventCtor =
-            typeof window !== 'undefined' ? window.ErrorEvent : undefined;
-          const errorEventSupported =
-            typeof ErrorEventCtor === 'function' &&
-            event instanceof ErrorEventCtor;
-          reject(
-            errorEventSupported && event.error
-              ? event.error
-              : new Error('Leaflet failed to load')
-          );
-        };
-        if (script.dataset.ready === 'true') {
-          handleLoad();
-          return;
-        }
-        script.addEventListener('load', handleLoad, { once: true });
-        script.addEventListener('error', handleError, { once: true });
-      });
-    }
-    return cache;
-  };
-})();
 
 const toDisplayName = (value) =>
   value
@@ -299,13 +240,27 @@ const toDisplayName = (value) =>
 
 const loadSuburbs = (() => {
   let cache = null;
+  const fetchRecords = async () => {
+    try {
+      const response = await fetch(DATA_URL);
+      if (!response.ok) throw new Error('Failed to load service areas');
+      return response.json();
+    } catch (error) {
+      console.warn('Unable to load service areas dataset', error);
+      try {
+        const fallback = await fetch(FALLBACK_DATA_URL);
+        if (!fallback.ok) throw new Error('Fallback suburbs unavailable');
+        const suburbs = await fallback.json();
+        return suburbs.map((record) => ({ ...record, lat: null, lng: null }));
+      } catch (fallbackError) {
+        console.warn('Fallback suburb list unavailable', fallbackError);
+        return [];
+      }
+    }
+  };
   return () => {
     if (!cache) {
-      cache = fetch(DATA_URL)
-        .then((res) => {
-          if (!res.ok) throw new Error('Failed to load suburbs');
-          return res.json();
-        })
+      cache = fetchRecords()
         .then((records) =>
           records
             .map((record) => {
@@ -344,11 +299,12 @@ const filterSuburbs = (list, query) => {
 };
 
 const createMapController = async (canvas) => {
-  const L = await loadLeaflet();
   const map = L.map(canvas, {
     zoomControl: true,
     scrollWheelZoom: true,
     attributionControl: false,
+    minZoom: 7,
+    maxZoom: 18,
   });
   L.tileLayer(TILE_URL, {
     minZoom: 7,
@@ -417,7 +373,7 @@ const setupWidget = (root) => {
             controller.setView(
               position.coords.latitude,
               position.coords.longitude,
-              12
+              DEFAULT_ZOOM
             ),
           () =>
             controller.setView(
@@ -468,7 +424,7 @@ const setupWidget = (root) => {
   const select = async (entry) => {
     state.selectedKey = entry.key;
     const region = getPostcodeRegion(entry.postcode);
-    if (!region) {
+    if (!region && (entry.lat === null || entry.lng === null)) {
       status.textContent = `We couldn't determine a map location for ${entry.displayName} (${entry.postcode}).`;
       return;
     }
@@ -479,13 +435,13 @@ const setupWidget = (root) => {
       status.textContent = `${entry.displayName} located, but the map failed to load.`;
       return;
     }
-    const focus = getSuburbCenter(entry, region);
+    const focus = getSuburbView(entry, region);
     mapController.highlightCircle(focus);
     if (focus.precise) {
-      status.textContent = `${entry.displayName} (${entry.postcode}) highlighted in our delivery area near Perth (general location).`;
+      status.textContent = `${entry.displayName} (${entry.postcode}) highlighted with a suburb-level view.`;
       return;
     }
-    const suffix = region.label ? ` in the ${region.label} area` : '';
+    const suffix = region?.label ? ` in the ${region.label} area` : '';
     status.textContent = `${entry.displayName} (${entry.postcode}) highlighted${suffix}.`;
   };
 
