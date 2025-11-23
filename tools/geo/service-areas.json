@@ -1,0 +1,3908 @@
+[
+    {
+        "suburb": "ALEXANDER HEIGHTS",
+        "postcode": "6064",
+        "lat": -31.82758158563371,
+        "lng": 115.86508566734939
+    },
+    {
+        "suburb": "ALFRED COVE",
+        "postcode": "6154",
+        "lat": -32.03283686620146,
+        "lng": 115.81704397235897
+    },
+    {
+        "suburb": "ALKIMOS",
+        "postcode": "6038",
+        "lat": -31.61473307069312,
+        "lng": 115.68356471359031
+    },
+    {
+        "suburb": "ANKETELL",
+        "postcode": "6167",
+        "lat": -32.21858580177876,
+        "lng": 115.86553315040742
+    },
+    {
+        "suburb": "APPLECROSS",
+        "postcode": "6153",
+        "lat": -32.01369482854002,
+        "lng": 115.83666826689874
+    },
+    {
+        "suburb": "APPLECROSS NORTH",
+        "postcode": "6153",
+        "lat": -32.01369482854002,
+        "lng": 115.83666826689874
+    },
+    {
+        "suburb": "ARDROSS",
+        "postcode": "6153",
+        "lat": -32.027109267710735,
+        "lng": 115.83553405045478
+    },
+    {
+        "suburb": "ARMADALE",
+        "postcode": "6112",
+        "lat": -32.15111671513718,
+        "lng": 116.00691307387177
+    },
+    {
+        "suburb": "ASCOT",
+        "postcode": "6104",
+        "lat": -31.934111935513204,
+        "lng": 115.92939872409768
+    },
+    {
+        "suburb": "ASHBY",
+        "postcode": "6065",
+        "lat": -31.73254989016878,
+        "lng": 115.79768312148539
+    },
+    {
+        "suburb": "ASHENDON",
+        "postcode": "6111",
+        "lat": -32.21184007232941,
+        "lng": 116.18778205464834
+    },
+    {
+        "suburb": "ASHFIELD",
+        "postcode": "6054",
+        "lat": -31.917344035244426,
+        "lng": 115.93808506090579
+    },
+    {
+        "suburb": "ATTADALE",
+        "postcode": "6156",
+        "lat": -32.02533244870462,
+        "lng": 115.80235590157514
+    },
+    {
+        "suburb": "ATWELL",
+        "postcode": "6164",
+        "lat": -32.143441767088824,
+        "lng": 115.86518876130854
+    },
+    {
+        "suburb": "AUBIN GROVE",
+        "postcode": "6164",
+        "lat": -32.16698520735967,
+        "lng": 115.86269429790042
+    },
+    {
+        "suburb": "AVELEY",
+        "postcode": "6069",
+        "lat": -31.781534236247705,
+        "lng": 115.98926450492345
+    },
+    {
+        "suburb": "BAILUP",
+        "postcode": "6082",
+        "lat": -31.73911586342447,
+        "lng": 116.30987959717424
+    },
+    {
+        "suburb": "BALCATTA",
+        "postcode": "6021",
+        "lat": -31.87156650930254,
+        "lng": 115.81947359530487
+    },
+    {
+        "suburb": "BALDIVIS",
+        "postcode": "6171",
+        "lat": -32.32899292234874,
+        "lng": 115.83065921470235
+    },
+    {
+        "suburb": "BALGA",
+        "postcode": "6061",
+        "lat": -31.854812089721523,
+        "lng": 115.83984335198863
+    },
+    {
+        "suburb": "BALLAJURA",
+        "postcode": "6066",
+        "lat": -31.839977145576807,
+        "lng": 115.89600049640178
+    },
+    {
+        "suburb": "BANJUP",
+        "postcode": "6164",
+        "lat": -32.15759011149015,
+        "lng": 115.88293037254628
+    },
+    {
+        "suburb": "BANKSIA GROVE",
+        "postcode": "6031",
+        "lat": -31.696250356674454,
+        "lng": 115.8054319781939
+    },
+    {
+        "suburb": "BASKERVILLE",
+        "postcode": "6056",
+        "lat": -31.797651505345282,
+        "lng": 116.0490924577783
+    },
+    {
+        "suburb": "BASSENDEAN",
+        "postcode": "6054",
+        "lat": -31.906289167186035,
+        "lng": 115.94529777885303
+    },
+    {
+        "suburb": "BATEMAN",
+        "postcode": "6150",
+        "lat": -32.05552679167348,
+        "lng": 115.84725934307086
+    },
+    {
+        "suburb": "BAYSWATER",
+        "postcode": "6053",
+        "lat": -31.917374106698176,
+        "lng": 115.91788337566555
+    },
+    {
+        "suburb": "BEACONSFIELD",
+        "postcode": "6162",
+        "lat": -32.06937295530831,
+        "lng": 115.76859586505816
+    },
+    {
+        "suburb": "BECKENHAM",
+        "postcode": "6107",
+        "lat": -32.0243333667996,
+        "lng": 115.96061724302791
+    },
+    {
+        "suburb": "BEDFORD",
+        "postcode": "6052",
+        "lat": -31.90947267139263,
+        "lng": 115.89169225675244
+    },
+    {
+        "suburb": "BEDFORDALE",
+        "postcode": "6112",
+        "lat": -32.17823567117458,
+        "lng": 116.06745117037725
+    },
+    {
+        "suburb": "BEECHBORO",
+        "postcode": "6063",
+        "lat": -31.86824932949429,
+        "lng": 115.9382467467798
+    },
+    {
+        "suburb": "BEELIAR",
+        "postcode": "6164",
+        "lat": -32.14119229028154,
+        "lng": 115.8217680180138
+    },
+    {
+        "suburb": "BELDON",
+        "postcode": "6027",
+        "lat": -31.77466580884767,
+        "lng": 115.76291489646168
+    },
+    {
+        "suburb": "BELHUS",
+        "postcode": "6069",
+        "lat": -31.781536550489115,
+        "lng": 116.00955436552847
+    },
+    {
+        "suburb": "BELLEVUE",
+        "postcode": "6056",
+        "lat": -31.90132450410303,
+        "lng": 116.02713021337877
+    },
+    {
+        "suburb": "BELMONT",
+        "postcode": "6104",
+        "lat": -31.949798001174408,
+        "lng": 115.93127348471651
+    },
+    {
+        "suburb": "BENNETT SPRINGS",
+        "postcode": "6063",
+        "lat": -31.85638348828222,
+        "lng": 115.94592026700332
+    },
+    {
+        "suburb": "BENTLEY",
+        "postcode": "6102",
+        "lat": -32.005156172965386,
+        "lng": 115.90675484269107
+    },
+    {
+        "suburb": "BENTLEY DC",
+        "postcode": "6102",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "BENTLEY DC",
+        "postcode": "6983",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "BENTLEY SOUTH",
+        "postcode": "6102",
+        "lat": -32.005156172965386,
+        "lng": 115.90675484269107
+    },
+    {
+        "suburb": "BERNIER ISLAND",
+        "postcode": "6701",
+        "lat": -24.85929365554219,
+        "lng": 113.14204745262441
+    },
+    {
+        "suburb": "BERTRAM",
+        "postcode": "6167",
+        "lat": -32.244628913055706,
+        "lng": 115.84513208337272
+    },
+    {
+        "suburb": "BIBRA LAKE",
+        "postcode": "6163",
+        "lat": -32.09927215293544,
+        "lng": 115.8185189074449
+    },
+    {
+        "suburb": "BIBRA LAKE DC",
+        "postcode": "6163",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "BIBRA LAKE DC",
+        "postcode": "6965",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "BICKLEY",
+        "postcode": "6076",
+        "lat": -32.00117775615853,
+        "lng": 116.1021650684959
+    },
+    {
+        "suburb": "BICTON",
+        "postcode": "6157",
+        "lat": -32.02650924091888,
+        "lng": 115.7858949808771
+    },
+    {
+        "suburb": "BILINGURR",
+        "postcode": "6725",
+        "lat": -17.91293111482787,
+        "lng": 122.22819610157569
+    },
+    {
+        "suburb": "BOODARIE",
+        "postcode": "6722",
+        "lat": -20.494948187686344,
+        "lng": 118.52048012702312
+    },
+    {
+        "suburb": "BOORAGOON",
+        "postcode": "6154",
+        "lat": -32.03952596361044,
+        "lng": 115.83368264418853
+    },
+    {
+        "suburb": "BOORAGOON",
+        "postcode": "6954",
+        "lat": -32.03952596361044,
+        "lng": 115.83368264418853
+    },
+    {
+        "suburb": "BOYA",
+        "postcode": "6056",
+        "lat": -31.91764745895873,
+        "lng": 116.05725180008572
+    },
+    {
+        "suburb": "BRABHAM",
+        "postcode": "6055",
+        "lat": -31.827928366220508,
+        "lng": 115.97338673334832
+    },
+    {
+        "suburb": "BRENTWOOD",
+        "postcode": "6153",
+        "lat": -32.04350654264955,
+        "lng": 115.85245454723714
+    },
+    {
+        "suburb": "BRETON BAY",
+        "postcode": "6043",
+        "lat": -31.19176178432306,
+        "lng": 115.47858963238556
+    },
+    {
+        "suburb": "BRIGADOON",
+        "postcode": "6069",
+        "lat": -31.772540099261818,
+        "lng": 116.07249303792123
+    },
+    {
+        "suburb": "BROADWAY NEDLANDS",
+        "postcode": "6009",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "BROCKMAN",
+        "postcode": "6701",
+        "lat": -24.879049836952962,
+        "lng": 113.65139613839133
+    },
+    {
+        "suburb": "BROOKDALE",
+        "postcode": "6112",
+        "lat": -32.16697449157378,
+        "lng": 116.00197420858532
+    },
+    {
+        "suburb": "BROOME",
+        "postcode": "6725",
+        "lat": -17.961420128128008,
+        "lng": 122.23586119288854
+    },
+    {
+        "suburb": "BROWN RANGE",
+        "postcode": "6701",
+        "lat": -24.893179188544366,
+        "lng": 113.71817865653097
+    },
+    {
+        "suburb": "BULGARRA",
+        "postcode": "6714",
+        "lat": -20.725789139020304,
+        "lng": 116.85677843262297
+    },
+    {
+        "suburb": "BULL CREEK",
+        "postcode": "6149",
+        "lat": -32.056230451071535,
+        "lng": 115.86247066274323
+    },
+    {
+        "suburb": "BULLSBROOK",
+        "postcode": "6084",
+        "lat": -31.66324117881958,
+        "lng": 116.0285949391089
+    },
+    {
+        "suburb": "BURNS BEACH",
+        "postcode": "6028",
+        "lat": -31.720606516503405,
+        "lng": 115.72030377246514
+    },
+    {
+        "suburb": "BURRUP",
+        "postcode": "6714",
+        "lat": -20.58052698992907,
+        "lng": 116.80671518337049
+    },
+    {
+        "suburb": "BURSWOOD",
+        "postcode": "6100",
+        "lat": -31.955824656451743,
+        "lng": 115.89314377952815
+    },
+    {
+        "suburb": "BUSHMEAD",
+        "postcode": "6055",
+        "lat": -31.928201568989564,
+        "lng": 116.02996439811386
+    },
+    {
+        "suburb": "BUTLER",
+        "postcode": "6036",
+        "lat": -31.6429527380746,
+        "lng": 115.70484502364403
+    },
+    {
+        "suburb": "BYFORD",
+        "postcode": "6122",
+        "lat": -32.22476080248572,
+        "lng": 116.00218912358693
+    },
+    {
+        "suburb": "CABLE BEACH",
+        "postcode": "6726",
+        "lat": -17.950524934524008,
+        "lng": 122.21001626231542
+    },
+    {
+        "suburb": "CALISTA",
+        "postcode": "6167",
+        "lat": -32.24644684075712,
+        "lng": 115.80294799571273
+    },
+    {
+        "suburb": "CAMBALLIN",
+        "postcode": "6728",
+        "lat": -18.00293508254215,
+        "lng": 124.26945283438975
+    },
+    {
+        "suburb": "CAMBRIDGE GULF",
+        "postcode": "6743",
+        "lat": -15.230737603546075,
+        "lng": 128.536714768537
+    },
+    {
+        "suburb": "CAMILLO",
+        "postcode": "6111",
+        "lat": -32.11294714956663,
+        "lng": 116.00204885490433
+    },
+    {
+        "suburb": "CANE",
+        "postcode": "6710",
+        "lat": -22.14411219156676,
+        "lng": 115.8764549709771
+    },
+    {
+        "suburb": "CANNING BRIDGE APPLECROSS",
+        "postcode": "6153",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "CANNING MILLS",
+        "postcode": "6111",
+        "lat": -32.05743715893772,
+        "lng": 116.09579018517465
+    },
+    {
+        "suburb": "CANNING VALE",
+        "postcode": "6155",
+        "lat": -32.08136499593041,
+        "lng": 115.91689257246897
+    },
+    {
+        "suburb": "CANNING VALE DC",
+        "postcode": "6155",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "CANNING VALE DC",
+        "postcode": "6970",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "CANNING VALE SOUTH",
+        "postcode": "6155",
+        "lat": -32.08136499593041,
+        "lng": 115.91689257246897
+    },
+    {
+        "suburb": "CANNINGTON",
+        "postcode": "6107",
+        "lat": -32.015995465302815,
+        "lng": 115.93676518912875
+    },
+    {
+        "suburb": "CANNINGTON",
+        "postcode": "6987",
+        "lat": -32.015995465302815,
+        "lng": 115.93676518912875
+    },
+    {
+        "suburb": "CAPE RANGE NATIONAL PARK",
+        "postcode": "6707",
+        "lat": -22.138074292391355,
+        "lng": 113.92988889490036
+    },
+    {
+        "suburb": "CAPRICORN",
+        "postcode": "6642",
+        "lat": -23.937848068281962,
+        "lng": 119.70891313072289
+    },
+    {
+        "suburb": "CARABAN",
+        "postcode": "6041",
+        "lat": -31.351252746445663,
+        "lng": 115.54565604569208
+    },
+    {
+        "suburb": "CARABOODA",
+        "postcode": "6033",
+        "lat": -31.59753640810626,
+        "lng": 115.72049162556044
+    },
+    {
+        "suburb": "CARDUP",
+        "postcode": "6122",
+        "lat": -32.25351887718793,
+        "lng": 115.98327668663318
+    },
+    {
+        "suburb": "CARINE",
+        "postcode": "6020",
+        "lat": -31.85209879495944,
+        "lng": 115.78247170248892
+    },
+    {
+        "suburb": "CARLISLE",
+        "postcode": "6101",
+        "lat": -31.979426633467035,
+        "lng": 115.91811431796093
+    },
+    {
+        "suburb": "CARLISLE NORTH",
+        "postcode": "6101",
+        "lat": -31.979426633467035,
+        "lng": 115.91811431796093
+    },
+    {
+        "suburb": "CARLISLE SOUTH",
+        "postcode": "6101",
+        "lat": -31.979426633467035,
+        "lng": 115.91811431796093
+    },
+    {
+        "suburb": "CARMEL",
+        "postcode": "6076",
+        "lat": -32.021604282421926,
+        "lng": 116.0830969094437
+    },
+    {
+        "suburb": "CARNARVON",
+        "postcode": "6701",
+        "lat": -24.88228436935777,
+        "lng": 113.67110041267621
+    },
+    {
+        "suburb": "CARRAMAR",
+        "postcode": "6031",
+        "lat": -31.69967547855605,
+        "lng": 115.78296363470552
+    },
+    {
+        "suburb": "CASUARINA",
+        "postcode": "6167",
+        "lat": -32.24133368784084,
+        "lng": 115.86961268869429
+    },
+    {
+        "suburb": "CAVERSHAM",
+        "postcode": "6055",
+        "lat": -31.87558556165679,
+        "lng": 115.97546268663568
+    },
+    {
+        "suburb": "CHAMPION LAKES",
+        "postcode": "6111",
+        "lat": -32.11896183278225,
+        "lng": 115.9863319549947
+    },
+    {
+        "suburb": "CHICHESTER",
+        "postcode": "6751",
+        "lat": -21.824813833212453,
+        "lng": 118.02119627279548
+    },
+    {
+        "suburb": "CHITTERING",
+        "postcode": "6084",
+        "lat": -31.480255097240313,
+        "lng": 116.05636336402847
+    },
+    {
+        "suburb": "CHRISTMAS ISLAND",
+        "postcode": "6798",
+        "lat": -10.485462034502316,
+        "lng": 105.63590442047065
+    },
+    {
+        "suburb": "CHURCHLANDS",
+        "postcode": "6018",
+        "lat": -31.92160455010891,
+        "lng": 115.7929518443482
+    },
+    {
+        "suburb": "CITY BEACH",
+        "postcode": "6015",
+        "lat": -31.935329392359222,
+        "lng": 115.76527896288921
+    },
+    {
+        "suburb": "CITY DELIVERY CENTRE",
+        "postcode": "6000",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "CLAREMONT",
+        "postcode": "6010",
+        "lat": -31.981086410713996,
+        "lng": 115.78212515014081
+    },
+    {
+        "suburb": "CLAREMONT",
+        "postcode": "6910",
+        "lat": -31.981086410713996,
+        "lng": 115.78212515014081
+    },
+    {
+        "suburb": "CLAREMONT NORTH",
+        "postcode": "6010",
+        "lat": -31.981086410713996,
+        "lng": 115.78212515014081
+    },
+    {
+        "suburb": "CLARKSON",
+        "postcode": "6030",
+        "lat": -31.68669762388259,
+        "lng": 115.7262146935437
+    },
+    {
+        "suburb": "CLEAVERVILLE",
+        "postcode": "6714",
+        "lat": -20.654844834609673,
+        "lng": 117.02381643985085
+    },
+    {
+        "suburb": "CLOISTERS SQUARE PO",
+        "postcode": "6850",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "CLOVERDALE",
+        "postcode": "6105",
+        "lat": -31.962763061855217,
+        "lng": 115.9443421652481
+    },
+    {
+        "suburb": "CLOVERDALE",
+        "postcode": "6985",
+        "lat": -31.962763061855217,
+        "lng": 115.9443421652481
+    },
+    {
+        "suburb": "COCKATOO ISLAND",
+        "postcode": "6731",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "COCKBURN CENTRAL",
+        "postcode": "6164",
+        "lat": -32.121270769992385,
+        "lng": 115.84779098634388
+    },
+    {
+        "suburb": "COMO",
+        "postcode": "6152",
+        "lat": -31.999686453061287,
+        "lng": 115.86766467348177
+    },
+    {
+        "suburb": "COMO",
+        "postcode": "6952",
+        "lat": -31.999686453061287,
+        "lng": 115.86766467348177
+    },
+    {
+        "suburb": "CONNOLLY",
+        "postcode": "6027",
+        "lat": -31.7485280203559,
+        "lng": 115.75072385004542
+    },
+    {
+        "suburb": "COOGEE",
+        "postcode": "6166",
+        "lat": -32.12233826620579,
+        "lng": 115.76534687651872
+    },
+    {
+        "suburb": "COOLADAR HILL",
+        "postcode": "6638",
+        "lat": -28.541069960427773,
+        "lng": 118.1689447600716
+    },
+    {
+        "suburb": "COOLBELLUP",
+        "postcode": "6163",
+        "lat": -32.081230924365975,
+        "lng": 115.80608998596837
+    },
+    {
+        "suburb": "COOLBINIA",
+        "postcode": "6050",
+        "lat": -31.913848273354787,
+        "lng": 115.85386364997832
+    },
+    {
+        "suburb": "COOLOONGUP",
+        "postcode": "6168",
+        "lat": -32.29551958557812,
+        "lng": 115.77679229689522
+    },
+    {
+        "suburb": "COOYA POOYA",
+        "postcode": "6714",
+        "lat": -20.965992684438138,
+        "lng": 117.0720037831805
+    },
+    {
+        "suburb": "CORAL BAY",
+        "postcode": "6701",
+        "lat": -23.143747259726243,
+        "lng": 113.77368632062819
+    },
+    {
+        "suburb": "COSSACK",
+        "postcode": "6720",
+        "lat": -20.679735229120848,
+        "lng": 117.22111314087601
+    },
+    {
+        "suburb": "COTTESLOE",
+        "postcode": "6011",
+        "lat": -31.99446601750518,
+        "lng": 115.7580405523627
+    },
+    {
+        "suburb": "COTTESLOE",
+        "postcode": "6911",
+        "lat": -31.99446601750518,
+        "lng": 115.7580405523627
+    },
+    {
+        "suburb": "CRAIGIE",
+        "postcode": "6025",
+        "lat": -31.78730921699665,
+        "lng": 115.76957117296764
+    },
+    {
+        "suburb": "CRAWLEY",
+        "postcode": "6009",
+        "lat": -31.983434796683962,
+        "lng": 115.82715635054376
+    },
+    {
+        "suburb": "CUE",
+        "postcode": "6640",
+        "lat": -27.44847050986818,
+        "lng": 117.88765423356165
+    },
+    {
+        "suburb": "CULLACABARDEE",
+        "postcode": "6067",
+        "lat": -31.812825590019006,
+        "lng": 115.8988951028232
+    },
+    {
+        "suburb": "CURRAMBINE",
+        "postcode": "6028",
+        "lat": -31.733764720527848,
+        "lng": 115.74570394323203
+    },
+    {
+        "suburb": "DAGGAR HILLS",
+        "postcode": "6638",
+        "lat": -28.1123375755602,
+        "lng": 117.5905586668247
+    },
+    {
+        "suburb": "DAGLISH",
+        "postcode": "6008",
+        "lat": -31.951507154767146,
+        "lng": 115.80997338160701
+    },
+    {
+        "suburb": "DALKEITH",
+        "postcode": "6009",
+        "lat": -31.996539166774163,
+        "lng": 115.79929613942974
+    },
+    {
+        "suburb": "DAMPIER",
+        "postcode": "6713",
+        "lat": -20.671386361581778,
+        "lng": 116.71381658929275
+    },
+    {
+        "suburb": "DAMPIER ARCHIPELAGO",
+        "postcode": "6713",
+        "lat": -20.540788879015935,
+        "lng": 116.70865129310971
+    },
+    {
+        "suburb": "DAMPIER PENINSULA",
+        "postcode": "6725",
+        "lat": -16.93298288676543,
+        "lng": 122.86348512755352
+    },
+    {
+        "suburb": "DARCH",
+        "postcode": "6065",
+        "lat": -31.81253027069139,
+        "lng": 115.84574933494658
+    },
+    {
+        "suburb": "DARLING DOWNS",
+        "postcode": "6122",
+        "lat": -32.19485225966494,
+        "lng": 115.99011857915748
+    },
+    {
+        "suburb": "DARLINGTON",
+        "postcode": "6070",
+        "lat": -31.924794004190662,
+        "lng": 116.08060746617784
+    },
+    {
+        "suburb": "DAYTON",
+        "postcode": "6055",
+        "lat": -31.854534283223632,
+        "lng": 115.9740374120854
+    },
+    {
+        "suburb": "DE GREY",
+        "postcode": "6722",
+        "lat": -20.237701546469133,
+        "lng": 119.22537330718926
+    },
+    {
+        "suburb": "DERBY",
+        "postcode": "6728",
+        "lat": -17.37855689652325,
+        "lng": 123.7177679375768
+    },
+    {
+        "suburb": "DEVILS CREEK",
+        "postcode": "6630",
+        "lat": -28.670665886662274,
+        "lng": 115.53473790522429
+    },
+    {
+        "suburb": "DIANELLA",
+        "postcode": "6059",
+        "lat": -31.888239738482675,
+        "lng": 115.87198303244031
+    },
+    {
+        "suburb": "DJUGUN",
+        "postcode": "6725",
+        "lat": -17.93930621083168,
+        "lng": 122.23519371257999
+    },
+    {
+        "suburb": "DORRE ISLAND",
+        "postcode": "6701",
+        "lat": -25.118993394134296,
+        "lng": 113.10023362771473
+    },
+    {
+        "suburb": "DOUBLEVIEW",
+        "postcode": "6018",
+        "lat": -31.896329743641232,
+        "lng": 115.7816351467219
+    },
+    {
+        "suburb": "DRYSDALE RIVER",
+        "postcode": "6740",
+        "lat": -14.877807207788342,
+        "lng": 126.70449343696778
+    },
+    {
+        "suburb": "DUNCRAIG",
+        "postcode": "6023",
+        "lat": -31.83278771815975,
+        "lng": 115.77642017197735
+    },
+    {
+        "suburb": "DURACK",
+        "postcode": "6743",
+        "lat": -16.34573148474809,
+        "lng": 127.57498982193296
+    },
+    {
+        "suburb": "EAST CANNINGTON",
+        "postcode": "6107",
+        "lat": -32.0090301146275,
+        "lng": 115.95881181314867
+    },
+    {
+        "suburb": "EAST CARNARVON",
+        "postcode": "6701",
+        "lat": -24.864055288618193,
+        "lng": 113.67674198417588
+    },
+    {
+        "suburb": "EAST FREMANTLE",
+        "postcode": "6158",
+        "lat": -32.036686110969185,
+        "lng": 115.76774461043297
+    },
+    {
+        "suburb": "EAST LYONS RIVER",
+        "postcode": "6705",
+        "lat": -24.307452371997453,
+        "lng": 117.27167940907962
+    },
+    {
+        "suburb": "EAST MURCHISON",
+        "postcode": "6640",
+        "lat": -26.38481260337841,
+        "lng": 117.1207223420967
+    },
+    {
+        "suburb": "EAST PERTH",
+        "postcode": "6004",
+        "lat": -31.958242793969717,
+        "lng": 115.87717260303509
+    },
+    {
+        "suburb": "EAST PERTH",
+        "postcode": "6892",
+        "lat": -31.958242793969717,
+        "lng": 115.87717260303509
+    },
+    {
+        "suburb": "EAST ROCKINGHAM",
+        "postcode": "6168",
+        "lat": -32.26239088807483,
+        "lng": 115.7697865303007
+    },
+    {
+        "suburb": "EAST VICTORIA PARK",
+        "postcode": "6101",
+        "lat": -31.9893164136965,
+        "lng": 115.90382580638006
+    },
+    {
+        "suburb": "EAST VICTORIA PARK",
+        "postcode": "6981",
+        "lat": -31.9893164136965,
+        "lng": 115.90382580638006
+    },
+    {
+        "suburb": "EDEN HILL",
+        "postcode": "6054",
+        "lat": -31.890957721990038,
+        "lng": 115.9472596507813
+    },
+    {
+        "suburb": "EDGEWATER",
+        "postcode": "6027",
+        "lat": -31.76379712719787,
+        "lng": 115.78519552406613
+    },
+    {
+        "suburb": "EGLINTON",
+        "postcode": "6034",
+        "lat": -31.584243314137137,
+        "lng": 115.66761676612718
+    },
+    {
+        "suburb": "EIGHTY MILE BEACH",
+        "postcode": "6725",
+        "lat": -19.557397561564247,
+        "lng": 121.30712142824108
+    },
+    {
+        "suburb": "ELLENBROOK",
+        "postcode": "6069",
+        "lat": -31.767865325403267,
+        "lng": 115.97769819583982
+    },
+    {
+        "suburb": "EMBLETON",
+        "postcode": "6062",
+        "lat": -31.90212585381476,
+        "lng": 115.91122775445723
+    },
+    {
+        "suburb": "EXMOUTH",
+        "postcode": "6707",
+        "lat": -21.94579465122794,
+        "lng": 114.11747798007904
+    },
+    {
+        "suburb": "EXMOUTH GULF",
+        "postcode": "6707",
+        "lat": -22.603592089499124,
+        "lng": 114.251569163341
+    },
+    {
+        "suburb": "FERNDALE",
+        "postcode": "6148",
+        "lat": -32.029422642180116,
+        "lng": 115.92471873373921
+    },
+    {
+        "suburb": "FINUCANE",
+        "postcode": "6722",
+        "lat": -20.30191284106169,
+        "lng": 118.56857445310588
+    },
+    {
+        "suburb": "FITZROY CROSSING",
+        "postcode": "6765",
+        "lat": -18.18319879390324,
+        "lng": 125.5688208969155
+    },
+    {
+        "suburb": "FLOREAT",
+        "postcode": "6014",
+        "lat": -31.939176091882565,
+        "lng": 115.79174238590436
+    },
+    {
+        "suburb": "FORRESTDALE",
+        "postcode": "6112",
+        "lat": -32.152923105418616,
+        "lng": 115.93265056133515
+    },
+    {
+        "suburb": "FORRESTFIELD",
+        "postcode": "6058",
+        "lat": -31.98381547963592,
+        "lng": 116.00739854943835
+    },
+    {
+        "suburb": "FORTESCUE",
+        "postcode": "6716",
+        "lat": -21.62303596702066,
+        "lng": 116.54566523996183
+    },
+    {
+        "suburb": "FREMANTLE",
+        "postcode": "6160",
+        "lat": -32.05339639754072,
+        "lng": 115.75862449634111
+    },
+    {
+        "suburb": "FREMANTLE",
+        "postcode": "6959",
+        "lat": -32.05339639754072,
+        "lng": 115.75862449634111
+    },
+    {
+        "suburb": "GABBADAH",
+        "postcode": "6041",
+        "lat": -31.29208670482638,
+        "lng": 115.50585013097114
+    },
+    {
+        "suburb": "GAP RIDGE",
+        "postcode": "6714",
+        "lat": -20.730470735717063,
+        "lng": 116.7962197675542
+    },
+    {
+        "suburb": "GARDEN ISLAND",
+        "postcode": "6168",
+        "lat": -32.20225118113692,
+        "lng": 115.67673652868613
+    },
+    {
+        "suburb": "GASCOYNE JUNCTION",
+        "postcode": "6705",
+        "lat": -25.050659947828834,
+        "lng": 115.20178355036789
+    },
+    {
+        "suburb": "GASCOYNE RIVER",
+        "postcode": "6705",
+        "lat": -25.23836562093465,
+        "lng": 116.20214785977028
+    },
+    {
+        "suburb": "GEEGULLY CREEK",
+        "postcode": "6728",
+        "lat": -18.30351954905881,
+        "lng": 123.73073137598503
+    },
+    {
+        "suburb": "GIBB",
+        "postcode": "6743",
+        "lat": -16.26441213804399,
+        "lng": 126.55084247525917
+    },
+    {
+        "suburb": "GIDGEGANNUP",
+        "postcode": "6083",
+        "lat": -31.754243782039403,
+        "lng": 116.18783254030173
+    },
+    {
+        "suburb": "GILROYD",
+        "postcode": "6701",
+        "lat": -25.906307499990778,
+        "lng": 115.18307670887728
+    },
+    {
+        "suburb": "GINGERAH",
+        "postcode": "6725",
+        "lat": -19.076529095124933,
+        "lng": 122.79187101137919
+    },
+    {
+        "suburb": "GIRRAWHEEN",
+        "postcode": "6064",
+        "lat": -31.840932187690637,
+        "lng": 115.83970371113492
+    },
+    {
+        "suburb": "GLEN FORREST",
+        "postcode": "6071",
+        "lat": -31.919310235757507,
+        "lng": 116.10726270226569
+    },
+    {
+        "suburb": "GLENDALOUGH",
+        "postcode": "6016",
+        "lat": -31.919876364740727,
+        "lng": 115.81951566979006
+    },
+    {
+        "suburb": "GNANGARA",
+        "postcode": "6077",
+        "lat": -31.775300040864,
+        "lng": 115.86501940384845
+    },
+    {
+        "suburb": "GNOOREA",
+        "postcode": "6714",
+        "lat": -20.839302952286328,
+        "lng": 116.3983261216542
+    },
+    {
+        "suburb": "GOOSEBERRY HILL",
+        "postcode": "6076",
+        "lat": -31.94720150057878,
+        "lng": 116.04898449876308
+    },
+    {
+        "suburb": "GOSNELLS",
+        "postcode": "6110",
+        "lat": -32.08314730798399,
+        "lng": 115.99277168501091
+    },
+    {
+        "suburb": "GOSNELLS",
+        "postcode": "6990",
+        "lat": -32.08314730798399,
+        "lng": 115.99277168501091
+    },
+    {
+        "suburb": "GREENMOUNT",
+        "postcode": "6056",
+        "lat": -31.902746660517327,
+        "lng": 116.05573340527516
+    },
+    {
+        "suburb": "GREENWOOD",
+        "postcode": "6024",
+        "lat": -31.827220800081616,
+        "lng": 115.8027854290779
+    },
+    {
+        "suburb": "GREENWOOD",
+        "postcode": "6924",
+        "lat": -31.827220800081616,
+        "lng": 115.8027854290779
+    },
+    {
+        "suburb": "GREYS PLAIN",
+        "postcode": "6701",
+        "lat": -24.88712030135911,
+        "lng": 113.69339892761943
+    },
+    {
+        "suburb": "GUILDERTON",
+        "postcode": "6041",
+        "lat": -31.340347545013774,
+        "lng": 115.51255105288806
+    },
+    {
+        "suburb": "GUILDFORD",
+        "postcode": "6055",
+        "lat": -31.897405290548633,
+        "lng": 115.97493793826038
+    },
+    {
+        "suburb": "GUILDFORD",
+        "postcode": "6935",
+        "lat": -31.897405290548633,
+        "lng": 115.97493793826038
+    },
+    {
+        "suburb": "GWELUP",
+        "postcode": "6018",
+        "lat": -31.8714484406361,
+        "lng": 115.79484576432363
+    },
+    {
+        "suburb": "GWELUP DC",
+        "postcode": "6018",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "HACKETTS GULLY",
+        "postcode": "6076",
+        "lat": -31.982913013178756,
+        "lng": 116.11744047058566
+    },
+    {
+        "suburb": "HALLS CREEK",
+        "postcode": "6770",
+        "lat": -18.224476582265318,
+        "lng": 127.67319882953338
+    },
+    {
+        "suburb": "HAMERSLEY",
+        "postcode": "6022",
+        "lat": -31.850961339136244,
+        "lng": 115.81252565609796
+    },
+    {
+        "suburb": "HAMERSLEY RANGE",
+        "postcode": "6716",
+        "lat": -22.09178624848415,
+        "lng": 116.84411306880186
+    },
+    {
+        "suburb": "HAMILTON HILL",
+        "postcode": "6163",
+        "lat": -32.08450810418627,
+        "lng": 115.7794943737916
+    },
+    {
+        "suburb": "HAMILTON HILL",
+        "postcode": "6963",
+        "lat": -32.08450810418627,
+        "lng": 115.7794943737916
+    },
+    {
+        "suburb": "HAMMOND PARK",
+        "postcode": "6164",
+        "lat": -32.171322242514165,
+        "lng": 115.84664929517021
+    },
+    {
+        "suburb": "HARRISDALE",
+        "postcode": "6112",
+        "lat": -32.117518050131196,
+        "lng": 115.93239649855538
+    },
+    {
+        "suburb": "HAYNES",
+        "postcode": "6112",
+        "lat": -32.15509640077692,
+        "lng": 115.97507347837339
+    },
+    {
+        "suburb": "HAZELMERE",
+        "postcode": "6055",
+        "lat": -31.91267771514887,
+        "lng": 116.00538804980266
+    },
+    {
+        "suburb": "HEATHRIDGE",
+        "postcode": "6027",
+        "lat": -31.76320972511406,
+        "lng": 115.76033755544739
+    },
+    {
+        "suburb": "HELENA VALLEY",
+        "postcode": "6056",
+        "lat": -31.9192057474045,
+        "lng": 116.03957571069562
+    },
+    {
+        "suburb": "HENDERSON",
+        "postcode": "6166",
+        "lat": -32.158521282052,
+        "lng": 115.7789402830388
+    },
+    {
+        "suburb": "HENLEY BROOK",
+        "postcode": "6055",
+        "lat": -31.809254478621906,
+        "lng": 115.98857124680981
+    },
+    {
+        "suburb": "HERDSMAN",
+        "postcode": "6017",
+        "lat": -31.920098243488198,
+        "lng": 115.80554018050653
+    },
+    {
+        "suburb": "HERNE HILL",
+        "postcode": "6056",
+        "lat": -31.83012636654645,
+        "lng": 116.03137387649194
+    },
+    {
+        "suburb": "HIGH WYCOMBE",
+        "postcode": "6057",
+        "lat": -31.9452602827406,
+        "lng": 116.00112659258298
+    },
+    {
+        "suburb": "HIGHGATE",
+        "postcode": "6003",
+        "lat": -31.94004725239367,
+        "lng": 115.87049289696303
+    },
+    {
+        "suburb": "HILBERT",
+        "postcode": "6112",
+        "lat": -32.17450033730781,
+        "lng": 115.978610552055
+    },
+    {
+        "suburb": "HILLARYS",
+        "postcode": "6025",
+        "lat": -31.80892584067289,
+        "lng": 115.7435795372349
+    },
+    {
+        "suburb": "HILLARYS",
+        "postcode": "6923",
+        "lat": -31.80892584067289,
+        "lng": 115.7435795372349
+    },
+    {
+        "suburb": "HILLMAN",
+        "postcode": "6168",
+        "lat": -32.28135028802875,
+        "lng": 115.76866190100372
+    },
+    {
+        "suburb": "HILTON",
+        "postcode": "6163",
+        "lat": -32.068035319813276,
+        "lng": 115.78575390548814
+    },
+    {
+        "suburb": "HOCKING",
+        "postcode": "6065",
+        "lat": -31.770103660886623,
+        "lng": 115.81832513534727
+    },
+    {
+        "suburb": "HOME ISLAND COCOS (KEELING) ISLANDS",
+        "postcode": "6799",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "HOPE VALLEY",
+        "postcode": "6165",
+        "lat": -32.1969639646992,
+        "lng": 115.8117358579831
+    },
+    {
+        "suburb": "HOPELAND",
+        "postcode": "6125",
+        "lat": -32.381567939493216,
+        "lng": 115.88765901011433
+    },
+    {
+        "suburb": "HOVEA",
+        "postcode": "6071",
+        "lat": -31.87499892673526,
+        "lng": 116.09756033244241
+    },
+    {
+        "suburb": "HUNTINGDALE",
+        "postcode": "6110",
+        "lat": -32.083115576699754,
+        "lng": 115.96616049524312
+    },
+    {
+        "suburb": "ILUKA",
+        "postcode": "6028",
+        "lat": -31.735737608948337,
+        "lng": 115.72911619365115
+    },
+    {
+        "suburb": "INDEE",
+        "postcode": "6721",
+        "lat": -20.890884670633355,
+        "lng": 118.47349839607267
+    },
+    {
+        "suburb": "INGGARDA",
+        "postcode": "6701",
+        "lat": -24.971334173530906,
+        "lng": 114.23592026722798
+    },
+    {
+        "suburb": "INGLEWOOD",
+        "postcode": "6052",
+        "lat": -31.9166116297077,
+        "lng": 115.87988829203795
+    },
+    {
+        "suburb": "INGLEWOOD",
+        "postcode": "6932",
+        "lat": -31.9166116297077,
+        "lng": 115.87988829203795
+    },
+    {
+        "suburb": "INNALOO",
+        "postcode": "6018",
+        "lat": -31.89285852399528,
+        "lng": 115.7957515283992
+    },
+    {
+        "suburb": "INNALOO",
+        "postcode": "6918",
+        "lat": -31.89285852399528,
+        "lng": 115.7957515283992
+    },
+    {
+        "suburb": "INNAWANGA",
+        "postcode": "6751",
+        "lat": -23.39103731313383,
+        "lng": 116.63109045155335
+    },
+    {
+        "suburb": "JANDABUP",
+        "postcode": "6077",
+        "lat": -31.739058187334464,
+        "lng": 115.85695929861473
+    },
+    {
+        "suburb": "JANDAKOT",
+        "postcode": "6164",
+        "lat": -32.1023851155849,
+        "lng": 115.87234028229072
+    },
+    {
+        "suburb": "JANE BROOK",
+        "postcode": "6056",
+        "lat": -31.858806357823592,
+        "lng": 116.06246239035141
+    },
+    {
+        "suburb": "JARRAHDALE",
+        "postcode": "6124",
+        "lat": -32.35665568781307,
+        "lng": 116.14341208934363
+    },
+    {
+        "suburb": "JINDALEE",
+        "postcode": "6036",
+        "lat": -31.641702321639272,
+        "lng": 115.6848311673417
+    },
+    {
+        "suburb": "JOLIMONT",
+        "postcode": "6014",
+        "lat": -31.945849784410658,
+        "lng": 115.8092815344098
+    },
+    {
+        "suburb": "JOONDALUP",
+        "postcode": "6027",
+        "lat": -31.73766377544166,
+        "lng": 115.77030675123723
+    },
+    {
+        "suburb": "JOONDALUP DC",
+        "postcode": "6027",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "JOONDALUP DC",
+        "postcode": "6919",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "JOONDANNA",
+        "postcode": "6060",
+        "lat": -31.910073973870183,
+        "lng": 115.837290085941
+    },
+    {
+        "suburb": "JUNA DOWNS",
+        "postcode": "6751",
+        "lat": -22.67716542576972,
+        "lng": 118.7642136065884
+    },
+    {
+        "suburb": "KALAMUNDA",
+        "postcode": "6076",
+        "lat": -31.975970356976795,
+        "lng": 116.0547441517567
+    },
+    {
+        "suburb": "KALAMUNDA",
+        "postcode": "6926",
+        "lat": -31.975970356976795,
+        "lng": 116.0547441517567
+    },
+    {
+        "suburb": "KALLAROO",
+        "postcode": "6025",
+        "lat": -31.79074847808903,
+        "lng": 115.74424452695405
+    },
+    {
+        "suburb": "KALUMBURU",
+        "postcode": "6740",
+        "lat": -14.29450582991269,
+        "lng": 126.64128718144163
+    },
+    {
+        "suburb": "KARAKIN",
+        "postcode": "6044",
+        "lat": -31.057681457088268,
+        "lng": 115.46577171428109
+    },
+    {
+        "suburb": "KARAWARA",
+        "postcode": "6152",
+        "lat": -32.00860631915979,
+        "lng": 115.88127756832901
+    },
+    {
+        "suburb": "KARDINYA",
+        "postcode": "6163",
+        "lat": -32.06557237001626,
+        "lng": 115.81485379768351
+    },
+    {
+        "suburb": "KARIJINI",
+        "postcode": "6751",
+        "lat": -22.729349600866843,
+        "lng": 118.27522740892493
+    },
+    {
+        "suburb": "KARRAGULLEN",
+        "postcode": "6111",
+        "lat": -32.10256534538414,
+        "lng": 116.13850852581957
+    },
+    {
+        "suburb": "KARRAKATTA",
+        "postcode": "6010",
+        "lat": -31.967718844275904,
+        "lng": 115.79801383912054
+    },
+    {
+        "suburb": "KARRAKUP",
+        "postcode": "6122",
+        "lat": -32.253799859640246,
+        "lng": 116.06843817092653
+    },
+    {
+        "suburb": "KARRATHA",
+        "postcode": "6714",
+        "lat": -20.73533655018781,
+        "lng": 116.84581376598585
+    },
+    {
+        "suburb": "KARRATHA INDUSTRIAL ESTATE",
+        "postcode": "6714",
+        "lat": -20.76130598830566,
+        "lng": 116.87934573818404
+    },
+    {
+        "suburb": "KARRINYUP",
+        "postcode": "6018",
+        "lat": -31.87220807016247,
+        "lng": 115.77690285475877
+    },
+    {
+        "suburb": "KARRINYUP",
+        "postcode": "6921",
+        "lat": -31.87220807016247,
+        "lng": 115.77690285475877
+    },
+    {
+        "suburb": "KELMSCOTT",
+        "postcode": "6111",
+        "lat": -32.11511992232543,
+        "lng": 116.0254822127263
+    },
+    {
+        "suburb": "KELMSCOTT",
+        "postcode": "6991",
+        "lat": -32.11511992232543,
+        "lng": 116.0254822127263
+    },
+    {
+        "suburb": "KELMSCOTT DC",
+        "postcode": "6111",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "KELMSCOTT DC",
+        "postcode": "6997",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "KENNEDY RANGE",
+        "postcode": "6701",
+        "lat": -24.55746014783075,
+        "lng": 114.81042344838161
+    },
+    {
+        "suburb": "KENSINGTON",
+        "postcode": "6151",
+        "lat": -31.9857655155133,
+        "lng": 115.88424449045867
+    },
+    {
+        "suburb": "KENWICK",
+        "postcode": "6107",
+        "lat": -32.02712439871232,
+        "lng": 115.98113486818417
+    },
+    {
+        "suburb": "KEWDALE",
+        "postcode": "6105",
+        "lat": -31.97886399781548,
+        "lng": 115.951828907356
+    },
+    {
+        "suburb": "KEYSBROOK",
+        "postcode": "6126",
+        "lat": -32.43700015043093,
+        "lng": 116.03071665175172
+    },
+    {
+        "suburb": "KIARA",
+        "postcode": "6054",
+        "lat": -31.88158449719904,
+        "lng": 115.93897578200352
+    },
+    {
+        "suburb": "KIMBOLTON",
+        "postcode": "6728",
+        "lat": -16.616948772190124,
+        "lng": 124.18021705608314
+    },
+    {
+        "suburb": "KING LEOPOLD RANGES",
+        "postcode": "6728",
+        "lat": -17.01517515536185,
+        "lng": 125.39868528524308
+    },
+    {
+        "suburb": "KINGS PARK",
+        "postcode": "6005",
+        "lat": -31.962486401268468,
+        "lng": 115.83157928863476
+    },
+    {
+        "suburb": "KINGSFORD",
+        "postcode": "6701",
+        "lat": -24.863131317747584,
+        "lng": 113.69558712340098
+    },
+    {
+        "suburb": "KINGSLEY",
+        "postcode": "6026",
+        "lat": -31.810468014351088,
+        "lng": 115.8010134996322
+    },
+    {
+        "suburb": "KINGSWAY",
+        "postcode": "6065",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "KINROSS",
+        "postcode": "6028",
+        "lat": -31.71797472677071,
+        "lng": 115.7383045843966
+    },
+    {
+        "suburb": "KIWIRRKURRA",
+        "postcode": "0872",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "KOOLAN ISLAND",
+        "postcode": "6733",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "KOONDOOLA",
+        "postcode": "6064",
+        "lat": -31.841375549652522,
+        "lng": 115.8665911860643
+    },
+    {
+        "suburb": "KOONGAMIA",
+        "postcode": "6056",
+        "lat": -31.906556451021203,
+        "lng": 116.04227668049113
+    },
+    {
+        "suburb": "KUMARINA",
+        "postcode": "6642",
+        "lat": -25.073082862606835,
+        "lng": 119.57858473835219
+    },
+    {
+        "suburb": "KUNUNURRA",
+        "postcode": "6743",
+        "lat": -15.578712921221458,
+        "lng": 128.84613869563609
+    },
+    {
+        "suburb": "KWINANA",
+        "postcode": "6966",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "KWINANA BEACH",
+        "postcode": "6167",
+        "lat": -32.22911660828394,
+        "lng": 115.77609409536521
+    },
+    {
+        "suburb": "KWINANA TOWN CENTRE",
+        "postcode": "6167",
+        "lat": -32.24797949644081,
+        "lng": 115.81459189877792
+    },
+    {
+        "suburb": "LAGRANGE",
+        "postcode": "6725",
+        "lat": -18.711781284129472,
+        "lng": 121.97807257912099
+    },
+    {
+        "suburb": "LAKE ARGYLE",
+        "postcode": "6743",
+        "lat": -16.366581406097524,
+        "lng": 128.65586338784078
+    },
+    {
+        "suburb": "LAKE AUSTIN",
+        "postcode": "6640",
+        "lat": -27.562061430662347,
+        "lng": 117.99228223986054
+    },
+    {
+        "suburb": "LAKE CARNEGIE",
+        "postcode": "6646",
+        "lat": -26.176459183030097,
+        "lng": 122.28781714148452
+    },
+    {
+        "suburb": "LANCELIN",
+        "postcode": "6044",
+        "lat": -31.023704223864456,
+        "lng": 115.35598444456966
+    },
+    {
+        "suburb": "LANDSDALE",
+        "postcode": "6065",
+        "lat": -31.807609837413807,
+        "lng": 115.86241826695475
+    },
+    {
+        "suburb": "LANGFORD",
+        "postcode": "6147",
+        "lat": -32.041107521943566,
+        "lng": 115.94147895176553
+    },
+    {
+        "suburb": "LATHLAIN",
+        "postcode": "6100",
+        "lat": -31.96752655895912,
+        "lng": 115.90636652256454
+    },
+    {
+        "suburb": "LEARMONTH",
+        "postcode": "6707",
+        "lat": -22.196818112723054,
+        "lng": 114.02730372118319
+    },
+    {
+        "suburb": "LEDA",
+        "postcode": "6170",
+        "lat": -32.267580201638935,
+        "lng": 115.79925433968361
+    },
+    {
+        "suburb": "LEDGE POINT",
+        "postcode": "6043",
+        "lat": -31.101098693433496,
+        "lng": 115.39183131633891
+    },
+    {
+        "suburb": "LEEDERVILLE",
+        "postcode": "6007",
+        "lat": -31.93198180095653,
+        "lng": 115.84100721785049
+    },
+    {
+        "suburb": "LEEDERVILLE",
+        "postcode": "6902",
+        "lat": -31.93198180095653,
+        "lng": 115.84100721785049
+    },
+    {
+        "suburb": "LEEDERVILLE",
+        "postcode": "6903",
+        "lat": -31.93198180095653,
+        "lng": 115.84100721785049
+    },
+    {
+        "suburb": "LEEMING",
+        "postcode": "6149",
+        "lat": -32.07576425822097,
+        "lng": 115.86728245384373
+    },
+    {
+        "suburb": "LESLEY",
+        "postcode": "6111",
+        "lat": -32.136198239505525,
+        "lng": 116.24295996297278
+    },
+    {
+        "suburb": "LESMURDIE",
+        "postcode": "6076",
+        "lat": -32.007543427938884,
+        "lng": 116.04526992889683
+    },
+    {
+        "suburb": "LEXIA",
+        "postcode": "6079",
+        "lat": -31.778903742443724,
+        "lng": 115.91933954517346
+    },
+    {
+        "suburb": "LITTLE SANDY DESERT",
+        "postcode": "6646",
+        "lat": -24.771500809822466,
+        "lng": 122.74156797154043
+    },
+    {
+        "suburb": "LOCKRIDGE",
+        "postcode": "6054",
+        "lat": -31.881901654307175,
+        "lng": 115.95033821285413
+    },
+    {
+        "suburb": "LOWER CHITTERING",
+        "postcode": "6084",
+        "lat": -31.55552856904867,
+        "lng": 116.09323017327856
+    },
+    {
+        "suburb": "LYNDON",
+        "postcode": "6701",
+        "lat": -23.326522693687917,
+        "lng": 114.51251344369689
+    },
+    {
+        "suburb": "LYNWOOD",
+        "postcode": "6147",
+        "lat": -32.04012442316884,
+        "lng": 115.92884747778872
+    },
+    {
+        "suburb": "MACLEOD",
+        "postcode": "6701",
+        "lat": -24.20935139551867,
+        "lng": 113.71560087949999
+    },
+    {
+        "suburb": "MADDINGTON",
+        "postcode": "6109",
+        "lat": -32.0476277102593,
+        "lng": 115.99581362736689
+    },
+    {
+        "suburb": "MADDINGTON",
+        "postcode": "6989",
+        "lat": -32.0476277102593,
+        "lng": 115.99581362736689
+    },
+    {
+        "suburb": "MADELEY",
+        "postcode": "6065",
+        "lat": -31.810918151719356,
+        "lng": 115.82779856082571
+    },
+    {
+        "suburb": "MAHOGANY CREEK",
+        "postcode": "6072",
+        "lat": -31.916444616627494,
+        "lng": 116.1320247452034
+    },
+    {
+        "suburb": "MAIDA VALE",
+        "postcode": "6057",
+        "lat": -31.956350485201114,
+        "lng": 116.02295281815721
+    },
+    {
+        "suburb": "MAITLAND",
+        "postcode": "6714",
+        "lat": -21.04392316894555,
+        "lng": 116.69338491354046
+    },
+    {
+        "suburb": "MALAGA",
+        "postcode": "6090",
+        "lat": -31.858542143258322,
+        "lng": 115.89436307732647
+    },
+    {
+        "suburb": "MALAGA",
+        "postcode": "6944",
+        "lat": -31.858542143258322,
+        "lng": 115.89436307732647
+    },
+    {
+        "suburb": "MALAGA DC",
+        "postcode": "6945",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "MANDOGALUP",
+        "postcode": "6167",
+        "lat": -32.19294996778701,
+        "lng": 115.84344986242425
+    },
+    {
+        "suburb": "MANNING",
+        "postcode": "6152",
+        "lat": -32.0133636153844,
+        "lng": 115.86987769359878
+    },
+    {
+        "suburb": "MARANGAROO",
+        "postcode": "6064",
+        "lat": -31.82761962959681,
+        "lng": 115.83757253848852
+    },
+    {
+        "suburb": "MARBLE BAR",
+        "postcode": "6760",
+        "lat": -21.15542641349056,
+        "lng": 119.67896005451308
+    },
+    {
+        "suburb": "MARDELLA",
+        "postcode": "6125",
+        "lat": -32.32279550966293,
+        "lng": 115.93318368513994
+    },
+    {
+        "suburb": "MARDIE",
+        "postcode": "6714",
+        "lat": -21.180366422799082,
+        "lng": 116.14227861635413
+    },
+    {
+        "suburb": "MARIGINIUP",
+        "postcode": "6078",
+        "lat": -31.711048130003153,
+        "lng": 115.84322971142838
+    },
+    {
+        "suburb": "MARMION",
+        "postcode": "6020",
+        "lat": -31.841506701452445,
+        "lng": 115.75696489663855
+    },
+    {
+        "suburb": "MARTIN",
+        "postcode": "6110",
+        "lat": -32.07541123061682,
+        "lng": 116.0456256984074
+    },
+    {
+        "suburb": "MASSEY BAY",
+        "postcode": "6701",
+        "lat": -24.90536096499702,
+        "lng": 113.67225488953302
+    },
+    {
+        "suburb": "MAYLANDS",
+        "postcode": "6051",
+        "lat": -31.936915375744384,
+        "lng": 115.90017385170249
+    },
+    {
+        "suburb": "MAYLANDS",
+        "postcode": "6931",
+        "lat": -31.936915375744384,
+        "lng": 115.90017385170249
+    },
+    {
+        "suburb": "MCBEATH",
+        "postcode": "6770",
+        "lat": -18.242880648593964,
+        "lng": 127.68673994892399
+    },
+    {
+        "suburb": "MEDA",
+        "postcode": "6728",
+        "lat": -17.319243117158287,
+        "lng": 124.0542693526265
+    },
+    {
+        "suburb": "MEDINA",
+        "postcode": "6167",
+        "lat": -32.23403492881151,
+        "lng": 115.79900955039318
+    },
+    {
+        "suburb": "MEEKATHARRA",
+        "postcode": "6642",
+        "lat": -26.445577513133752,
+        "lng": 118.71174364179448
+    },
+    {
+        "suburb": "MELALEUCA",
+        "postcode": "6079",
+        "lat": -31.715327932061985,
+        "lng": 115.91981247707808
+    },
+    {
+        "suburb": "MELVILLE",
+        "postcode": "6156",
+        "lat": -32.04046341543059,
+        "lng": 115.80130688682067
+    },
+    {
+        "suburb": "MELVILLE",
+        "postcode": "6956",
+        "lat": -32.04046341543059,
+        "lng": 115.80130688682067
+    },
+    {
+        "suburb": "MENORA",
+        "postcode": "6050",
+        "lat": -31.918812780472443,
+        "lng": 115.86221090706323
+    },
+    {
+        "suburb": "MERRIWA",
+        "postcode": "6030",
+        "lat": -31.66492494700516,
+        "lng": 115.71273911651579
+    },
+    {
+        "suburb": "MIDDLE SWAN",
+        "postcode": "6056",
+        "lat": -31.858313510450103,
+        "lng": 116.02058459560439
+    },
+    {
+        "suburb": "MIDLAND",
+        "postcode": "6056",
+        "lat": -31.889527904930144,
+        "lng": 116.01053181057131
+    },
+    {
+        "suburb": "MIDLAND DC",
+        "postcode": "6936",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "MIDVALE",
+        "postcode": "6056",
+        "lat": -31.88520728037823,
+        "lng": 116.02953016203287
+    },
+    {
+        "suburb": "MILLARS WELL",
+        "postcode": "6714",
+        "lat": -20.734689101413547,
+        "lng": 116.8175782911978
+    },
+    {
+        "suburb": "MILLENDON",
+        "postcode": "6056",
+        "lat": -31.80772389050892,
+        "lng": 116.03675491225367
+    },
+    {
+        "suburb": "MILLSTREAM",
+        "postcode": "6716",
+        "lat": -21.394997013893175,
+        "lng": 117.38784948679186
+    },
+    {
+        "suburb": "MINDARIE",
+        "postcode": "6030",
+        "lat": -31.693307136341776,
+        "lng": 115.70915406033411
+    },
+    {
+        "suburb": "MINILYA",
+        "postcode": "6701",
+        "lat": -23.858799559752693,
+        "lng": 114.62859583590114
+    },
+    {
+        "suburb": "MINYIRR",
+        "postcode": "6725",
+        "lat": -17.984022709912338,
+        "lng": 122.20490603423153
+    },
+    {
+        "suburb": "MIRRABOOKA",
+        "postcode": "6061",
+        "lat": -31.85960457396136,
+        "lng": 115.86594634852855
+    },
+    {
+        "suburb": "MIRRABOOKA",
+        "postcode": "6941",
+        "lat": -31.85960457396136,
+        "lng": 115.86594634852855
+    },
+    {
+        "suburb": "MITCHELL PLATEAU",
+        "postcode": "6740",
+        "lat": -14.705467232196947,
+        "lng": 125.88966364214996
+    },
+    {
+        "suburb": "MORANGUP",
+        "postcode": "6083",
+        "lat": -31.64045025442142,
+        "lng": 116.32812818022693
+    },
+    {
+        "suburb": "MORGANTOWN",
+        "postcode": "6701",
+        "lat": -24.87148084125329,
+        "lng": 113.65804492012043
+    },
+    {
+        "suburb": "MORLEY",
+        "postcode": "6062",
+        "lat": -31.887593434338033,
+        "lng": 115.91016413213099
+    },
+    {
+        "suburb": "MORLEY",
+        "postcode": "6943",
+        "lat": -31.887593434338033,
+        "lng": 115.91016413213099
+    },
+    {
+        "suburb": "MOSMAN PARK",
+        "postcode": "6012",
+        "lat": -32.014838419597424,
+        "lng": 115.76554986322851
+    },
+    {
+        "suburb": "MOSMAN PARK",
+        "postcode": "6912",
+        "lat": -32.014838419597424,
+        "lng": 115.76554986322851
+    },
+    {
+        "suburb": "MOUNT ANKETELL",
+        "postcode": "6714",
+        "lat": -20.715946258339624,
+        "lng": 117.00177235561635
+    },
+    {
+        "suburb": "MOUNT CLAREMONT",
+        "postcode": "6010",
+        "lat": -31.960291876457703,
+        "lng": 115.78033986868562
+    },
+    {
+        "suburb": "MOUNT HARDMAN",
+        "postcode": "6765",
+        "lat": -17.95657993186932,
+        "lng": 124.87617718262273
+    },
+    {
+        "suburb": "MOUNT HAWTHORN",
+        "postcode": "6016",
+        "lat": -31.920066956903835,
+        "lng": 115.8350810749487
+    },
+    {
+        "suburb": "MOUNT HAWTHORN",
+        "postcode": "6915",
+        "lat": -31.920066956903835,
+        "lng": 115.8350810749487
+    },
+    {
+        "suburb": "MOUNT HELENA",
+        "postcode": "6082",
+        "lat": -31.85814526547454,
+        "lng": 116.20950178134453
+    },
+    {
+        "suburb": "MOUNT LAWLEY",
+        "postcode": "6050",
+        "lat": -31.93008834710245,
+        "lng": 115.87461833606203
+    },
+    {
+        "suburb": "MOUNT LAWLEY",
+        "postcode": "6929",
+        "lat": -31.93008834710245,
+        "lng": 115.87461833606203
+    },
+    {
+        "suburb": "MOUNT MAGNET",
+        "postcode": "6638",
+        "lat": -28.06708005409254,
+        "lng": 117.86958334164414
+    },
+    {
+        "suburb": "MOUNT NASURA",
+        "postcode": "6112",
+        "lat": -32.13761951367625,
+        "lng": 116.02479949272933
+    },
+    {
+        "suburb": "MOUNT PLEASANT",
+        "postcode": "6153",
+        "lat": -32.02820333584618,
+        "lng": 115.84895427734351
+    },
+    {
+        "suburb": "MOUNT RICHON",
+        "postcode": "6112",
+        "lat": -32.1638190338518,
+        "lng": 116.02106762641728
+    },
+    {
+        "suburb": "MOUNT SHEILA",
+        "postcode": "6751",
+        "lat": -22.41751864856821,
+        "lng": 117.66987479011406
+    },
+    {
+        "suburb": "MUELLER RANGES",
+        "postcode": "6770",
+        "lat": -18.408753048945133,
+        "lng": 126.74239866886722
+    },
+    {
+        "suburb": "MULATAGA",
+        "postcode": "6714",
+        "lat": -20.7393751742484,
+        "lng": 116.87747610844502
+    },
+    {
+        "suburb": "MULGA DOWNS",
+        "postcode": "6751",
+        "lat": -22.210138635297433,
+        "lng": 118.83634135836758
+    },
+    {
+        "suburb": "MULLALOO",
+        "postcode": "6027",
+        "lat": -31.77836848227129,
+        "lng": 115.74263235826064
+    },
+    {
+        "suburb": "MULLEWA",
+        "postcode": "6630",
+        "lat": -28.49499197542023,
+        "lng": 115.55005454795695
+    },
+    {
+        "suburb": "MUNDABULLANGANA",
+        "postcode": "6721",
+        "lat": -20.60153269247251,
+        "lng": 118.17761437390737
+    },
+    {
+        "suburb": "MUNDARING",
+        "postcode": "6073",
+        "lat": -31.92324378567929,
+        "lng": 116.16366577397096
+    },
+    {
+        "suburb": "MUNDARING DC",
+        "postcode": "6073",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "MUNDIJONG",
+        "postcode": "6123",
+        "lat": -32.2876811081603,
+        "lng": 115.97875842564179
+    },
+    {
+        "suburb": "MUNSTER",
+        "postcode": "6166",
+        "lat": -32.14695561248595,
+        "lng": 115.80501554147371
+    },
+    {
+        "suburb": "MURCHISON",
+        "postcode": "6630",
+        "lat": -26.502636301212846,
+        "lng": 116.02414679774768
+    },
+    {
+        "suburb": "MURDOCH",
+        "postcode": "6150",
+        "lat": -32.0698573628535,
+        "lng": 115.83757141694622
+    },
+    {
+        "suburb": "MYAREE",
+        "postcode": "6154",
+        "lat": -32.04153091145499,
+        "lng": 115.815604316844
+    },
+    {
+        "suburb": "MYAREE BC",
+        "postcode": "6960",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "NANUTARRA",
+        "postcode": "6751",
+        "lat": -22.68815123496519,
+        "lng": 116.2069066393575
+    },
+    {
+        "suburb": "NAVAL BASE",
+        "postcode": "6165",
+        "lat": -32.19520254130654,
+        "lng": 115.78155697414158
+    },
+    {
+        "suburb": "NEDLANDS",
+        "postcode": "6009",
+        "lat": -31.979844850874407,
+        "lng": 115.8056744385634
+    },
+    {
+        "suburb": "NEDLANDS",
+        "postcode": "6907",
+        "lat": -31.979844850874407,
+        "lng": 115.8056744385634
+    },
+    {
+        "suburb": "NEDLANDS",
+        "postcode": "6909",
+        "lat": -31.979844850874407,
+        "lng": 115.8056744385634
+    },
+    {
+        "suburb": "NEDLANDS DC",
+        "postcode": "6009",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "NEERABUP",
+        "postcode": "6031",
+        "lat": -31.684173808342297,
+        "lng": 115.76903757128721
+    },
+    {
+        "suburb": "NERRAMYNE",
+        "postcode": "6630",
+        "lat": -27.72191196013013,
+        "lng": 115.48861534634295
+    },
+    {
+        "suburb": "NEWMAN",
+        "postcode": "6753",
+        "lat": -22.959361529483658,
+        "lng": 119.92997134383602
+    },
+    {
+        "suburb": "NICKOL",
+        "postcode": "6714",
+        "lat": -20.73952824658168,
+        "lng": 116.8026959258719
+    },
+    {
+        "suburb": "NILGEN",
+        "postcode": "6044",
+        "lat": -30.950486315855,
+        "lng": 115.40572660080589
+    },
+    {
+        "suburb": "NINGALOO",
+        "postcode": "6701",
+        "lat": -22.6916672172924,
+        "lng": 113.78170488930103
+    },
+    {
+        "suburb": "NOLLAMARA",
+        "postcode": "6061",
+        "lat": -31.880160127489592,
+        "lng": 115.84544807370435
+    },
+    {
+        "suburb": "NORANDA",
+        "postcode": "6062",
+        "lat": -31.873312766369956,
+        "lng": 115.89899333971827
+    },
+    {
+        "suburb": "NORTH BEACH",
+        "postcode": "6020",
+        "lat": -31.860536350770673,
+        "lng": 115.75916247437306
+    },
+    {
+        "suburb": "NORTH BEACH",
+        "postcode": "6920",
+        "lat": -31.860536350770673,
+        "lng": 115.75916247437306
+    },
+    {
+        "suburb": "NORTH COOGEE",
+        "postcode": "6163",
+        "lat": -32.09298685159102,
+        "lng": 115.7594000417484
+    },
+    {
+        "suburb": "NORTH FREMANTLE",
+        "postcode": "6159",
+        "lat": -32.037628428295996,
+        "lng": 115.74682065831286
+    },
+    {
+        "suburb": "NORTH LAKE",
+        "postcode": "6163",
+        "lat": -32.080593077922344,
+        "lng": 115.83182036468867
+    },
+    {
+        "suburb": "NORTH PERTH",
+        "postcode": "6006",
+        "lat": -31.927097319631198,
+        "lng": 115.85304084115391
+    },
+    {
+        "suburb": "NORTH PERTH",
+        "postcode": "6906",
+        "lat": -31.927097319631198,
+        "lng": 115.85304084115391
+    },
+    {
+        "suburb": "NORTH PLANTATIONS",
+        "postcode": "6701",
+        "lat": -24.835298679806574,
+        "lng": 113.72447129057352
+    },
+    {
+        "suburb": "NORTH WEST CAPE",
+        "postcode": "6707",
+        "lat": -21.916484914559618,
+        "lng": 114.07670898535412
+    },
+    {
+        "suburb": "NORTHBRIDGE",
+        "postcode": "6003",
+        "lat": -31.946123918989514,
+        "lng": 115.8555771674447
+    },
+    {
+        "suburb": "NORTHBRIDGE",
+        "postcode": "6865",
+        "lat": -31.946123918989514,
+        "lng": 115.8555771674447
+    },
+    {
+        "suburb": "NORTHLANDS PO",
+        "postcode": "6905",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "NOWERGUP",
+        "postcode": "6032",
+        "lat": -31.638603056649277,
+        "lng": 115.75720100905713
+    },
+    {
+        "suburb": "NULLAGINE",
+        "postcode": "6758",
+        "lat": -21.97222790133914,
+        "lng": 120.21599391484277
+    },
+    {
+        "suburb": "NUNIERRA",
+        "postcode": "6630",
+        "lat": -28.162526219989104,
+        "lng": 115.60506625026008
+    },
+    {
+        "suburb": "O'CONNOR",
+        "postcode": "6163",
+        "lat": -32.05957148250533,
+        "lng": 115.79238224143047
+    },
+    {
+        "suburb": "OAKFORD",
+        "postcode": "6121",
+        "lat": -32.210549480300756,
+        "lng": 115.92923250640375
+    },
+    {
+        "suburb": "OCEAN REEF",
+        "postcode": "6027",
+        "lat": -31.758699854100843,
+        "lng": 115.7359494773549
+    },
+    {
+        "suburb": "OLDBURY",
+        "postcode": "6121",
+        "lat": -32.26570400148784,
+        "lng": 115.9183515992718
+    },
+    {
+        "suburb": "ONSLOW",
+        "postcode": "6710",
+        "lat": -21.679139399161578,
+        "lng": 115.14894523302044
+    },
+    {
+        "suburb": "OOMBULGURRI",
+        "postcode": "6740",
+        "lat": -14.872904615419994,
+        "lng": 127.65847626265403
+    },
+    {
+        "suburb": "ORANGE GROVE",
+        "postcode": "6109",
+        "lat": -32.03866395620092,
+        "lng": 116.02899598581564
+    },
+    {
+        "suburb": "ORD RIVER",
+        "postcode": "6770",
+        "lat": -17.73241609931084,
+        "lng": 128.19221521096944
+    },
+    {
+        "suburb": "ORELIA",
+        "postcode": "6167",
+        "lat": -32.23320303295358,
+        "lng": 115.82349326029939
+    },
+    {
+        "suburb": "OSBORNE PARK",
+        "postcode": "6017",
+        "lat": -31.904882605127266,
+        "lng": 115.81726651795196
+    },
+    {
+        "suburb": "OSBORNE PARK",
+        "postcode": "6916",
+        "lat": -31.904882605127266,
+        "lng": 115.81726651795196
+    },
+    {
+        "suburb": "OSBORNE PARK",
+        "postcode": "6917",
+        "lat": -31.904882605127266,
+        "lng": 115.81726651795196
+    },
+    {
+        "suburb": "OSBORNE PARK DC",
+        "postcode": "6017",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "OSBORNE PARK DC",
+        "postcode": "6916",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "PADBURY",
+        "postcode": "6025",
+        "lat": -31.806468683337656,
+        "lng": 115.76933231302534
+    },
+    {
+        "suburb": "PALMYRA",
+        "postcode": "6157",
+        "lat": -32.04495354632105,
+        "lng": 115.7858969637043
+    },
+    {
+        "suburb": "PALMYRA",
+        "postcode": "6957",
+        "lat": -32.04495354632105,
+        "lng": 115.7858969637043
+    },
+    {
+        "suburb": "PALMYRA DC",
+        "postcode": "6157",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "PALMYRA DC",
+        "postcode": "6961",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "PANNAWONICA",
+        "postcode": "6716",
+        "lat": -21.634839713196232,
+        "lng": 116.33568042031862
+    },
+    {
+        "suburb": "PARABURDOO",
+        "postcode": "6754",
+        "lat": -23.19278266230897,
+        "lng": 117.69382279672404
+    },
+    {
+        "suburb": "PARDOO",
+        "postcode": "6721",
+        "lat": -20.156660388824637,
+        "lng": 119.80594576644907
+    },
+    {
+        "suburb": "PARKERVILLE",
+        "postcode": "6081",
+        "lat": -31.86654317252929,
+        "lng": 116.13360373515877
+    },
+    {
+        "suburb": "PARKWOOD",
+        "postcode": "6147",
+        "lat": -32.04776977560583,
+        "lng": 115.91499569023058
+    },
+    {
+        "suburb": "PARMELIA",
+        "postcode": "6167",
+        "lat": -32.246702212576544,
+        "lng": 115.8274733653507
+    },
+    {
+        "suburb": "PAULLS VALLEY",
+        "postcode": "6076",
+        "lat": -31.957955959627462,
+        "lng": 116.12403969390138
+    },
+    {
+        "suburb": "PAYNESVILLE",
+        "postcode": "6638",
+        "lat": -27.995317236066,
+        "lng": 118.30811887590595
+    },
+    {
+        "suburb": "PEAK HILL",
+        "postcode": "6642",
+        "lat": -25.28844205319417,
+        "lng": 118.2881436003818
+    },
+    {
+        "suburb": "PEARSALL",
+        "postcode": "6065",
+        "lat": -31.78142456117781,
+        "lng": 115.81877841350577
+    },
+    {
+        "suburb": "PEEDAMULLA",
+        "postcode": "6710",
+        "lat": -21.729428163786185,
+        "lng": 115.4878766128218
+    },
+    {
+        "suburb": "PEGS CREEK",
+        "postcode": "6714",
+        "lat": -20.731047902880338,
+        "lng": 116.83436436193371
+    },
+    {
+        "suburb": "PEPPERMINT GROVE",
+        "postcode": "6011",
+        "lat": -31.99929928203669,
+        "lng": 115.76716190758731
+    },
+    {
+        "suburb": "PERON",
+        "postcode": "6168",
+        "lat": -32.27684359188734,
+        "lng": 115.70083552890414
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6000",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6001",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6837",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6838",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6839",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6840",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6841",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6842",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6843",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6844",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6845",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6846",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6847",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH",
+        "postcode": "6848",
+        "lat": -31.953933222437353,
+        "lng": 115.85824519114625
+    },
+    {
+        "suburb": "PERTH AIRPORT",
+        "postcode": "6105",
+        "lat": -31.944214180697195,
+        "lng": 115.97218647787972
+    },
+    {
+        "suburb": "PERTH BC",
+        "postcode": "6849",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "PERTH GPO",
+        "postcode": "6000",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "PERTH ST GEORGES TCE",
+        "postcode": "6831",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "PIARA WATERS",
+        "postcode": "6112",
+        "lat": -32.13349614160971,
+        "lng": 115.91644597349224
+    },
+    {
+        "suburb": "PICKERING BROOK",
+        "postcode": "6076",
+        "lat": -32.049488343207365,
+        "lng": 116.19472921622045
+    },
+    {
+        "suburb": "PIESSE BROOK",
+        "postcode": "6076",
+        "lat": -31.959793183444486,
+        "lng": 116.07617627987777
+    },
+    {
+        "suburb": "PINDAR",
+        "postcode": "6631",
+        "lat": -28.532450238325513,
+        "lng": 115.98399377685308
+    },
+    {
+        "suburb": "PINJAR",
+        "postcode": "6078",
+        "lat": -31.618346048453063,
+        "lng": 115.83077048089824
+    },
+    {
+        "suburb": "PIPPINGARRA",
+        "postcode": "6722",
+        "lat": -20.4502322765899,
+        "lng": 118.76065155304377
+    },
+    {
+        "suburb": "POINT SAMSON",
+        "postcode": "6720",
+        "lat": -20.58032482876906,
+        "lng": 117.243891265239
+    },
+    {
+        "suburb": "PORT HEDLAND",
+        "postcode": "6721",
+        "lat": -20.3422617485053,
+        "lng": 118.64275797136501
+    },
+    {
+        "suburb": "PORT KENNEDY",
+        "postcode": "6172",
+        "lat": -32.37221589237195,
+        "lng": 115.75381285306426
+    },
+    {
+        "suburb": "POSTANS",
+        "postcode": "6167",
+        "lat": -32.21896588711227,
+        "lng": 115.81222323188338
+    },
+    {
+        "suburb": "PRINCE REGENT RIVER",
+        "postcode": "6740",
+        "lat": -15.613787595373726,
+        "lng": 125.34068936178562
+    },
+    {
+        "suburb": "PURNULULU",
+        "postcode": "6770",
+        "lat": -17.44855492226262,
+        "lng": 128.54640682437042
+    },
+    {
+        "suburb": "QUEENS PARK",
+        "postcode": "6107",
+        "lat": -32.002964215960915,
+        "lng": 115.94621457427765
+    },
+    {
+        "suburb": "QUINNS ROCKS",
+        "postcode": "6030",
+        "lat": -31.665154819220582,
+        "lng": 115.69735818053807
+    },
+    {
+        "suburb": "RED HILL",
+        "postcode": "6056",
+        "lat": -31.827525026619345,
+        "lng": 116.07451826788842
+    },
+    {
+        "suburb": "REDBANK",
+        "postcode": "6721",
+        "lat": -20.33754650483176,
+        "lng": 118.6115984682931
+    },
+    {
+        "suburb": "REDCLIFFE",
+        "postcode": "6104",
+        "lat": -31.93845798477799,
+        "lng": 115.94650035928896
+    },
+    {
+        "suburb": "REEDY",
+        "postcode": "6640",
+        "lat": -27.230912826593457,
+        "lng": 118.32293573656995
+    },
+    {
+        "suburb": "RESERVOIR",
+        "postcode": "6076",
+        "lat": -31.99692896783131,
+        "lng": 116.18231428488048
+    },
+    {
+        "suburb": "RIDGEWOOD",
+        "postcode": "6030",
+        "lat": -31.6613385851254,
+        "lng": 115.72262398838079
+    },
+    {
+        "suburb": "RIVERTON",
+        "postcode": "6148",
+        "lat": -32.03460274750781,
+        "lng": 115.89898110020917
+    },
+    {
+        "suburb": "RIVERVALE",
+        "postcode": "6103",
+        "lat": -31.960516616528814,
+        "lng": 115.9159620582487
+    },
+    {
+        "suburb": "ROCKINGHAM",
+        "postcode": "6168",
+        "lat": -32.28223662939094,
+        "lng": 115.73901083367124
+    },
+    {
+        "suburb": "ROCKINGHAM",
+        "postcode": "6968",
+        "lat": -32.28223662939094,
+        "lng": 115.73901083367124
+    },
+    {
+        "suburb": "ROCKINGHAM BEACH",
+        "postcode": "6168",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "ROCKINGHAM BEACH",
+        "postcode": "6969",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "ROCKINGHAM DC",
+        "postcode": "6168",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "ROCKINGHAM DC",
+        "postcode": "6967",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "ROCKLEA",
+        "postcode": "6751",
+        "lat": -22.98672462379104,
+        "lng": 117.65702338790004
+    },
+    {
+        "suburb": "ROEBOURNE",
+        "postcode": "6718",
+        "lat": -20.754013212755204,
+        "lng": 117.1781855589864
+    },
+    {
+        "suburb": "ROEBUCK",
+        "postcode": "6725",
+        "lat": -18.028216074247297,
+        "lng": 122.61487804075128
+    },
+    {
+        "suburb": "ROLEYSTONE",
+        "postcode": "6111",
+        "lat": -32.12266243455501,
+        "lng": 116.084872295792
+    },
+    {
+        "suburb": "ROSSMOYNE",
+        "postcode": "6148",
+        "lat": -32.039590128812144,
+        "lng": 115.86792922593605
+    },
+    {
+        "suburb": "ROTTNEST ISLAND",
+        "postcode": "6161",
+        "lat": -32.006189127832656,
+        "lng": 115.51234893723546
+    },
+    {
+        "suburb": "ROYAL AUSTRALIAN NAVY WARSHIPS",
+        "postcode": "6958",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "SAFETY BAY",
+        "postcode": "6169",
+        "lat": -32.304525802885955,
+        "lng": 115.7303963299885
+    },
+    {
+        "suburb": "SALTER POINT",
+        "postcode": "6152",
+        "lat": -32.02366303770009,
+        "lng": 115.86581875771135
+    },
+    {
+        "suburb": "SAMSON",
+        "postcode": "6163",
+        "lat": -32.069938106625756,
+        "lng": 115.79768674528871
+    },
+    {
+        "suburb": "SANDSTONE",
+        "postcode": "6639",
+        "lat": -28.3359390569407,
+        "lng": 119.17311531267565
+    },
+    {
+        "suburb": "SAWYERS VALLEY",
+        "postcode": "6074",
+        "lat": -31.960471542167994,
+        "lng": 116.25215511432008
+    },
+    {
+        "suburb": "SCARBOROUGH",
+        "postcode": "6019",
+        "lat": -31.89648296135139,
+        "lng": 115.76540214599464
+    },
+    {
+        "suburb": "SCARBOROUGH",
+        "postcode": "6922",
+        "lat": -31.89648296135139,
+        "lng": 115.76540214599464
+    },
+    {
+        "suburb": "SEABIRD",
+        "postcode": "6042",
+        "lat": -31.264505915266163,
+        "lng": 115.45572537329782
+    },
+    {
+        "suburb": "SECRET HARBOUR",
+        "postcode": "6173",
+        "lat": -32.4059281038736,
+        "lng": 115.75822192372061
+    },
+    {
+        "suburb": "SERPENTINE",
+        "postcode": "6125",
+        "lat": -32.385502930528695,
+        "lng": 116.00819645059399
+    },
+    {
+        "suburb": "SEVILLE GROVE",
+        "postcode": "6112",
+        "lat": -32.13627044497771,
+        "lng": 115.98938875825037
+    },
+    {
+        "suburb": "SHELLEY",
+        "postcode": "6148",
+        "lat": -32.02969869881436,
+        "lng": 115.88662073245406
+    },
+    {
+        "suburb": "SHENTON PARK",
+        "postcode": "6008",
+        "lat": -31.957170342414685,
+        "lng": 115.80533508790468
+    },
+    {
+        "suburb": "SHERLOCK",
+        "postcode": "6714",
+        "lat": -21.035649812851013,
+        "lng": 117.70970397633326
+    },
+    {
+        "suburb": "SHOALWATER",
+        "postcode": "6169",
+        "lat": -32.29500973986047,
+        "lng": 115.70943938369024
+    },
+    {
+        "suburb": "SINAGRA",
+        "postcode": "6065",
+        "lat": -31.74198715038257,
+        "lng": 115.80659867081164
+    },
+    {
+        "suburb": "SORRENTO",
+        "postcode": "6020",
+        "lat": -31.827830937252877,
+        "lng": 115.7536269626668
+    },
+    {
+        "suburb": "SOUTH CARNARVON",
+        "postcode": "6701",
+        "lat": -24.89755678402618,
+        "lng": 113.65551341896158
+    },
+    {
+        "suburb": "SOUTH FREMANTLE",
+        "postcode": "6162",
+        "lat": -32.071752910349815,
+        "lng": 115.75446068250179
+    },
+    {
+        "suburb": "SOUTH GUILDFORD",
+        "postcode": "6055",
+        "lat": -31.911657470289928,
+        "lng": 115.97561039891562
+    },
+    {
+        "suburb": "SOUTH HEDLAND",
+        "postcode": "6722",
+        "lat": -20.406647273460024,
+        "lng": 118.60022026520892
+    },
+    {
+        "suburb": "SOUTH LAKE",
+        "postcode": "6164",
+        "lat": -32.10731527290375,
+        "lng": 115.84088357551704
+    },
+    {
+        "suburb": "SOUTH MURCHISON",
+        "postcode": "6635",
+        "lat": -27.263758934243178,
+        "lng": 116.50514639393523
+    },
+    {
+        "suburb": "SOUTH PERTH",
+        "postcode": "6151",
+        "lat": -31.97878082448546,
+        "lng": 115.86270370166191
+    },
+    {
+        "suburb": "SOUTH PERTH",
+        "postcode": "6951",
+        "lat": -31.97878082448546,
+        "lng": 115.86270370166191
+    },
+    {
+        "suburb": "SOUTH PERTH ANGELO ST",
+        "postcode": "6151",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "SOUTH PLANTATIONS",
+        "postcode": "6701",
+        "lat": -24.846877191300106,
+        "lng": 113.744515230762
+    },
+    {
+        "suburb": "SOUTHERN RIVER",
+        "postcode": "6110",
+        "lat": -32.10660832580785,
+        "lng": 115.96045494018162
+    },
+    {
+        "suburb": "SPEARWOOD",
+        "postcode": "6163",
+        "lat": -32.1042816285155,
+        "lng": 115.7838017575775
+    },
+    {
+        "suburb": "ST GEORGE RANGES",
+        "postcode": "6728",
+        "lat": -18.963346087870363,
+        "lng": 124.88792731616773
+    },
+    {
+        "suburb": "ST JAMES",
+        "postcode": "6102",
+        "lat": -32.000011832278425,
+        "lng": 115.91043060812736
+    },
+    {
+        "suburb": "STIRLING",
+        "postcode": "6021",
+        "lat": -31.885113407934373,
+        "lng": 115.81103752381424
+    },
+    {
+        "suburb": "STONEVILLE",
+        "postcode": "6081",
+        "lat": -31.858607354303754,
+        "lng": 116.16526247574743
+    },
+    {
+        "suburb": "STOVE HILL",
+        "postcode": "6714",
+        "lat": -20.77556731535147,
+        "lng": 116.82775991868887
+    },
+    {
+        "suburb": "STRATTON",
+        "postcode": "6056",
+        "lat": -31.867926251648512,
+        "lng": 116.04183762390747
+    },
+    {
+        "suburb": "STRELLEY",
+        "postcode": "6721",
+        "lat": -20.492359725332083,
+        "lng": 119.00276483685514
+    },
+    {
+        "suburb": "STURT CREEK",
+        "postcode": "6770",
+        "lat": -19.21441824344966,
+        "lng": 127.88090378595548
+    },
+    {
+        "suburb": "SUBIACO",
+        "postcode": "6008",
+        "lat": -31.948691936401055,
+        "lng": 115.82446476155226
+    },
+    {
+        "suburb": "SUBIACO EAST",
+        "postcode": "6008",
+        "lat": -31.948691936401055,
+        "lng": 115.82446476155226
+    },
+    {
+        "suburb": "SUBIACO PO",
+        "postcode": "6904",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "SUCCESS",
+        "postcode": "6164",
+        "lat": -32.142509701815285,
+        "lng": 115.8495816753432
+    },
+    {
+        "suburb": "SUCCESS",
+        "postcode": "6964",
+        "lat": -32.142509701815285,
+        "lng": 115.8495816753432
+    },
+    {
+        "suburb": "SWAN VIEW",
+        "postcode": "6056",
+        "lat": -31.88245999859495,
+        "lng": 116.05282348317111
+    },
+    {
+        "suburb": "SWANBOURNE",
+        "postcode": "6010",
+        "lat": -31.970685525954188,
+        "lng": 115.76370942681258
+    },
+    {
+        "suburb": "TALANDJI",
+        "postcode": "6710",
+        "lat": -22.072314817695812,
+        "lng": 114.99149379530316
+    },
+    {
+        "suburb": "TALISKER",
+        "postcode": "6701",
+        "lat": -26.44107554584868,
+        "lng": 115.11581435714095
+    },
+    {
+        "suburb": "TAMALA PARK",
+        "postcode": "6030",
+        "lat": -31.70653862300374,
+        "lng": 115.73347411773192
+    },
+    {
+        "suburb": "TANAMI",
+        "postcode": "6770",
+        "lat": -20.337616126560068,
+        "lng": 127.61502231411298
+    },
+    {
+        "suburb": "TAPPING",
+        "postcode": "6065",
+        "lat": -31.719453765279823,
+        "lng": 115.79561373859804
+    },
+    {
+        "suburb": "TARDUN",
+        "postcode": "6628",
+        "lat": -28.751558188400143,
+        "lng": 115.78341795984207
+    },
+    {
+        "suburb": "TELFER",
+        "postcode": "6762",
+        "lat": -21.209976888872006,
+        "lng": 123.26047055463152
+    },
+    {
+        "suburb": "TENINDEWA",
+        "postcode": "6632",
+        "lat": -28.58983748214361,
+        "lng": 115.31730385670694
+    },
+    {
+        "suburb": "THE SPECTACLES",
+        "postcode": "6167",
+        "lat": -32.22036576851145,
+        "lng": 115.83905465208753
+    },
+    {
+        "suburb": "THE VINES",
+        "postcode": "6069",
+        "lat": -31.758928724679638,
+        "lng": 116.00502413541474
+    },
+    {
+        "suburb": "THEVENARD ISLAND",
+        "postcode": "6711",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "THORNLIE",
+        "postcode": "6108",
+        "lat": -32.0600459413297,
+        "lng": 115.95508394863141
+    },
+    {
+        "suburb": "THORNLIE",
+        "postcode": "6988",
+        "lat": -32.0600459413297,
+        "lng": 115.95508394863141
+    },
+    {
+        "suburb": "TOM PRICE",
+        "postcode": "6751",
+        "lat": -22.687351380942406,
+        "lng": 117.78765441122951
+    },
+    {
+        "suburb": "TREEBY",
+        "postcode": "6164",
+        "lat": -32.120802544758966,
+        "lng": 115.89250815672823
+    },
+    {
+        "suburb": "TRIGG",
+        "postcode": "6029",
+        "lat": -31.87621025152211,
+        "lng": 115.75815497135362
+    },
+    {
+        "suburb": "TUART HILL",
+        "postcode": "6060",
+        "lat": -31.897981785825586,
+        "lng": 115.83504552984837
+    },
+    {
+        "suburb": "TUART HILL",
+        "postcode": "6939",
+        "lat": -31.897981785825586,
+        "lng": 115.83504552984837
+    },
+    {
+        "suburb": "TWO ROCKS",
+        "postcode": "6037",
+        "lat": -31.48553770631903,
+        "lng": 115.61629818073176
+    },
+    {
+        "suburb": "UPPER SWAN",
+        "postcode": "6069",
+        "lat": -31.76385002910159,
+        "lng": 116.04073125678502
+    },
+    {
+        "suburb": "VICTORIA PARK",
+        "postcode": "6100",
+        "lat": -31.975496805743276,
+        "lng": 115.89344566315374
+    },
+    {
+        "suburb": "VICTORIA PARK",
+        "postcode": "6979",
+        "lat": -31.975496805743276,
+        "lng": 115.89344566315374
+    },
+    {
+        "suburb": "VIVEASH",
+        "postcode": "6056",
+        "lat": -31.876420440220663,
+        "lng": 115.99959789479958
+    },
+    {
+        "suburb": "WAIKIKI",
+        "postcode": "6169",
+        "lat": -32.31611510745893,
+        "lng": 115.76535621752261
+    },
+    {
+        "suburb": "WALLAREENYA",
+        "postcode": "6721",
+        "lat": -20.756593953608967,
+        "lng": 118.79495822881925
+    },
+    {
+        "suburb": "WALLISTON",
+        "postcode": "6076",
+        "lat": -32.000478666759555,
+        "lng": 116.07512905093077
+    },
+    {
+        "suburb": "WALLISTON DC",
+        "postcode": "6925",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "WALYUNGA NATIONAL PARK",
+        "postcode": "6084",
+        "lat": -31.721872130893495,
+        "lng": 116.07643781484198
+    },
+    {
+        "suburb": "WANARN",
+        "postcode": "0872",
+        "lat": -25.20275469464432,
+        "lng": 127.57269967482374
+    },
+    {
+        "suburb": "WANDI",
+        "postcode": "6167",
+        "lat": -32.19428656810027,
+        "lng": 115.87628710410337
+    },
+    {
+        "suburb": "WANGARA",
+        "postcode": "6065",
+        "lat": -31.793971486658915,
+        "lng": 115.83143960181285
+    },
+    {
+        "suburb": "WANGARA DC",
+        "postcode": "6065",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "WANGARA DC",
+        "postcode": "6947",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "WANNEROO",
+        "postcode": "6065",
+        "lat": -31.75755094745315,
+        "lng": 115.8162236760562
+    },
+    {
+        "suburb": "WANNEROO",
+        "postcode": "6946",
+        "lat": -31.75755094745315,
+        "lng": 115.8162236760562
+    },
+    {
+        "suburb": "WARMUN",
+        "postcode": "6743",
+        "lat": -17.026511894458217,
+        "lng": 128.22363808343474
+    },
+    {
+        "suburb": "WARNBRO",
+        "postcode": "6169",
+        "lat": -32.33777179721722,
+        "lng": 115.76808010014999
+    },
+    {
+        "suburb": "WARWICK",
+        "postcode": "6024",
+        "lat": -31.83964881738157,
+        "lng": 115.80870009330214
+    },
+    {
+        "suburb": "WATERBANK",
+        "postcode": "6725",
+        "lat": -17.45518846746453,
+        "lng": 122.63649358831944
+    },
+    {
+        "suburb": "WATERFORD",
+        "postcode": "6152",
+        "lat": -32.01570675723123,
+        "lng": 115.88658915543452
+    },
+    {
+        "suburb": "WATERMANS BAY",
+        "postcode": "6020",
+        "lat": -31.85099401937974,
+        "lng": 115.75924354640682
+    },
+    {
+        "suburb": "WATTLE GROVE",
+        "postcode": "6107",
+        "lat": -32.006629329368835,
+        "lng": 116.00131210764862
+    },
+    {
+        "suburb": "WATTLEUP",
+        "postcode": "6166",
+        "lat": -32.16768176478847,
+        "lng": 115.81305359144203
+    },
+    {
+        "suburb": "WEDGE ISLAND",
+        "postcode": "6044",
+        "lat": -30.802981059056282,
+        "lng": 115.25460226556807
+    },
+    {
+        "suburb": "WEDGEFIELD",
+        "postcode": "6721",
+        "lat": -20.35918250316672,
+        "lng": 118.5938720596878
+    },
+    {
+        "suburb": "WELD RANGE",
+        "postcode": "6640",
+        "lat": -27.064151860392172,
+        "lng": 117.58287398681861
+    },
+    {
+        "suburb": "WELLARD",
+        "postcode": "6170",
+        "lat": -32.26627369461428,
+        "lng": 115.84623104291444
+    },
+    {
+        "suburb": "WELSHPOOL",
+        "postcode": "6106",
+        "lat": -31.992606237255337,
+        "lng": 115.94895929606851
+    },
+    {
+        "suburb": "WELSHPOOL DC",
+        "postcode": "6986",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "WEMBLEY",
+        "postcode": "6014",
+        "lat": -31.93304756165702,
+        "lng": 115.81844395956597
+    },
+    {
+        "suburb": "WEMBLEY",
+        "postcode": "6913",
+        "lat": -31.93304756165702,
+        "lng": 115.81844395956597
+    },
+    {
+        "suburb": "WEMBLEY DOWNS",
+        "postcode": "6019",
+        "lat": -31.91854221397048,
+        "lng": 115.77723300588457
+    },
+    {
+        "suburb": "WEST CASUARINAS",
+        "postcode": "6630",
+        "lat": -28.860254346730255,
+        "lng": 115.26169856775766
+    },
+    {
+        "suburb": "WEST ISLAND COCOS (KEELING) ISLANDS",
+        "postcode": "6799",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "WEST LEEDERVILLE",
+        "postcode": "6007",
+        "lat": -31.938680637611075,
+        "lng": 115.83310487965686
+    },
+    {
+        "suburb": "WEST LEEDERVILLE",
+        "postcode": "6901",
+        "lat": -31.938680637611075,
+        "lng": 115.83310487965686
+    },
+    {
+        "suburb": "WEST LYONS RIVER",
+        "postcode": "6705",
+        "lat": -24.27368542232108,
+        "lng": 116.05186964807858
+    },
+    {
+        "suburb": "WEST PERTH",
+        "postcode": "6005",
+        "lat": -31.94627474750347,
+        "lng": 115.84548362746132
+    },
+    {
+        "suburb": "WEST PERTH",
+        "postcode": "6872",
+        "lat": -31.94627474750347,
+        "lng": 115.84548362746132
+    },
+    {
+        "suburb": "WEST SWAN",
+        "postcode": "6055",
+        "lat": -31.845664596897965,
+        "lng": 115.9907700440103
+    },
+    {
+        "suburb": "WESTMINSTER",
+        "postcode": "6061",
+        "lat": -31.867355254544098,
+        "lng": 115.8393404961333
+    },
+    {
+        "suburb": "WHIM CREEK",
+        "postcode": "6718",
+        "lat": -20.859342808611295,
+        "lng": 117.83251620112226
+    },
+    {
+        "suburb": "WHITBY",
+        "postcode": "6123",
+        "lat": -32.28295511090951,
+        "lng": 116.0153112003251
+    },
+    {
+        "suburb": "WHITE GUM VALLEY",
+        "postcode": "6162",
+        "lat": -32.06029434661534,
+        "lng": 115.77057766745558
+    },
+    {
+        "suburb": "WHITEMAN",
+        "postcode": "6068",
+        "lat": -31.825551690080832,
+        "lng": 115.9393300800793
+    },
+    {
+        "suburb": "WICKHAM",
+        "postcode": "6720",
+        "lat": -20.673568571219494,
+        "lng": 117.14428120961455
+    },
+    {
+        "suburb": "WILBINGA",
+        "postcode": "6041",
+        "lat": -31.404975918656074,
+        "lng": 115.61556539919897
+    },
+    {
+        "suburb": "WILLAGEE",
+        "postcode": "6156",
+        "lat": -32.05201231285345,
+        "lng": 115.80527664532025
+    },
+    {
+        "suburb": "WILLAGEE CENTRAL",
+        "postcode": "6156",
+        "lat": null,
+        "lng": null
+    },
+    {
+        "suburb": "WILLARE",
+        "postcode": "6728",
+        "lat": -17.588418784138216,
+        "lng": 123.45867982795066
+    },
+    {
+        "suburb": "WILLETTON",
+        "postcode": "6155",
+        "lat": -32.0524452539269,
+        "lng": 115.88783866632893
+    },
+    {
+        "suburb": "WILLETTON",
+        "postcode": "6955",
+        "lat": -32.0524452539269,
+        "lng": 115.88783866632893
+    },
+    {
+        "suburb": "WILSON",
+        "postcode": "6107",
+        "lat": -32.020366011463686,
+        "lng": 115.91184035203885
+    },
+    {
+        "suburb": "WILUNA",
+        "postcode": "6646",
+        "lat": -26.461792485837474,
+        "lng": 120.58879760187864
+    },
+    {
+        "suburb": "WINTHROP",
+        "postcode": "6150",
+        "lat": -32.052200526111676,
+        "lng": 115.82965666644793
+    },
+    {
+        "suburb": "WITTENOOM",
+        "postcode": "6751",
+        "lat": -22.250182126421315,
+        "lng": 118.30528073762645
+    },
+    {
+        "suburb": "WONGOONDY",
+        "postcode": "6630",
+        "lat": -28.835926390340557,
+        "lng": 115.5098482020614
+    },
+    {
+        "suburb": "WOODBRIDGE",
+        "postcode": "6056",
+        "lat": -31.89089642165896,
+        "lng": 115.99337327459548
+    },
+    {
+        "suburb": "WOODLANDS",
+        "postcode": "6018",
+        "lat": -31.90811844999098,
+        "lng": 115.79237553057501
+    },
+    {
+        "suburb": "WOODLEIGH",
+        "postcode": "6701",
+        "lat": -26.172184120026074,
+        "lng": 114.80807361836864
+    },
+    {
+        "suburb": "WOODRIDGE",
+        "postcode": "6041",
+        "lat": -31.333736220456842,
+        "lng": 115.59627941271886
+    },
+    {
+        "suburb": "WOODVALE",
+        "postcode": "6026",
+        "lat": -31.789306422192826,
+        "lng": 115.79638408547247
+    },
+    {
+        "suburb": "WOOLGORONG",
+        "postcode": "6630",
+        "lat": -27.713931149605457,
+        "lng": 115.76569139727519
+    },
+    {
+        "suburb": "WOORAMEL",
+        "postcode": "6701",
+        "lat": -25.6239622469568,
+        "lng": 114.4488155766388
+    },
+    {
+        "suburb": "WUNGONG",
+        "postcode": "6112",
+        "lat": -32.18310024859767,
+        "lng": 116.01295169314051
+    },
+    {
+        "suburb": "WYNDHAM",
+        "postcode": "6740",
+        "lat": -15.60823260760315,
+        "lng": 128.2135124719463
+    },
+    {
+        "suburb": "YALARDY",
+        "postcode": "6701",
+        "lat": -26.0940432192402,
+        "lng": 115.25867240788828
+    },
+    {
+        "suburb": "YALGOO",
+        "postcode": "6635",
+        "lat": -28.186130357571642,
+        "lng": 116.75396818084577
+    },
+    {
+        "suburb": "YANCHEP",
+        "postcode": "6035",
+        "lat": -31.525572636033015,
+        "lng": 115.7381265212192
+    },
+    {
+        "suburb": "YANDOO CREEK",
+        "postcode": "6701",
+        "lat": -24.274175024112846,
+        "lng": 114.28868913941663
+    },
+    {
+        "suburb": "YANGEBUP",
+        "postcode": "6164",
+        "lat": -32.12070412342746,
+        "lng": 115.81625051691036
+    },
+    {
+        "suburb": "YANNARIE",
+        "postcode": "6710",
+        "lat": -22.933688898297802,
+        "lng": 115.04465294898272
+    },
+    {
+        "suburb": "YOKINE",
+        "postcode": "6060",
+        "lat": -31.901124744696244,
+        "lng": 115.85320958435322
+    },
+    {
+        "suburb": "YOKINE SOUTH",
+        "postcode": "6060",
+        "lat": -31.901124744696244,
+        "lng": 115.85320958435322
+    }
+]

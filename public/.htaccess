@@ -22,3 +22,5 @@ Redirect 301 /pricing/ /pricing
 Redirect 301 /contact/ /contact
 Redirect 301 /about-us/our-story /about#story
 Redirect 301 /about-us/meet-the-team /about#team
+Redirect 301 /areas/ /service-areas
+Redirect 301 /areas /service-areas
