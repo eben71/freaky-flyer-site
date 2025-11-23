@@ -1,4 +1,6 @@
-import { access, readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const SUBURBS_PATH = new URL(
   './geo/current-suburbs-2025.json',
@@ -6,6 +8,10 @@ const SUBURBS_PATH = new URL(
 );
 const OUTPUT_PATH = new URL(
   '../public/data/service-areas.json',
+  import.meta.url
+);
+const UNMATCHED_OUTPUT_PATH = new URL(
+  '../public/geo/unmatched-areas.json',
   import.meta.url
 );
 const GEO_PRIMARY = new URL('./geo/wa-suburbs.geojson', import.meta.url);
@@ -42,6 +48,9 @@ const fileExists = async (url) => {
 };
 
 const readJson = async (url) => JSON.parse(await readFile(url, 'utf8'));
+
+const ensureDir = async (url) =>
+  mkdir(dirname(fileURLToPath(url)), { recursive: true });
 
 const normalizeName = (value) =>
   String(value ?? '')
@@ -220,9 +229,18 @@ const run = async () => {
   ]);
   const index = buildFeatureIndex(geojson.features ?? []);
   let matchedCount = 0;
+  const unmatched = [];
   const serviceAreas = suburbs.map((record) => {
     const match = matchFeature(record, index);
-    if (match) matchedCount += 1;
+    if (match) {
+      matchedCount += 1;
+    } else {
+      unmatched.push({
+        suburb: String(record.suburb ?? '').trim(),
+        normalizedSuburb: normalizeName(record.suburb),
+        postcode: String(record.postcode ?? '').trim(),
+      });
+    }
     const entry = {
       suburb: normalizeName(record.suburb),
       postcode: String(record.postcode ?? '').trim(),
@@ -232,7 +250,9 @@ const run = async () => {
     if (match?.lga) entry.lga = match.lga;
     return entry;
   });
+  await ensureDir(UNMATCHED_OUTPUT_PATH);
   await writeFile(OUTPUT_PATH, `${JSON.stringify(serviceAreas)}\n`);
+  await writeFile(UNMATCHED_OUTPUT_PATH, `${JSON.stringify(unmatched)}\n`);
   logSummary(matchedCount, serviceAreas.length);
 };
 
