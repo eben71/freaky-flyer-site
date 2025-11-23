@@ -1,10 +1,10 @@
 <?php
-// Admin upload tool for Freaky Flyer Delivery
-// IMPORTANT: Change the admin password below before deploying to production.
+session_start();
 
-$ADMIN_PASSWORD = 'CHANGE_ME_STRONG_PASSWORD'; // TODO: Replace with a strong password before going live.
-$MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
-$UPLOAD_ROOT = __DIR__ . '/../downloads';
+$config = require __DIR__ . '/../../config/admin_config.php';
+
+$MAX_FILE_SIZE_BYTES = $config['MAX_FILE_SIZE_BYTES'];
+$UPLOAD_ROOT = $config['UPLOAD_ROOT'];
 
 function respond_with_message(string $title, string $message, int $statusCode = 400): void
 {
@@ -37,9 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond_with_message('Invalid request', 'Uploads must be sent via POST.', 405);
 }
 
-$providedPassword = $_POST['admin_password'] ?? '';
-if (!$providedPassword || $providedPassword !== $ADMIN_PASSWORD) {
-    respond_with_message('Access denied', 'The admin password was incorrect or missing.', 403);
+if (empty($_SESSION['admin_logged_in'])) {
+    respond_with_message('Access denied', 'You must be logged in to upload files.', 403);
 }
 
 if (!is_dir($UPLOAD_ROOT)) {
