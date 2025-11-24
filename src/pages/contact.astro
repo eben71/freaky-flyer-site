@@ -15,8 +15,10 @@ const mapEmbedSrc =
   'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13568.156045966232!2d115.8273151!3d-31.7694219!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x836db8d126077448!2sFreaky+Flyer+Delivery+Pty+Ltd!5e0!3m2!1sen!2sau!4v1543755188278';
 const mapLink =
   'https://www.google.com/maps/place/Freaky+Flyer+Delivery+Pty+Ltd/@-31.7694219,115.8273151,15z/data=!4m6!3m5!1s0x0:0x836db8d126077448!8m2!3d-31.7694219!4d115.8273151!16s%2Fg%2F11c40mcv8n';
-const contactEmailUser = contactEmailParts.user;
-const contactEmailDomain = contactEmailParts.domain;
+const contactEmailToken = Buffer.from(
+  `${contactEmailParts.user}@${contactEmailParts.domain}`,
+  'utf-8'
+).toString('base64');
 ---
 
 <BaseLayout {title} description={description}>
@@ -49,16 +51,18 @@ const contactEmailDomain = contactEmailParts.domain;
                   <a
                     class="contact-card__email-link"
                     id="contact-email-link"
-                    data-user={contactEmailUser}
-                    data-domain={contactEmailDomain}
-                    href="#"
+                    data-token={contactEmailToken}
+                    href="javascript:void(0);"
+                    aria-label="Reveal our email address"
                   >
-                    {contactEmailUser}(at){contactEmailDomain}
+                    Email us
                   </a>
-                  <p class="contact-card__noscript">
-                    Enable JavaScript or call us to receive the email address
-                    securely.
-                  </p>
+                  <noscript>
+                    <p class="contact-card__noscript">
+                      Enable JavaScript or call us to receive the email address
+                      securely.
+                    </p>
+                  </noscript>
                 </div>
               </dd>
             </div>
@@ -201,12 +205,18 @@ const contactEmailDomain = contactEmailParts.domain;
     // Email obfuscated to reduce scraping; JS restores the real mailto: at runtime.
     document.addEventListener('DOMContentLoaded', () => {
       const link = document.getElementById('contact-email-link');
-      if (!link) return;
-      const user = link.getAttribute('data-user') || '';
-      const domain = link.getAttribute('data-domain') || '';
-      const address = `${user}@${domain}`;
-      link.href = `mailto:${address}`;
-      link.textContent = address;
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const token = link.getAttribute('data-token');
+      if (!token) return;
+
+      try {
+        const address = atob(token);
+        link.href = `mailto:${address}`;
+        link.textContent = address;
+        link.removeAttribute('aria-label');
+      } catch (error) {
+        console.error('Unable to decode email token', error);
+      }
     });
   </script>
 </BaseLayout>
