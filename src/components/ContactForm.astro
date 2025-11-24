@@ -19,6 +19,8 @@ const placeholders = {
 <form
   class="contact-form card"
   id="contact-form"
+  method="POST"
+  action="/contact.php"
   novalidate
   data-min-delay={minDelayMs.toString()}
   data-required-fields={JSON.stringify(requiredFields)}
@@ -27,15 +29,15 @@ const placeholders = {
   <header class="contact-form__header">
     <h2 id={headingId}>{heading}</h2>
   </header>
-  <input type="hidden" name="startedAt" value={Date.now().toString()} />
-  <div class="contact-form__honeypot" aria-hidden="true">
-    <label for="company-field">Company</label>
+  <input type="hidden" name="form_started_at" id="form_started_at" />
+  <div class="hp-field" aria-hidden="true">
+    <label for="website">Leave this field empty</label>
     <input
-      id="company-field"
-      name="company"
+      type="text"
+      id="website"
+      name="website"
       tabindex="-1"
       autocomplete="off"
-      aria-hidden="true"
     />
   </div>
   <div
@@ -237,13 +239,12 @@ const placeholders = {
     font-size: 1rem;
   }
 
-  .contact-form__honeypot {
+  .hp-field {
     position: absolute;
+    left: -9999px;
     width: 1px;
     height: 1px;
     overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
   }
 
   .contact-form__summary {
@@ -427,8 +428,8 @@ const placeholders = {
     const summaryEl = form.querySelector('[data-form-summary]');
     const counterEl = document.getElementById('message-counter');
     const messageField = form.querySelector('[name="message"]');
-    const startField = form.querySelector('input[name="startedAt"]');
-    const honeypotField = form.querySelector('input[name="company"]');
+    const startField = form.querySelector('input[name="form_started_at"]');
+    const honeypotField = form.querySelector('input[name="website"]');
     const minDelay = Number(form.dataset.minDelay || '0');
     let timeGatePassed = false;
 
@@ -590,6 +591,12 @@ const placeholders = {
       }
     };
 
+    document.addEventListener('DOMContentLoaded', () => {
+      if (startField instanceof HTMLInputElement) {
+        startField.value = Date.now().toString();
+      }
+    });
+
     startTimeGate();
     updateCounter();
 
@@ -662,25 +669,8 @@ const placeholders = {
         return;
       }
 
-      renderSummary(
-        'success',
-        `<p><span aria-hidden="true">✅</span> ${messages.success}</p>`
-      );
-      form.reset();
-      state.clear();
-      fields.forEach((field) => {
-        if (field.wrapper instanceof HTMLElement) {
-          field.wrapper.removeAttribute('data-state');
-        }
-        if (field.input instanceof HTMLElement) {
-          field.input.setAttribute('aria-invalid', 'false');
-        }
-        if (field.error instanceof HTMLElement) {
-          field.error.textContent = '';
-        }
-      });
-      updateCounter();
-      startTimeGate();
+      resetSummary();
+      form.submit();
     });
   }
 </script>
