@@ -3,6 +3,13 @@ session_start();
 
 $config = require __DIR__ . '/../../config/admin_config.php';
 
+// ADMIN PASSWORD:
+// - This value MUST be changed before going live.
+// - The client should store the final password in their password manager.
+// - To rotate the password, edit this value and redeploy.
+// - Do not commit real production passwords to version control.
+$ADMIN_PASSWORD = $config['ADMIN_PASSWORD'];
+
 $MAX_FILE_SIZE_BYTES = $config['MAX_FILE_SIZE_BYTES'];
 $UPLOAD_ROOT = $config['UPLOAD_ROOT'];
 
@@ -94,6 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 if (empty($_SESSION['admin_logged_in'])) {
+    respond_with_message('Access denied', 'You must be logged in to upload files.', 403);
+}
+
+$sessionUsername = $_SESSION['admin_username'] ?? '';
+if ($sessionUsername !== $config['ADMIN_USERNAME']) {
     respond_with_message('Access denied', 'You must be logged in to upload files.', 403);
 }
 

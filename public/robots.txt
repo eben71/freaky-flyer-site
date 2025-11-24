@@ -1,4 +1,5 @@
 User-agent: *
 Disallow: /contact
+Disallow: /admin/
 Crawl-delay: 10
 Sitemap: https://freakyflyerdelivery.com.au/sitemap-index.xml

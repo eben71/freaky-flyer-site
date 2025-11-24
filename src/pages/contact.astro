@@ -15,10 +15,6 @@ const mapEmbedSrc =
   'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13568.156045966232!2d115.8273151!3d-31.7694219!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x836db8d126077448!2sFreaky+Flyer+Delivery+Pty+Ltd!5e0!3m2!1sen!2sau!4v1543755188278';
 const mapLink =
   'https://www.google.com/maps/place/Freaky+Flyer+Delivery+Pty+Ltd/@-31.7694219,115.8273151,15z/data=!4m6!3m5!1s0x0:0x836db8d126077448!8m2!3d-31.7694219!4d115.8273151!16s%2Fg%2F11c40mcv8n';
-const emailScriptUrl = new URL(
-  '../scripts/email-obfuscator.ts',
-  import.meta.url
-);
 const contactEmailUser = contactEmailParts.user;
 const contactEmailDomain = contactEmailParts.domain;
 ---
@@ -49,31 +45,20 @@ const contactEmailDomain = contactEmailParts.domain;
             <div class="contact-card__row">
               <dt>Email</dt>
               <dd>
-                <div class="contact-card__email" data-email-obfuscator>
+                <div class="contact-card__email">
                   <a
                     class="contact-card__email-link"
-                    data-email-link
+                    id="contact-email-link"
                     data-user={contactEmailUser}
                     data-domain={contactEmailDomain}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Email Freaky Flyer Delivery"
-                    hidden></a>
-                  <button
-                    type="button"
-                    class="contact-card__reveal"
-                    data-email-reveal
-                    data-user={contactEmailUser}
-                    data-domain={contactEmailDomain}
+                    href="#"
                   >
-                    Click to reveal
-                  </button>
-                  <noscript>
-                    <p class="contact-card__noscript">
-                      Enable JavaScript or call us to receive the email address
-                      securely.
-                    </p>
-                  </noscript>
+                    {contactEmailUser}(at){contactEmailDomain}
+                  </a>
+                  <p class="contact-card__noscript">
+                    Enable JavaScript or call us to receive the email address
+                    securely.
+                  </p>
                 </div>
               </dd>
             </div>
@@ -181,43 +166,6 @@ const contactEmailDomain = contactEmailParts.domain;
       word-break: break-word;
     }
 
-    .contact-card__reveal {
-      border: 1px dashed var(--accent, #89040b);
-      background: transparent;
-      color: var(--accent, #89040b);
-      padding: 0.65rem 0.9rem;
-      font: inherit;
-      border-radius: 999px;
-      cursor: pointer;
-      width: fit-content;
-      transition:
-        background 0.2s ease,
-        color 0.2s ease;
-    }
-
-    .contact-card__reveal:focus,
-    .contact-card__reveal:hover {
-      background: rgba(137, 4, 11, 0.08);
-    }
-
-    .contact-card__reveal::after {
-      content: '';
-      display: block;
-      margin-top: var(--space-2);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .contact-card__reveal:focus::after,
-    .contact-card__reveal:active::after {
-      content: attr(data-user) '@' attr(data-domain);
-      background: rgba(137, 4, 11, 0.12);
-      padding: 0.4rem 0.65rem;
-      border-radius: 999px;
-      display: inline-block;
-      color: var(--accent, #89040b);
-    }
-
     .contact-card__noscript {
       margin: 0;
       font-size: 0.85rem;
@@ -248,19 +196,17 @@ const contactEmailDomain = contactEmailParts.domain;
         align-items: start;
       }
     }
-
-    @media (max-width: 720px) {
-      .contact-card__reveal {
-        justify-self: center;
-      }
-
-      .contact-card__reveal:focus::after,
-      .contact-card__reveal:active::after {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
   </style>
-
-  <script type="module" src={emailScriptUrl}></script>
+  <script>
+    // Email obfuscated to reduce scraping; JS restores the real mailto: at runtime.
+    document.addEventListener('DOMContentLoaded', () => {
+      const link = document.getElementById('contact-email-link');
+      if (!link) return;
+      const user = link.getAttribute('data-user') || '';
+      const domain = link.getAttribute('data-domain') || '';
+      const address = `${user}@${domain}`;
+      link.href = `mailto:${address}`;
+      link.textContent = address;
+    });
+  </script>
 </BaseLayout>
