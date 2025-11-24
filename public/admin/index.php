@@ -203,8 +203,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
           <label for="doc_type">Document type</label>
           <select name="doc_type" id="doc_type" required>
             <option value="">Select a document</option>
-            <option value="pricing">pricing</option>
-            <option value="schedule">schedule</option>
+            <option value="pricing">Pricing</option>
+            <option value="schedule">Delivery Schedule</option>
           </select>
         </div>
 
@@ -218,10 +218,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
       </form>
     <?php endif; ?>
 
-    <div class="links note">
-      <p>Latest public links:</p>
-      <p>Pricing: <code>/downloads/pricing.pdf</code><br />Schedule: <code>/downloads/schedule.pdf</code></p>
-    </div>
   </main>
 </body>
 </html>

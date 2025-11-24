@@ -9,6 +9,7 @@ $UPLOAD_ROOT = $config['UPLOAD_ROOT'];
 function respond_with_message(string $title, string $message, int $statusCode = 400): void
 {
     http_response_code($statusCode);
+    $statusClass = $statusCode >= 200 && $statusCode < 300 ? 'status-success' : 'status-error';
     echo "<!DOCTYPE html>
 <html lang=\"en\">
 <head>
@@ -16,17 +17,72 @@ function respond_with_message(string $title, string $message, int $statusCode = 
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
   <title>{$title}</title>
   <style>
-    body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; background: #f8fafc; color: #1f2933; padding: 32px; }
-    .card { max-width: 640px; margin: 0 auto; background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
-    h1 { margin-top: 0; }
-    a { color: #2563eb; }
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #eef2ff, #f8fafc);
+      color: #0f172a;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+    .card {
+      width: min(640px, 100%);
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 25px 70px rgba(15, 23, 42, 0.12);
+      display: grid;
+      gap: 16px;
+    }
+    .pill {
+      justify-self: start;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+    .status-success {
+      background: rgba(5, 150, 105, 0.12);
+      color: #047857;
+    }
+    .status-error {
+      background: rgba(239, 68, 68, 0.12);
+      color: #b91c1c;
+    }
+    h1 { margin: 0; font-size: clamp(1.5rem, 2vw, 2rem); }
+    p { margin: 0; line-height: 1.6; color: #475569; }
+    a.button-link {
+      justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 18px 35px rgba(79, 70, 229, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    a.button-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 25px 45px rgba(79, 70, 229, 0.35);
+    }
   </style>
 </head>
 <body>
   <div class=\"card\">
+    <span class=\"pill {$statusClass}\">" . ($statusClass === 'status-success' ? 'Success' : 'Status') . "</span>
     <h1>{$title}</h1>
     <p>{$message}</p>
-    <p><a href=\"/admin/\">Return to admin uploads</a></p>
+    <a class=\"button-link\" href=\"/admin/\">Back to admin uploads</a>
   </div>
 </body>
 </html>";
@@ -82,17 +138,17 @@ if ($mimeType !== 'application/pdf' || $extension !== 'pdf') {
     respond_with_message('Invalid file type', 'Only PDF uploads are accepted.', 400);
 }
 
-// Ensure directories exist
-$targetDir = $UPLOAD_ROOT . '/' . $docType;
-if (!is_dir($targetDir)) {
-    if (!mkdir($targetDir, 0755, true) && !is_dir($targetDir)) {
-        respond_with_message('Server error', 'Unable to create the target directory.', 500);
+// Ensure archive directory exists
+$archiveDir = $UPLOAD_ROOT . '/archived';
+if (!is_dir($archiveDir)) {
+    if (!mkdir($archiveDir, 0755, true) && !is_dir($archiveDir)) {
+        respond_with_message('Server error', 'Unable to create the archive directory.', 500);
     }
 }
 
 $timestamp = date('Ymd-His');
 $timestampedName = $docType . '-' . $timestamp . '.pdf';
-$targetPathTimestamped = $targetDir . '/' . $timestampedName;
+$targetPathTimestamped = $archiveDir . '/' . $timestampedName;
 
 if (!move_uploaded_file($tmpPath, $targetPathTimestamped)) {
     respond_with_message('Upload error', 'Failed to save the uploaded file.', 500);
@@ -105,7 +161,7 @@ $canonicalUrl = '/downloads/' . $canonicalName;
 $canonicalUpdated = copy($targetPathTimestamped, $canonicalPath);
 
 // Trim old timestamped files to keep only the latest three
-$files = glob($targetDir . '/' . $docType . '-*.pdf');
+$files = glob($archiveDir . '/' . $docType . '-*.pdf');
 usort($files, function ($a, $b) {
     return filemtime($b) <=> filemtime($a);
 });
