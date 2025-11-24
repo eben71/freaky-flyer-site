@@ -1,5 +1,4 @@
 ---
-import fs from 'node:fs';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BottomCta from '../../components/BottomCta.astro';
 import Hero from '../../components/Hero.astro';
@@ -8,22 +7,10 @@ const pageTitle = 'Delivery Schedule | Freaky Flyer Delivery';
 const pageDescription =
   'Review Freaky Flyer Delivery’s standard run cadence across Perth suburbs and download the full delivery schedule.';
 
-const toPublicUrl = (path) =>
-  new URL(`../../../public${path}`, import.meta.url);
-const fileExists = (path) => {
-  if (!path) return false;
-  try {
-    return fs.existsSync(toPublicUrl(path));
-  } catch (error) {
-    return false;
-  }
-};
-
 const scheduleImage = '/assets/img/warehouse-team-960.webp';
 
-const scheduleHref = fileExists('/downloads/schedule.pdf')
-  ? '/downloads/schedule.pdf'
-  : '/contact';
+const scheduleHref = '/downloads/schedule.pdf';
+const scheduleFallback = '/contact';
 const scheduleIsDownload = scheduleHref.startsWith('/downloads/');
 
 const scheduleCopy =
@@ -41,6 +28,7 @@ const scheduleCopy =
         class="button primary button--pill schedule__button"
         href={scheduleHref}
         download={scheduleIsDownload ? '' : undefined}
+        data-schedule-link
       >
         <span class="button__icon" aria-hidden="true">
           <svg
@@ -72,6 +60,7 @@ const scheduleCopy =
           class="button primary button--pill schedule__button"
           href={scheduleHref}
           download={scheduleIsDownload ? '' : undefined}
+          data-schedule-link
         >
           <span class="button__icon" aria-hidden="true">
             <svg
@@ -185,4 +174,37 @@ const scheduleCopy =
       }
     }
   </style>
+
+  <script>
+    const scheduleLinks = Array.from(
+      document.querySelectorAll('[data-schedule-link]')
+    );
+    const downloadHref = '/downloads/schedule.pdf';
+    const contactHref = '/contact';
+
+    const setLinkState = (href, shouldDownload) => {
+      scheduleLinks.forEach((link) => {
+        link.href = href;
+        if (shouldDownload) {
+          link.setAttribute('download', '');
+        } else {
+          link.removeAttribute('download');
+        }
+      });
+    };
+
+    const verifyScheduleDownload = async () => {
+      if (!scheduleLinks.length) return;
+      try {
+        const response = await fetch(downloadHref, { method: 'HEAD' });
+        if (!response.ok) {
+          setLinkState(contactHref, false);
+        }
+      } catch {
+        setLinkState(contactHref, false);
+      }
+    };
+
+    verifyScheduleDownload();
+  </script>
 </BaseLayout>
