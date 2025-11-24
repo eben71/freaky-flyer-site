@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
     $password = $_POST['admin_password'] ?? '';
 
     if ($username === $config['ADMIN_USERNAME'] && $password === $config['ADMIN_PASSWORD']) {
+        session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_username'] = $username;
-        $_SESSION['admin_password'] = $password;
         header('Location: /admin/');
         exit;
     }

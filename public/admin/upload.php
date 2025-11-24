@@ -104,11 +104,9 @@ if (empty($_SESSION['admin_logged_in'])) {
     respond_with_message('Access denied', 'You must be logged in to upload files.', 403);
 }
 
-$providedPassword = $_SESSION['admin_password'] ?? '';
-if ($providedPassword !== $ADMIN_PASSWORD) {
-    http_response_code(403);
-    echo '<p>Access denied. Incorrect admin password.</p>';
-    exit;
+$sessionUsername = $_SESSION['admin_username'] ?? '';
+if ($sessionUsername !== $config['ADMIN_USERNAME']) {
+    respond_with_message('Access denied', 'You must be logged in to upload files.', 403);
 }
 
 if (!is_dir($UPLOAD_ROOT)) {
