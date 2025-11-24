@@ -334,7 +334,9 @@ header.site {
   flex-wrap: wrap;
 }
 
-.topbar__info a {
+.topbar__info a,
+.topbar__info .topbar__phone,
+.topbar__info .topbar__email {
   color: #fff;
   font-weight: 600;
 }

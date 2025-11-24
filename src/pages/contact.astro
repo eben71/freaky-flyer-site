@@ -3,22 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Hero from '../components/Hero.astro';
 import { site } from '../site.config';
-import { linkAttrs } from '../lib/links';
-import { contactEmailParts } from '../lib/email';
-
 const title = 'Contact | Freaky Flyer Delivery';
 const description =
   'Reach the Freaky Flyer Delivery team for campaign planning, delivery schedules, and local flyer support.';
-const phoneHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
-const phoneAttrs = linkAttrs(phoneHref);
 const mapEmbedSrc =
   'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13568.156045966232!2d115.8273151!3d-31.7694219!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x836db8d126077448!2sFreaky+Flyer+Delivery+Pty+Ltd!5e0!3m2!1sen!2sau!4v1543755188278';
 const mapLink =
   'https://www.google.com/maps/place/Freaky+Flyer+Delivery+Pty+Ltd/@-31.7694219,115.8273151,15z/data=!4m6!3m5!1s0x0:0x836db8d126077448!8m2!3d-31.7694219!4d115.8273151!16s%2Fg%2F11c40mcv8n';
-const contactEmailToken = Buffer.from(
-  `${contactEmailParts.user}@${contactEmailParts.domain}`,
-  'utf-8'
-).toString('base64');
+
 ---
 
 <BaseLayout {title} description={description}>
@@ -41,29 +33,7 @@ const contactEmailToken = Buffer.from(
             <div class="contact-card__row">
               <dt>Phone</dt>
               <dd>
-                <a href={phoneHref} {...phoneAttrs}>{site.phone}</a>
-              </dd>
-            </div>
-            <div class="contact-card__row">
-              <dt>Email</dt>
-              <dd>
-                <div class="contact-card__email">
-                  <a
-                    class="contact-card__email-link"
-                    id="contact-email-link"
-                    data-token={contactEmailToken}
-                    href="javascript:void(0);"
-                    aria-label="Reveal our email address"
-                  >
-                    Email us
-                  </a>
-                  <noscript>
-                    <p class="contact-card__noscript">
-                      Enable JavaScript or call us to receive the email address
-                      securely.
-                    </p>
-                  </noscript>
-                </div>
+                <span class="contact-card__phone">{site.phone}</span>
               </dd>
             </div>
             <div class="contact-card__row">
@@ -164,16 +134,10 @@ const contactEmailToken = Buffer.from(
       gap: var(--space-3);
     }
 
-    .contact-card__email-link {
+    .contact-card__phone {
       font-weight: 600;
       color: inherit;
       word-break: break-word;
-    }
-
-    .contact-card__noscript {
-      margin: 0;
-      font-size: 0.85rem;
-      color: var(--muted);
     }
 
     .contact-card__map {
@@ -201,22 +165,4 @@ const contactEmailToken = Buffer.from(
       }
     }
   </style>
-  <script>
-    // Email obfuscated to reduce scraping; JS restores the real mailto: at runtime.
-    document.addEventListener('DOMContentLoaded', () => {
-      const link = document.getElementById('contact-email-link');
-      if (!(link instanceof HTMLAnchorElement)) return;
-      const token = link.getAttribute('data-token');
-      if (!token) return;
-
-      try {
-        const address = atob(token);
-        link.href = `mailto:${address}`;
-        link.textContent = address;
-        link.removeAttribute('aria-label');
-      } catch (error) {
-        console.error('Unable to decode email token', error);
-      }
-    });
-  </script>
 </BaseLayout>

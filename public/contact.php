@@ -1,13 +1,24 @@
 <?php
 $RECIPIENT_EMAIL = 'eben.venter@gmail.com';
 $SITE_NAME = 'Freaky Flyer Delivery';
+$acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
 function render_response(string $content, int $status = 200): void
 {
+    global $acceptsJson;
     http_response_code($status);
-    echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact us</title></head><body>';
-    echo $content;
-    echo '</body></html>';
+    if ($acceptsJson) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'message' => strip_tags($content),
+            'status' => $status,
+            'success' => $status >= 200 && $status < 300,
+        ]) ?: '';
+    } else {
+        echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact us</title></head><body>';
+        echo $content;
+        echo '</body></html>';
+    }
     exit;
 }
 
