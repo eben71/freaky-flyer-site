@@ -49,10 +49,14 @@ function handleError(prefix, error) {
 process.on('SIGINT', () => terminateChildren('SIGINT'));
 process.on('SIGTERM', () => terminateChildren('SIGTERM'));
 
-const phpProcess = spawn('php', ['-S', `${phpHost}:${phpPort}`, '-t', 'public'], {
-  cwd: rootDir,
-  stdio: 'inherit',
-});
+const phpProcess = spawn(
+  'php',
+  ['-S', `${phpHost}:${phpPort}`, '-t', 'public'],
+  {
+    cwd: rootDir,
+    stdio: 'inherit',
+  }
+);
 children.push(phpProcess);
 
 phpProcess.on('error', (error) =>

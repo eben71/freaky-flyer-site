@@ -7,3 +7,4 @@ tools/images/raw
 pnpm-lock.yaml
 src/content/pages/
 vendor/linkinator
+tools/geo/service-areas.json
