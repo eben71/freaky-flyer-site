@@ -413,8 +413,9 @@ const placeholders = {
       'Postcodes in WA use 4 digits. We’ll double-check this with you.',
     delay: 'Please wait a moment before sending so we know you’re real.',
     honeypot: 'Please clear the hidden field and try again.',
-    success:
-      'Thanks—your message is ready. Email sending will be enabled after final approval.',
+    success: 'Thank you for your enquiry. We will be in touch shortly.',
+    serverError:
+      'We could not send your message right now. Please try again or call us.',
   };
 
   if (form instanceof HTMLFormElement) {
@@ -451,6 +452,18 @@ const placeholders = {
         summaryEl.removeAttribute('data-variant');
       }
     };
+
+    const escapeHtml = (text) =>
+      text.replace(/[&<>"']/g, (char) => {
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;',
+        };
+        return map[char] || char;
+      });
 
     const renderSummary = (variant, content) => {
       if (!(summaryEl instanceof HTMLElement)) return;
@@ -669,8 +682,74 @@ const placeholders = {
         return;
       }
 
-      resetSummary();
-      form.submit();
+      const originalButtonText =
+        submitButton instanceof HTMLButtonElement
+          ? submitButton.textContent
+          : '';
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+      }
+
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+        .then(async (response) => {
+          const contentType = response.headers.get('Content-Type') || '';
+          let payload;
+          if (contentType.includes('application/json')) {
+            payload = await response.json();
+          } else {
+            payload = { message: await response.text() };
+          }
+          const message =
+            (payload && typeof payload.message === 'string'
+              ? payload.message
+              : '') ||
+            (response.ok ? messages.success : messages.serverError);
+
+          if (response.ok) {
+            renderSummary(
+              'success',
+              `<h3 class="contact-form__summary-title">Message sent</h3><p>${escapeHtml(
+                message
+              )}</p>`
+            );
+            form.reset();
+            state.clear();
+            fields.forEach((field) => setFieldState(field.name, '', ''));
+            updateCounter();
+            startTimeGate();
+          } else {
+            renderSummary(
+              'error',
+              `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
+                message
+              )}</p>`
+            );
+          }
+        })
+        .catch((error) => {
+          console.error('Contact form submission failed', error);
+          renderSummary(
+            'error',
+            `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
+              messages.serverError
+            )}</p>`
+          );
+        })
+        .finally(() => {
+          if (submitButton instanceof HTMLButtonElement) {
+            submitButton.textContent = originalButtonText || 'Send';
+            submitButton.disabled = !timeGatePassed || hasErrors();
+          }
+        });
     });
   }
 </script>

@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import { linkAttrs } from '../lib/links';
 import { site } from '../site.config';
-import EmailLink from './EmailLink.astro';
+import { contactEmailParts } from '../lib/email';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -62,8 +62,10 @@ const brandLogo = fs.existsSync(logoSvgPath)
     : '/assets/brand/ffdweblogo-1-960.webp';
 const brandLogoWidth = brandLogo.endsWith('.svg') ? 220 : 220;
 const brandLogoHeight = brandLogo.endsWith('.svg') ? 72 : undefined;
-const telHref = `tel:${site.phone.replace(/[^\d+]/g, '')}`;
-const telAttrs = linkAttrs(telHref);
+const contactEmailToken = Buffer.from(
+  `${contactEmailParts.user}@${contactEmailParts.domain}`,
+  'utf-8'
+).toString('base64');
 const topbarLinks = [
   {
     href: 'https://x.com/flyerfreaky',
@@ -86,15 +88,19 @@ const topbarLinks = [
       <div class="topbar__info">
         <span>Contact the Perth Flyer Distribution Specialists</span>
         <span class="divider" aria-hidden="true">|</span>
-        <a href={telHref} {...telAttrs}>
+        <span class="topbar__phone">
           P: {site.phone}
-        </a>
+        </span>
         <span class="divider" aria-hidden="true">|</span>
         <span>
           E:{' '}
-          <EmailLink>
-            {site.email}
-          </EmailLink>
+          <span
+            id="topbar-email"
+            class="topbar__email"
+            data-token={contactEmailToken}
+          >
+            Email us
+          </span>
         </span>
       </div>
       <div
@@ -206,9 +212,22 @@ const topbarLinks = [
 
 <script is:inline>
   const header = document.querySelector('header.site');
+  const topbarEmail = document.getElementById('topbar-email');
   const toggle = header?.querySelector('[data-nav-toggle]');
   const nav = header?.querySelector('[data-nav-list]');
   const overlay = header?.querySelector('[data-nav-overlay]');
+
+  if (topbarEmail instanceof HTMLElement) {
+    const token = topbarEmail.getAttribute('data-token');
+    if (token) {
+      try {
+        const address = atob(token);
+        topbarEmail.textContent = address;
+      } catch (error) {
+        console.error('Unable to decode topbar email', error);
+      }
+    }
+  }
 
   const mediaQuery = window.matchMedia('(max-width: 900px)');
 

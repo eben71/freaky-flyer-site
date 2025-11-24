@@ -19,6 +19,11 @@ const viteConfig = adminProxyTarget
             changeOrigin: true,
             secure: false,
           },
+          '/contact.php': {
+            target: adminProxyTarget,
+            changeOrigin: true,
+            secure: false,
+          },
         },
       },
     }
