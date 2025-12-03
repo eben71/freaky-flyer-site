@@ -20,6 +20,13 @@ for the `/admin` tools (default proxy target `http://127.0.0.1:9400`). PHP 8.1+ 
 be installed locally. Use `ADMIN_DEV_PHP_HOST` and/or `ADMIN_DEV_PHP_PORT` to override
 the PHP server binding. If you only want the Astro dev server, run `pnpm dev:astro`.
 
+### Admin credentials
+
+Admin authentication credentials are loaded from environment variables so that secrets
+are not committed to the repository. Create a local `.env` file with values for
+`ADMIN_USERNAME` and `ADMIN_PASSWORD`, and configure the same variables in your
+hosting environment or deployment pipeline for production.
+
 > **Note**
 > When new tooling dependencies are added, run `pnpm install --no-frozen-lockfile` to refresh `pnpm-lock.yaml` locally before relying on cached installs.
 
