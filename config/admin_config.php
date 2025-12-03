@@ -4,8 +4,12 @@
 // This file is located outside the public web root to prevent direct access.
 
 return [
-    'ADMIN_USERNAME' => 'CHANGE_ME_ADMIN_USERNAME', // TODO: Replace with a strong username before going live.
-    'ADMIN_PASSWORD' => 'CHANGE_ME_STRONG_PASSWORD', // TODO: Replace with a strong password before going live.
+    // Credentials are pulled from environment variables so secrets are never
+    // committed to the repository. Set these in your local `.env` file or on
+    // the server environment (e.g., via hosting control panel or deploy
+    // tooling).
+    'ADMIN_USERNAME' => getenv('ADMIN_USERNAME') ?: 'change-me',
+    'ADMIN_PASSWORD' => getenv('ADMIN_PASSWORD') ?: 'change-me',
     'MAX_FILE_SIZE_BYTES' => 10 * 1024 * 1024, // 10 MB
     'UPLOAD_ROOT' => dirname(__DIR__) . '/public/downloads',
 ];

@@ -711,8 +711,7 @@ const placeholders = {
           const message =
             (payload && typeof payload.message === 'string'
               ? payload.message
-              : '') ||
-            (response.ok ? messages.success : messages.serverError);
+              : '') || (response.ok ? messages.success : messages.serverError);
 
           if (response.ok) {
             renderSummary(
