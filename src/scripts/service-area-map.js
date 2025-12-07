@@ -6,9 +6,11 @@
  */
 /* eslint-env browser */
 
-import L from 'leaflet';
 const basePath = (import.meta.env.BASE_URL || '').replace(/\/+$/, '');
 const DATA_URL = `${basePath}/data/service-areas.json`;
+const leafletPromise = import(
+  /* @vite-ignore */ `${basePath}/vendor/leaflet/dist/leaflet.js`
+).then((module) => module.default ?? module);
 const DEFAULT_VIEW = { lat: -31.671, lng: 115.708 };
 const DEFAULT_ZOOM = 12;
 const DEFAULT_RADIUS = 1500;
@@ -303,6 +305,7 @@ const toLatLngPoint = (lat, lng) => ({
 });
 
 const createMapController = async (canvas) => {
+  const L = await leafletPromise;
   const map = L.map(canvas, {
     zoomControl: false,
     scrollWheelZoom: true,

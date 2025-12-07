@@ -13,3 +13,5 @@ public/secrets.php
 /public/data/service-areas.json
 !/vendor/leaflet/dist
 !/vendor/leaflet/dist/leaflet.js
+!/public/vendor/leaflet/dist
+!/public/vendor/leaflet/dist/leaflet.js

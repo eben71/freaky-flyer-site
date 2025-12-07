@@ -1,7 +1,7 @@
 ---
 const { heading = 'Get in Touch', headingId = 'contact-form-heading' } =
   Astro.props ?? {};
-
+const basePath = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
 const minDelayMs = 2000;
 const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'message'];
 const placeholders = {
@@ -20,7 +20,7 @@ const placeholders = {
   class="contact-form card"
   id="contact-form"
   method="POST"
-  action="/contact.php"
+  action={`${basePath}/contact.php`}
   novalidate
   data-min-delay={minDelayMs.toString()}
   data-required-fields={JSON.stringify(requiredFields)}
