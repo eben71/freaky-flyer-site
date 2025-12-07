@@ -34,10 +34,13 @@ $FROM_EMAIL = $siteConfig['from_email'] ?? '';
 $SITE_NAME = $siteConfig['name'] ?? $defaults['site_name'];
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 $debug = strtolower($env('DEBUG_CONTACT', '')) === 'true' || $env('DEBUG_CONTACT', '') === '1';
-
-if ($debug) {
-    log_issue('Config snapshot: recipient=' . ($RECIPIENT_EMAIL ?: '[empty]') . ', from=' . ($FROM_EMAIL ?: '[empty]') . ', site=' . ($SITE_NAME ?: '[empty]'));
-}
+$envSnapshot = [
+    'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
+    'from_email' => $FROM_EMAIL ?: '[empty]',
+    'site_name' => $SITE_NAME ?: '[empty]',
+    'script' => $_SERVER['SCRIPT_FILENAME'] ?? '[unknown]',
+    'debug_contact' => $debug ? 'true' : 'false',
+];
 
 function render_response(string $content, int $status = 200, ?bool $success = null, ?array $debugData = null): void
 {
@@ -82,6 +85,48 @@ function log_issue(string $message): void
     error_log($line);
 }
 
+set_error_handler(function ($errno, $errstr, $errfile, $errline) use ($debug, $envSnapshot) {
+    // Respect @-silenced errors.
+    if (error_reporting() === 0) {
+        return false;
+    }
+    $message = "PHP error {$errno} at {$errfile}:{$errline} - {$errstr}";
+    log_issue($message);
+    if ($debug) {
+        $extra = $envSnapshot;
+        $extra['error'] = $message;
+        // We don't output here to avoid partial responses; shutdown handler will catch fatals.
+    }
+    return false;
+});
+
+register_shutdown_function(function () use ($acceptsJson, $debug, $envSnapshot) {
+    $error = error_get_last();
+    if (!$error || !in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR], true)) {
+        return;
+    }
+    $message = "Fatal error {$error['type']} at {$error['file']}:{$error['line']} - {$error['message']}";
+    log_issue($message);
+    if (headers_sent()) {
+        return;
+    }
+    http_response_code(500);
+    $payload = [
+        'message' => 'Contact form error. Please try again later.',
+        'success' => false,
+        'status' => 500,
+    ];
+    if ($debug) {
+        $payload['debug'] = array_merge($envSnapshot, ['error' => $message]);
+    }
+    if ($acceptsJson) {
+        header('Content-Type: application/json');
+        echo json_encode($payload) ?: '';
+    } else {
+        echo '<!DOCTYPE html><html lang="en"><body><p>' . htmlentities($payload['message']) . '</p></body></html>';
+    }
+});
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     render_response('<p>Invalid request method.</p>', 405);
 }
@@ -109,8 +154,12 @@ $city = trim($_POST['city'] ?? '');
 $state = trim($_POST['state'] ?? '');
 $postcode = trim($_POST['postcode'] ?? '');
 
+if ($debug) {
+    log_issue('Config snapshot: recipient=' . $envSnapshot['recipient_email'] . ', from=' . $envSnapshot['from_email'] . ', site=' . $envSnapshot['site_name']);
+}
+
 if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $message === '') {
-    render_response('<p>Please complete the required fields and try again.</p>', 400);
+    render_response('<p>Please complete the required fields and try again.</p>', 400, null, $debug ? $envSnapshot : null);
 }
 
 if ($RECIPIENT_EMAIL === '' || $FROM_EMAIL === '') {
@@ -119,13 +168,7 @@ if ($RECIPIENT_EMAIL === '' || $FROM_EMAIL === '') {
         '<p>The contact form is not configured correctly. Please try again later.</p>',
         200,
         false,
-        $debug
-            ? [
-                'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
-                'from_email' => $FROM_EMAIL ?: '[empty]',
-                'site_name' => $SITE_NAME ?: '[empty]',
-            ]
-            : null
+        $debug ? $envSnapshot : null
     );
 }
 
@@ -138,13 +181,7 @@ if ($recipientEmail === false || $fromEmail === false) {
         '<p>The contact form is not configured correctly. Please try again later.</p>',
         200,
         false,
-        $debug
-            ? [
-                'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
-                'from_email' => $FROM_EMAIL ?: '[empty]',
-                'site_name' => $SITE_NAME ?: '[empty]',
-            ]
-            : null
+        $debug ? $envSnapshot : null
     );
 }
 
@@ -182,13 +219,7 @@ if (!mail($recipientEmail, $subject, $body, $formattedHeaders)) {
         '<p>We could not send your message right now. Please try again or call us.</p>',
         200,
         false,
-        $debug
-            ? [
-                'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
-                'from_email' => $FROM_EMAIL ?: '[empty]',
-                'site_name' => $SITE_NAME ?: '[empty]',
-            ]
-            : null
+        $debug ? $envSnapshot : null
     );
 }
 
@@ -196,11 +227,5 @@ render_response(
     '<p>Thank you for your enquiry. If required, we will contact you shortly.</p>',
     200,
     true,
-    $debug
-        ? [
-            'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
-            'from_email' => $FROM_EMAIL ?: '[empty]',
-            'site_name' => $SITE_NAME ?: '[empty]',
-        ]
-        : null
+    $debug ? $envSnapshot : null
 );
