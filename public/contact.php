@@ -1,6 +1,7 @@
 <?php
-$RECIPIENT_EMAIL = 'eben.venter@gmail.com';
-$SITE_NAME = 'Freaky Flyer Delivery';
+$RECIPIENT_EMAIL = getenv('TO_EMAIL') ?: 'admin@freakyflyerdelivery.com.au';
+$FROM_EMAIL = getenv('FROM_EMAIL') ?: 'no-reply@freakyflyerdelivery.com.au';
+$SITE_NAME = getenv('SITE_NAME') ?: 'Freaky Flyer Delivery';
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
 function render_response(string $content, int $status = 200): void
@@ -53,6 +54,17 @@ if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $
     render_response('<p>Please complete the required fields and try again.</p>', 400);
 }
 
+if ($RECIPIENT_EMAIL === '' || $FROM_EMAIL === '') {
+    render_response('<p>The contact form is not configured correctly. Please try again later.</p>', 500);
+}
+
+$recipientEmail = filter_var($RECIPIENT_EMAIL, FILTER_VALIDATE_EMAIL);
+$fromEmail = filter_var($FROM_EMAIL, FILTER_VALIDATE_EMAIL);
+
+if ($recipientEmail === false || $fromEmail === false) {
+    render_response('<p>The contact form is not configured correctly. Please try again later.</p>', 500);
+}
+
 $addressParts = array_filter([$street, $city, $state, $postcode]);
 $address = $addressParts ? implode(', ', $addressParts) : 'Not provided';
 
@@ -65,21 +77,23 @@ $body = "Name: {$firstName} {$lastName}\n" .
     'Submitted at: ' . date('c');
 
 $headers = [
-    'From' => "{$SITE_NAME} <no-reply@freakyflyerdelivery.com.au>",
+    'From' => "{$SITE_NAME} <{$fromEmail}>",
     'Reply-To' => $email,
     'Content-Type' => 'text/plain; charset=UTF-8',
 ];
 
 // IMPORTANT:
-// - During development, the contact form may be wired to the developer's email.
-// - Before launch, ensure all contact emails are switched to admin@freakyflyerdelivery.com.au.
+// - Configure the email addresses with environment variables:
+//   - TO_EMAIL: recipient inbox for enquiries.
+//   - FROM_EMAIL: authenticated "from" address for the server.
+//   - SITE_NAME: optional, defaults to "Freaky Flyer Delivery".
 
 $formattedHeaders = '';
 foreach ($headers as $key => $value) {
     $formattedHeaders .= $key . ': ' . $value . "\r\n";
 }
 
-if (!mail($RECIPIENT_EMAIL, $subject, $body, $formattedHeaders)) {
+if (!mail($recipientEmail, $subject, $body, $formattedHeaders)) {
     render_response('<p>We could not send your message right now. Please try again or call us.</p>', 500);
 }
 

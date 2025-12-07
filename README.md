@@ -47,6 +47,28 @@ pnpm build
 1. Build locally with `pnpm build`.
 2. Upload the contents of `dist/` to the TPP Wholesale cPanel document root via File Manager or SFTP.
 
+## Email configuration (environment variables)
+
+The public email shown across the site and the PHP contact form now read from
+environment variables instead of hard-coded addresses.
+
+1. Create a `.env` file locally (or set environment variables in your CI/CD pipeline) before running `pnpm build`:
+   - `PUBLIC_CONTACT_EMAIL` – address rendered on the site and structured data.
+   - `SITE_NAME` – optional label for email headers (defaults to "Freaky Flyer Delivery").
+2. In cPanel, add runtime environment variables so `public/contact.php` can send mail:
+   - Open **File Manager** → document root and edit (or create) `.htaccess`.
+   - Add lines such as:
+
+     ```
+     SetEnv TO_EMAIL "admin@freakyflyerdelivery.com.au"
+     SetEnv FROM_EMAIL "no-reply@freakyflyerdelivery.com.au"
+     SetEnv SITE_NAME "Freaky Flyer Delivery"
+     ```
+
+   These values are read with `getenv()` at runtime, so no code changes are required per host.
+3. Deploy the freshly built `dist/` folder via File Manager or SFTP.
+4. Submit a test enquiry from `/contact` to verify the email reaches the inbox configured in `TO_EMAIL`.
+
 ## Directory Overview
 
 ```
