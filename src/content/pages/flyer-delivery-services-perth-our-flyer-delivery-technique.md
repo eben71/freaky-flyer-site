@@ -9,7 +9,7 @@ alias: our-flyer-delivery-technique
 images: []
 ---
 
-**Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[eben.venter@gmail.com](mailto:eben.venter@gmail.com)**
+**Contact the Perth Flyer Distribution Specialists** | P: [**08 9405 7777**](tel:0894057777) | E: **[{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})**
 
 [](https://www.facebook.com/freakyflyerdelivery/?ref=br_rs)[](https://twitter.com/flyerfreaky)[](https://www.instagram.com/freakyflyerdelivery/)
 
@@ -66,7 +66,7 @@ Our dedicated full time delivery riders undertake distribution using a proven pr
 #### Contact Information
 
 **Phone:** [08 9405 7777](tel:0894057777)  
-**E-Mail:** [eben.venter@gmail.com](mailto:eben.venter@gmail.com)
+**E-Mail:** [{{CONTACT_EMAIL}}](mailto:{{CONTACT_EMAIL}})
 **Web:** [www.freakyflyerdelivery.com.au](http://www.freakyflyerdelivery.com.au)
 
 **Warehouse Address:**  

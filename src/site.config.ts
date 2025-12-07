@@ -1,9 +1,12 @@
 const contactEmail =
   import.meta.env.PUBLIC_CONTACT_EMAIL?.trim() ||
+  import.meta.env.TO_EMAIL?.trim() ||
   'admin@freakyflyerdelivery.com.au';
 
+const siteName = import.meta.env.SITE_NAME?.trim() || 'Freaky Flyer Delivery';
+
 export const site = {
-  name: 'Freaky Flyer Delivery',
+  name: siteName,
   domain: 'https://freakyflyerdelivery.com.au',
   phone: '(08) 9405 7777',
   email: contactEmail,

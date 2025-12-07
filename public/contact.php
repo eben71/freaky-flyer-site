@@ -1,7 +1,10 @@
 <?php
-$RECIPIENT_EMAIL = getenv('TO_EMAIL') ?: 'admin@freakyflyerdelivery.com.au';
-$FROM_EMAIL = getenv('FROM_EMAIL') ?: 'no-reply@freakyflyerdelivery.com.au';
-$SITE_NAME = getenv('SITE_NAME') ?: 'Freaky Flyer Delivery';
+$config = require __DIR__ . '/../config/app_config.php';
+$siteConfig = $config['site'];
+
+$RECIPIENT_EMAIL = $siteConfig['contact_email'];
+$FROM_EMAIL = $siteConfig['from_email'];
+$SITE_NAME = $siteConfig['name'];
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
 function render_response(string $content, int $status = 200): void

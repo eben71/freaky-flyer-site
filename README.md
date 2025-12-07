@@ -20,6 +20,9 @@ for the `/admin` tools (default proxy target `http://127.0.0.1:9400`). PHP 8.1+ 
 be installed locally. Use `ADMIN_DEV_PHP_HOST` and/or `ADMIN_DEV_PHP_PORT` to override
 the PHP server binding. If you only want the Astro dev server, run `pnpm dev:astro`.
 
+Copy `.env.example` to `.env` and populate it with your local secrets before running
+the project. The `.env` file is ignored by git so credentials never enter the repo.
+
 ### Admin credentials
 
 Admin authentication credentials are loaded from environment variables so that secrets
@@ -68,6 +71,43 @@ environment variables instead of hard-coded addresses.
    These values are read with `getenv()` at runtime, so no code changes are required per host.
 3. Deploy the freshly built `dist/` folder via File Manager or SFTP.
 4. Submit a test enquiry from `/contact` to verify the email reaches the inbox configured in `TO_EMAIL`.
+
+## Secrets and environment variables
+
+All runtime settings are loaded through `config/app_config.php`, which reads from
+environment variables so credentials are never hard-coded. Keep `config/app_config.php`
+as the single place for defaults and load secrets from the environment.
+
+### Local development
+
+Copy `.env.example` to `.env` and fill in values:
+
+- `PUBLIC_CONTACT_EMAIL` / `SITE_NAME` – exposed to the Astro build for site metadata.
+- `TO_EMAIL` / `FROM_EMAIL` – used by the PHP contact form and admin mail test (also used as a fallback for `PUBLIC_CONTACT_EMAIL`).
+- `ADMIN_USERNAME` / `ADMIN_PASSWORD` – required to log into `/admin`.
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` – SMTP credentials if the host requires authenticated mail.
+
+### cPanel (.htaccess) runtime configuration
+
+Set the same variables on the server so no credentials live in the codebase:
+
+```
+SetEnv PUBLIC_CONTACT_EMAIL "admin@example.com"
+SetEnv SITE_NAME "Freaky Flyer Delivery"
+SetEnv TO_EMAIL "admin@example.com"
+SetEnv FROM_EMAIL "no-reply@example.com"
+SetEnv ADMIN_USERNAME "admin-user"
+SetEnv ADMIN_PASSWORD "change-me"
+SetEnv SMTP_HOST "mail.example.com"
+SetEnv SMTP_PORT "465"
+SetEnv SMTP_SECURE "true"
+SetEnv SMTP_USER "admin@example.com"
+SetEnv SMTP_PASS "your-smtp-password"
+```
+
+Update these values directly in cPanel (or your deployment pipeline) instead of
+committing them. For other hosts, configure the same variables via their runtime
+environment UI or process manager.
 
 ## Directory Overview
 
