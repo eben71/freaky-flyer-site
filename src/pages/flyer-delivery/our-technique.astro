@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BottomCta from '../../components/BottomCta.astro';
 import Hero from '../../components/Hero.astro';
+import { withBase } from '../../lib/base';
 
 const pageTitle = 'Our Delivery Technique | Freaky Flyer Delivery';
 const pageDescription =
@@ -12,7 +13,7 @@ const techniqueSteps = [
     heading: 'FLYER DROP OFF:',
     copy: 'Our clients have the flexibility to drop off their flyers at our warehouse address in Wanneroo, or for smaller quantities only, at our 24/7 drop off location in Madeley, please ask for details. For quantities over 10,000, our friendly team can arrange FREE pick up from your business or printers location, smaller quantities can be picked up for a small fee, please ask if you require this service.',
     image: {
-      src: '/assets/img/ffdps-13-1-960.webp',
+      src: withBase('/assets/img/ffdps-13-1-960.webp'),
       alt: 'Freaky Flyer Delivery administration manager assisting clients with flyer drop offs',
     },
   },
@@ -20,7 +21,7 @@ const techniqueSteps = [
     heading: 'PREPARATION AND EQUALIZING:',
     copy: 'Our preparation team will then organise and Equalize the flyers, using our proven Equalizing technique to ensure maximum client exposure. This all takes place at our Wanneroo warehouse, prior to delivery by our riders to ensure continuity of the delivery process.',
     image: {
-      src: '/assets/img/ffdps-11-1-960.webp',
+      src: withBase('/assets/img/ffdps-11-1-960.webp'),
       alt: 'Equalizing team preparing flyer bundles inside the Wanneroo warehouse',
     },
   },
@@ -28,7 +29,7 @@ const techniqueSteps = [
     heading: 'DELIVERY:',
     copy: 'Our dedicated full time delivery riders undertake distribution using a proven professional method utilizing ex Australia Post Honda 110 Super Cub motorbikes, with front and side pannier bags, ensuring the pre-prepared and Equalized flyer bundles are delivered efficiently and effectively, no matter the weather or conditions. All of our riders are required to use our nominated GPS tracking system to ensure our clients have full confidence that the flyer delivery is undertaken to the full extent allowable under the Flyer Distribution Code of Conduct.',
     image: {
-      src: '/assets/img/ffdps-4-1-960.webp',
+      src: withBase('/assets/img/ffdps-4-1-960.webp'),
       alt: 'Freaky Flyer Delivery riders and support staff gathered inside the warehouse',
     },
   },
@@ -79,7 +80,7 @@ const techniqueSteps = [
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 

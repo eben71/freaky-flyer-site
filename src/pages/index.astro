@@ -4,6 +4,7 @@ import { loadPage } from '../lib/content.ts';
 import Hero from '../components/Hero.astro';
 import BottomCta from '../components/BottomCta.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import { withBase } from '../lib/base';
 
 const slug = 'index';
 const page = await loadPage(slug);
@@ -16,10 +17,10 @@ const rawDescription =
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description =
   rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
-const heroImage = '/assets/brand/nw01ffd_home_banner.jpg';
-const aboutPanelImage = '/assets/img/about-hero-960.webp';
-const flyerTipsPanelImage = '/assets/img/tips-hero-960.webp';
-const whyImage = '/assets/img/ffdwarehousepersonell-960.webp';
+const heroImage = withBase('/assets/brand/nw01ffd_home_banner.jpg');
+const aboutPanelImage = withBase('/assets/img/about-hero-960.webp');
+const flyerTipsPanelImage = withBase('/assets/img/tips-hero-960.webp');
+const whyImage = withBase('/assets/img/ffdwarehousepersonell-960.webp');
 ---
 
 <BaseLayout {title} description={description}>
@@ -37,7 +38,9 @@ const whyImage = '/assets/img/ffdwarehousepersonell-960.webp';
       >
         Watch Our Video
       </button>
-      <a class="button outline" href="/flyer-delivery/pricing">View Pricing</a>
+      <a class="button outline" href={withBase('/flyer-delivery/pricing')}>
+        View Pricing
+      </a>
     </div>
   </Hero>
 
@@ -69,7 +72,7 @@ const whyImage = '/assets/img/ffdwarehousepersonell-960.webp';
               we built Perth’s most accountable flyer network.
             </p>
             <p class="feature-card__actions">
-              <a class="button primary" href="/about">View More</a>
+              <a class="button primary" href={withBase('/about')}>View More</a>
             </p>
           </div>
         </article>
@@ -85,7 +88,9 @@ const whyImage = '/assets/img/ffdwarehousepersonell-960.webp';
               advice from our delivery specialists.
             </p>
             <p class="feature-card__actions">
-              <a class="button primary" href="/flyer-tips">View More</a>
+              <a class="button primary" href={withBase('/flyer-tips')}>
+                View More
+              </a>
             </p>
           </div>
         </article>
@@ -108,7 +113,7 @@ const whyImage = '/assets/img/ffdwarehousepersonell-960.webp';
       </p>
       <a
         class="button button--inverted pricing-highlight__cta"
-        href="/flyer-delivery/pricing">View Pricing</a
+        href={withBase('/flyer-delivery/pricing')}>View Pricing</a
       >
     </div>
   </section>
@@ -177,7 +182,7 @@ const whyImage = '/assets/img/ffdwarehousepersonell-960.webp';
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 

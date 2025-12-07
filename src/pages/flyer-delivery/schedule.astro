@@ -2,15 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BottomCta from '../../components/BottomCta.astro';
 import Hero from '../../components/Hero.astro';
+import { withBase } from '../../lib/base';
 
 const pageTitle = 'Delivery Schedule | Freaky Flyer Delivery';
 const pageDescription =
   'Review Freaky Flyer Delivery’s standard run cadence across Perth suburbs and download the full delivery schedule.';
 
-const scheduleImage = '/assets/img/warehouse-team-960.webp';
+const scheduleImage = withBase('/assets/img/warehouse-team-960.webp');
 
-const scheduleHref = '/downloads/schedule.pdf';
-const scheduleFallback = '/contact';
+const scheduleHref = withBase('/downloads/schedule.pdf');
+const scheduleFallback = withBase('/contact');
 const scheduleIsDownload = scheduleHref.startsWith('/downloads/');
 
 const scheduleCopy =
@@ -91,7 +92,7 @@ const scheduleCopy =
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 

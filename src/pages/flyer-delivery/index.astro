@@ -4,14 +4,17 @@ import BottomCta from '../../components/BottomCta.astro';
 import Accordion from '../../components/Accordion.astro';
 import Hero from '../../components/Hero.astro';
 import { linkAttrs } from '../../lib/links';
+import { withBase } from '../../lib/base';
 
 const title = 'Perth Flyer Delivery | Freaky Flyer Delivery';
 const description =
   'Accountable flyer delivery services spanning the Perth metro area.';
 
-const techniqueLinkAttrs = linkAttrs('/flyer-delivery/our-technique');
-const pricingLinkAttrs = linkAttrs('/flyer-delivery/pricing');
-const teamImage = '/assets/img/warehouse-team-960.webp';
+const techniqueHref = withBase('/flyer-delivery/our-technique');
+const pricingHref = withBase('/flyer-delivery/pricing');
+const techniqueLinkAttrs = linkAttrs(techniqueHref);
+const pricingLinkAttrs = linkAttrs(pricingHref);
+const teamImage = withBase('/assets/img/warehouse-team-960.webp');
 
 const highlights = [
   {
@@ -114,14 +117,14 @@ const faqItems = [
     <div slot="actions">
       <a
         class="button primary"
-        href="/flyer-delivery/our-technique"
+        href={techniqueHref}
         {...techniqueLinkAttrs}
       >
         Our Splicing Technique
       </a>
       <a
         class="button outline"
-        href="/flyer-delivery/pricing"
+        href={pricingHref}
         {...pricingLinkAttrs}
       >
         View Pricing
@@ -201,7 +204,7 @@ const faqItems = [
 
   <BottomCta
     text="We look forward to working with you—please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 </BaseLayout>

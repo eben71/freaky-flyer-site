@@ -4,6 +4,7 @@ import { loadPage } from '../lib/content.ts';
 import Hero from '../components/Hero.astro';
 import BottomCta from '../components/BottomCta.astro';
 import ServiceAreaMap from '../components/ServiceAreaMap.astro';
+import { withBase } from '../lib/base';
 
 const slug = 'service-areas';
 const page = await loadPage(slug);
@@ -21,7 +22,11 @@ const heroTitle = 'Perth Flyer Delivery Service Area';
 const heroKicker = 'Service Areas';
 ---
 
-<BaseLayout {title} description={description} canonical="/service-areas/">
+<BaseLayout
+  {title}
+  description={description}
+  canonical={withBase('/service-areas/')}
+>
   <Hero variant="compact" kicker={heroKicker} title={heroTitle}>
     <p>
       We distribute flyers across the Perth metropolitan area, reaching coastal
@@ -52,7 +57,7 @@ const heroKicker = 'Service Areas';
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 </BaseLayout>

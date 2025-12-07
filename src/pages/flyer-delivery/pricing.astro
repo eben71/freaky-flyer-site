@@ -2,13 +2,14 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BottomCta from '../../components/BottomCta.astro';
 import Hero from '../../components/Hero.astro';
+import { withBase } from '../../lib/base';
 
 const pageTitle = 'Pricing | Freaky Flyer Delivery';
 const pageDescription =
   'Flyer delivery pricing varies by quantity, targeting, and add-ons—get transparent guidance and download the latest rate card.';
 
-const priceListHref = '/downloads/pricing.pdf';
-const fallbackHref = '/contact';
+const priceListHref = withBase('/downloads/pricing.pdf');
+const fallbackHref = withBase('/contact');
 const isDownload = priceListHref.startsWith('/downloads/');
 ---
 
@@ -59,7 +60,7 @@ const isDownload = priceListHref.startsWith('/downloads/');
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 

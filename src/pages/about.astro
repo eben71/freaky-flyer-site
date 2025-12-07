@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BottomCta from '../components/BottomCta.astro';
 import Hero from '../components/Hero.astro';
+import { withBase } from '../lib/base';
 
 const pageTitle = 'About Freaky Flyer Delivery';
 const pageDescription =
@@ -10,7 +11,7 @@ const pageDescription =
 const heroBlurb =
   'Freaky Flyer Delivery is a Perth-based, family-run flyer, pamphlet, and brochure distribution company serving the wider metropolitan area. We understand what local small and medium businesses need—affordable, reliable, and accessible distribution backed by exceptional customer service. Every delivery is GPS-tracked for full transparency, and our friendly team is always happy to help with your next campaign.';
 
-const storyImage = '/assets/img/warehouse-personel-960.webp';
+const storyImage = withBase('/assets/img/warehouse-personel-960.webp');
 
 const storyParagraphs = [
   "March 2014, a new to real estate sales representative, sat behind their desk fretting over who they could trust to deliver their flyers within their real estate area. Struggling to find anyone trustworthy enough to “do the right thing” as they certainly didn't want someone putting their flyers inside a bunch of catalogues or local newspapers reducing exposure immensely, or not delivering their flyers, or worst still, the prospect of dumping was a real concern by all within the industry.",
@@ -168,7 +169,7 @@ const teamMembers = [
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 

@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 import LocalBusinessJsonLd from '../components/LocalBusinessJsonLd.astro';
 import globalStyles from '../styles/globals.css?inline';
+import { withBase } from '../lib/base';
 
 const {
   title = 'Freaky Flyer Delivery',
@@ -11,6 +12,9 @@ const {
   image,
   canonical,
 } = Astro.props;
+
+const manifestHref = withBase('/brands/site.webmanifest');
+const faviconHref = withBase('/brands/favicon.ico');
 ---
 
 <html lang="en">
@@ -18,8 +22,8 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Seo {title} {description} image={image} canonical={canonical} />
-    <link rel="icon" href="/brands/favicon.ico" sizes="any" />
-    <link rel="manifest" href="/brands/site.webmanifest" />
+    <link rel="icon" href={faviconHref} sizes="any" />
+    <link rel="manifest" href={manifestHref} />
     <meta name="theme-color" content="#89040B" />
     <LocalBusinessJsonLd />
     <style is:global set:html={globalStyles}></style>

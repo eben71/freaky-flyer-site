@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/base';
 import SectionHeader from '../components/SectionHeader.astro';
 ---
 
@@ -22,7 +23,7 @@ import SectionHeader from '../components/SectionHeader.astro';
         Return to the home page to explore the latest services, pricing, and
         delivery areas.
       </p>
-      <a class="button primary" href="/">Back to home</a>
+      <a class="button primary" href={withBase('/')}>Back to home</a>
     </div>
   </section>
 </BaseLayout>

@@ -3,25 +3,29 @@ import fs from 'node:fs';
 import { linkAttrs } from '../lib/links';
 import { site } from '../site.config';
 import { contactEmailParts } from '../lib/email';
+import { withBase } from '../lib/base';
 
 const navItems = [
-  { href: '/', label: 'Home' },
+  { href: withBase('/'), label: 'Home' },
   {
-    href: '/about',
+    href: withBase('/about'),
     label: 'About Us',
   },
   {
-    href: '/flyer-delivery',
+    href: withBase('/flyer-delivery'),
     label: 'Flyer Delivery',
     children: [
-      { href: '/flyer-delivery/our-technique', label: 'Our Technique' },
-      { href: '/flyer-delivery/pricing', label: 'Pricing' },
-      { href: '/flyer-delivery/schedule', label: 'Schedule' },
+      {
+        href: withBase('/flyer-delivery/our-technique'),
+        label: 'Our Technique',
+      },
+      { href: withBase('/flyer-delivery/pricing'), label: 'Pricing' },
+      { href: withBase('/flyer-delivery/schedule'), label: 'Schedule' },
     ],
   },
-  { href: '/flyer-tips', label: 'Flyer Tips' },
-  { href: '/service-areas', label: 'Service Areas' },
-  { href: '/contact', label: 'Contact Us' },
+  { href: withBase('/flyer-tips'), label: 'Flyer Tips' },
+  { href: withBase('/service-areas'), label: 'Service Areas' },
+  { href: withBase('/contact'), label: 'Contact Us' },
 ];
 
 const normalizePath = (path) => {
@@ -56,10 +60,10 @@ const logoPngPath = new URL(
   import.meta.url
 );
 const brandLogo = fs.existsSync(logoSvgPath)
-  ? '/assets/brand/ffd-logo.svg'
+  ? withBase('/assets/brand/ffd-logo.svg')
   : fs.existsSync(logoPngPath)
-    ? '/assets/brand/ffd-logo.png'
-    : '/assets/brand/ffdweblogo-1-960.webp';
+    ? withBase('/assets/brand/ffd-logo.png')
+    : withBase('/assets/brand/ffdweblogo-1-960.webp');
 const brandLogoWidth = brandLogo.endsWith('.svg') ? 220 : 220;
 const brandLogoHeight = brandLogo.endsWith('.svg') ? 72 : undefined;
 const contactEmailToken = Buffer.from(
@@ -139,7 +143,7 @@ const topbarLinks = [
   </div>
   <div class="container">
     <nav class="nav" role="navigation" aria-label="Primary">
-      <a class="brand" href="/" aria-label="Freaky Flyer Delivery">
+      <a class="brand" href={withBase('/')} aria-label="Freaky Flyer Delivery">
         <img
           src={brandLogo}
           alt="Freaky Flyer Delivery"

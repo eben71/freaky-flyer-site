@@ -4,6 +4,7 @@ import { loadPage } from '../lib/content.ts';
 import { sanitizeHtml } from '../lib/sanitize';
 import BottomCta from '../components/BottomCta.astro';
 import Hero from '../components/Hero.astro';
+import { withBase } from '../lib/base';
 
 const slug = 'flyer-tips';
 const page = await loadPage(slug);
@@ -24,7 +25,7 @@ const sectionHeading = 'Best Practices for Flyers';
 <BaseLayout
   title={heroTitle}
   description={description}
-  canonical="/flyer-tips/"
+  canonical={withBase('/flyer-tips/')}
 >
   <Hero variant="compact" kicker="Flyer Tips" title={heroTitle}>
     <p class="hero__intro">{description}</p>
@@ -51,7 +52,7 @@ const sectionHeading = 'Best Practices for Flyers';
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href="/contact"
+    href={withBase('/contact')}
     label="Contact Us"
   />
 
