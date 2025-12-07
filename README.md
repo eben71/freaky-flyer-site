@@ -50,6 +50,7 @@ pnpm build
 1. Build locally with `pnpm build`.
 2. Before uploading, remove `dist/.htaccess` so you don’t overwrite the live server’s runtime env settings.
 3. Upload the contents of `dist/` to the TPP Wholesale cPanel document root via File Manager or SFTP.
+4. (Optional) For troubleshooting the contact form, add `SetEnv DEBUG_CONTACT "true"` to the live `.htaccess`. Remove it after debugging so config details aren’t exposed in responses.
 
 ## Email configuration (environment variables)
 

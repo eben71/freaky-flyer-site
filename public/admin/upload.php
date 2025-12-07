@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$config = require __DIR__ . '/../../config/admin_config.php';
+$config = require __DIR__ . '/config.php';
 
 // ADMIN PASSWORD:
 // - This value MUST be changed before going live.
@@ -12,9 +12,12 @@ $ADMIN_PASSWORD = $config['ADMIN_PASSWORD'];
 
 $MAX_FILE_SIZE_BYTES = $config['MAX_FILE_SIZE_BYTES'];
 $UPLOAD_ROOT = $config['UPLOAD_ROOT'];
+$basePath = isset($config['BASE_PATH']) ? rtrim($config['BASE_PATH'], '/') : '';
+$adminRootWithSlash = ($basePath . '/admin') . '/';
 
 function respond_with_message(string $title, string $message, int $statusCode = 400): void
 {
+    global $adminRootWithSlash;
     http_response_code($statusCode);
     $statusClass = $statusCode >= 200 && $statusCode < 300 ? 'status-success' : 'status-error';
     echo "<!DOCTYPE html>
@@ -89,7 +92,7 @@ function respond_with_message(string $title, string $message, int $statusCode = 
     <span class=\"pill {$statusClass}\">" . ($statusClass === 'status-success' ? 'Success' : 'Status') . "</span>
     <h1>{$title}</h1>
     <p>{$message}</p>
-    <a class=\"button-link\" href=\"/admin/\">Back to admin uploads</a>
+    <a class=\"button-link\" href=\"" . htmlspecialchars($adminRootWithSlash, ENT_QUOTES, 'UTF-8') . "\">Back to admin uploads</a>
   </div>
 </body>
 </html>";

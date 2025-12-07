@@ -29,16 +29,16 @@ if (is_readable($configPath)) {
     }
 }
 
-$RECIPIENT_EMAIL = $siteConfig['contact_email'] ?? '';
-$FROM_EMAIL = $siteConfig['from_email'] ?? '';
-$SITE_NAME = $siteConfig['name'] ?? $defaults['site_name'];
+$RECIPIENT_EMAIL = isset($siteConfig['contact_email']) ? $siteConfig['contact_email'] : '';
+$FROM_EMAIL = isset($siteConfig['from_email']) ? $siteConfig['from_email'] : '';
+$SITE_NAME = isset($siteConfig['name']) ? $siteConfig['name'] : $defaults['site_name'];
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 $debug = strtolower($env('DEBUG_CONTACT', '')) === 'true' || $env('DEBUG_CONTACT', '') === '1';
 $envSnapshot = [
     'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
     'from_email' => $FROM_EMAIL ?: '[empty]',
     'site_name' => $SITE_NAME ?: '[empty]',
-    'script' => $_SERVER['SCRIPT_FILENAME'] ?? '[unknown]',
+    'script' => isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['SCRIPT_FILENAME'] : '[unknown]',
     'debug_contact' => $debug ? 'true' : 'false',
 ];
 
@@ -46,7 +46,7 @@ function render_response($content, $status = 200, $success = null, $debugData = 
 {
     global $acceptsJson, $debug;
     http_response_code($status);
-    $ok = $success ?? ($status >= 200 && $status < 300);
+    $ok = $success !== null ? $success : ($status >= 200 && $status < 300);
     if ($acceptsJson) {
         header('Content-Type: application/json');
         $response = [
@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     render_response('<p>Invalid request method.</p>', 405);
 }
 
-$honeypot = $_POST['website'] ?? '';
+$honeypot = isset($_POST['website']) ? $_POST['website'] : '';
 if (trim($honeypot) !== '') {
     render_response('<p>Thank you for your enquiry. If required, we will contact you shortly.</p>');
 }
@@ -144,15 +144,15 @@ if ($startedAt > 0 && $deltaMs > 0 && $deltaMs < 2000) {
     render_response('<p>Thank you for your enquiry. If required, we will contact you shortly.</p>');
 }
 
-$firstName = trim($_POST['firstName'] ?? '');
-$lastName = trim($_POST['lastName'] ?? '');
-$email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
-$phone = trim($_POST['phone'] ?? '');
-$message = trim($_POST['message'] ?? '');
-$street = trim($_POST['street'] ?? '');
-$city = trim($_POST['city'] ?? '');
-$state = trim($_POST['state'] ?? '');
-$postcode = trim($_POST['postcode'] ?? '');
+$firstName = trim(isset($_POST['firstName']) ? $_POST['firstName'] : '');
+$lastName = trim(isset($_POST['lastName']) ? $_POST['lastName'] : '');
+$email = filter_var(isset($_POST['email']) ? $_POST['email'] : '', FILTER_SANITIZE_EMAIL);
+$phone = trim(isset($_POST['phone']) ? $_POST['phone'] : '');
+$message = trim(isset($_POST['message']) ? $_POST['message'] : '');
+$street = trim(isset($_POST['street']) ? $_POST['street'] : '');
+$city = trim(isset($_POST['city']) ? $_POST['city'] : '');
+$state = trim(isset($_POST['state']) ? $_POST['state'] : '');
+$postcode = trim(isset($_POST['postcode']) ? $_POST['postcode'] : '');
 
 if ($debug) {
     log_issue('Config snapshot: recipient=' . $envSnapshot['recipient_email'] . ', from=' . $envSnapshot['from_email'] . ', site=' . $envSnapshot['site_name']);

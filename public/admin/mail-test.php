@@ -1,8 +1,8 @@
 <?php
-$config = require __DIR__ . '/../../config/app_config.php';
+$config = require __DIR__ . '/config.php';
 
-$toAddress = $config['site']['contact_email'] ?: $config['site']['from_email'];
-$subject = sprintf('%s Mail Test', $config['site']['name']);
+$toAddress = $config['CONTACT_EMAIL'] ?: $config['FROM_EMAIL'];
+$subject = sprintf('%s Mail Test', $config['SITE_NAME']);
 $message = 'This is a test email from the server.';
 
 $sent = mail($toAddress, $subject, $message);

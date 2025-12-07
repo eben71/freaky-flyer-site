@@ -8,5 +8,8 @@ if (ini_get('session.use_cookies')) {
 }
 
 session_destroy();
-header('Location: /admin/');
+$config = require __DIR__ . '/config.php';
+$basePath = isset($config['BASE_PATH']) ? rtrim($config['BASE_PATH'], '/') : '';
+$adminRootWithSlash = ($basePath . '/admin') . '/';
+header('Location: ' . $adminRootWithSlash);
 exit;

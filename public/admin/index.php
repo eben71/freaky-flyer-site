@@ -1,10 +1,13 @@
 <?php
 session_start();
 
-$config = require __DIR__ . '/../../config/admin_config.php';
+$config = require __DIR__ . '/config.php';
 
 $isLoggedIn = !empty($_SESSION['admin_logged_in']);
 $authError = '';
+$basePath = isset($config['BASE_PATH']) ? rtrim($config['BASE_PATH'], '/') : '';
+$adminRoot = $basePath . '/admin';
+$adminRootWithSlash = ($adminRoot === '') ? '/' : $adminRoot . '/';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login') {
     $username = $_POST['admin_username'] ?? '';
@@ -14,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
         session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_username'] = $username;
-        header('Location: /admin/');
+        header('Location: ' . $adminRootWithSlash);
         exit;
     }
 
@@ -177,17 +180,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
       <?php if ($isLoggedIn): ?>
         <div class="actions">
           <span class="note">Logged in as <strong><?php echo htmlspecialchars($_SESSION['admin_username'] ?? ''); ?></strong></span>
-          <a class="logout-link" href="/admin/logout.php">Logout</a>
-        </div>
-      <?php endif; ?>
-    </div>
+          <a class="logout-link" href="<?php echo htmlspecialchars($adminRootWithSlash . 'logout.php', ENT_QUOTES, 'UTF-8'); ?>">Logout</a>
+      </div>
+    <?php endif; ?>
+  </div>
 
-    <?php if (!$isLoggedIn): ?>
-      <?php if ($authError): ?>
-        <div class="error" role="alert"><?php echo htmlspecialchars($authError); ?></div>
-      <?php endif; ?>
-      <form method="POST" action="/admin/">
-        <input type="hidden" name="action" value="login" />
+  <?php if (!$isLoggedIn): ?>
+    <?php if ($authError): ?>
+      <div class="error" role="alert"><?php echo htmlspecialchars($authError); ?></div>
+    <?php endif; ?>
+    <form method="POST" action="<?php echo htmlspecialchars($adminRootWithSlash, ENT_QUOTES, 'UTF-8'); ?>">
+      <input type="hidden" name="action" value="login" />
         <div>
           <label for="admin_username">Admin username</label>
           <input type="text" name="admin_username" id="admin_username" autocomplete="username" required />
@@ -200,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
         <button type="submit">Login</button>
       </form>
     <?php else: ?>
-      <form method="POST" action="/admin/upload.php" enctype="multipart/form-data">
+  <form method="POST" action="<?php echo htmlspecialchars($adminRootWithSlash . 'upload.php', ENT_QUOTES, 'UTF-8'); ?>" enctype="multipart/form-data">
         <div>
           <label for="doc_type">Document type</label>
           <select name="doc_type" id="doc_type" required>

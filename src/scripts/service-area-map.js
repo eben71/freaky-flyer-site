@@ -13,7 +13,11 @@ const normalizeBasePath = (value) => {
 };
 
 const deriveBasePath = () => {
-  const envBase = import.meta?.env?.BASE_URL;
+  if (typeof window !== 'undefined' && window.__SERVICE_AREA_BASE) {
+    return window.__SERVICE_AREA_BASE;
+  }
+  const envBase =
+    import.meta?.env?.BASE_URL || import.meta?.env?.PUBLIC_BASE_PATH || '';
   if (envBase) return envBase;
   try {
     const current =
