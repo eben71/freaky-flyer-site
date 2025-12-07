@@ -9,6 +9,10 @@ try {
   ));
 }
 
+const basePathRaw = process.env.PUBLIC_BASE_PATH?.trim() || '/newsite';
+const normalizedBase = `/${basePathRaw.replace(/^\/+|\/+$/g, '')}/`;
+const baseHrefPrefix = normalizedBase.slice(0, -1); // drop trailing slash
+
 const contactEmail =
   process.env.PUBLIC_CONTACT_EMAIL?.trim() ||
   process.env.TO_EMAIL?.trim() ||
@@ -25,6 +29,14 @@ const replacePlaceholders = () => {
     let next = value;
     for (const [needle, replacement] of Object.entries(replacements)) {
       next = next.split(needle).join(replacement);
+    }
+    if (
+      baseHrefPrefix &&
+      next.startsWith('/') &&
+      !next.startsWith('//') &&
+      !next.startsWith(baseHrefPrefix + '/')
+    ) {
+      next = `${baseHrefPrefix}${next}`;
     }
     return next;
   };
@@ -67,7 +79,7 @@ const viteConfig = adminProxyTarget
 
 export default defineConfig({
   site: 'https://freakyflyerdelivery.com.au/newsite',
-  base: '/newsite',
+  base: normalizedBase,
   output: 'static',
   integrations: [sitemapIntegration()],
   markdown: {
