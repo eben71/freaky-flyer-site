@@ -6,7 +6,32 @@
  */
 /* eslint-env browser */
 
-const basePath = (import.meta.env.BASE_URL || '').replace(/\/+$/, '');
+const normalizeBasePath = (value) => {
+  if (!value) return '';
+  const trimmed = value.replace(/\/+$/, '');
+  return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+};
+
+const deriveBasePath = () => {
+  const envBase = import.meta?.env?.BASE_URL;
+  if (envBase) return envBase;
+  try {
+    const current =
+      (typeof document !== 'undefined' &&
+        document.currentScript &&
+        document.currentScript.src) ||
+      import.meta.url;
+    const url = new URL(current, typeof window !== 'undefined' ? window.location.href : undefined);
+    const match = url.pathname.match(/^(.*)\/_astro\//);
+    if (match) return match[1] || '';
+    return '';
+  } catch (error) {
+    console.warn('Unable to derive base path', error);
+    return '';
+  }
+};
+
+const basePath = normalizeBasePath(deriveBasePath());
 const DATA_URL = `${basePath}/data/service-areas.json`;
 const leafletPromise = import(
   /* @vite-ignore */ `${basePath}/vendor/leaflet/dist/leaflet.js`

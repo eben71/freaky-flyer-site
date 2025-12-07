@@ -1,10 +1,37 @@
 <?php
-$config = require __DIR__ . '/../config/app_config.php';
-$siteConfig = $config['site'];
+$configPath = __DIR__ . '/../config/app_config.php';
 
-$RECIPIENT_EMAIL = $siteConfig['contact_email'];
-$FROM_EMAIL = $siteConfig['from_email'];
-$SITE_NAME = $siteConfig['name'];
+$env = function (string $key, string $default = ''): string {
+    $value = getenv($key);
+    if ($value === false && isset($_ENV[$key])) {
+        $value = $_ENV[$key];
+    }
+    $value = is_string($value) ? trim($value) : '';
+    return $value !== '' ? $value : $default;
+};
+
+$defaults = [
+    'site_name' => 'Freaky Flyer Delivery',
+    'contact_email' => 'admin@freakyflyerdelivery.com.au',
+    'from_email' => 'no-reply@freakyflyerdelivery.com.au',
+];
+
+$siteConfig = [
+    'contact_email' => $env('PUBLIC_CONTACT_EMAIL', $env('TO_EMAIL', $defaults['contact_email'])),
+    'from_email' => $env('FROM_EMAIL', $defaults['from_email']),
+    'name' => $env('SITE_NAME', $defaults['site_name']),
+];
+
+if (is_readable($configPath)) {
+    $config = require $configPath;
+    if (is_array($config) && isset($config['site']) && is_array($config['site'])) {
+        $siteConfig = array_merge($siteConfig, array_filter($config['site']));
+    }
+}
+
+$RECIPIENT_EMAIL = $siteConfig['contact_email'] ?? '';
+$FROM_EMAIL = $siteConfig['from_email'] ?? '';
+$SITE_NAME = $siteConfig['name'] ?? $defaults['site_name'];
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
 function render_response(string $content, int $status = 200): void
