@@ -57,6 +57,30 @@ const replacePlaceholders = () => {
   return (tree) => walk(tree);
 };
 
+const ensureBaseTrailingSlash = (basePath) => {
+  const baseNoSlash = basePath.endsWith('/')
+    ? basePath.slice(0, -1)
+    : basePath;
+
+  return {
+    name: 'ffd-base-trailing-slash',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = req.url || '';
+        const [pathname, search = ''] = url.split('?', 2);
+        if (pathname === baseNoSlash) {
+          const target = `${basePath}${search ? `?${search}` : ''}`;
+          res.statusCode = 301;
+          res.setHeader('Location', target);
+          res.end();
+          return;
+        }
+        next();
+      });
+    },
+  };
+};
+
 const adminProxyTarget = process.env.ADMIN_DEV_PROXY_TARGET;
 const viteConfig = adminProxyTarget
   ? {
@@ -76,6 +100,11 @@ const viteConfig = adminProxyTarget
       },
     }
   : undefined;
+const baseRedirectPlugin = ensureBaseTrailingSlash(normalizedBase);
+const mergedViteConfig = {
+  ...viteConfig,
+  plugins: [...(viteConfig?.plugins ?? []), baseRedirectPlugin],
+};
 
 export default defineConfig({
   site: 'https://freakyflyerdelivery.com.au/newsite',
@@ -85,5 +114,5 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [replacePlaceholders],
   },
-  vite: viteConfig,
+  vite: mergedViteConfig,
 });
