@@ -15,7 +15,7 @@ $UPLOAD_ROOT = $config['UPLOAD_ROOT'];
 $basePath = isset($config['BASE_PATH']) ? rtrim($config['BASE_PATH'], '/') : '';
 $adminRootWithSlash = ($basePath . '/admin') . '/';
 
-function respond_with_message(string $title, string $message, int $statusCode = 400): void
+function respond_with_message($title, $message, $statusCode = 400)
 {
     global $adminRootWithSlash;
     http_response_code($statusCode);
@@ -107,7 +107,7 @@ if (empty($_SESSION['admin_logged_in'])) {
     respond_with_message('Access denied', 'You must be logged in to upload files.', 403);
 }
 
-$sessionUsername = $_SESSION['admin_username'] ?? '';
+$sessionUsername = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] : '';
 if ($sessionUsername !== $config['ADMIN_USERNAME']) {
     respond_with_message('Access denied', 'You must be logged in to upload files.', 403);
 }

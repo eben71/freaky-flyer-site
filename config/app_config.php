@@ -7,7 +7,7 @@ if (!function_exists('ffd_env')) {
     /**
      * Read an environment variable with trimming and a fallback.
      */
-    function ffd_env(string $key, ?string $default = null): string
+    function ffd_env($key, $default = null)
     {
         $value = getenv($key);
         if ($value === false && isset($_ENV[$key])) {
@@ -20,7 +20,7 @@ if (!function_exists('ffd_env')) {
             return $value;
         }
 
-        return $default ?? '';
+        return $default !== null ? $default : '';
     }
 }
 
