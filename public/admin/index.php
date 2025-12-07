@@ -9,19 +9,22 @@ $basePath = isset($config['BASE_PATH']) ? rtrim($config['BASE_PATH'], '/') : '';
 $adminRoot = $basePath . '/admin';
 $adminRootWithSlash = ($adminRoot === '') ? '/' : $adminRoot . '/';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login') {
-    $username = $_POST['admin_username'] ?? '';
-    $password = $_POST['admin_password'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
+    if ($action === 'login') {
+        $username = isset($_POST['admin_username']) ? $_POST['admin_username'] : '';
+        $password = isset($_POST['admin_password']) ? $_POST['admin_password'] : '';
 
-    if ($username === $config['ADMIN_USERNAME'] && $password === $config['ADMIN_PASSWORD']) {
-        session_regenerate_id(true);
-        $_SESSION['admin_logged_in'] = true;
-        $_SESSION['admin_username'] = $username;
-        header('Location: ' . $adminRootWithSlash);
-        exit;
+        if ($username === $config['ADMIN_USERNAME'] && $password === $config['ADMIN_PASSWORD']) {
+            session_regenerate_id(true);
+            $_SESSION['admin_logged_in'] = true;
+            $_SESSION['admin_username'] = $username;
+            header('Location: ' . $adminRootWithSlash);
+            exit;
+        }
+
+        $authError = 'Incorrect username or password. Please try again.';
     }
-
-    $authError = 'Incorrect username or password. Please try again.';
 }
 ?>
 <!DOCTYPE html>
@@ -179,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
       </div>
       <?php if ($isLoggedIn): ?>
         <div class="actions">
-          <span class="note">Logged in as <strong><?php echo htmlspecialchars($_SESSION['admin_username'] ?? ''); ?></strong></span>
+          <span class="note">Logged in as <strong><?php echo htmlspecialchars(isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] : '', ENT_QUOTES, 'UTF-8'); ?></strong></span>
           <a class="logout-link" href="<?php echo htmlspecialchars($adminRootWithSlash . 'logout.php', ENT_QUOTES, 'UTF-8'); ?>">Logout</a>
       </div>
     <?php endif; ?>

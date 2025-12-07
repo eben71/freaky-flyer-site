@@ -118,7 +118,7 @@ if (!is_dir($UPLOAD_ROOT)) {
     }
 }
 
-$docType = $_POST['doc_type'] ?? '';
+$docType = isset($_POST['doc_type']) ? $_POST['doc_type'] : '';
 $allowedDocTypes = ['pricing', 'schedule'];
 if (!in_array($docType, $allowedDocTypes, true)) {
     respond_with_message('Invalid document type', 'Please choose either pricing or schedule.', 400);
@@ -128,17 +128,17 @@ if (!isset($_FILES['pdf_file']) || !is_array($_FILES['pdf_file'])) {
     respond_with_message('Upload error', 'No file was uploaded. Please try again.', 400);
 }
 
-$fileError = $_FILES['pdf_file']['error'] ?? UPLOAD_ERR_NO_FILE;
+$fileError = isset($_FILES['pdf_file']['error']) ? $_FILES['pdf_file']['error'] : UPLOAD_ERR_NO_FILE;
 if ($fileError !== UPLOAD_ERR_OK) {
     respond_with_message('Upload error', 'There was an error uploading the file. Please try again.', 400);
 }
 
-$fileSize = $_FILES['pdf_file']['size'] ?? 0;
+$fileSize = isset($_FILES['pdf_file']['size']) ? $_FILES['pdf_file']['size'] : 0;
 if ($fileSize > $MAX_FILE_SIZE_BYTES) {
     respond_with_message('File too large', 'The uploaded file exceeds the 10 MB limit.', 400);
 }
 
-$tmpPath = $_FILES['pdf_file']['tmp_name'] ?? '';
+$tmpPath = isset($_FILES['pdf_file']['tmp_name']) ? $_FILES['pdf_file']['tmp_name'] : '';
 if (!is_uploaded_file($tmpPath)) {
     respond_with_message('Upload error', 'The uploaded file could not be validated.', 400);
 }
@@ -146,7 +146,7 @@ if (!is_uploaded_file($tmpPath)) {
 // Validate MIME type and extension
 $finfo = new finfo(FILEINFO_MIME_TYPE);
 $mimeType = $finfo->file($tmpPath);
-$originalName = $_FILES['pdf_file']['name'] ?? '';
+$originalName = isset($_FILES['pdf_file']['name']) ? $_FILES['pdf_file']['name'] : '';
 $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
 if ($mimeType !== 'application/pdf' || $extension !== 'pdf') {
