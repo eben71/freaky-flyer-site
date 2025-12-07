@@ -1,7 +1,7 @@
 <?php
 $configPath = __DIR__ . '/../config/app_config.php';
 
-$env = function (string $key, string $default = ''): string {
+$env = function ($key, $default = '') {
     $value = getenv($key);
     if ($value === false && isset($_ENV[$key])) {
         $value = $_ENV[$key];
@@ -42,7 +42,7 @@ $envSnapshot = [
     'debug_contact' => $debug ? 'true' : 'false',
 ];
 
-function render_response(string $content, int $status = 200, ?bool $success = null, ?array $debugData = null): void
+function render_response($content, $status = 200, $success = null, $debugData = null)
 {
     global $acceptsJson, $debug;
     http_response_code($status);
@@ -66,7 +66,7 @@ function render_response(string $content, int $status = 200, ?bool $success = nu
     exit;
 }
 
-function log_issue(string $message): void
+function log_issue($message)
 {
     $candidates = [
         __DIR__ . '/contact-error.log',
