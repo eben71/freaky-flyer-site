@@ -33,19 +33,28 @@ $RECIPIENT_EMAIL = $siteConfig['contact_email'] ?? '';
 $FROM_EMAIL = $siteConfig['from_email'] ?? '';
 $SITE_NAME = $siteConfig['name'] ?? $defaults['site_name'];
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
+$debug = strtolower($env('DEBUG_CONTACT', '')) === 'true' || $env('DEBUG_CONTACT', '') === '1';
 
-function render_response(string $content, int $status = 200, ?bool $success = null): void
+if ($debug) {
+    log_issue('Config snapshot: recipient=' . ($RECIPIENT_EMAIL ?: '[empty]') . ', from=' . ($FROM_EMAIL ?: '[empty]') . ', site=' . ($SITE_NAME ?: '[empty]'));
+}
+
+function render_response(string $content, int $status = 200, ?bool $success = null, ?array $debugData = null): void
 {
-    global $acceptsJson;
+    global $acceptsJson, $debug;
     http_response_code($status);
     $ok = $success ?? ($status >= 200 && $status < 300);
     if ($acceptsJson) {
         header('Content-Type: application/json');
-        echo json_encode([
+        $response = [
             'message' => strip_tags($content),
             'status' => $status,
             'success' => $ok,
-        ]) ?: '';
+        ];
+        if ($debug && $debugData) {
+            $response['debug'] = $debugData;
+        }
+        echo json_encode($response) ?: '';
     } else {
         echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact us</title></head><body>';
         echo $content;
@@ -56,11 +65,21 @@ function render_response(string $content, int $status = 200, ?bool $success = nu
 
 function log_issue(string $message): void
 {
-    $target = __DIR__ . '/contact-error.log';
+    $candidates = [
+        __DIR__ . '/contact-error.log',
+        dirname(__DIR__) . '/contact-error.log',
+        sys_get_temp_dir() . '/contact-error.log',
+    ];
     $timestamp = date('c');
     $line = "[{$timestamp}] {$message}\n";
-    // Best-effort: ignore failures so the user flow is not blocked.
-    @file_put_contents($target, $line, FILE_APPEND);
+    foreach ($candidates as $target) {
+        $result = @file_put_contents($target, $line, FILE_APPEND);
+        if ($result !== false) {
+            return;
+        }
+    }
+    // Fall back to PHP error log.
+    error_log($line);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -95,7 +114,19 @@ if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $
 }
 
 if ($RECIPIENT_EMAIL === '' || $FROM_EMAIL === '') {
-    render_response('<p>The contact form is not configured correctly. Please try again later.</p>', 500);
+    log_issue('Invalid contact form email configuration.');
+    render_response(
+        '<p>The contact form is not configured correctly. Please try again later.</p>',
+        200,
+        false,
+        $debug
+            ? [
+                'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
+                'from_email' => $FROM_EMAIL ?: '[empty]',
+                'site_name' => $SITE_NAME ?: '[empty]',
+            ]
+            : null
+    );
 }
 
 $recipientEmail = filter_var($RECIPIENT_EMAIL, FILTER_VALIDATE_EMAIL);
@@ -103,7 +134,18 @@ $fromEmail = filter_var($FROM_EMAIL, FILTER_VALIDATE_EMAIL);
 
 if ($recipientEmail === false || $fromEmail === false) {
     log_issue('Invalid contact form email configuration.');
-    render_response('<p>The contact form is not configured correctly. Please try again later.</p>', 200, false);
+    render_response(
+        '<p>The contact form is not configured correctly. Please try again later.</p>',
+        200,
+        false,
+        $debug
+            ? [
+                'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
+                'from_email' => $FROM_EMAIL ?: '[empty]',
+                'site_name' => $SITE_NAME ?: '[empty]',
+            ]
+            : null
+    );
 }
 
 $addressParts = array_filter([$street, $city, $state, $postcode]);
@@ -136,7 +178,29 @@ foreach ($headers as $key => $value) {
 
 if (!mail($recipientEmail, $subject, $body, $formattedHeaders)) {
     log_issue('mail() returned false for contact form submission.');
-    render_response('<p>We could not send your message right now. Please try again or call us.</p>', 200, false);
+    render_response(
+        '<p>We could not send your message right now. Please try again or call us.</p>',
+        200,
+        false,
+        $debug
+            ? [
+                'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
+                'from_email' => $FROM_EMAIL ?: '[empty]',
+                'site_name' => $SITE_NAME ?: '[empty]',
+            ]
+            : null
+    );
 }
 
-render_response('<p>Thank you for your enquiry. If required, we will contact you shortly.</p>', 200, true);
+render_response(
+    '<p>Thank you for your enquiry. If required, we will contact you shortly.</p>',
+    200,
+    true,
+    $debug
+        ? [
+            'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
+            'from_email' => $FROM_EMAIL ?: '[empty]',
+            'site_name' => $SITE_NAME ?: '[empty]',
+        ]
+        : null
+);
