@@ -34,16 +34,17 @@ $FROM_EMAIL = $siteConfig['from_email'] ?? '';
 $SITE_NAME = $siteConfig['name'] ?? $defaults['site_name'];
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
-function render_response(string $content, int $status = 200): void
+function render_response(string $content, int $status = 200, ?bool $success = null): void
 {
     global $acceptsJson;
     http_response_code($status);
+    $ok = $success ?? ($status >= 200 && $status < 300);
     if ($acceptsJson) {
         header('Content-Type: application/json');
         echo json_encode([
             'message' => strip_tags($content),
             'status' => $status,
-            'success' => $status >= 200 && $status < 300,
+            'success' => $ok,
         ]) ?: '';
     } else {
         echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact us</title></head><body>';
@@ -51,6 +52,15 @@ function render_response(string $content, int $status = 200): void
         echo '</body></html>';
     }
     exit;
+}
+
+function log_issue(string $message): void
+{
+    $target = __DIR__ . '/contact-error.log';
+    $timestamp = date('c');
+    $line = "[{$timestamp}] {$message}\n";
+    // Best-effort: ignore failures so the user flow is not blocked.
+    @file_put_contents($target, $line, FILE_APPEND);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -92,7 +102,8 @@ $recipientEmail = filter_var($RECIPIENT_EMAIL, FILTER_VALIDATE_EMAIL);
 $fromEmail = filter_var($FROM_EMAIL, FILTER_VALIDATE_EMAIL);
 
 if ($recipientEmail === false || $fromEmail === false) {
-    render_response('<p>The contact form is not configured correctly. Please try again later.</p>', 500);
+    log_issue('Invalid contact form email configuration.');
+    render_response('<p>The contact form is not configured correctly. Please try again later.</p>', 200, false);
 }
 
 $addressParts = array_filter([$street, $city, $state, $postcode]);
@@ -124,7 +135,8 @@ foreach ($headers as $key => $value) {
 }
 
 if (!mail($recipientEmail, $subject, $body, $formattedHeaders)) {
-    render_response('<p>We could not send your message right now. Please try again or call us.</p>', 500);
+    log_issue('mail() returned false for contact form submission.');
+    render_response('<p>We could not send your message right now. Please try again or call us.</p>', 200, false);
 }
 
-render_response('<p>Thank you for your enquiry. If required, we will contact you shortly.</p>');
+render_response('<p>Thank you for your enquiry. If required, we will contact you shortly.</p>', 200, true);

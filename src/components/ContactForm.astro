@@ -708,12 +708,16 @@ const placeholders = {
           } else {
             payload = { message: await response.text() };
           }
+          const success =
+            (payload && typeof payload.success === 'boolean'
+              ? payload.success
+              : undefined) ?? response.ok;
           const message =
             (payload && typeof payload.message === 'string'
               ? payload.message
-              : '') || (response.ok ? messages.success : messages.serverError);
+              : '') || (success ? messages.success : messages.serverError);
 
-          if (response.ok) {
+          if (success) {
             renderSummary(
               'success',
               `<h3 class="contact-form__summary-title">Message sent</h3><p>${escapeHtml(
