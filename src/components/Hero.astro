@@ -1,10 +1,11 @@
 ---
 import Picture from './Picture.astro';
 import { linkAttrs } from '../lib/links';
+import { withBase } from '../lib/base';
 
 const {
   variant = 'photo',
-  image = '/assets/brand/nw01ffd_home_banner.jpg',
+  image = withBase('/assets/brand/nw01ffd_home_banner.jpg'),
   kicker = 'Perth-wide GPS flyer distribution',
   title = 'Freaky Flyer Delivery',
   text = '',
@@ -16,8 +17,14 @@ const {
 
 const hasBodySlot = Astro.slots.has('default');
 const hasActionsSlot = Astro.slots.has('actions');
-const primaryAttrs = primaryHref ? linkAttrs(primaryHref) : {};
-const secondaryAttrs = secondaryHref ? linkAttrs(secondaryHref) : {};
+const primaryHrefResolved = primaryHref ? withBase(primaryHref) : undefined;
+const secondaryHrefResolved = secondaryHref
+  ? withBase(secondaryHref)
+  : undefined;
+const primaryAttrs = primaryHrefResolved ? linkAttrs(primaryHrefResolved) : {};
+const secondaryAttrs = secondaryHrefResolved
+  ? linkAttrs(secondaryHrefResolved)
+  : {};
 const showGradientBackdrop = variant !== 'photo';
 ---
 
@@ -60,19 +67,23 @@ const showGradientBackdrop = variant !== 'photo';
             <slot name="actions" />
           ) : (
             <>
-              {primaryHref && (
-                <a href={primaryHref} class="button primary" {...primaryAttrs}>
+              {primaryHrefResolved && (
+                <a
+                  href={primaryHrefResolved}
+                  class="button primary"
+                  {...primaryAttrs}
+                >
                   {primaryText}
                 </a>
               )}
-              {secondaryHref && (
+              {secondaryHrefResolved && (
                 <a
-                  href={secondaryHref}
+                  href={secondaryHrefResolved}
                   class="button outline"
                   {...secondaryAttrs}
                 >
-                  {secondaryText}
-                </a>
+                {secondaryText}
+              </a>
               )}
             </>
           )}

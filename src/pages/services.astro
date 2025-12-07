@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadPage } from '../lib/content.ts';
 import SectionHeader from '../components/SectionHeader.astro';
 import ImageCard from '../components/ImageCard.astro';
+import { withBase } from '../lib/base';
 
 const slug = 'services';
 const page = await loadPage(slug);
@@ -16,9 +17,9 @@ const rawDescription =
 const title = rawTitle.trim().length > 0 ? rawTitle : fallbackTitle;
 const description =
   rawDescription.trim().length > 0 ? rawDescription : fallbackDescription;
-const equalizingImage = '/assets/img/warehouse-personell-2-1-960.webp';
-const ridersImage = '/assets/img/ffdwarehousepersonell-960.webp';
-const coverageImage = '/assets/img/warehouse-personell-2-3-960.webp';
+const equalizingImage = withBase('/assets/img/warehouse-personell-2-1-960.webp');
+const ridersImage = withBase('/assets/img/ffdwarehousepersonell-960.webp');
+const coverageImage = withBase('/assets/img/warehouse-personell-2-3-960.webp');
 ---
 
 <BaseLayout {title} description={description}>

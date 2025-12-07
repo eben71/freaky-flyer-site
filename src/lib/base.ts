@@ -12,5 +12,8 @@ export const withBase = (path = '/') => {
   if (!path) return basePath || '/';
   if (isExternal(path)) return path;
   const normalized = path.startsWith('/') ? path : `/${path}`;
+  if (basePath && normalized.startsWith(`${basePath}/`)) {
+    return normalized;
+  }
   return `${basePath}${normalized}` || '/';
 };

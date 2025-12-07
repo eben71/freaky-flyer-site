@@ -7,7 +7,8 @@
 /* eslint-env browser */
 
 import L from 'leaflet';
-const DATA_URL = '/data/service-areas.json';
+const basePath = (import.meta.env.BASE_URL || '').replace(/\/+$/, '');
+const DATA_URL = `${basePath}/data/service-areas.json`;
 const DEFAULT_VIEW = { lat: -31.671, lng: 115.708 };
 const DEFAULT_ZOOM = 12;
 const DEFAULT_RADIUS = 1500;

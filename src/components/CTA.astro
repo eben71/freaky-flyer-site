@@ -1,5 +1,6 @@
 ---
 import { linkAttrs } from '../lib/links';
+import { withBase } from '../lib/base';
 
 const {
   title = 'Ready to take flight?',
@@ -8,7 +9,8 @@ const {
   actionHref = '/contact',
 } = Astro.props;
 
-const actionAttributes = linkAttrs(actionHref);
+const resolvedHref = withBase(actionHref);
+const actionAttributes = linkAttrs(resolvedHref);
 const hasBody = typeof body === 'string' && body.trim().length > 0;
 ---
 
@@ -19,7 +21,7 @@ const hasBody = typeof body === 'string' && body.trim().length > 0;
       {hasBody && <p>{body}</p>}
     </div>
     <p class="cta__actions">
-      <a class="button primary" href={actionHref} {...actionAttributes}
+      <a class="button primary" href={resolvedHref} {...actionAttributes}
         >{actionLabel}</a
       >
     </p>

@@ -1,5 +1,6 @@
 ---
 import { linkAttrs } from '../lib/links';
+import { withBase } from '../lib/base';
 
 const {
   text = '',
@@ -8,7 +9,8 @@ const {
   headingId = 'bottom-cta-heading',
 } = Astro.props;
 
-const linkAttributes = linkAttrs(href);
+const resolvedHref = withBase(href);
+const linkAttributes = linkAttrs(resolvedHref);
 ---
 
 <section class="bottom-cta" aria-labelledby={headingId}>
@@ -16,7 +18,7 @@ const linkAttributes = linkAttrs(href);
     <p id={headingId} class="bottom-cta__text">{text}</p>
     <a
       class="button primary bottom-cta__button"
-      href={href}
+      href={resolvedHref}
       {...linkAttributes}
     >
       {label}

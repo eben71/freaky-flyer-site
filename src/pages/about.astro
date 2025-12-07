@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BottomCta from '../components/BottomCta.astro';
 import Hero from '../components/Hero.astro';
 import { withBase } from '../lib/base';
+import { withBase } from '../lib/base';
 
 const pageTitle = 'About Freaky Flyer Delivery';
 const pageDescription =
@@ -32,7 +33,7 @@ const teamMembers = [
     summary:
       'Nick founded Freaky Flyer Delivery in 2014 after decades with Australia Post and experience in real estate sales. He leads the team with a focus on cost-effective, GPS-verified flyer campaigns for Perth businesses.',
     image: {
-      src: '/assets/img/nick_portrait-960.webp',
+      src: withBase('/assets/img/nick_portrait-960.webp'),
       alt: 'Portrait of Nick Wren, Founding Director of Freaky Flyer Delivery',
     },
     extendedBio: [
@@ -49,7 +50,7 @@ const teamMembers = [
     summary:
       'Bec joined the business in 2016, quickly becoming full-time Administration Manager. She keeps campaigns on schedule with friendly communication and a keen understanding of each client’s goals.',
     image: {
-      src: '/assets/img/bec_portrait-960.webp',
+      src: withBase('/assets/img/bec_portrait-960.webp'),
       alt: 'Portrait of Bec Wren, Administration Manager at Freaky Flyer Delivery',
     },
     extendedBio: [
