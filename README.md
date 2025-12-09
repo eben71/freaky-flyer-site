@@ -104,14 +104,6 @@ Optimised → public/assets/img
 pnpm images
 ```
 
-## 🔄 WordPress Migration Tools
-
-```
-WP_BASE=https://freakyflyerdelivery.com.au pnpm export:wp
-BASE_URL=https://freakyflyerdelivery.com.au pnpm export:html
-pnpm redirects
-```
-
 ## 🛡 Cloudflare Onboarding (Post-Launch Only)
 
 Once Astro replaces WordPress:

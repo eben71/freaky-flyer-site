@@ -1,70 +1,124 @@
 # Freaky Flyer Delivery – Client Guide
 
-Welcome!  
-This document explains how to update your pricing/schedule files, manage images, and understand the launch & security features.
+Welcome!
+This guide explains how to update your **Pricing PDF** and **Delivery Schedule PDF** using your secure Admin Upload Module—no cPanel or technical steps required.
 
-## 📄 Updating Pricing or Schedule PDFs
+---
 
-1. Log into cPanel
-2. Browse to:
+## 🔐 1. Accessing the Admin Upload Area
 
-```
-/public_html/assets/downloads/
-```
+Your secure admin panel is located at:
 
-3. Upload the new file using **the same filename**  
-   The website will automatically use the latest version.
+https://freakyflyerdelivery.com.au/admin
 
-## 🖼 Updating Images
+This area is **password-protected**.
 
-Use these folders:
+---
 
-| Folder         | Purpose                 |
-| -------------- | ----------------------- |
-| /assets/brand/ | Logos & identity images |
-| /assets/img/   | Site images             |
+## 🔑 2. Logging In
 
-Replacing an image with the same filename updates it instantly.
+You will be provided with:
 
-## ✉ Contact Form Behaviour
+- **Admin Username**
+- **Admin Password**
 
-- Protected from bots via honeypot
-- Server-side validation
-- Email routing configurable via `.htaccess`
+Enter these into the login form to access the upload tools.
 
-Update your receiving email address here:
+For security, avoid sharing your password widely.  
+Request a password reset if staff changes occur.
 
-```
-SetEnv TO_EMAIL "admin@freakyflyerdelivery.com.au"
-```
+---
 
-## 🌍 Launch Flow
+## 📄 3. Uploading Updated PDFs
 
-Once you approve the new site:
+Inside the admin panel you will see two upload tools:
 
-1. WordPress is removed
-2. The new site goes live
-3. Cloudflare is enabled for:
-   - Performance
-   - Bot protection
-   - Web analytics
+### A) Pricing PDF Upload
 
-## 🛡 Optional Enhancements
+### B) Delivery Schedule PDF Upload
 
-After launch, you may enable:
+To update a document:
 
-### Cloudflare Web Analytics
+1. Click **Choose File**
+2. Select your new PDF
+3. Click **Upload**
 
-Shows real visitor and bot traffic.
+The system will:
 
-### Cloudflare Turnstile
+- Replace the existing PDF automatically
+- Keep the public website link unchanged
+- Make the new version live immediately
 
-Invisible spam protection upgrade.
+No need to rename files manually.
 
-### Cloudflare Caching & CDN
+---
 
-Makes the site even faster.
+## 📁 4. Supported File Format
 
-## 📞 Need Help?
+✔ PDF only  
+✘ Other file types (Word, Excel, images, ZIP) are not supported.
 
-If you need assistance with images, text updates, email routing, Cloudflare, or security features—just ask.
+If you need support for additional formats, this can be added later.
+
+---
+
+## 🚀 5. After Uploading
+
+Your updated PDF will instantly appear on the public website.
+
+If the new version does not appear immediately:
+
+### Try a hard refresh:
+
+- **Windows:** Ctrl + F5
+- **Mac:** Cmd + Shift + R
+
+Browsers often cache PDF files.
+
+---
+
+## 🛡 6. Security Tips
+
+To keep your admin panel secure:
+
+- Use a strong, unique password
+- Change your password every 6–12 months
+- Do not reuse your email password
+- Log out when using shared computers
+
+Enhanced security rules can be added on request.
+
+---
+
+## 🧪 7. Testing Your Update
+
+After uploading:
+
+1. Visit the website
+2. Open the **Pricing** or **Schedule** page
+3. Click the PDF link
+4. Verify:
+   - Updated content is visible
+   - Version/date is correct
+   - PDF opens in a new browser tab
+
+If the upload was incorrect, simply upload the corrected PDF.
+
+---
+
+## 📞 8. Need Help?
+
+If you need assistance with:
+
+- Upload errors
+- Password reset
+- Adding new admin users
+- Expanding the admin panel (images, blog, downloads)
+
+Support is available anytime.
+
+---
+
+## 🎉 That's it!
+
+You now have a simple, secure, non-technical way to update your website documents.
