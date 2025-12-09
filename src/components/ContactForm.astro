@@ -2,7 +2,10 @@
 const { heading = 'Get in Touch', headingId = 'contact-form-heading' } =
   Astro.props ?? {};
 const basePath = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
-const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY || '';
+const turnstileSiteKey =
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ||
+  import.meta.env.TURNSTILE_SITE_KEY ||
+  '';
 const minDelayMs = 2000;
 const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'message'];
 const placeholders = {
