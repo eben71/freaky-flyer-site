@@ -1,35 +1,70 @@
-# Freaky Flyer Delivery – Client Handover Notes
+# Freaky Flyer Delivery – Client Guide
 
-Welcome aboard! This document covers the essentials for updating content and deploying the Astro site.
+Welcome!  
+This document explains how to update your pricing/schedule files, manage images, and understand the launch & security features.
 
-## Updating Documents & Downloads
+## 📄 Updating Pricing or Schedule PDFs
 
-- Place the latest PDF price lists or CSV schedules in `public/assets/docs/`.
-- Update any links in the Markdown content or pages that point to those files so visitors can download the newest version.
+1. Log into cPanel
+2. Browse to:
 
-## Managing Images
+```
+/public_html/assets/downloads/
+```
 
-- Brand photography, hero art, and logos go in `public/assets/brand/`.
-- Optimised campaign images belong in `public/assets/img/` (keep originals in `tools/images/raw`).
-- When replacing an existing image, keep the same filename so the site references stay valid.
+3. Upload the new file using **the same filename**  
+   The website will automatically use the latest version.
 
-## Favicons & App Icons
+## 🖼 Updating Images
 
-- Keep `favicon.ico`, `icon-192.png`, and `icon-512.png` in `public/brands/` so the manifest and `<link rel="icon">` references stay in sync.
-- Update the artwork but keep the filenames so browsers continue to pick up the latest icons.
+Use these folders:
 
-## Running the Site Locally
+| Folder         | Purpose                 |
+| -------------- | ----------------------- |
+| /assets/brand/ | Logos & identity images |
+| /assets/img/   | Site images             |
 
-1. Install dependencies with `pnpm install`.
-2. Start the dev server with `pnpm dev`.
-3. Build for production with `pnpm build`. The output is written to the `dist/` directory.
+Replacing an image with the same filename updates it instantly.
 
-## Deploying to cPanel
+## ✉ Contact Form Behaviour
 
-1. Run `pnpm build`.
-2. Upload the contents of the `dist/` folder to your hosting account (usually via the cPanel File Manager or SFTP).
-3. Ensure `.htaccess`, `robots.txt`, and `sitemap-index.xml` are copied across.
+- Protected from bots via honeypot
+- Server-side validation
+- Email routing configurable via `.htaccess`
 
-## Phase 3 Preview
+Update your receiving email address here:
 
-A secure admin upload page will be added in Phase 3 for pushing new flyers, price lists, and coverage data without touching the codebase.
+```
+SetEnv TO_EMAIL "admin@freakyflyerdelivery.com.au"
+```
+
+## 🌍 Launch Flow
+
+Once you approve the new site:
+
+1. WordPress is removed
+2. The new site goes live
+3. Cloudflare is enabled for:
+   - Performance
+   - Bot protection
+   - Web analytics
+
+## 🛡 Optional Enhancements
+
+After launch, you may enable:
+
+### Cloudflare Web Analytics
+
+Shows real visitor and bot traffic.
+
+### Cloudflare Turnstile
+
+Invisible spam protection upgrade.
+
+### Cloudflare Caching & CDN
+
+Makes the site even faster.
+
+## 📞 Need Help?
+
+If you need assistance with images, text updates, email routing, Cloudflare, or security features—just ask.
