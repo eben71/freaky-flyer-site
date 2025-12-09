@@ -59,6 +59,21 @@ const teamMembers = [
       'Bec’s interests are traveling, making their house a home to enjoy and spending quality time with her family; particularly with her nieces and nephews who love her to bits.',
     ],
   },
+  {
+    name: 'Kat Wren',
+    role: 'Warehouse Manager',
+    summary:
+      'Kat has led our warehouse since 2017, keeping operations smooth with a reliable, hands-on approach to logistics, accuracy, and customer care.',
+    image: {
+      src: withBase('/assets/img/kat_portrait-960.webp'),
+      alt: 'Portrait of Kat Wren, Warehouse Manager at Freaky Flyer Delivery',
+    },
+    extendedBio: [
+      'Kat joined Freaky Flyer Delivery in 2017 and has become an essential part of our operations. As our Warehouse Manager, she keeps everything running smoothly—overseeing logistics, handling the heavy lifting, and ensuring every job is completed with accuracy and care. Known for her strong work ethic and “get-it-done” attitude, Kat consistently proves herself as someone we can rely on.',
+      'You’ll often meet Kat when dropping off your flyers at our warehouse, where her friendly nature and customer-focused approach always make a great first impression. Before joining our team, she built valuable experience in the retail industry, developing exceptional service skills and a natural willingness to go above and beyond for others.',
+      'Outside of work, Kat is a devoted mum to two beautiful children. She loves spending her time cheering them on at sports and enjoying the many adventures that come with family life. Her family is her greatest joy, and they share a strong bond and love for quality time together.',
+    ],
+  },
 ];
 ---
 
@@ -298,6 +313,7 @@ const teamMembers = [
     .about-team__grid {
       display: grid;
       gap: var(--space-6);
+      align-items: start;
     }
 
     .about-team__card {
@@ -314,6 +330,9 @@ const teamMembers = [
       display: grid;
       place-items: center;
       min-height: 240px;
+      aspect-ratio: 4 / 5;
+      max-height: 520px;
+      overflow: hidden;
     }
 
     .about-team__image img {

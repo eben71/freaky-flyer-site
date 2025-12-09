@@ -9,7 +9,24 @@
 
 const normalizeBasePath = (value) => {
   if (!value) return '';
-  const trimmed = value.replace(/\/+$/, '');
+  const stringValue = String(value).trim();
+  const pathOnly = (input) => {
+    if (/^[a-z][a-z0-9+.-]*:/i.test(input)) {
+      try {
+        return new URL(
+          input,
+          typeof window !== 'undefined' ? window.location.href : undefined
+        ).pathname;
+      } catch (error) {
+        console.warn('Invalid base path provided', error);
+        return '';
+      }
+    }
+    return input;
+  };
+  const normalized = pathOnly(stringValue);
+  if (!normalized || normalized === '/' || normalized === './') return '';
+  const trimmed = normalized.replace(/\/+$/, '');
   return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
 };
 
