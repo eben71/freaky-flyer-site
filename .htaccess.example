@@ -1,0 +1,40 @@
+# ------------ Security headers ------------
+<IfModule mod_headers.c>
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header set Cross-Origin-Opener-Policy "same-origin"
+  Header set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>
+
+# ------------ Hotlink protection ------------
+# Blocks other sites from embedding our images
+RewriteEngine On
+RewriteBase /newsite
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?freakyflyerdelivery\.com\.au [NC]
+RewriteRule \.(jpe?g|png|gif|webp|avif|svg)$ - [F,NC,L]
+
+# ------------ 404 handling (keep if not present) ------------
+ErrorDocument 404 /404.html
+Redirect 301 /services/ /services
+Redirect 301 /pricing/ /pricing
+Redirect 301 /contact/ /contact
+Redirect 301 /about-us/our-story /about#story
+Redirect 301 /about-us/meet-the-team /about#team
+Redirect 301 /areas/ /service-areas
+Redirect 301 /areas /service-areas
+
+SetEnv PUBLIC_BASE_PATH "/newsite"
+SetEnv PUBLIC_CONTACT_EMAIL "admin@freakyflyerdelivery.com.au"
+SetEnv SITE_NAME "Freaky Flyer Delivery"
+SetEnv TO_EMAIL "admin@freakyflyerdelivery.com.au"
+SetEnv FROM_EMAIL "no-reply@freakyflyerdelivery.com.au"
+SetEnv ADMIN_USERNAME "admin"
+SetEnv ADMIN_PASSWORD "change-me"
+SetEnv SMTP_HOST "mail.freakyflyerdelivery.com.au"
+SetEnv SMTP_PORT "465"
+SetEnv SMTP_SECURE "true"
+SetEnv SMTP_USER "admin@freakyflyerdelivery.com.au"
+SetEnv SMTP_PASS "change-me"

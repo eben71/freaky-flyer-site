@@ -1,7 +1,8 @@
 <?php
+// Compatible with older PHP versions (no short array syntax)
 $env = function ($key, $default = '') {
     static $loaded = false;
-    static $fileVars = [];
+    static $fileVars = array();
     if (!$loaded) {
         $envFile = dirname(__DIR__, 2) . '/.env';
         if (is_readable($envFile)) {
@@ -11,8 +12,12 @@ $env = function ($key, $default = '') {
                     if (strpos(trim($line), '#') === 0 || strpos($line, '=') === false) {
                         continue;
                     }
-                    [$k, $v] = explode('=', $line, 2);
-                    $fileVars[trim($k)] = trim($v, " \t\n\r\0\x0B\"'");
+                    $parts = explode('=', $line, 2);
+                    if (count($parts) === 2) {
+                        $k = $parts[0];
+                        $v = $parts[1];
+                        $fileVars[trim($k)] = trim($v, " \t\n\r\0\x0B\"'");
+                    }
                 }
             }
         }
@@ -30,7 +35,7 @@ $env = function ($key, $default = '') {
     return $value !== '' ? $value : $default;
 };
 
-$defaults = [
+$defaults = array(
     'admin_username' => 'change-me',
     'admin_password' => 'change-me',
     'max_file_size_bytes' => 10 * 1024 * 1024,
@@ -38,7 +43,7 @@ $defaults = [
     'site_name' => 'Freaky Flyer Delivery',
     'contact_email' => 'admin@freakyflyerdelivery.com.au',
     'from_email' => 'no-reply@freakyflyerdelivery.com.au',
-];
+);
 
 $basePath = '';
 $basePathEnv = $env('PUBLIC_BASE_PATH', $env('BASE_PATH', ''));
@@ -59,14 +64,14 @@ if ($basePath === '') {
 }
 
 $configPath = __DIR__ . '/../../config/app_config.php';
-$site = $admin = $uploads = [];
+$site = $admin = $uploads = array();
 
 if (is_readable($configPath)) {
     $app = require $configPath;
     if (is_array($app)) {
-        $site = isset($app['site']) && is_array($app['site']) ? $app['site'] : [];
-        $admin = isset($app['admin']) && is_array($app['admin']) ? $app['admin'] : [];
-        $uploads = isset($app['uploads']) && is_array($app['uploads']) ? $app['uploads'] : [];
+        $site = isset($app['site']) && is_array($app['site']) ? $app['site'] : array();
+        $admin = isset($app['admin']) && is_array($app['admin']) ? $app['admin'] : array();
+        $uploads = isset($app['uploads']) && is_array($app['uploads']) ? $app['uploads'] : array();
     }
 }
 
@@ -83,7 +88,7 @@ $maxFileSizeBytes = isset($uploads['max_file_size_bytes'])
     ? (int) $uploads['max_file_size_bytes']
     : (int) $defaults['max_file_size_bytes'];
 
-return [
+return array(
     'ADMIN_USERNAME' => $adminUsername,
     'ADMIN_PASSWORD' => $adminPassword,
     'MAX_FILE_SIZE_BYTES' => $maxFileSizeBytes,
@@ -98,4 +103,4 @@ return [
         ? $site['from_email']
         : $env('FROM_EMAIL', $defaults['from_email']),
     'BASE_PATH' => $basePath,
-];
+);
