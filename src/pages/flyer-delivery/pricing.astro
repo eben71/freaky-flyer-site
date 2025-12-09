@@ -9,6 +9,7 @@ const pageDescription =
   'Flyer delivery pricing varies by quantity, targeting, and add-ons—get transparent guidance and download the latest rate card.';
 
 const priceListHref = withBase('/downloads/pricing.pdf');
+const contactHref = withBase('/contact');
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -59,7 +60,7 @@ const priceListHref = withBase('/downloads/pricing.pdf');
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href={withBase('/contact')}
+    href={contactHref}
     label="Contact Us"
   />
 
@@ -116,32 +117,27 @@ const priceListHref = withBase('/downloads/pricing.pdf');
     }
   </style>
 
-  <script>
-    {
-      `
-      const priceListLink = document.querySelector('[data-price-list-link]');
-      const downloadHref = ${JSON.stringify(withBase('/downloads/pricing.pdf'))};
-      const contactHref = ${JSON.stringify(withBase('/contact'))};
+  <script define:vars={{ downloadHref: priceListHref, contactHref }}>
+    /* global downloadHref, contactHref */
+    const priceListLink = document.querySelector('[data-price-list-link]');
 
-      const updateLink = (href) => {
-        if (!priceListLink) return;
-        priceListLink.href = href;
-      };
+    const updateLink = (href) => {
+      if (!priceListLink) return;
+      priceListLink.href = href;
+    };
 
-      const verifyDownload = async () => {
-        if (!priceListLink) return;
-        try {
-          const response = await fetch(downloadHref, { method: 'HEAD' });
-          if (!response.ok) {
-            updateLink(contactHref);
-          }
-        } catch {
+    const verifyDownload = async () => {
+      if (!priceListLink) return;
+      try {
+        const response = await fetch(downloadHref, { method: 'HEAD' });
+        if (!response.ok) {
           updateLink(contactHref);
         }
-      };
+      } catch {
+        updateLink(contactHref);
+      }
+    };
 
-      verifyDownload();
-    `;
-    }
+    verifyDownload();
   </script>
 </BaseLayout>

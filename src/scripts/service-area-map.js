@@ -5,6 +5,7 @@
  * or paid map services are used.
  */
 /* eslint-env browser */
+/* global URL */
 
 const normalizeBasePath = (value) => {
   if (!value) return '';
