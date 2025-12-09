@@ -71,6 +71,7 @@ environment variables instead of hard-coded addresses.
      ```
 
    These values are read with `getenv()` at runtime, so no code changes are required per host.
+
 3. Deploy the freshly built `dist/` folder via File Manager or SFTP.
 4. Submit a test enquiry from `/contact` to verify the email reaches the inbox configured in `TO_EMAIL`.
 
