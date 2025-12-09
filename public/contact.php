@@ -40,6 +40,7 @@ $envSnapshot = [
     'site_name' => $SITE_NAME ?: '[empty]',
     'script' => isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['SCRIPT_FILENAME'] : '[unknown]',
     'debug_contact' => $debug ? 'true' : 'false',
+    'turnstile_secret_present' => $env('TURNSTILE_SECRET_KEY', '') !== '' ? 'true' : 'false',
 ];
 
 function render_response($content, $status = 200, $success = null, $debugData = null)
@@ -64,6 +65,48 @@ function render_response($content, $status = 200, $success = null, $debugData = 
         echo '</body></html>';
     }
     exit;
+}
+
+function render_turnstile_failure($debugData = null)
+{
+    global $acceptsJson;
+    http_response_code(400);
+    $payload = ['ok' => false, 'error' => 'Turnstile verification failed'];
+    if ($debugData !== null) {
+        $payload['debug'] = $debugData;
+    }
+    if ($acceptsJson) {
+        header('Content-Type: application/json');
+        echo json_encode($payload) ?: '';
+    } else {
+        echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact us</title></head><body>';
+        echo '<p>Turnstile verification failed. Please try again.</p>';
+        echo '</body></html>';
+    }
+    exit;
+}
+
+function verify_turnstile_token($secret, $token, $remoteIp = '')
+{
+    $postData = http_build_query([
+        'secret' => $secret,
+        'response' => $token,
+        'remoteip' => $remoteIp,
+    ]);
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'content' => $postData,
+            'timeout' => 10,
+        ],
+    ]);
+    $result = @file_get_contents('https://challenges.cloudflare.com/turnstile/v0/siteverify', false, $context);
+    if ($result === false) {
+        return null;
+    }
+    $decoded = json_decode($result, true);
+    return is_array($decoded) ? $decoded : null;
 }
 
 function log_issue($message)
@@ -139,6 +182,9 @@ if (trim($honeypot) !== '') {
 $startedAt = isset($_POST['form_started_at']) ? (int) $_POST['form_started_at'] : 0;
 $now = (int) (microtime(true) * 1000);
 $deltaMs = $now - $startedAt;
+$turnstileSecretKey = $env('TURNSTILE_SECRET_KEY', '');
+$turnstileResponseToken = isset($_POST['cf-turnstile-response']) ? trim($_POST['cf-turnstile-response']) : '';
+$requestIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
 if ($startedAt > 0 && $deltaMs > 0 && $deltaMs < 2000) {
     render_response('<p>Thank you for your enquiry. If required, we will contact you shortly.</p>');
@@ -160,6 +206,17 @@ if ($debug) {
 
 if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $message === '') {
     render_response('<p>Please complete the required fields and try again.</p>', 400, null, $debug ? $envSnapshot : null);
+}
+
+if ($turnstileSecretKey === '' || $turnstileResponseToken === '') {
+    log_issue('Turnstile verification missing token or secret.');
+    render_turnstile_failure($debug ? $envSnapshot : null);
+}
+
+$turnstileResult = verify_turnstile_token($turnstileSecretKey, $turnstileResponseToken, $requestIp);
+if (!is_array($turnstileResult) || empty($turnstileResult['success'])) {
+    $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
+    render_turnstile_failure($debugData);
 }
 
 if ($RECIPIENT_EMAIL === '' || $FROM_EMAIL === '') {

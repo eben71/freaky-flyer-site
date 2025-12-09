@@ -2,6 +2,7 @@
 const { heading = 'Get in Touch', headingId = 'contact-form-heading' } =
   Astro.props ?? {};
 const basePath = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
+const turnstileSiteKey = import.meta.env.TURNSTILE_SITE_KEY || '';
 const minDelayMs = 2000;
 const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'message'];
 const placeholders = {
@@ -47,6 +48,15 @@ const placeholders = {
     data-form-summary
     hidden
     tabindex="-1"
+  >
+  </div>
+  <div
+    class="cf-turnstile"
+    data-sitekey={turnstileSiteKey}
+    data-theme="light"
+    data-size="invisible"
+    data-callback="handleTurnstileSuccess"
+    data-error-callback="handleTurnstileError"
   >
   </div>
   <div class="contact-form__grid">
@@ -220,6 +230,10 @@ const placeholders = {
     We aim to respond to all enquiries within one business day.
   </p>
 </form>
+
+<!-- Cloudflare Turnstile script: ensure widget loads for invisible challenge -->
+<script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+></script>
 
 <style>
   .contact-form {
@@ -417,6 +431,9 @@ const placeholders = {
     success: 'Thank you for your enquiry. We will be in touch shortly.',
     serverError:
       'We could not send your message right now. Please try again or call us.',
+    turnstile: 'Turnstile verification failed. Please try again.',
+    turnstileMissing:
+      'We could not verify your submission. Please try again in a moment.',
   };
 
   if (form instanceof HTMLFormElement) {
@@ -434,6 +451,13 @@ const placeholders = {
     const honeypotField = form.querySelector('input[name="website"]');
     const minDelay = Number(form.dataset.minDelay || '0');
     let timeGatePassed = false;
+    const turnstileElement = form.querySelector('.cf-turnstile');
+    const turnstileSiteKey =
+      turnstileElement instanceof HTMLElement
+        ? turnstileElement.getAttribute('data-sitekey') || ''
+        : '';
+    let resolveTurnstile;
+    let rejectTurnstile;
 
     const fields = Array.from(form.querySelectorAll('[data-field]')).map(
       (wrapper) => {
@@ -445,6 +469,28 @@ const placeholders = {
     );
 
     const state = new Map();
+
+    const clearTurnstileResolvers = () => {
+      resolveTurnstile = undefined;
+      rejectTurnstile = undefined;
+    };
+
+    const handleTurnstileSuccess = (token) => {
+      if (resolveTurnstile) {
+        resolveTurnstile(token);
+      }
+      clearTurnstileResolvers();
+    };
+
+    const handleTurnstileError = () => {
+      if (rejectTurnstile) {
+        rejectTurnstile(new Error(messages.turnstile));
+      }
+      clearTurnstileResolvers();
+    };
+
+    window.handleTurnstileSuccess = handleTurnstileSuccess;
+    window.handleTurnstileError = handleTurnstileError;
 
     const resetSummary = () => {
       if (summaryEl instanceof HTMLElement) {
@@ -486,6 +532,34 @@ const placeholders = {
         timeGatePassed = true;
         updateSubmitState();
       }, minDelay);
+    };
+
+    const requestTurnstileToken = () => {
+      if (!(turnstileElement instanceof HTMLElement) || !turnstileSiteKey) {
+        return Promise.reject(new Error(messages.turnstileMissing));
+      }
+      if (typeof window === 'undefined' || !window.turnstile) {
+        return Promise.reject(new Error(messages.turnstile));
+      }
+      return new Promise((resolve, reject) => {
+        resolveTurnstile = resolve;
+        rejectTurnstile = reject;
+        try {
+          window.turnstile.execute(turnstileElement);
+        } catch (error) {
+          reject(
+            error instanceof Error ? error : new Error(messages.turnstile)
+          );
+          clearTurnstileResolvers();
+          return;
+        }
+        window.setTimeout(() => {
+          if (resolveTurnstile || rejectTurnstile) {
+            rejectTurnstile?.(new Error(messages.turnstile));
+            clearTurnstileResolvers();
+          }
+        }, 10000);
+      });
     };
 
     const setFieldState = (name, type, text) => {
@@ -648,7 +722,7 @@ const placeholders = {
       true
     );
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const errors = validateAll();
       updateSubmitState();
@@ -692,68 +766,99 @@ const placeholders = {
         submitButton.textContent = 'Sending...';
       }
 
-      const formData = new FormData(form);
+      let turnstileToken = '';
+      try {
+        turnstileToken = await requestTurnstileToken();
+      } catch (error) {
+        const description =
+          error instanceof Error ? error.message : messages.turnstile;
+        renderSummary(
+          'error',
+          `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
+            description
+          )}</p>`
+        );
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.textContent = originalButtonText || 'Send';
+          submitButton.disabled = false;
+        }
+        return;
+      }
 
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-        .then(async (response) => {
-          const contentType = response.headers.get('Content-Type') || '';
-          let payload;
-          if (contentType.includes('application/json')) {
-            payload = await response.json();
-          } else {
-            payload = { message: await response.text() };
-          }
-          const success =
-            (payload && typeof payload.success === 'boolean'
-              ? payload.success
+      const formData = new FormData(form);
+      if (turnstileToken) {
+        formData.set('cf-turnstile-response', turnstileToken);
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        });
+        const contentType = response.headers.get('Content-Type') || '';
+        let payload;
+        if (contentType.includes('application/json')) {
+          payload = await response.json();
+        } else {
+          payload = { message: await response.text() };
+        }
+        const success =
+          (payload && typeof payload.success === 'boolean'
+            ? payload.success
+            : typeof payload?.ok === 'boolean'
+              ? payload.ok
               : undefined) ?? response.ok;
-          const message =
-            (payload && typeof payload.message === 'string'
-              ? payload.message
+        const message =
+          (payload && typeof payload.message === 'string'
+            ? payload.message
+            : payload && typeof payload.error === 'string'
+              ? payload.error
               : '') || (success ? messages.success : messages.serverError);
 
-          if (success) {
-            renderSummary(
-              'success',
-              `<h3 class="contact-form__summary-title">Message sent</h3><p>${escapeHtml(
-                message
-              )}</p>`
-            );
-            form.reset();
-            state.clear();
-            fields.forEach((field) => setFieldState(field.name, '', ''));
-            updateCounter();
-            startTimeGate();
-          } else {
-            renderSummary(
-              'error',
-              `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
-                message
-              )}</p>`
-            );
-          }
-        })
-        .catch((error) => {
-          console.error('Contact form submission failed', error);
+        if (success) {
+          renderSummary(
+            'success',
+            `<h3 class="contact-form__summary-title">Message sent</h3><p>${escapeHtml(
+              message
+            )}</p>`
+          );
+          form.reset();
+          state.clear();
+          fields.forEach((field) => setFieldState(field.name, '', ''));
+          updateCounter();
+          startTimeGate();
+        } else {
           renderSummary(
             'error',
             `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
-              messages.serverError
+              message
             )}</p>`
           );
-        })
-        .finally(() => {
-          if (submitButton instanceof HTMLButtonElement) {
-            submitButton.textContent = originalButtonText || 'Send';
-            submitButton.disabled = !timeGatePassed || hasErrors();
+        }
+      } catch (error) {
+        console.error('Contact form submission failed', error);
+        renderSummary(
+          'error',
+          `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
+            messages.serverError
+          )}</p>`
+        );
+      } finally {
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.textContent = originalButtonText || 'Send';
+          submitButton.disabled = !timeGatePassed || hasErrors();
+        }
+        if (window.turnstile && turnstileElement instanceof HTMLElement) {
+          try {
+            window.turnstile.reset(turnstileElement);
+          } catch (error) {
+            console.error('Turnstile reset failed', error);
           }
-        });
+        }
+      }
     });
   }
 </script>

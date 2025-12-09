@@ -42,5 +42,17 @@ const faviconHref = withBase('/brands/favicon.ico');
       <slot />
     </main>
     <Footer />
+    {
+      !import.meta.env.DEV && (
+        <>
+          {/* Cloudflare Analytics – requires real token to be added before launch. */}
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "REPLACE_WITH_TOKEN"}'
+          />
+        </>
+      )
+    }
   </body>
 </html>

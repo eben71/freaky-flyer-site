@@ -9,8 +9,6 @@ const pageDescription =
   'Flyer delivery pricing varies by quantity, targeting, and add-ons—get transparent guidance and download the latest rate card.';
 
 const priceListHref = withBase('/downloads/pricing.pdf');
-const fallbackHref = withBase('/contact');
-const isDownload = priceListHref.includes('/downloads/');
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -34,9 +32,10 @@ const isDownload = priceListHref.includes('/downloads/');
           <a
             class="button primary button--pill"
             href={priceListHref}
-            download={isDownload ? '' : undefined}
             data-price-list-link
             aria-label="View Full Price List"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <span class="button__icon" aria-hidden="true">
               <svg
@@ -118,19 +117,15 @@ const isDownload = priceListHref.includes('/downloads/');
   </style>
 
   <script>
-    {`
+    {
+      `
       const priceListLink = document.querySelector('[data-price-list-link]');
       const downloadHref = ${JSON.stringify(withBase('/downloads/pricing.pdf'))};
       const contactHref = ${JSON.stringify(withBase('/contact'))};
 
-      const updateLink = (href, shouldDownload) => {
+      const updateLink = (href) => {
         if (!priceListLink) return;
         priceListLink.href = href;
-        if (shouldDownload) {
-          priceListLink.setAttribute('download', '');
-        } else {
-          priceListLink.removeAttribute('download');
-        }
       };
 
       const verifyDownload = async () => {
@@ -138,14 +133,15 @@ const isDownload = priceListHref.includes('/downloads/');
         try {
           const response = await fetch(downloadHref, { method: 'HEAD' });
           if (!response.ok) {
-            updateLink(contactHref, false);
+            updateLink(contactHref);
           }
         } catch {
-          updateLink(contactHref, false);
+          updateLink(contactHref);
         }
       };
 
       verifyDownload();
-    `}
+    `;
+    }
   </script>
 </BaseLayout>
