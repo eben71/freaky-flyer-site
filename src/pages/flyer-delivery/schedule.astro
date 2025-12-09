@@ -11,8 +11,7 @@ const pageDescription =
 const scheduleImage = withBase('/assets/img/warehouse-team-960.webp');
 
 const scheduleHref = withBase('/downloads/schedule.pdf');
-const scheduleFallback = withBase('/contact');
-const scheduleIsDownload = scheduleHref.includes('/downloads/');
+const contactHref = withBase('/contact');
 
 const scheduleCopy =
   'Freaky Flyer Delivery currently distributes to 500,000+ residential homes, encompassing 240+ metropolitan suburbs, within the greater Perth region. Our delivery schedule is undertaken on a first come first served basis, meaning that at this point in time we cannot physically undertake all suburbs every month, so the earlier you request a delivery each month will result in a greater chance of being undertaken, regular monthly deliveries will always take priority, so get that plan in place to ensure continuity of delivery each month. We will always try to accommodate any requests as best we can to suit our clients and as we grow, our aim is to deliver to every listed suburb, every month.';
@@ -28,8 +27,9 @@ const scheduleCopy =
       <a
         class="button primary button--pill schedule__button"
         href={scheduleHref}
-        download={scheduleIsDownload ? '' : undefined}
         data-schedule-link
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <span class="button__icon" aria-hidden="true">
           <svg
@@ -60,8 +60,9 @@ const scheduleCopy =
         <a
           class="button primary button--pill schedule__button"
           href={scheduleHref}
-          download={scheduleIsDownload ? '' : undefined}
           data-schedule-link
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <span class="button__icon" aria-hidden="true">
             <svg
@@ -176,38 +177,30 @@ const scheduleCopy =
     }
   </style>
 
-  <script>
-    {`
-      const scheduleLinks = Array.from(
-        document.querySelectorAll('[data-schedule-link]')
-      );
-      const downloadHref = ${JSON.stringify(withBase('/downloads/schedule.pdf'))};
-      const contactHref = ${JSON.stringify(withBase('/contact'))};
+  <script define:vars={{ downloadHref: scheduleHref, contactHref }}>
+    /* global downloadHref, contactHref */
+    const scheduleLinks = Array.from(
+      document.querySelectorAll('[data-schedule-link]')
+    );
 
-      const setLinkState = (href, shouldDownload) => {
-        scheduleLinks.forEach((link) => {
-          link.href = href;
-          if (shouldDownload) {
-            link.setAttribute('download', '');
-          } else {
-            link.removeAttribute('download');
-          }
-        });
-      };
+    const setLinkState = (href) => {
+      scheduleLinks.forEach((link) => {
+        link.href = href;
+      });
+    };
 
-      const verifyScheduleDownload = async () => {
-        if (!scheduleLinks.length) return;
-        try {
-          const response = await fetch(downloadHref, { method: 'HEAD' });
-          if (!response.ok) {
-            setLinkState(contactHref, false);
-          }
-        } catch {
-          setLinkState(contactHref, false);
+    const verifyScheduleDownload = async () => {
+      if (!scheduleLinks.length) return;
+      try {
+        const response = await fetch(downloadHref, { method: 'HEAD' });
+        if (!response.ok) {
+          setLinkState(contactHref);
         }
-      };
+      } catch {
+        setLinkState(contactHref);
+      }
+    };
 
-      verifyScheduleDownload();
-    `}
+    verifyScheduleDownload();
   </script>
 </BaseLayout>

@@ -9,8 +9,10 @@ try {
   ));
 }
 
-const basePathRaw = process.env.PUBLIC_BASE_PATH?.trim() || 'newsite';
-const normalizedBase = `/${basePathRaw.replace(/^\/+|\/+$/g, '')}`;
+const basePathRaw = process.env.PUBLIC_BASE_PATH?.trim() || '';
+const normalizedBase = basePathRaw
+  ? `/${basePathRaw.replace(/^\/+|\/+$/g, '')}`
+  : '';
 const baseHrefPrefix = normalizedBase; // no trailing slash
 
 const contactEmail =
@@ -78,8 +80,8 @@ const viteConfig = adminProxyTarget
   : undefined;
 
 export default defineConfig({
-  site: 'https://freakyflyerdelivery.com.au/newsite',
-  base: normalizedBase,
+  site: `https://freakyflyerdelivery.com.au${normalizedBase || ''}`,
+  base: normalizedBase || '/',
   output: 'static',
   integrations: [sitemapIntegration()],
   markdown: {

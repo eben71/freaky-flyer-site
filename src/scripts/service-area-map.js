@@ -5,6 +5,7 @@
  * or paid map services are used.
  */
 /* eslint-env browser */
+/* global URL */
 
 const normalizeBasePath = (value) => {
   if (!value) return '';
@@ -25,7 +26,10 @@ const deriveBasePath = () => {
         document.currentScript &&
         document.currentScript.src) ||
       import.meta.url;
-    const url = new URL(current, typeof window !== 'undefined' ? window.location.href : undefined);
+    const url = new URL(
+      current,
+      typeof window !== 'undefined' ? window.location.href : undefined
+    );
     const match = url.pathname.match(/^(.*)\/_astro\//);
     if (match) return match[1] || '';
     return '';

@@ -9,8 +9,7 @@ const pageDescription =
   'Flyer delivery pricing varies by quantity, targeting, and add-ons—get transparent guidance and download the latest rate card.';
 
 const priceListHref = withBase('/downloads/pricing.pdf');
-const fallbackHref = withBase('/contact');
-const isDownload = priceListHref.includes('/downloads/');
+const contactHref = withBase('/contact');
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -34,9 +33,10 @@ const isDownload = priceListHref.includes('/downloads/');
           <a
             class="button primary button--pill"
             href={priceListHref}
-            download={isDownload ? '' : undefined}
             data-price-list-link
             aria-label="View Full Price List"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <span class="button__icon" aria-hidden="true">
               <svg
@@ -60,7 +60,7 @@ const isDownload = priceListHref.includes('/downloads/');
 
   <BottomCta
     text="We look forward to working with you, please contact our friendly sales team for a quote."
-    href={withBase('/contact')}
+    href={contactHref}
     label="Contact Us"
   />
 
@@ -117,35 +117,27 @@ const isDownload = priceListHref.includes('/downloads/');
     }
   </style>
 
-  <script>
-    {`
-      const priceListLink = document.querySelector('[data-price-list-link]');
-      const downloadHref = ${JSON.stringify(withBase('/downloads/pricing.pdf'))};
-      const contactHref = ${JSON.stringify(withBase('/contact'))};
+  <script define:vars={{ downloadHref: priceListHref, contactHref }}>
+    /* global downloadHref, contactHref */
+    const priceListLink = document.querySelector('[data-price-list-link]');
 
-      const updateLink = (href, shouldDownload) => {
-        if (!priceListLink) return;
-        priceListLink.href = href;
-        if (shouldDownload) {
-          priceListLink.setAttribute('download', '');
-        } else {
-          priceListLink.removeAttribute('download');
+    const updateLink = (href) => {
+      if (!priceListLink) return;
+      priceListLink.href = href;
+    };
+
+    const verifyDownload = async () => {
+      if (!priceListLink) return;
+      try {
+        const response = await fetch(downloadHref, { method: 'HEAD' });
+        if (!response.ok) {
+          updateLink(contactHref);
         }
-      };
+      } catch {
+        updateLink(contactHref);
+      }
+    };
 
-      const verifyDownload = async () => {
-        if (!priceListLink) return;
-        try {
-          const response = await fetch(downloadHref, { method: 'HEAD' });
-          if (!response.ok) {
-            updateLink(contactHref, false);
-          }
-        } catch {
-          updateLink(contactHref, false);
-        }
-      };
-
-      verifyDownload();
-    `}
+    verifyDownload();
   </script>
 </BaseLayout>

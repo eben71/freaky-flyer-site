@@ -71,6 +71,7 @@ environment variables instead of hard-coded addresses.
      ```
 
    These values are read with `getenv()` at runtime, so no code changes are required per host.
+
 3. Deploy the freshly built `dist/` folder via File Manager or SFTP.
 4. Submit a test enquiry from `/contact` to verify the email reaches the inbox configured in `TO_EMAIL`.
 
@@ -85,7 +86,7 @@ as the single place for defaults and load secrets from the environment.
 Copy `.env.example` to `.env` and fill in values:
 
 - `PUBLIC_CONTACT_EMAIL` / `SITE_NAME` – exposed to the Astro build for site metadata.
-- `PUBLIC_BASE_PATH` – optional path prefix (e.g., `/newsite`) if the site is served from a subdirectory.
+- `PUBLIC_BASE_PATH` – optional path prefix (e.g., `/newsite`) if the site is served from a subdirectory. Leave unset for the default root deployment.
 - `TO_EMAIL` / `FROM_EMAIL` – used by the PHP contact form and admin mail test (also used as a fallback for `PUBLIC_CONTACT_EMAIL`).
 - `ADMIN_USERNAME` / `ADMIN_PASSWORD` – required to log into `/admin`.
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` – SMTP credentials if the host requires authenticated mail.
