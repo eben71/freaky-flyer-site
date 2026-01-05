@@ -125,4 +125,14 @@ Once Astro replaces WordPress:
 6. Enable Turnstile
 7. Monitor analytics + bot traffic
 
+## 🗺️ Roadmap / Post-MVP (outside Phase 1 feasibility)
+
+These are valuable additions, but not required to answer “can the API support the product”:
+
+- Secret scanning / commit guards beyond lint+format (e.g., gitleaks/trufflehog in CI, repo-wide).  
+  Phase 1 can do minimal pre-commit blocking for `.tokens`, but full secret scanning is broader.
+- Robust credential storage strategy across platforms (keychain integration, multi-user token vaulting, rotation, revocation UX).
+- Long-running job orchestration (resume checkpoints, durable queues), caching layers, and distributed rate-limiting across users.
+- “Competitor benchmarking harness” (repeatable perf comparisons) — useful, but not needed to answer feasibility.
+
 This README contains everything needed to fully rebuild the project.
