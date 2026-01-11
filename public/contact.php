@@ -12,8 +12,8 @@ $env = function ($key, $default = '') {
 
 $defaults = [
     'site_name' => 'Freaky Flyer Delivery',
-    'contact_email' => 'admin@freakyflyerdelivery.com.au',
-    'from_email' => 'no-reply@freakyflyerdelivery.com.au',
+    'contact_email' => 'freakyflyerbookings@gmail.com',
+    'from_email' => 'freakyflyerbookings@gmail.com',
 ];
 
 $siteConfig = [

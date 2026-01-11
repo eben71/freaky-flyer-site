@@ -27,10 +27,10 @@ Redirect 301 /areas/ /service-areas
 Redirect 301 /areas /service-areas
 
 SetEnv PUBLIC_BASE_PATH "/newsite"
-SetEnv PUBLIC_CONTACT_EMAIL "admin@freakyflyerdelivery.com.au"
+SetEnv PUBLIC_CONTACT_EMAIL "freakyflyerbookings@gmail.com"
 SetEnv SITE_NAME "Freaky Flyer Delivery"
-SetEnv TO_EMAIL "admin@freakyflyerdelivery.com.au"
-SetEnv FROM_EMAIL "no-reply@freakyflyerdelivery.com.au"
+SetEnv TO_EMAIL "freakyflyerbookings@gmail.com"
+SetEnv FROM_EMAIL "freakyflyerbookings@gmail.com"
 SetEnv ADMIN_USERNAME "admin"
 SetEnv ADMIN_PASSWORD "change-me"
 SetEnv SMTP_HOST "mail.freakyflyerdelivery.com.au"

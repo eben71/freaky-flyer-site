@@ -91,7 +91,7 @@ Upload the contents of `/dist` to the **root public_html directory**.
 
 Ensure:
 
-- `.htaccess` is present
+- `.htaccess` is present. If you copy over the development version remove the .htaccess file before overwriting the one on the server, otherwise the values will have to be updated.
 - `contact.php` is uploaded
 - permissions allow PHP execution
 

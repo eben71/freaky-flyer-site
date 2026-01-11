@@ -41,8 +41,8 @@ $defaults = array(
     'max_file_size_bytes' => 10 * 1024 * 1024,
     'upload_root' => dirname(__DIR__) . '/downloads',
     'site_name' => 'Freaky Flyer Delivery',
-    'contact_email' => 'admin@freakyflyerdelivery.com.au',
-    'from_email' => 'no-reply@freakyflyerdelivery.com.au',
+    'contact_email' => 'freakyflyerbookings@gmail.com',
+    'from_email' => 'freakyflyerbookings@gmail.com',
 );
 
 $basePath = '';
