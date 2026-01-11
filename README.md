@@ -86,7 +86,7 @@ as the single place for defaults and load secrets from the environment.
 Copy `.env.example` to `.env` and fill in values:
 
 - `PUBLIC_CONTACT_EMAIL` / `SITE_NAME` – exposed to the Astro build for site metadata.
-- `PUBLIC_BASE_PATH` – optional path prefix (e.g., `/newsite`) if the site is served from a subdirectory.
+- `PUBLIC_BASE_PATH` – optional path prefix (e.g., `/newsite`) if the site is served from a subdirectory. Leave unset for the default root deployment.
 - `TO_EMAIL` / `FROM_EMAIL` – used by the PHP contact form and admin mail test (also used as a fallback for `PUBLIC_CONTACT_EMAIL`).
 - `ADMIN_USERNAME` / `ADMIN_PASSWORD` – required to log into `/admin`.
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` – SMTP credentials if the host requires authenticated mail.
