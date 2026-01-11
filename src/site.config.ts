@@ -17,6 +17,7 @@ export const site = {
   email: contactEmail,
   address: '96 Nicholas Rd, Wanneroo WA 6065',
   hours: 'Mon–Thu 8:00am–3:00pm, Fri 8:00am–2:00pm',
+  hoursDisplay: ['Mon–Thu 8:00am–3:00pm', 'Fri 8:00am–2:00pm'],
   defaultDescription:
     'GPS-verified flyer distribution across the Perth metro area. Family-owned. Reliable. Accountable.',
   ogImage: withBase('/assets/brand/og-default.jpg'),

@@ -41,7 +41,13 @@ const mapLink =
             </div>
             <div class="contact-card__row">
               <dt>Hours</dt>
-              <dd>{site.hours}</dd>
+              <dd>
+                <span class="hours-list">
+                  {site.hoursDisplay.map((line) => (
+                    <span class="hours-line">{line}</span>
+                  ))}
+                </span>
+              </dd>
             </div>
           </dl>
         </article>
@@ -114,6 +120,15 @@ const mapLink =
     .contact-card__row {
       display: grid;
       gap: var(--space-1);
+    }
+
+    .hours-list {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .hours-line {
+      display: block;
     }
 
     .contact-card__row dt {
