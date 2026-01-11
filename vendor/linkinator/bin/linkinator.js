@@ -10,7 +10,7 @@ if (!targetDir) {
 }
 
 const root = resolve(process.cwd(), targetDir);
-const basePath = normalizeBasePath(options.base || process.env.PUBLIC_BASE_PATH);
+let basePath = normalizeBasePath(options.base || process.env.PUBLIC_BASE_PATH);
 if (!existsSync(root) || !statSync(root).isDirectory()) {
   console.error(`Directory not found: ${root}`);
   process.exit(1);
@@ -18,6 +18,9 @@ if (!existsSync(root) || !statSync(root).isDirectory()) {
 
 const skipRegex = options.skip ? new RegExp(options.skip) : null;
 const htmlFiles = collectHtmlFiles(root);
+if (!basePath) {
+  basePath = inferBasePathFromLinks(htmlFiles, root);
+}
 let checkedLinks = 0;
 const issues = [];
 
@@ -136,6 +139,32 @@ function normalizeBasePath(value) {
   if (!trimmed) return '';
   const normalized = `/${trimmed.replace(/^\/+|\/+$/g, '')}`;
   return normalized === '/' ? '' : normalized;
+}
+
+function inferBasePathFromLinks(files, rootDir) {
+  const counts = new Map();
+  for (const file of files) {
+    const content = readFileSync(file, 'utf8');
+    const links = extractLinks(content);
+    for (const href of links) {
+      if (!href || !href.startsWith('/') || href.startsWith('//')) continue;
+      const match = href.match(/^\/([^/]+)(?:\/|$)/);
+      if (!match) continue;
+      const segment = match[1];
+      if (!segment) continue;
+      const candidate = `/${segment}`;
+      counts.set(candidate, (counts.get(candidate) || 0) + 1);
+    }
+  }
+  const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+  for (const [candidate] of sorted) {
+    const candidatePath = join(rootDir, candidate);
+    if (existsSync(candidatePath)) {
+      continue;
+    }
+    return candidate;
+  }
+  return '';
 }
 
 function stripBasePath(href, basePath) {
