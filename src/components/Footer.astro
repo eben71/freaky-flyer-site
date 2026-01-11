@@ -34,7 +34,13 @@ const socialLinks = [
           </li>
           <li>
             <strong>Warehouse Hours:</strong>
-            <span>{site.hours}</span>
+            <span class="hours-list">
+              {
+                site.hoursDisplay.map((line) => (
+                  <span class="hours-line">{line}</span>
+                ))
+              }
+            </span>
           </li>
         </ul>
       </div>
@@ -107,5 +113,12 @@ const socialLinks = [
   footer.site p {
     margin: 0 0 var(--space-3);
     color: #f8dcdc;
+  }
+  footer.site .hours-list {
+    display: grid;
+    gap: var(--space-1);
+  }
+  footer.site .hours-line {
+    display: block;
   }
 </style>

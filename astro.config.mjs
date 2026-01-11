@@ -10,9 +10,25 @@ try {
 }
 
 const basePathRaw = process.env.PUBLIC_BASE_PATH?.trim() || '';
+const rawSiteUrl =
+  process.env.PUBLIC_SITE_URL?.trim() || 'https://freakyflyerdelivery.com.au';
+let siteUrlOrigin = rawSiteUrl;
+let inferredBase = '';
+
+try {
+  const parsedSiteUrl = new URL(rawSiteUrl);
+  siteUrlOrigin = parsedSiteUrl.origin;
+  if (!basePathRaw) {
+    const path = parsedSiteUrl.pathname.replace(/\/+$/, '');
+    inferredBase = path && path !== '/' ? path : '';
+  }
+} catch (error) {
+  inferredBase = '';
+}
+
 const normalizedBase = basePathRaw
   ? `/${basePathRaw.replace(/^\/+|\/+$/g, '')}`
-  : '';
+  : inferredBase;
 const baseHrefPrefix = normalizedBase; // no trailing slash
 
 const contactEmail =
@@ -80,7 +96,7 @@ const viteConfig = adminProxyTarget
   : undefined;
 
 export default defineConfig({
-  site: `https://freakyflyerdelivery.com.au${normalizedBase || ''}`,
+  site: `${siteUrlOrigin}${normalizedBase || ''}`,
   base: normalizedBase || '/',
   output: 'static',
   integrations: [sitemapIntegration()],
