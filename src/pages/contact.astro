@@ -43,9 +43,11 @@ const mapLink =
               <dt>Hours</dt>
               <dd>
                 <span class="hours-list">
-                  {site.hoursDisplay.map((line) => (
-                    <span class="hours-line">{line}</span>
-                  ))}
+                  {
+                    site.hoursDisplay.map((line) => (
+                      <span class="hours-line">{line}</span>
+                    ))
+                  }
                 </span>
               </dd>
             </div>
