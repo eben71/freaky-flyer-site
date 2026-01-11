@@ -3,7 +3,7 @@ import { withBase } from './lib/base';
 const contactEmail =
   import.meta.env.PUBLIC_CONTACT_EMAIL?.trim() ||
   import.meta.env.TO_EMAIL?.trim() ||
-  'admin@freakyflyerdelivery.com.au';
+  'freakyflyerbookings@gmail.com';
 
 const siteName = import.meta.env.SITE_NAME?.trim() || 'Freaky Flyer Delivery';
 const siteUrl =
@@ -16,7 +16,7 @@ export const site = {
   phone: '(08) 9405 7777',
   email: contactEmail,
   address: '96 Nicholas Rd, Wanneroo WA 6065',
-  hours: 'Mon–Fri 7:00am–3:30pm',
+  hours: 'Mon–Thu 8:00am–3:00pm, Fri 8:00am–2:00pm',
   defaultDescription:
     'GPS-verified flyer distribution across the Perth metro area. Family-owned. Reliable. Accountable.',
   ogImage: withBase('/assets/brand/og-default.jpg'),
