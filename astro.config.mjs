@@ -18,7 +18,7 @@ const baseHrefPrefix = normalizedBase; // no trailing slash
 const contactEmail =
   process.env.PUBLIC_CONTACT_EMAIL?.trim() ||
   process.env.TO_EMAIL?.trim() ||
-  'admin@freakyflyerdelivery.com.au';
+  'freakyflyerbookings@gmail.com';
 
 const replacePlaceholders = () => {
   const replacements = {
