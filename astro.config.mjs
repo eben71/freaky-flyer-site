@@ -2,11 +2,11 @@ import { defineConfig } from 'astro/config';
 
 let sitemapIntegration;
 try {
-  ({ default: sitemapIntegration } = await import('@astrojs/sitemap'));
+  const sitemapModule = await import('@astrojs/sitemap');
+  sitemapIntegration = sitemapModule.default;
 } catch (error) {
-  ({ default: sitemapIntegration } = await import(
-    './vendor/astrojs-sitemap/index.js'
-  ));
+  const sitemapModule = await import('./vendor/astrojs-sitemap/index.js');
+  sitemapIntegration = sitemapModule.default;
 }
 
 const basePathRaw = process.env.PUBLIC_BASE_PATH?.trim() || '';
