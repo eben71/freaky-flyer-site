@@ -10,6 +10,7 @@ if (!targetDir) {
 }
 
 const root = resolve(process.cwd(), targetDir);
+let basePath = normalizeBasePath(options.base || process.env.PUBLIC_BASE_PATH);
 if (!existsSync(root) || !statSync(root).isDirectory()) {
   console.error(`Directory not found: ${root}`);
   process.exit(1);
@@ -17,6 +18,9 @@ if (!existsSync(root) || !statSync(root).isDirectory()) {
 
 const skipRegex = options.skip ? new RegExp(options.skip) : null;
 const htmlFiles = collectHtmlFiles(root);
+if (!basePath) {
+  basePath = inferBasePathFromLinks(htmlFiles, root);
+}
 let checkedLinks = 0;
 const issues = [];
 
@@ -30,7 +34,7 @@ for (const file of htmlFiles) {
     if (/^[a-zA-Z+.-]+:/.test(href) && !href.startsWith('/')) {
       continue;
     }
-    const resolvedPath = resolveLinkPath(href, file, root);
+    const resolvedPath = resolveLinkPath(href, file, root, basePath);
     if (!resolvedPath) continue;
     checkedLinks++;
     if (!pathExists(resolvedPath)) {
@@ -117,15 +121,59 @@ function extractLinks(html) {
   return links;
 }
 
-function resolveLinkPath(href, sourceFile, rootDir) {
+function resolveLinkPath(href, sourceFile, rootDir, basePath) {
   if (!href || href.startsWith('#')) return null;
-  if (href.startsWith('/')) {
-    return join(rootDir, href);
+  const normalizedHref = stripBasePath(href, basePath);
+  if (normalizedHref.startsWith('/')) {
+    return join(rootDir, normalizedHref);
   }
   if (href.startsWith('..') || href.startsWith('./') || !href.includes(':')) {
     return resolve(dirname(sourceFile), href);
   }
   return null;
+}
+
+function normalizeBasePath(value) {
+  if (!value || value === 'undefined' || value === 'null') return '';
+  const trimmed = String(value).trim();
+  if (!trimmed) return '';
+  const normalized = `/${trimmed.replace(/^\/+|\/+$/g, '')}`;
+  return normalized === '/' ? '' : normalized;
+}
+
+function inferBasePathFromLinks(files, rootDir) {
+  const counts = new Map();
+  for (const file of files) {
+    const content = readFileSync(file, 'utf8');
+    const links = extractLinks(content);
+    for (const href of links) {
+      if (!href || !href.startsWith('/') || href.startsWith('//')) continue;
+      const match = href.match(/^\/([^/]+)(?:\/|$)/);
+      if (!match) continue;
+      const segment = match[1];
+      if (!segment) continue;
+      const candidate = `/${segment}`;
+      counts.set(candidate, (counts.get(candidate) || 0) + 1);
+    }
+  }
+  const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+  for (const [candidate] of sorted) {
+    const candidatePath = join(rootDir, candidate);
+    if (existsSync(candidatePath)) {
+      continue;
+    }
+    return candidate;
+  }
+  return '';
+}
+
+function stripBasePath(href, basePath) {
+  if (!basePath) return href;
+  if (href === basePath) return '/';
+  if (href.startsWith(`${basePath}/`)) {
+    return href.slice(basePath.length) || '/';
+  }
+  return href;
 }
 
 function pathExists(targetPath) {
