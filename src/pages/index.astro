@@ -28,7 +28,7 @@ const whyImage = withBase('/assets/img/ffdwarehousepersonell-960.webp');
     image={heroImage}
     kicker="Family owned. Perth proud."
     title="Perth's specialists in flyer, brochure & pamphlet delivery"
-    text="Full GPS tracking on every delivery so you can see exactly where your flyers go."
+    text="Full GPS tracking on every delivery so you can see exactly where your flyers go. 99% letterbox delivery guarantee."
   >
     <div slot="actions">
       <button
@@ -102,6 +102,9 @@ const whyImage = withBase('/assets/img/ffdwarehousepersonell-960.webp');
     <div class="container pricing-highlight__inner">
       <p class="badge pricing-highlight__badge">
         Residential letterbox distribution &amp; flyer delivery
+      </p>
+      <p class="badge pricing-highlight__badge pricing-highlight__badge--secondary">
+        99% letterbox delivery guarantee
       </p>
       <h2 id="pricing-heading">From as low as</h2>
       <p class="pricing-highlight__price">
@@ -398,6 +401,11 @@ const whyImage = withBase('/assets/img/ffdwarehousepersonell-960.webp');
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
+    }
+
+    .pricing-highlight__badge--secondary {
+      margin-top: calc(var(--space-3) * -1);
+      margin-bottom: var(--space-5);
     }
 
     .pricing-highlight h2 {
