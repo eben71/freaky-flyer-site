@@ -9,7 +9,6 @@ try {
   sitemapIntegration = sitemapModule.default;
 }
 
-const fallbackBasePath = '/newsite';
 const basePathRaw = process.env.PUBLIC_BASE_PATH?.trim() || '';
 const rawSiteUrl =
   process.env.PUBLIC_SITE_URL?.trim() || 'https://freakyflyerdelivery.com.au';
@@ -29,7 +28,7 @@ try {
 
 const normalizedBase = basePathRaw
   ? `/${basePathRaw.replace(/^\/+|\/+$/g, '')}`
-  : inferredBase || fallbackBasePath;
+  : inferredBase;
 const baseHrefPrefix = normalizedBase; // no trailing slash
 
 const contactEmail =

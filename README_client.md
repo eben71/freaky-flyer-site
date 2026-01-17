@@ -106,16 +106,22 @@ If the upload was incorrect, simply upload the corrected PDF.
 
 ---
 
-## 📞 8. Need Help?
+## 📊 8. Monitoring Analytics in Cloudflare
 
-If you need assistance with:
+Cloudflare Web Analytics gives you traffic trends without tracking cookies.
 
-- Upload errors
-- Password reset
-- Adding new admin users
-- Expanding the admin panel (images, blog, downloads)
+To view analytics:
 
-Support is available anytime.
+1. Log in at https://dash.cloudflare.com
+2. Select **freakyflyerdelivery.com.au**
+3. Open **Analytics & Logs → Web Analytics**
+4. Review:
+   - Page views and visits
+   - Top pages
+   - Top referrers
+   - Device and country breakdowns
+
+For deeper security insights, use **Security → Events** to see blocked bots and rule activity.
 
 ---
 
