@@ -65,6 +65,7 @@ ADMIN_PASSWORD=
 
 TURNSTILE_SITE_KEY=
 TURNSTILE_SECRET_KEY=
+CF_WEB_ANALYTICS_TOKEN=
 
 SMTP_HOST=
 SMTP_PORT=
@@ -80,6 +81,14 @@ SMTP_SECURE=true
 - Sanitisation
 - PHP-based email handling
 - Optional Turnstile (enabled post-launch once Cloudflare is active)
+
+## ✨ Formatting
+
+Run Prettier before committing to keep CI green:
+
+```
+pnpm format
+```
 
 ## 📦 Build & Deploy
 
@@ -112,7 +121,10 @@ Use Cloudflare to manage DNS, SSL, security, and analytics:
 2. **SSL/TLS**: Set mode to **Full (Strict)** and keep the origin certificate valid.
 3. **Web Analytics**: Enable Web Analytics for the zone to track traffic without adding cookies.
 4. **Turnstile**: Add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` values to `.htaccess`.
-5. **Security rules**: Enable bot protections and rate limits as needed.
-6. **Caching**: Avoid caching `/admin` and `contact.php` while allowing static asset caching.
+5. **Analytics token**: Add `CF_WEB_ANALYTICS_TOKEN` in `.htaccess` to inject the beacon.
+6. **Security rules**: Enable bot protections and rate limits as needed.
+7. **Caching**: Avoid caching `/admin` and `contact.php` while allowing static asset caching.
+
+See `docs/cloudflare-onboarding.md` for the step-by-step checklist.
 
 This README contains everything needed to fully rebuild the project.

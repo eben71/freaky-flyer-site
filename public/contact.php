@@ -43,6 +43,11 @@ $envSnapshot = [
     'turnstile_secret_present' => $env('TURNSTILE_SECRET_KEY', '') !== '' ? 'true' : 'false',
 ];
 
+if (!headers_sent()) {
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+}
+
 function render_response($content, $status = 200, $success = null, $debugData = null)
 {
     global $acceptsJson, $debug;
@@ -184,7 +189,9 @@ $now = (int) (microtime(true) * 1000);
 $deltaMs = $now - $startedAt;
 $turnstileSecretKey = $env('TURNSTILE_SECRET_KEY', '');
 $turnstileResponseToken = isset($_POST['cf-turnstile-response']) ? trim($_POST['cf-turnstile-response']) : '';
-$requestIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+// Turnstile is optional and only enforced when a secret key is configured.
+$turnstileEnabled = $turnstileSecretKey !== '';
+$requestIp = function_exists('ffd_resolve_client_ip') ? ffd_resolve_client_ip() : (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
 
 if ($startedAt > 0 && $deltaMs > 0 && $deltaMs < 2000) {
     render_response('<p>Thank you for your enquiry. If required, we will contact you shortly.</p>');
@@ -208,15 +215,17 @@ if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $
     render_response('<p>Please complete the required fields and try again.</p>', 400, null, $debug ? $envSnapshot : null);
 }
 
-if ($turnstileSecretKey === '' || $turnstileResponseToken === '') {
-    log_issue('Turnstile verification missing token or secret.');
+if ($turnstileEnabled && $turnstileResponseToken === '') {
+    log_issue('Turnstile verification missing token.');
     render_turnstile_failure($debug ? $envSnapshot : null);
 }
 
-$turnstileResult = verify_turnstile_token($turnstileSecretKey, $turnstileResponseToken, $requestIp);
-if (!is_array($turnstileResult) || empty($turnstileResult['success'])) {
-    $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
-    render_turnstile_failure($debugData);
+if ($turnstileEnabled) {
+    $turnstileResult = verify_turnstile_token($turnstileSecretKey, $turnstileResponseToken, $requestIp);
+    if (!is_array($turnstileResult) || empty($turnstileResult['success'])) {
+        $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
+        render_turnstile_failure($debugData);
+    }
 }
 
 if ($RECIPIENT_EMAIL === '' || $FROM_EMAIL === '') {

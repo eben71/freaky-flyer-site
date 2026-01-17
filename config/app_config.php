@@ -24,6 +24,30 @@ if (!function_exists('ffd_env')) {
     }
 }
 
+if (!function_exists('ffd_resolve_client_ip')) {
+    /**
+     * Resolve client IP with Cloudflare and proxy headers in mind.
+     */
+    function ffd_resolve_client_ip()
+    {
+        $cfConnectingIp = isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? trim($_SERVER['HTTP_CF_CONNECTING_IP']) : '';
+        if ($cfConnectingIp && filter_var($cfConnectingIp, FILTER_VALIDATE_IP)) {
+            return $cfConnectingIp;
+        }
+
+        $forwardedFor = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? trim($_SERVER['HTTP_X_FORWARDED_FOR']) : '';
+        if ($forwardedFor !== '') {
+            $parts = array_map('trim', explode(',', $forwardedFor));
+            $firstIp = $parts ? $parts[0] : '';
+            if ($firstIp && filter_var($firstIp, FILTER_VALIDATE_IP)) {
+                return $firstIp;
+            }
+        }
+
+        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+    }
+}
+
 $defaults = [
     'site_name' => 'Freaky Flyer Delivery',
     'contact_email' => 'freakyflyerbookings@gmail.com',
