@@ -12,9 +12,20 @@
 # Blocks other sites from embedding our images
 RewriteEngine On
 RewriteBase /
+RewriteRule ^wp-login\.php$ - [R=404,L]
+RewriteRule ^wp-admin/ - [R=404,L]
+RewriteRule ^xmlrpc\.php$ - [R=404,L]
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^https?://(www\.)?freakyflyerdelivery\.com\.au [NC]
 RewriteRule \.(jpe?g|png|gif|webp|avif|svg)$ - [F,NC,L]
+
+# ------------ No-cache headers for dynamic endpoints ------------
+SetEnvIf Request_URI "^/contact\.php$" ffd_nocache=1
+SetEnvIf Request_URI "^/admin(/|$)" ffd_nocache=1
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0" env=ffd_nocache
+  Header set Pragma "no-cache" env=ffd_nocache
+</IfModule>
 
 # ------------ 404 handling (keep if not present) ------------
 ErrorDocument 404 /404.html
@@ -33,6 +44,9 @@ SetEnv TO_EMAIL "freakyflyerbookings@gmail.com"
 SetEnv FROM_EMAIL "admin@freakyflyerdelivery.com.au"
 SetEnv ADMIN_USERNAME "admin"
 SetEnv ADMIN_PASSWORD "change-me"
+SetEnv TURNSTILE_SITE_KEY ""
+SetEnv TURNSTILE_SECRET_KEY ""
+SetEnv CF_WEB_ANALYTICS_TOKEN ""
 SetEnv SMTP_HOST "mail.freakyflyerdelivery.com.au"
 SetEnv SMTP_PORT "465"
 SetEnv SMTP_SECURE "true"

@@ -15,6 +15,11 @@ const {
 
 const manifestHref = withBase('/brands/site.webmanifest');
 const faviconHref = withBase('/brands/favicon.ico');
+const cfWebAnalyticsToken =
+  import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN ||
+  import.meta.env.CF_WEB_ANALYTICS_TOKEN ||
+  '';
+const isCfWebAnalyticsEnabled = Boolean(cfWebAnalyticsToken);
 ---
 
 <html lang="en">
@@ -43,13 +48,13 @@ const faviconHref = withBase('/brands/favicon.ico');
     </main>
     <Footer />
     {
-      !import.meta.env.DEV && (
+      !import.meta.env.DEV && isCfWebAnalyticsEnabled && (
         <>
-          {/* Cloudflare Analytics – requires real token to be added before launch. */}
+          {/* Cloudflare Analytics – set CF_WEB_ANALYTICS_TOKEN to enable. */}
           <script
             defer
             src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "REPLACE_WITH_TOKEN"}'
+            data-cf-beacon={`{"token": "${cfWebAnalyticsToken}"}`}
           />
         </>
       )

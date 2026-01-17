@@ -6,6 +6,7 @@ const turnstileSiteKey =
   import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ||
   import.meta.env.TURNSTILE_SITE_KEY ||
   '';
+const isTurnstileEnabled = Boolean(turnstileSiteKey);
 const minDelayMs = 2000;
 const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'message'];
 const placeholders = {
@@ -53,15 +54,18 @@ const placeholders = {
     tabindex="-1"
   >
   </div>
-  <div
-    class="cf-turnstile"
-    data-sitekey={turnstileSiteKey}
-    data-theme="light"
-    data-size="invisible"
-    data-callback="handleTurnstileSuccess"
-    data-error-callback="handleTurnstileError"
-  >
-  </div>
+  {
+    isTurnstileEnabled && (
+      <div
+        class="cf-turnstile"
+        data-sitekey={turnstileSiteKey}
+        data-theme="light"
+        data-size="invisible"
+        data-callback="handleTurnstileSuccess"
+        data-error-callback="handleTurnstileError"
+      />
+    )
+  }
   <div class="contact-form__grid">
     <div class="contact-form__field" data-field="firstName">
       <label for="first-name"
@@ -234,9 +238,17 @@ const placeholders = {
   </p>
 </form>
 
-<!-- Cloudflare Turnstile script: ensure widget loads for invisible challenge -->
-<script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-></script>
+{
+  isTurnstileEnabled && (
+    <>
+      {/* Cloudflare Turnstile script: ensure widget loads for invisible challenge */}
+      <script
+        defer
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      />
+    </>
+  )
+}
 
 <style>
   .contact-form {
@@ -459,6 +471,7 @@ const placeholders = {
       turnstileElement instanceof HTMLElement
         ? turnstileElement.getAttribute('data-sitekey') || ''
         : '';
+    const turnstileEnabled = Boolean(turnstileSiteKey);
     let resolveTurnstile;
     let rejectTurnstile;
 
@@ -538,6 +551,9 @@ const placeholders = {
     };
 
     const requestTurnstileToken = () => {
+      if (!turnstileEnabled) {
+        return Promise.resolve('');
+      }
       if (!(turnstileElement instanceof HTMLElement) || !turnstileSiteKey) {
         return Promise.reject(new Error(messages.turnstileMissing));
       }
@@ -770,22 +786,24 @@ const placeholders = {
       }
 
       let turnstileToken = '';
-      try {
-        turnstileToken = await requestTurnstileToken();
-      } catch (error) {
-        const description =
-          error instanceof Error ? error.message : messages.turnstile;
-        renderSummary(
-          'error',
-          `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
-            description
-          )}</p>`
-        );
-        if (submitButton instanceof HTMLButtonElement) {
-          submitButton.textContent = originalButtonText || 'Send';
-          submitButton.disabled = false;
+      if (turnstileEnabled) {
+        try {
+          turnstileToken = await requestTurnstileToken();
+        } catch (error) {
+          const description =
+            error instanceof Error ? error.message : messages.turnstile;
+          renderSummary(
+            'error',
+            `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
+              description
+            )}</p>`
+          );
+          if (submitButton instanceof HTMLButtonElement) {
+            submitButton.textContent = originalButtonText || 'Send';
+            submitButton.disabled = false;
+          }
+          return;
         }
-        return;
       }
 
       const formData = new FormData(form);
@@ -854,7 +872,11 @@ const placeholders = {
           submitButton.textContent = originalButtonText || 'Send';
           submitButton.disabled = !timeGatePassed || hasErrors();
         }
-        if (window.turnstile && turnstileElement instanceof HTMLElement) {
+        if (
+          turnstileEnabled &&
+          window.turnstile &&
+          turnstileElement instanceof HTMLElement
+        ) {
           try {
             window.turnstile.reset(turnstileElement);
           } catch (error) {
