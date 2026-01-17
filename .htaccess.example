@@ -11,7 +11,7 @@
 # ------------ Hotlink protection ------------
 # Blocks other sites from embedding our images
 RewriteEngine On
-RewriteBase /newsite
+RewriteBase /
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^https?://(www\.)?freakyflyerdelivery\.com\.au [NC]
 RewriteRule \.(jpe?g|png|gif|webp|avif|svg)$ - [F,NC,L]
@@ -26,11 +26,11 @@ Redirect 301 /about-us/meet-the-team /about#team
 Redirect 301 /areas/ /service-areas
 Redirect 301 /areas /service-areas
 
-SetEnv PUBLIC_BASE_PATH "/newsite"
+SetEnv PUBLIC_BASE_PATH "/"
 SetEnv PUBLIC_CONTACT_EMAIL "freakyflyerbookings@gmail.com"
 SetEnv SITE_NAME "Freaky Flyer Delivery"
 SetEnv TO_EMAIL "freakyflyerbookings@gmail.com"
-SetEnv FROM_EMAIL "freakyflyerbookings@gmail.com"
+SetEnv FROM_EMAIL "admin@freakyflyerdelivery.com.au"
 SetEnv ADMIN_USERNAME "admin"
 SetEnv ADMIN_PASSWORD "change-me"
 SetEnv SMTP_HOST "mail.freakyflyerdelivery.com.au"
