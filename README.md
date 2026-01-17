@@ -104,35 +104,15 @@ Optimised → public/assets/img
 pnpm images
 ```
 
-## 🛡 Cloudflare Onboarding (Post-Launch Only)
+## 🛡 Cloudflare Configuration
 
-Once Astro replaces WordPress:
+Use Cloudflare to manage DNS, SSL, security, and analytics:
 
-1. Switch nameservers
-2. SSL Full (Strict)
-3. Enable Web Analytics
-4. Add Turnstile keys to `.htaccess`
-5. Add bot security rules
-6. Validate form + caching
-
-## 🚀 Launch Workflow Summary
-
-1. Finalise QA
-2. Remove WordPress from root
-3. Deploy Astro to root
-4. Test site
-5. Enable Cloudflare
-6. Enable Turnstile
-7. Monitor analytics + bot traffic
-
-## 🗺️ Roadmap / Post-MVP (outside Phase 1 feasibility)
-
-These are valuable additions, but not required to answer “can the API support the product”:
-
-- Secret scanning / commit guards beyond lint+format (e.g., gitleaks/trufflehog in CI, repo-wide).  
-  Phase 1 can do minimal pre-commit blocking for `.tokens`, but full secret scanning is broader.
-- Robust credential storage strategy across platforms (keychain integration, multi-user token vaulting, rotation, revocation UX).
-- Long-running job orchestration (resume checkpoints, durable queues), caching layers, and distributed rate-limiting across users.
-- “Competitor benchmarking harness” (repeatable perf comparisons) — useful, but not needed to answer feasibility.
+1. **DNS / Nameservers**: Point the domain to Cloudflare and confirm records match the live origin.
+2. **SSL/TLS**: Set mode to **Full (Strict)** and keep the origin certificate valid.
+3. **Web Analytics**: Enable Web Analytics for the zone to track traffic without adding cookies.
+4. **Turnstile**: Add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` values to `.htaccess`.
+5. **Security rules**: Enable bot protections and rate limits as needed.
+6. **Caching**: Avoid caching `/admin` and `contact.php` while allowing static asset caching.
 
 This README contains everything needed to fully rebuild the project.
