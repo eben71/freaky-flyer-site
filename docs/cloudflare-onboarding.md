@@ -28,7 +28,7 @@ Use this checklist to onboard the site to Cloudflare with minimal redeploys.
 2. Set the keys in `.htaccess`:
 
    ```apache
-   SetEnv TURNSTILE_SITE_KEY "your-site-key"
+   SetEnv PUBLIC_TURNSTILE_SITE_KEY "your-site-key"
    SetEnv TURNSTILE_SECRET_KEY "your-secret-key"
    ```
 

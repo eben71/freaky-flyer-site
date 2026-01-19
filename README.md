@@ -63,8 +63,10 @@ FROM_EMAIL=
 ADMIN_USERNAME=
 ADMIN_PASSWORD=
 
-TURNSTILE_SITE_KEY=
+PUBLIC_TURNSTILE_SITE_KEY=
 TURNSTILE_SECRET_KEY=
+PUBLIC_TURNSTILE_DEBUG=false
+TURNSTILE_BYPASS=false
 CF_WEB_ANALYTICS_TOKEN=
 
 SMTP_HOST=
@@ -73,6 +75,8 @@ SMTP_USER=
 SMTP_PASS=
 SMTP_SECURE=true
 ```
+
+`PUBLIC_TURNSTILE_SITE_KEY` is baked into the Astro build, so set it in `.env` locally and in your build environment for production. `TURNSTILE_BYPASS` should stay `false` in production.
 
 ## 📩 Contact Form Security
 
@@ -120,7 +124,7 @@ Use Cloudflare to manage DNS, SSL, security, and analytics:
 1. **DNS / Nameservers**: Point the domain to Cloudflare and confirm records match the live origin.
 2. **SSL/TLS**: Set mode to **Full (Strict)** and keep the origin certificate valid.
 3. **Web Analytics**: Enable Web Analytics for the zone to track traffic without adding cookies.
-4. **Turnstile**: Add `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` values to `.htaccess`.
+4. **Turnstile**: Add `PUBLIC_TURNSTILE_SITE_KEY` (frontend) and `TURNSTILE_SECRET_KEY` (server) values to `.htaccess`.
 5. **Analytics token**: Add `CF_WEB_ANALYTICS_TOKEN` in `.htaccess` to inject the beacon.
 6. **Security rules**: Enable bot protections and rate limits as needed.
 7. **Caching**: Avoid caching `/admin` and `contact.php` while allowing static asset caching.

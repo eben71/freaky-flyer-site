@@ -34,12 +34,16 @@ $FROM_EMAIL = isset($siteConfig['from_email']) ? $siteConfig['from_email'] : '';
 $SITE_NAME = isset($siteConfig['name']) ? $siteConfig['name'] : $defaults['site_name'];
 $acceptsJson = isset($_SERVER['HTTP_ACCEPT']) && stripos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 $debug = strtolower($env('DEBUG_CONTACT', '')) === 'true' || $env('DEBUG_CONTACT', '') === '1';
+$turnstileBypass =
+    strtolower($env('TURNSTILE_BYPASS', '')) === 'true' ||
+    $env('TURNSTILE_BYPASS', '') === '1';
 $envSnapshot = [
     'recipient_email' => $RECIPIENT_EMAIL ?: '[empty]',
     'from_email' => $FROM_EMAIL ?: '[empty]',
     'site_name' => $SITE_NAME ?: '[empty]',
     'script' => isset($_SERVER['SCRIPT_FILENAME']) ? $_SERVER['SCRIPT_FILENAME'] : '[unknown]',
     'debug_contact' => $debug ? 'true' : 'false',
+    'turnstile_bypass' => $turnstileBypass ? 'true' : 'false',
     'turnstile_secret_present' => $env('TURNSTILE_SECRET_KEY', '') !== '' ? 'true' : 'false',
 ];
 
@@ -72,11 +76,11 @@ function render_response($content, $status = 200, $success = null, $debugData = 
     exit;
 }
 
-function render_turnstile_failure($debugData = null)
+function render_turnstile_failure($message = 'Turnstile verification failed', $debugData = null)
 {
     global $acceptsJson;
     http_response_code(400);
-    $payload = ['ok' => false, 'error' => 'Turnstile verification failed'];
+    $payload = ['ok' => false, 'error' => $message];
     if ($debugData !== null) {
         $payload['debug'] = $debugData;
     }
@@ -85,7 +89,7 @@ function render_turnstile_failure($debugData = null)
         echo json_encode($payload) ?: '';
     } else {
         echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contact us</title></head><body>';
-        echo '<p>Turnstile verification failed. Please try again.</p>';
+        echo '<p>' . htmlentities($message) . '. Please try again.</p>';
         echo '</body></html>';
     }
     exit;
@@ -216,15 +220,64 @@ if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $
 }
 
 if ($turnstileEnabled && $turnstileResponseToken === '') {
-    log_issue('Turnstile verification missing token.');
-    render_turnstile_failure($debug ? $envSnapshot : null);
+    if ($turnstileBypass) {
+        log_issue('Turnstile verification missing token. Bypass enabled.');
+    } else {
+        log_issue('Turnstile verification missing token.');
+        render_turnstile_failure('Missing Turnstile token', $debug ? $envSnapshot : null);
+    }
 }
 
-if ($turnstileEnabled) {
+if ($turnstileEnabled && $turnstileResponseToken !== '') {
     $turnstileResult = verify_turnstile_token($turnstileSecretKey, $turnstileResponseToken, $requestIp);
     if (!is_array($turnstileResult) || empty($turnstileResult['success'])) {
-        $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
-        render_turnstile_failure($debugData);
+        $errorCodes = '';
+        if (is_array($turnstileResult) && isset($turnstileResult['error-codes'])) {
+            $errorCodes = is_array($turnstileResult['error-codes'])
+                ? implode(',', $turnstileResult['error-codes'])
+                : (string) $turnstileResult['error-codes'];
+        }
+        $errorCodes = $errorCodes !== '' ? $errorCodes : 'unknown';
+        if ($turnstileBypass) {
+            log_issue('Turnstile verification failed. codes=' . $errorCodes . ' Bypass enabled.');
+        } else {
+            log_issue('Turnstile verification failed. codes=' . $errorCodes);
+            $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
+            render_turnstile_failure('Turnstile verification failed', $debugData);
+        }
+    }
+    if (is_array($turnstileResult) && !empty($turnstileResult['hostname'])) {
+        $normalizeHost = function ($host) {
+            $host = strtolower(trim((string) $host));
+            return preg_replace('/:\d+$/', '', $host);
+        };
+        $expectedHosts = array_values(array_unique(array_filter([
+            $normalizeHost(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''),
+            $normalizeHost(isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : ''),
+        ])));
+        $turnstileHost = $normalizeHost($turnstileResult['hostname']);
+        $isMatch = in_array($turnstileHost, $expectedHosts, true);
+        if (!$isMatch) {
+            foreach ($expectedHosts as $candidate) {
+                if ($turnstileHost === 'www.' . $candidate || $candidate === 'www.' . $turnstileHost) {
+                    $isMatch = true;
+                    break;
+                }
+            }
+        }
+        if (!$isMatch) {
+            if ($turnstileBypass) {
+                log_issue(
+                    'Turnstile hostname mismatch. expected=' . implode(',', $expectedHosts) . ' got=' . $turnstileHost . ' Bypass enabled.'
+                );
+            } else {
+                log_issue(
+                    'Turnstile hostname mismatch. expected=' . implode(',', $expectedHosts) . ' got=' . $turnstileHost
+                );
+                $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
+                render_turnstile_failure('Turnstile verification failed', $debugData);
+            }
+        }
     }
 }
 
