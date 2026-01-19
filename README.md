@@ -76,7 +76,7 @@ SMTP_PASS=
 SMTP_SECURE=true
 ```
 
-`PUBLIC_TURNSTILE_SITE_KEY` is baked into the Astro build, so set it in `.env` locally and in your build environment for production. `TURNSTILE_BYPASS` should stay `false` in production.
+`PUBLIC_TURNSTILE_SITE_KEY` is read at runtime by `/turnstile-config.php`, so set it in `.htaccess` or your server environment. `TURNSTILE_BYPASS` should stay `false` in production.
 
 ## 📩 Contact Form Security
 

@@ -2,8 +2,7 @@
 const { heading = 'Get in Touch', headingId = 'contact-form-heading' } =
   Astro.props ?? {};
 const basePath = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
-const isTurnstileEnabled = Boolean(turnstileSiteKey);
+const turnstileConfigPath = `${basePath}/turnstile-config.php`;
 const turnstileDebug =
   import.meta.env.PUBLIC_TURNSTILE_DEBUG === 'true' ||
   import.meta.env.PUBLIC_TURNSTILE_DEBUG === '1';
@@ -29,6 +28,7 @@ const placeholders = {
   novalidate
   data-min-delay={minDelayMs.toString()}
   data-required-fields={JSON.stringify(requiredFields)}
+  data-turnstile-config={turnstileConfigPath}
   data-turnstile-debug={turnstileDebug ? 'true' : 'false'}
   aria-labelledby={headingId}
 >
@@ -55,18 +55,14 @@ const placeholders = {
     tabindex="-1"
   >
   </div>
-  {
-    isTurnstileEnabled && (
-      <div
-        class="cf-turnstile"
-        data-sitekey={turnstileSiteKey}
-        data-theme="light"
-        data-size="invisible"
-        data-callback="handleTurnstileSuccess"
-        data-error-callback="handleTurnstileError"
-      />
-    )
-  }
+  <div
+    class="cf-turnstile"
+    data-theme="light"
+    data-size="normal"
+    data-callback="handleTurnstileSuccess"
+    data-error-callback="handleTurnstileError"
+    hidden
+  />
   <div class="contact-form__grid">
     <div class="contact-form__field" data-field="firstName">
       <label for="first-name"
@@ -136,7 +132,7 @@ const placeholders = {
         inputmode="tel"
         autocomplete="tel"
         placeholder={placeholders.phone}
-        pattern="[+()0-9\\s-]{6,}"
+        pattern="[+()0-9\\- ]{6,}"
         aria-describedby="phone-error"
       />
       <p class="contact-form__error" id="phone-error" data-error-for="phone">
@@ -239,17 +235,7 @@ const placeholders = {
   </p>
 </form>
 
-{
-  isTurnstileEnabled && (
-    <>
-      {/* Cloudflare Turnstile script: ensure widget loads for invisible challenge */}
-      <script
-        defer
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-      />
-    </>
-  )
-}
+{}
 
 <style>
   .contact-form {
@@ -431,7 +417,7 @@ const placeholders = {
   const form = document.getElementById('contact-form');
 
   const emailRegex = /^\S+@\S+\.\S+$/;
-  const phoneRegex = /^[+()\d\s-]{6,}$/;
+  const phoneRegex = /^[+()0-9\- ]{6,}$/;
   const postcodeRegex = /^\d{4}$/;
 
   const messages = {
@@ -468,24 +454,89 @@ const placeholders = {
     const minDelay = Number(form.dataset.minDelay || '0');
     let timeGatePassed = false;
     const turnstileElement = form.querySelector('.cf-turnstile');
-    const turnstileSiteKey =
-      turnstileElement instanceof HTMLElement
-        ? turnstileElement.getAttribute('data-sitekey') || ''
-        : '';
-    const turnstileEnabled = Boolean(turnstileSiteKey);
+    const turnstileConfigUrl = form.dataset.turnstileConfig || '';
+    let turnstileSiteKey = '';
+    let turnstileEnabled = false;
+    const turnstileTokenField = form.querySelector(
+      'input[name="cf-turnstile-response"]'
+    );
     const turnstileDebug = form.dataset.turnstileDebug === 'true';
     let resolveTurnstile;
     let rejectTurnstile;
+    let turnstileToken = '';
+    let turnstileReady = false;
 
     const debugLog = (...args) => {
       if (!turnstileDebug) return;
       console.info('[Turnstile]', ...args);
     };
 
-    window.addEventListener('load', () => {
-      if (!turnstileEnabled) return;
-      debugLog('script loaded', Boolean(window.turnstile));
-    });
+    const loadTurnstileScript = () =>
+      new Promise((resolve, reject) => {
+        if (window.turnstile) {
+          resolve();
+          return;
+        }
+        const existing = document.querySelector(
+          'script[src^="https://challenges.cloudflare.com/turnstile/v0/api.js"]'
+        );
+        if (existing) {
+          existing.addEventListener('load', () => resolve());
+          existing.addEventListener('error', () =>
+            reject(new Error(messages.turnstile))
+          );
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+        script.async = true;
+        script.defer = true;
+        script.addEventListener('load', () => resolve());
+        script.addEventListener('error', () =>
+          reject(new Error(messages.turnstile))
+        );
+        document.head.appendChild(script);
+      });
+
+    const initTurnstile = async () => {
+      if (!turnstileConfigUrl) return;
+      try {
+        const response = await fetch(turnstileConfigUrl, {
+          headers: { Accept: 'application/json' },
+          cache: 'no-store',
+        });
+        const data = await response.json();
+        debugLog('config loaded', data);
+        turnstileSiteKey =
+          data && typeof data.siteKey === 'string' ? data.siteKey : '';
+        turnstileEnabled = Boolean(turnstileSiteKey);
+        if (!turnstileEnabled) {
+          debugLog('turnstile disabled');
+          updateSubmitState();
+          return;
+        }
+        if (turnstileElement instanceof HTMLElement) {
+          turnstileElement.hidden = false;
+          turnstileElement.setAttribute('data-sitekey', turnstileSiteKey);
+        }
+        await loadTurnstileScript();
+        if (window.turnstile && turnstileElement instanceof HTMLElement) {
+          window.turnstile.render(turnstileElement, {
+            sitekey: turnstileSiteKey,
+            theme: 'light',
+            size: 'normal',
+            callback: 'handleTurnstileSuccess',
+            'error-callback': 'handleTurnstileError',
+          });
+          debugLog('widget rendered');
+        }
+      } catch (error) {
+        debugLog('init failed', error);
+      } finally {
+        turnstileReady = true;
+        updateSubmitState();
+      }
+    };
 
     const fields = Array.from(form.querySelectorAll('[data-field]')).map(
       (wrapper) => {
@@ -504,6 +555,8 @@ const placeholders = {
     };
 
     const handleTurnstileSuccess = (token) => {
+      turnstileToken = token || '';
+      updateSubmitState();
       debugLog('token generated', token ? 'present' : 'missing');
       if (resolveTurnstile) {
         resolveTurnstile(token);
@@ -512,6 +565,8 @@ const placeholders = {
     };
 
     const handleTurnstileError = () => {
+      turnstileToken = '';
+      updateSubmitState();
       debugLog('token error');
       if (rejectTurnstile) {
         rejectTurnstile(new Error(messages.turnstile));
@@ -577,26 +632,16 @@ const placeholders = {
         debugLog('turnstile script unavailable');
         return Promise.reject(new Error(messages.turnstile));
       }
-      debugLog('executing challenge');
-      return new Promise((resolve, reject) => {
-        resolveTurnstile = resolve;
-        rejectTurnstile = reject;
-        try {
-          window.turnstile.execute(turnstileElement);
-        } catch (error) {
-          reject(
-            error instanceof Error ? error : new Error(messages.turnstile)
-          );
-          clearTurnstileResolvers();
-          return;
-        }
-        window.setTimeout(() => {
-          if (resolveTurnstile || rejectTurnstile) {
-            rejectTurnstile?.(new Error(messages.turnstile));
-            clearTurnstileResolvers();
-          }
-        }, 10000);
-      });
+      const fieldToken =
+        turnstileTokenField instanceof HTMLInputElement
+          ? turnstileTokenField.value
+          : '';
+      const token = turnstileToken || fieldToken;
+      if (!token) {
+        debugLog('no token available');
+        return Promise.reject(new Error(messages.turnstileMissing));
+      }
+      return Promise.resolve(token);
     };
 
     const setFieldState = (name, type, text) => {
@@ -709,7 +754,9 @@ const placeholders = {
 
     const updateSubmitState = () => {
       if (!(submitButton instanceof HTMLButtonElement)) return;
-      if (!timeGatePassed || hasErrors()) {
+      const waitingForConfig = Boolean(turnstileConfigUrl) && !turnstileReady;
+      const needsToken = turnstileEnabled && !turnstileToken;
+      if (!timeGatePassed || hasErrors() || waitingForConfig || needsToken) {
         submitButton.disabled = true;
       } else {
         submitButton.disabled = false;
@@ -724,6 +771,7 @@ const placeholders = {
 
     startTimeGate();
     updateCounter();
+    initTurnstile();
 
     form.addEventListener('input', (event) => {
       const target = event.target;
@@ -803,10 +851,10 @@ const placeholders = {
         submitButton.textContent = 'Sending...';
       }
 
-      let turnstileToken = '';
+      let providedToken = '';
       if (turnstileEnabled) {
         try {
-          turnstileToken = await requestTurnstileToken();
+          providedToken = await requestTurnstileToken();
         } catch (error) {
           const description =
             error instanceof Error ? error.message : messages.turnstile;
@@ -825,9 +873,9 @@ const placeholders = {
       }
 
       const formData = new FormData(form);
-      if (turnstileToken) {
+      if (providedToken) {
         debugLog('appending token to form data');
-        formData.set('cf-turnstile-response', turnstileToken);
+        formData.set('cf-turnstile-response', providedToken);
       } else if (turnstileEnabled) {
         debugLog('no token to append');
       }
@@ -900,6 +948,7 @@ const placeholders = {
         ) {
           try {
             window.turnstile.reset(turnstileElement);
+            turnstileToken = '';
           } catch (error) {
             console.error('Turnstile reset failed', error);
           }

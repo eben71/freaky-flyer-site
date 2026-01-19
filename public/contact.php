@@ -195,6 +195,7 @@ $turnstileSecretKey = $env('TURNSTILE_SECRET_KEY', '');
 $turnstileResponseToken = isset($_POST['cf-turnstile-response']) ? trim($_POST['cf-turnstile-response']) : '';
 // Turnstile is optional and only enforced when a secret key is configured.
 $turnstileEnabled = $turnstileSecretKey !== '';
+$turnstileEnforced = $turnstileEnabled && !$turnstileBypass;
 $requestIp = function_exists('ffd_resolve_client_ip') ? ffd_resolve_client_ip() : (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
 
 if ($startedAt > 0 && $deltaMs > 0 && $deltaMs < 2000) {
@@ -219,16 +220,16 @@ if ($firstName === '' || $lastName === '' || $email === '' || $phone === '' || $
     render_response('<p>Please complete the required fields and try again.</p>', 400, null, $debug ? $envSnapshot : null);
 }
 
-if ($turnstileEnabled && $turnstileResponseToken === '') {
-    if ($turnstileBypass) {
-        log_issue('Turnstile verification missing token. Bypass enabled.');
-    } else {
-        log_issue('Turnstile verification missing token.');
-        render_turnstile_failure('Missing Turnstile token', $debug ? $envSnapshot : null);
-    }
+if ($turnstileEnabled && $turnstileBypass) {
+    log_issue('Turnstile bypass enabled.');
 }
 
-if ($turnstileEnabled && $turnstileResponseToken !== '') {
+if ($turnstileEnforced && $turnstileResponseToken === '') {
+    log_issue('Turnstile verification missing token.');
+    render_turnstile_failure('Missing Turnstile token', $debug ? $envSnapshot : null);
+}
+
+if ($turnstileEnforced && $turnstileResponseToken !== '') {
     $turnstileResult = verify_turnstile_token($turnstileSecretKey, $turnstileResponseToken, $requestIp);
     if (!is_array($turnstileResult) || empty($turnstileResult['success'])) {
         $errorCodes = '';
@@ -238,13 +239,9 @@ if ($turnstileEnabled && $turnstileResponseToken !== '') {
                 : (string) $turnstileResult['error-codes'];
         }
         $errorCodes = $errorCodes !== '' ? $errorCodes : 'unknown';
-        if ($turnstileBypass) {
-            log_issue('Turnstile verification failed. codes=' . $errorCodes . ' Bypass enabled.');
-        } else {
-            log_issue('Turnstile verification failed. codes=' . $errorCodes);
-            $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
-            render_turnstile_failure('Turnstile verification failed', $debugData);
-        }
+        log_issue('Turnstile verification failed. codes=' . $errorCodes);
+        $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
+        render_turnstile_failure('Turnstile verification failed', $debugData);
     }
     if (is_array($turnstileResult) && !empty($turnstileResult['hostname'])) {
         $normalizeHost = function ($host) {
@@ -266,17 +263,11 @@ if ($turnstileEnabled && $turnstileResponseToken !== '') {
             }
         }
         if (!$isMatch) {
-            if ($turnstileBypass) {
-                log_issue(
-                    'Turnstile hostname mismatch. expected=' . implode(',', $expectedHosts) . ' got=' . $turnstileHost . ' Bypass enabled.'
-                );
-            } else {
-                log_issue(
-                    'Turnstile hostname mismatch. expected=' . implode(',', $expectedHosts) . ' got=' . $turnstileHost
-                );
-                $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
-                render_turnstile_failure('Turnstile verification failed', $debugData);
-            }
+            log_issue(
+                'Turnstile hostname mismatch. expected=' . implode(',', $expectedHosts) . ' got=' . $turnstileHost
+            );
+            $debugData = $debug ? array_merge($envSnapshot, ['turnstile' => $turnstileResult]) : null;
+            render_turnstile_failure('Turnstile verification failed', $debugData);
         }
     }
 }

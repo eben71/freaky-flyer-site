@@ -25,12 +25,14 @@ Use this checklist to onboard the site to Cloudflare with minimal redeploys.
 ## 4) Turnstile setup (optional until launch)
 
 1. Create a Turnstile widget in Cloudflare.
-2. Set the keys in `.htaccess`:
+2. Set the keys in `.htaccess` (both read at runtime):
 
    ```apache
    SetEnv PUBLIC_TURNSTILE_SITE_KEY "your-site-key"
    SetEnv TURNSTILE_SECRET_KEY "your-secret-key"
    ```
+
+   The contact form fetches `PUBLIC_TURNSTILE_SITE_KEY` from `/turnstile-config.php` at runtime.
 
 3. Deploy and confirm the contact form submits successfully.
 

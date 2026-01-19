@@ -21,6 +21,7 @@ RewriteRule \.(jpe?g|png|gif|webp|avif|svg)$ - [F,NC,L]
 
 # ------------ No-cache headers for dynamic endpoints ------------
 SetEnvIf Request_URI "^/contact\.php$" ffd_nocache=1
+SetEnvIf Request_URI "^/turnstile-config\.php$" ffd_nocache=1
 SetEnvIf Request_URI "^/admin(/|$)" ffd_nocache=1
 <IfModule mod_headers.c>
   Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0" env=ffd_nocache

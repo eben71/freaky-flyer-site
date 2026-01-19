@@ -2,13 +2,14 @@
 
 ## Setup
 
-1. Set `PUBLIC_TURNSTILE_SITE_KEY` in `.env` (build-time) and `TURNSTILE_SECRET_KEY` for PHP.
+1. Set `PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in `.htaccess` (or your server environment).
 2. Rebuild/redeploy the site so the frontend has the public key.
 
 ## Widget check (Chrome DevTools)
 
 1. Open `/contact` and inspect the form.
 2. Confirm a `.cf-turnstile` element exists inside the `<form>`.
+3. Confirm `/turnstile-config.php` returns JSON with a non-empty `siteKey`.
 
 ## Token payload check
 
