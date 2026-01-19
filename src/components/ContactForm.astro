@@ -466,6 +466,7 @@ const placeholders = {
     let rejectTurnstile;
     let turnstileToken = '';
     let turnstileReady = false;
+    let turnstileInitError = '';
 
     const debugLog = (...args) => {
       if (!turnstileDebug) return;
@@ -507,6 +508,9 @@ const placeholders = {
           headers: { Accept: 'application/json' },
           cache: 'no-store',
         });
+        if (!response.ok) {
+          throw new Error('Turnstile config unavailable');
+        }
         const data = await response.json();
         debugLog('config loaded', data);
         turnstileSiteKey =
@@ -527,13 +531,20 @@ const placeholders = {
             sitekey: turnstileSiteKey,
             theme: 'light',
             size: 'normal',
-            callback: 'handleTurnstileSuccess',
-            'error-callback': 'handleTurnstileError',
+            callback: handleTurnstileSuccess,
+            'error-callback': handleTurnstileError,
           });
           debugLog('widget rendered');
         }
       } catch (error) {
         debugLog('init failed', error);
+        turnstileInitError = messages.turnstileMissing;
+        renderSummary(
+          'error',
+          `<h3 class="contact-form__summary-title">Something went wrong</h3><p>${escapeHtml(
+            turnstileInitError
+          )}</p>`
+        );
       } finally {
         turnstileReady = true;
         updateSubmitState();
@@ -758,7 +769,13 @@ const placeholders = {
       if (!(submitButton instanceof HTMLButtonElement)) return;
       const waitingForConfig = Boolean(turnstileConfigUrl) && !turnstileReady;
       const needsToken = turnstileEnabled && !turnstileToken;
-      if (!timeGatePassed || hasErrors() || waitingForConfig || needsToken) {
+      if (
+        !timeGatePassed ||
+        hasErrors() ||
+        waitingForConfig ||
+        needsToken ||
+        turnstileInitError
+      ) {
         submitButton.disabled = true;
       } else {
         submitButton.disabled = false;
