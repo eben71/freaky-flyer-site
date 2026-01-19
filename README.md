@@ -67,7 +67,6 @@ PUBLIC_TURNSTILE_SITE_KEY=
 TURNSTILE_SECRET_KEY=
 PUBLIC_TURNSTILE_DEBUG=false
 TURNSTILE_BYPASS=false
-CF_WEB_ANALYTICS_TOKEN=
 
 SMTP_HOST=
 SMTP_PORT=
@@ -125,7 +124,7 @@ Use Cloudflare to manage DNS, SSL, security, and analytics:
 2. **SSL/TLS**: Set mode to **Full (Strict)** and keep the origin certificate valid.
 3. **Web Analytics**: Enable Web Analytics for the zone to track traffic without adding cookies.
 4. **Turnstile**: Add `PUBLIC_TURNSTILE_SITE_KEY` (frontend) and `TURNSTILE_SECRET_KEY` (server) values to `.htaccess`.
-5. **Analytics token**: Add `CF_WEB_ANALYTICS_TOKEN` in `.htaccess` to inject the beacon.
+5. **Analytics token**: Use Cloudflare's automatic Web Analytics injection in the dashboard.
 6. **Security rules**: Enable bot protections and rate limits as needed.
 7. **Caching**: Avoid caching `/admin` and `contact.php` while allowing static asset caching.
 
