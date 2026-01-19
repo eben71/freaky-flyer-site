@@ -39,12 +39,7 @@ Use this checklist to onboard the site to Cloudflare with minimal redeploys.
 ## 5) Web Analytics enablement
 
 1. Create a Web Analytics site in Cloudflare.
-2. Add the token to `.htaccess`:
-
-   ```apache
-   SetEnv CF_WEB_ANALYTICS_TOKEN "your-analytics-token"
-   ```
-
+2. Enable automatic Web Analytics injection in the Cloudflare dashboard.
 3. Deploy and confirm analytics events flow in the dashboard.
 
 ## 6) Post-launch checks
