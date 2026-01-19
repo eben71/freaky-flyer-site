@@ -55,15 +55,6 @@ const placeholders = {
     tabindex="-1"
   >
   </div>
-  <div
-    class="cf-turnstile"
-    data-theme="light"
-    data-size="normal"
-    data-callback="handleTurnstileSuccess"
-    data-error-callback="handleTurnstileError"
-    hidden
-  >
-  </div>
   <div class="contact-form__grid">
     <div class="contact-form__field" data-field="firstName">
       <label for="first-name"
@@ -225,6 +216,15 @@ const placeholders = {
         </p>
       </div>
     </div>
+  </div>
+  <div
+    class="cf-turnstile"
+    data-theme="light"
+    data-size="normal"
+    data-callback="handleTurnstileSuccess"
+    data-error-callback="handleTurnstileError"
+    hidden
+  >
   </div>
   <div class="contact-form__actions">
     <button class="button primary" type="submit" disabled data-submit>
@@ -489,7 +489,8 @@ const placeholders = {
           return;
         }
         const script = document.createElement('script');
-        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+        script.src =
+          'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
         script.async = true;
         script.defer = true;
         script.addEventListener('load', () => resolve());
