@@ -178,7 +178,10 @@ $canonicalUpdated = copy($targetPathTimestamped, $canonicalPath);
 // Trim old timestamped files to keep only the latest three
 $files = glob($archiveDir . '/' . $docType . '-*.pdf');
 usort($files, function ($a, $b) {
-    return filemtime($b) <=> filemtime($a);
+    $timeB = filemtime($b);
+    $timeA = filemtime($a);
+    if ($timeB == $timeA) return 0;
+    return ($timeB > $timeA) ? -1 : 1;
 });
 
 $filesToDelete = array_slice($files, 3);
