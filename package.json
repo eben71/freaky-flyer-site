@@ -18,7 +18,8 @@
     "export:wp": "node tools/wp-export.mjs",
     "export:html": "node tools/html-to-md.mjs",
     "images": "node tools/images.mjs",
-    "redirects": "node tools/redirects.mjs"
+    "redirects": "node tools/redirects.mjs",
+    "diagnose:admin-upload": "node tools/diagnose-admin-upload.mjs"
   },
   "dependencies": {
     "astro": "^5.16.8",

@@ -128,3 +128,25 @@ For deeper security insights, use **Security → Events** to see blocked bots an
 ## 🎉 That's it!
 
 You now have a simple, secure, non-technical way to update your website documents.
+
+---
+
+## 🛠 9. If an upload shows a 500 error
+
+A 500 response usually means the server hit a PHP/runtime error before it could show a friendly message.
+
+For your developer, this project includes a quick diagnostic command:
+
+```bash
+npm run diagnose:admin-upload
+```
+
+It checks common causes of upload failures, including:
+
+- Missing PHP `fileinfo` extension (required by `upload.php`)
+- PHP syntax issues in the upload script
+- Legacy PHP incompatibilities in admin config (for example `dirname(__DIR__, 2)` on old PHP)
+- Upload folder permissions (`public/downloads` and `public/downloads/archived`)
+- PHP upload limits (`upload_max_filesize`, `post_max_size`)
+
+If any check fails, share that output with support/dev and we can resolve it quickly.
