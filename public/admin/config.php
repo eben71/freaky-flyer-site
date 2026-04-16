@@ -4,7 +4,8 @@ $env = function ($key, $default = '') {
     static $loaded = false;
     static $fileVars = array();
     if (!$loaded) {
-        $envFile = dirname(dirname(__DIR__)) . '/.env';
+        $baseDir = dirname(__DIR__);
+        $envFile = dirname($baseDir) . '/.env';
         if (is_readable($envFile)) {
             $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             if ($lines !== false) {
