@@ -12,11 +12,20 @@ const archiveDir = path.join(downloadRoot, 'archived');
 const checks = [];
 
 function sizeToBytes(value) {
-  const match = String(value).trim().match(/^(\d+(?:\.\d+)?)([KMG]?)$/i);
+  const match = String(value)
+    .trim()
+    .match(/^(\d+(?:\.\d+)?)([KMG]?)$/i);
   if (!match) return NaN;
   const number = Number(match[1]);
   const unit = match[2].toUpperCase();
-  const factor = unit === 'G' ? 1024 ** 3 : unit === 'M' ? 1024 ** 2 : unit === 'K' ? 1024 : 1;
+  const factor =
+    unit === 'G'
+      ? 1024 ** 3
+      : unit === 'M'
+        ? 1024 ** 2
+        : unit === 'K'
+          ? 1024
+          : 1;
   return number * factor;
 }
 
@@ -30,25 +39,44 @@ function runCheck(name, fn) {
 }
 
 function phpEval(code) {
-  return execSync(`php -r ${JSON.stringify(code)}`, { stdio: ['ignore', 'pipe', 'pipe'] })
+  return execSync(`php -r ${JSON.stringify(code)}`, {
+    stdio: ['ignore', 'pipe', 'pipe'],
+  })
     .toString()
     .trim();
 }
 
-runCheck('PHP binary is available', () => execSync('php -v', { stdio: ['ignore', 'pipe', 'pipe'] }).toString().split('\n')[0]);
+runCheck(
+  'PHP binary is available',
+  () =>
+    execSync('php -v', { stdio: ['ignore', 'pipe', 'pipe'] })
+      .toString()
+      .split('\n')[0]
+);
 
 runCheck('Upload script exists', () => {
-  if (!existsSync(uploadScript)) throw new Error(`Missing ${path.relative(rootDir, uploadScript)}`);
+  if (!existsSync(uploadScript))
+    throw new Error(`Missing ${path.relative(rootDir, uploadScript)}`);
   return path.relative(rootDir, uploadScript);
 });
 
-runCheck('Upload script syntax is valid', () => execSync(`php -l ${JSON.stringify(uploadScript)}`, { stdio: ['ignore', 'pipe', 'pipe'] }).toString().trim());
-
+runCheck('Upload script syntax is valid', () =>
+  execSync(`php -l ${JSON.stringify(uploadScript)}`, {
+    stdio: ['ignore', 'pipe', 'pipe'],
+  })
+    .toString()
+    .trim()
+);
 
 runCheck('Admin config avoids PHP 7+ only dirname signature', () => {
-  const configText = readFileSync(path.join(rootDir, 'public/admin/config.php'), 'utf8');
+  const configText = readFileSync(
+    path.join(rootDir, 'public/admin/config.php'),
+    'utf8'
+  );
   if (configText.includes('dirname(__DIR__, 2)')) {
-    throw new Error('Found dirname(__DIR__, 2) in public/admin/config.php. This breaks on older PHP versions that only accept one dirname parameter.');
+    throw new Error(
+      'Found dirname(__DIR__, 2) in public/admin/config.php. This breaks on older PHP versions that only accept one dirname parameter.'
+    );
   }
   return 'No dirname(__DIR__, 2) usage detected in public/admin/config.php';
 });
@@ -56,7 +84,9 @@ runCheck('Admin config avoids PHP 7+ only dirname signature', () => {
 runCheck('fileinfo extension is enabled (required for MIME detection)', () => {
   const loaded = phpEval('echo extension_loaded("fileinfo") ? "yes" : "no";');
   if (loaded !== 'yes') {
-    throw new Error('PHP extension "fileinfo" is not loaded. upload.php calls new finfo(...), which can trigger a 500 fatal error when missing.');
+    throw new Error(
+      'PHP extension "fileinfo" is not loaded. upload.php calls new finfo(...), which can trigger a 500 fatal error when missing.'
+    );
   }
   return 'fileinfo=enabled';
 });
@@ -68,7 +98,9 @@ runCheck('Configured upload root exists and is writable', () => {
   }
 
   if (!existsSync(downloadRoot)) {
-    throw new Error(`Directory does not exist: ${path.relative(rootDir, downloadRoot)}`);
+    throw new Error(
+      `Directory does not exist: ${path.relative(rootDir, downloadRoot)}`
+    );
   }
 
   accessSync(downloadRoot, constants.W_OK);
@@ -111,7 +143,9 @@ for (const check of checks) {
 }
 
 if (failed.length > 0) {
-  console.log(`\nSummary: ${failed.length} failing check(s), ${passed.length} passing check(s).`);
+  console.log(
+    `\nSummary: ${failed.length} failing check(s), ${passed.length} passing check(s).`
+  );
   process.exitCode = 1;
 } else {
   console.log(`\nSummary: all ${passed.length} checks passed.`);
