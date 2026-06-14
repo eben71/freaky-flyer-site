@@ -1,0 +1,300 @@
+%PDF-1.7
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R] /Count 6 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Type /Annot /Subtype /Link /Rect [52.00 662.89 390.52 675.39] /Border [0 0 0] /A << /S /URI /URI (https://github.com/eben71/freaky-flyer-site) >> >>
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [52.00 647.89 297.70 660.39] /Border [0 0 0] /A << /S /URI /URI (https://github.com/eben71/freaky-flyer-site) >> >>
+endobj
+8 0 obj
+<< /Length 4321 >>
+stream
+BT 0.545 0.063 0.090 rg /F2 24 Tf 52.00 789.89 Td (Freaky Flyer Delivery Website Reference) Tj ET
+0.925 0.933 0.949 RG 1 w 52 755.89 m 543.28 755.89 l S
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 734.89 Td (Prepared for Freaky Flyer Delivery on 14 June 2026.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 714.89 Td (This document combines the developer maintenance guide and the client admin guide into) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 699.89 Td (one reference. The GitHub repository is the source of truth for the website code and) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 684.89 Td (documentation:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 664.89 Td (GitHub repository: https://github.com/eben71/freaky-flyer-site) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 649.89 Td (\(https://github.com/eben71/freaky-flyer-site\)) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 621.89 Td (How to Use This Document) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 594.89 Td (- Give the developer section to any website developer who needs to maintain, build, or) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 580.39 Td (  redeploy the site.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 565.89 Td (- Use the client section when updating pricing and delivery schedule PDFs through the) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 551.39 Td (  admin upload area.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 536.89 Td (- When in doubt, compare this document with the current files in the GitHub repository,) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 522.39 Td (  because the repository is the authoritative source.) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 494.89 Td (Developer Maintenance Guide) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 467.89 Td (A modernised static rebuild of the Freaky Flyer Delivery website using Astro, with a) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 452.89 Td (secure PHP backend for form submission and admin-upload features.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 432.89 Td (This document is the authoritative technical reference for building, maintaining, and) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 417.89 Td (redeploying the project.) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 389.89 Td ( Tech Stack) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 362.89 Td (- Astro 5+) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 348.39 Td (- HTML/CSS custom design system) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 333.89 Td (- PHP 8.1+ backend for form submission + admin uploads) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 319.39 Td (- pnpm dependency management) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 304.89 Td (- Image optimisation workflow \(Sharp pipeline\)) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 277.39 Td ( Project Structure) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 250.39 Td (/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 239.39 Td (|-- public/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 228.39 Td (| |-- assets/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 217.39 Td (| | |-- brand/ # Logos, favicons) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 206.39 Td (| | |-- img/ # Optimised site images) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 195.39 Td (| | |-- downloads/ # Pricing & schedule PDFs \(client-managed\)) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 184.39 Td (| |-- contact.php # Secure backend form processor) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 173.39 Td (| |-- robots.txt) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 162.39 Td (| |-- sitemap-index.xml) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 151.39 Td (| |-- .htaccess) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 140.39 Td (|) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 129.39 Td (|-- src/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 118.39 Td (| |-- components/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 107.39 Td (| |-- layouts/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 96.39 Td (| |-- pages/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 85.39 Td (| |-- content/ # Markdown from WordPress migration) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 74.39 Td (|) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 63.39 Td (|-- tools/) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R /Annots [6 0 R 7 0 R] >>
+endobj
+10 0 obj
+<< /Length 3766 >>
+stream
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 789.89 Td (| |-- wp-export.mjs) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 778.89 Td (| |-- images.mjs) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 767.89 Td (| |-- url-map.csv) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 756.89 Td (|) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 745.89 Td (|-- prompts/) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 734.89 Td (|-- README.md) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 723.89 Td (|-- README_client.md) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 695.89 Td ( Local Development) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 668.89 Td (pnpm install) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 657.89 Td (pnpm dev) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 629.89 Td ( Environment Variables) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 602.89 Td (These are used locally via .env and in production via .htaccess:) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 582.89 Td (PUBLIC_CONTACT_EMAIL=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 571.89 Td (SITE_NAME="Freaky Flyer Delivery") Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 560.89 Td (TO_EMAIL=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 549.89 Td (FROM_EMAIL=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 538.89 Td (ADMIN_USERNAME=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 527.89 Td (ADMIN_PASSWORD=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 516.89 Td (PUBLIC_TURNSTILE_SITE_KEY=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 505.89 Td (TURNSTILE_SECRET_KEY=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 494.89 Td (PUBLIC_TURNSTILE_DEBUG=false) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 483.89 Td (TURNSTILE_BYPASS=false) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 472.89 Td (SMTP_HOST=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 461.89 Td (SMTP_PORT=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 450.89 Td (SMTP_USER=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 439.89 Td (SMTP_PASS=) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 428.89 Td (SMTP_SECURE=true) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 408.89 Td (PUBLIC_TURNSTILE_SITE_KEY is read at runtime by /turnstile-config.php, so set it in) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 393.89 Td (.htaccess or your server environment. TURNSTILE_BYPASS should stay false in production.) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 365.89 Td ( Contact Form Security) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 338.89 Td (- Honeypot) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 324.39 Td (- Server-side validation) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 309.89 Td (- Sanitisation) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 295.39 Td (- PHP-based email handling) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 280.89 Td (- Optional Turnstile \(enabled post-launch once Cloudflare is active\)) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 253.39 Td ( Formatting) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 226.39 Td (Run Prettier before committing to keep CI green:) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 206.39 Td (pnpm format) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 178.39 Td ( Build & Deploy) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 151.39 Td (pnpm build) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 131.39 Td (Upload the contents of /dist to the root public_html directory.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 111.39 Td (Ensure:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 91.39 Td (- .htaccess is present. If the secrets has already been set remove .htaccess from the) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 76.89 Td (  'dist' folder before uploading and replacing the file.) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 3751 >>
+stream
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 789.89 Td (- contact.php is uploaded) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 775.39 Td (- permissions allow PHP execution) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 747.89 Td ( Image Workflow) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 720.89 Td (Raw tools/images/raw) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 705.89 Td (Optimised public/assets/img) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 685.89 Td (pnpm images) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 657.89 Td ( Cloudflare Configuration) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 630.89 Td (Use Cloudflare to manage DNS, SSL, security, and analytics:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 610.89 Td (1. DNS / Nameservers: Point the domain to Cloudflare and confirm records match the live) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 596.39 Td (  origin.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 581.89 Td (2. SSL/TLS: Set mode to Full \(Strict\) and keep the origin certificate valid.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 567.39 Td (3. Web Analytics: Enable Web Analytics for the zone to track traffic without adding) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 552.89 Td (  cookies.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 538.39 Td (4. Turnstile: Add PUBLIC_TURNSTILE_SITE_KEY \(frontend\) and TURNSTILE_SECRET_KEY \(server\)) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 523.89 Td (  values to .htaccess.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 509.39 Td (5. Analytics token: Use Cloudflare's automatic Web Analytics injection in the dashboard.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 494.89 Td (6. Security rules: Enable bot protections and rate limits as needed.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 480.39 Td (7. Caching: Avoid caching /admin and contact.php while allowing static asset caching.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 460.89 Td (See docs/cloudflare-onboarding.md for the step-by-step checklist.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 440.89 Td (This README contains everything needed to fully rebuild the project.) Tj ET
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 412.89 Td (Client Admin Guide) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 385.89 Td (Welcome!) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 370.89 Td (This guide explains how to update your Pricing PDF and Delivery Schedule PDF using your) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 355.89 Td (secure Admin Upload Moduleno cPanel or technical steps required.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 335.89 m 543.28 335.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 306.89 Td ( 1. Accessing the Admin Upload Area) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 279.89 Td (Your secure admin panel is located at:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 259.89 Td (https://freakyflyerdelivery.com.au/admin) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 239.89 Td (This area is password-protected.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 219.89 m 543.28 219.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 190.89 Td ( 2. Logging In) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 163.89 Td (You will be provided with:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 143.89 Td (- Admin Username) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 129.39 Td (- Admin Password) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 109.89 Td (Enter these into the login form to access the upload tools.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 89.89 Td (For security, avoid sharing your password widely.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 74.89 Td (Request a password reset if staff changes occur.) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 3102 >>
+stream
+0.925 0.933 0.949 RG 1 w 52 789.89 m 543.28 789.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 760.89 Td ( 3. Uploading Updated PDFs) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 733.89 Td (Inside the admin panel you will see two upload tools:) Tj ET
+BT 0.545 0.063 0.090 rg /F2 12.5 Tf 52.00 710.89 Td (A\) Pricing PDF Upload) Tj ET
+BT 0.545 0.063 0.090 rg /F2 12.5 Tf 52.00 685.89 Td (B\) Delivery Schedule PDF Upload) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 663.89 Td (To update a document:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 643.89 Td (1. Click Choose File) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 629.39 Td (2. Select your new PDF) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 614.89 Td (3. Click Upload) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 595.39 Td (The system will:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 575.39 Td (- Replace the existing PDF automatically) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 560.89 Td (- Keep the public website link unchanged) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 546.39 Td (- Make the new version live immediately) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 526.89 Td (No need to rename files manually.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 506.89 m 543.28 506.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 477.89 Td ( 4. Supported File Format) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 450.89 Td (PDF only) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 435.89 Td (Other file types \(Word, Excel, images, ZIP\) are not supported.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 415.89 Td (If you need support for additional formats, this can be added later.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 395.89 m 543.28 395.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 366.89 Td ( 5. After Uploading) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 339.89 Td (Your updated PDF will instantly appear on the public website.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 319.89 Td (If the new version does not appear immediately:) Tj ET
+BT 0.545 0.063 0.090 rg /F2 12.5 Tf 52.00 296.89 Td (Try a hard refresh:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 274.89 Td (- Windows: Ctrl + F5) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 260.39 Td (- Mac: Cmd + Shift + R) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 240.89 Td (Browsers often cache PDF files.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 220.89 m 543.28 220.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 191.89 Td ( 6. Security Tips) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 164.89 Td (To keep your admin panel secure:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 144.89 Td (- Use a strong, unique password) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 130.39 Td (- Change your password every 612 months) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 115.89 Td (- Do not reuse your email password) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 101.39 Td (- Log out when using shared computers) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 81.89 Td (Enhanced security rules can be added on request.) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 3554 >>
+stream
+0.925 0.933 0.949 RG 1 w 52 789.89 m 543.28 789.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 760.89 Td ( 7. Testing Your Update) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 733.89 Td (After uploading:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 713.89 Td (1. Visit the website) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 699.39 Td (2. Open the Pricing or Schedule page) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 684.89 Td (3. Click the PDF link) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 670.39 Td (4. Verify:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 655.89 Td (- Updated content is visible) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 640.89 Td (- Version/date is correct) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 625.89 Td (- PDF opens in a new browser tab) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 605.89 Td (If the upload was incorrect, simply upload the corrected PDF.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 585.89 m 543.28 585.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 556.89 Td ( 8. Monitoring Analytics in Cloudflare) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 529.89 Td (Cloudflare Web Analytics gives you traffic trends without tracking cookies.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 509.89 Td (To view analytics:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 489.89 Td (1. Log in at https://dash.cloudflare.com) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 475.39 Td (2. Select freakyflyerdelivery.com.au) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 460.89 Td (3. Open Analytics & Logs Web Analytics) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 446.39 Td (4. Review:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 431.89 Td (- Page views and visits) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 416.89 Td (- Top pages) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 401.89 Td (- Top referrers) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 386.89 Td (- Device and country breakdowns) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 366.89 Td (For deeper security insights, use Security Events to see blocked bots and rule activity.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 346.89 m 543.28 346.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 317.89 Td ( That's it!) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 290.89 Td (You now have a simple, secure, non-technical way to update your website documents.) Tj ET
+0.925 0.933 0.949 RG 1 w 52 270.89 m 543.28 270.89 l S
+BT 0.545 0.063 0.090 rg /F2 15 Tf 52.00 241.89 Td ( 9. If an upload shows a 500 error) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 214.89 Td (A 500 response usually means the server hit a PHP/runtime error before it could show a) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 199.89 Td (friendly message.) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 179.89 Td (For your developer, this project includes a quick diagnostic command:) Tj ET
+BT 0.165 0.188 0.227 rg /F3 8.5 Tf 52.00 159.89 Td (npm run diagnose:admin-upload) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 139.89 Td (It checks common causes of upload failures, including:) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 119.89 Td (- Missing PHP fileinfo extension \(required by upload.php\)) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 105.39 Td (- PHP syntax issues in the upload script) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 90.89 Td (- Legacy PHP incompatibilities in admin config \(for example dirname\(__DIR__, 2\) on old) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 76.39 Td (  PHP\)) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 403 >>
+stream
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 789.89 Td (- Upload folder permissions \(public/downloads and public/downloads/archived\)) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 68.00 775.39 Td (- PHP upload limits \(upload_max_filesize, post_max_size\)) Tj ET
+BT 0.125 0.141 0.173 rg /F1 10.5 Tf 52.00 755.89 Td (If any check fails, share that output with support/dev and we can resolve it quickly.) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 18 0 R >>
+endobj
+xref
+0 20
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000156 00000 n 
+0000000226 00000 n 
+0000000301 00000 n 
+0000000369 00000 n 
+0000000537 00000 n 
+0000000705 00000 n 
+0000005078 00000 n 
+0000005252 00000 n 
+0000009071 00000 n 
+0000009225 00000 n 
+0000013029 00000 n 
+0000013183 00000 n 
+0000016338 00000 n 
+0000016492 00000 n 
+0000020099 00000 n 
+0000020253 00000 n 
+0000020708 00000 n 
+trailer
+<< /Size 20 /Root 1 0 R >>
+startxref
+20862
+%%EOF
